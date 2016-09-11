@@ -1,0 +1,71 @@
+{   "name": "mp3"
+  , "title": "MP3 Audio Player"
+  , "version": "1.0.0"
+  , "description": "MP3 Audio Player Engine Based on Laravel Framework"
+  , "author": {
+        "name":  "Tomas Baltrushaitis"
+      , "email": "tbaltrushaitis@gmail.com"
+      , "url":   "https://github.com/tbaltrushaitis"
+    }
+  , "license": "MIT"
+  , "private": true
+  , "homepage": "https://github.com/tbaltrushaitis/mp3"
+  , "website": "http://mp3.gsm-center.com.ua/"
+  , "readmeFilename": "README.md"
+  , "main": ""
+  , "engines": {
+        "node": ">=0.10.1"
+      , "php":  ">=5.5.38"
+    }
+  , "scripts": {
+        "test": "gulp test"
+    }
+  , "repository": {
+        "type": "git"
+      , "url": "git+https://github.com/tbaltrushaitis/mp3.git"
+    }
+  , "keywords": [
+        "mp3"
+      , "player"
+      , "laravel"
+    ]
+  , "bugs": {
+        "url": "https://github.com/tbaltrushaitis/mp3/issues"
+    }
+  , "dependencies": {
+    }
+  , "devDependencies": {
+        "bower": "^1.7.9"
+      , "dateformat": "^1.0.12"
+      , "del": "^2.2.2"
+      , "gulp": "^3.9.1"
+      , "gulp-add-src": "^0.2.0"
+      , "gulp-changed": "^1.3.2"
+      , "gulp-chmod": "^1.3.0"
+      , "gulp-chown": "^1.1.0"
+      , "gulp-clean-css": "^2.0.12"
+      , "gulp-concat": "^2.6.0"
+      , "gulp-concat-css": "^2.3.0"
+      , "gulp-data": "^1.2.1"
+      , "gulp-directory-sync": "^1.2.3"
+      , "gulp-exec": "^2.1.2"
+      , "gulp-file-include": "^0.14.0"
+      , "gulp-filter": "^4.0.0"
+      , "gulp-gzip": "^1.4.0"
+      , "gulp-header": "^1.8.8"
+      , "gulp-if": "^2.0.1"
+      , "gulp-inject": "^4.1.0"
+      , "gulp-json-editor": "^2.2.1"
+      , "gulp-newer": "^1.2.0"
+      , "gulp-rename": "^1.2.2"
+      , "gulp-replace": "^0.5.4"
+      , "gulp-sequence": "^0.4.6"
+      , "gulp-tar": "^1.9.0"
+      , "gulp-template": "^4.0.0"
+      , "gulp-uglify": "^2.0.0"
+      , "gulp-watch": "^4.3.9"
+      , "merge-stream": "^1.0.0"
+      , "minimist": "^1.2.0"
+      , "vinyl-paths": "^2.1.0"
+    }
+}

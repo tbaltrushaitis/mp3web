@@ -1,0 +1,41 @@
+{   "name": "mp3"
+  , "description": "MP3 Audio Player Engine Based on Laravel Framework"
+  , "main": "index.php"
+  , "authors": [
+        "tbaltrushaitis@gmail.com"
+    ]
+  , "license": "MIT"
+  , "keywords": [
+        "mp3"
+      , "player"
+      , "laravel"
+    ]
+  , "moduleType": [
+        "globals"
+    ]
+  , "homepage": "https://github.com/tbaltrushaitis/mp3#readme"
+  , "private": true
+  , "ignore": [
+        "**/.*"
+      , "node_modules"
+      , "bower_modules"
+      , "bower_components"
+      , "test"
+      , "tests"
+    ]
+  , "dependencies": {
+        "bootstrap": "~3.3.6"
+      , "html5shiv": "~3.7.3"
+      , "jquery": "~2.2.4"
+      , "jquery-tmpl": "*"
+      , "raty": "~2.7.0"
+      , "respond": "~1.4.2"
+      , "requirejs": "~2.3.1"
+      , "underscore": "~1.8.3"
+    }
+  , "devDependencies": {
+        "animate.css": "~3.5.2"
+      , "font-awesome": "~4.6.3"
+      , "normalize.css": "~4.2.0"
+    }
+}
