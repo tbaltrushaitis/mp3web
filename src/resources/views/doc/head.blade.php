@@ -47,6 +47,8 @@
     ================================================== /-->
     <!--/ bootstrap /-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" />
+    <!--/ animate.css /-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
     <!--/ Custom /-->
     <link rel="stylesheet" href="assets/css/fonts-bundle.css" />
     <link rel="stylesheet" href="assets/css/plugins-bundle.css" />

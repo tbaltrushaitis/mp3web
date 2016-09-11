@@ -131,29 +131,32 @@ define([
                     .find('i')
                     .removeClass('fa-spinner')
                     .removeClass('fa-pulse')
-                    .addClass('fa-volume-off')
-                ;
+                    .addClass('fa-volume-off');
+
+                //  Move Track To Top of List
+                var domParent   =   trackDom.parent()
+                  , trackClone  =   trackDom.clone();
+                trackDom.addClass('animated slideOutUp').delay(1500).remove();
+                domParent.prepend(trackClone.addClass('animated slideInUp'));
+
             })
             .fail( function (loError) {
                 console.warn('Error loading media:\t', loError);
-            })
-        ;
+            });
 
         return self;
     };
 
     Player.prototype.Pause  =   function () {
         var self        =   this
-          , Instance    =   self._data.instance
-        ;
+          , Instance    =   self._data.instance;
         Instance.pause();
         return self;
     };
 
     Player.prototype.Resume =   function () {
         var self        =   this
-          , Instance    =   self._data.instance
-        ;
+          , Instance    =   self._data.instance;
         Instance.play();
         return self;
     };
@@ -166,8 +169,7 @@ define([
     Player.prototype.stepForward    =   function () {
         var self    =   this
           , current =   self._data.tracks.current
-          , len     =   self._data.tracks.list.length
-        ;
+          , len     =   self._data.tracks.list.length;
 
         self._config.random =   $('#btn-option-random').hasClass('is-enabled');
         self._config.repeat =   $('#btn-option-repeat').hasClass('is-enabled');
