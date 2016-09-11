@@ -29,7 +29,7 @@ define([
                 console.timeStamp('\tWorking ... ', i++);
                 if (i <= 20) {
                     setTimeout ( working, 500);
-                };
+                }
             }
         }, 1);
 
@@ -87,7 +87,7 @@ define([
                     console.timeStamp('\tLoading ... ', i++);
                     if (i <= 20) {
                         setTimeout ( workingInit, 500);
-                    };
+                    }
                 }
             }, 1);
 
