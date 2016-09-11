@@ -180,7 +180,7 @@ define([
             current++;
         }
 
-        if (current == len) {
+        if (current === len) {
             current =   0;
         }
         self._data.tracks.current   =   current;
