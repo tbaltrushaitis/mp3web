@@ -4,32 +4,32 @@
 function checkSilentMode () {
     var aHashParams =   window.location.hash.split('#');
     return (_.indexOf(aHashParams, 'silent') > -1);
-};
+}
 
 
 //  Check if parameter "Intro" is Enabled in URL
 function checkIntroMode () {
     var aHashParams =   window.location.hash.split('#');
     return (_.indexOf(aHashParams, 'intro') > -1);
-};
+}
 
 
 function stripFilename (s) {
     return s.substr(s.lastIndexOf('/') + 1);
-};
+}
 
 
 function padl(number, length, symbol) {
-    var num =   ($.type(number) !== 'number' ? parseInt(number) : number)
-      , len =   (length == null || length == undefined || length <= 0 ? 2 : length)
-      , sym =   (symbol == null || symbol == undefined ? '0' : symbol)
+    var num =   ('number' !== $.type(number) ? parseInt(number) : number)
+      , len =   (null === length || undefined === length || length <= 0 ? 2 : length)
+      , sym =   (null === symbol || undefined === symbol ? '0' : symbol)
       , res =   "" + num
     ;
     while (res.length < len) {
         res =   sym + res;
-    };
+    }
     return res;
-};
+}
 
 
 function sec2time (intParamSecs) {
@@ -49,7 +49,7 @@ function sec2time (intParamSecs) {
         ;
     }
     return strTime;
-};
+}
 
 
 function genUUID () {
@@ -57,7 +57,7 @@ function genUUID () {
         return  Math.floor( (1 + Math.random()) * 0x10000 )
                     .toString(16)
                     .substring(1);
-    };
+    }
     return  s4()
           + s4()
           + '-'
@@ -71,5 +71,5 @@ function genUUID () {
           + s4()
           + s4()
     ;
-};
+}
 
