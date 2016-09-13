@@ -177,7 +177,7 @@ define([
         if (true === !!self._config.repeat) {
             //self._data.instance.loop    =   true;
         }else if (self._config.random) {
-            current =   parseInt(Math.random() * len);
+            current =   parseInt(Math.random() * len, 10);
         }else{
             current++;
         }
@@ -196,7 +196,7 @@ define([
     Player.prototype.checkTimeLeft  =   function () {
         var secRemain   =   parseInt(this.duration - this.currentTime, 10)
           , strTime     =   sec2time(secRemain)
-          , percDone    =   parseInt(this.currentTime * 100 / this.duration)
+          , percDone    =   parseInt(this.currentTime * 100 / this.duration, 10)
         ;
         $('#data-time-remain').text(strTime);
         $('#data-current-progress')
@@ -286,7 +286,7 @@ define([
           , Instance    =   self._data.instance
           , Hash        =   self._data.tracks.list[self._data.tracks.current]
           , rankHolder  =   $('#info-rank-' + Rank)
-          , rankCount   =   parseInt(rankHolder.text())
+          , rankCount   =   parseInt(rankHolder.text(), 10)
           , actionUrl   =   'rate/' + Hash + '/' + Rank
         ;
 

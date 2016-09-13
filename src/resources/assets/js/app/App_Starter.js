@@ -75,14 +75,14 @@ require([
         ;
         self.toggleClass('playing');
         if (self.hasClass('playing')) {
-            if (true == Instance.paused) {
+            if (true === Instance.paused) {
                 Player.Resume();
             }else{
                 Player.stepForward();
             }
         }else{
             Player.Pause();
-        };
+        }
     });
 
     $('#btn-control-backward').click( function (e) {
@@ -108,11 +108,11 @@ require([
             Player.stepForward();
             setTimeout ( PlayIntro, 10000);
         }, 1);
-    }else if (false == silent) {
+    }else if (false === silent) {
         Player.stepForward();
     }else{
         return false;
-    };
+    }
 
     //(silent) ? false : Player.stepForward();
 
