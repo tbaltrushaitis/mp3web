@@ -21,7 +21,7 @@
 
     <!--/ Fonts
     ================================================== /-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" />
 
     <!--/ Styles
@@ -44,9 +44,10 @@
         }
     </style>
 </head>
-<body id="app-layout">
+<body id="layout-home" data-id_page="layout-home" data-rooturl="{{ Request::root() }}">
     <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
+
             <div class="navbar-header">
 
                 <!--/ Collapsed Hamburger /-->
@@ -88,14 +89,15 @@
                     @endif
                 </ul>
             </div>
+
         </div>
     </nav>
 
     @yield('content')
 
-    <!--/ JavaScripts /-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+    @include('partials.modalTrackEdit')
+
+    @include('cabinet.javascripts')
+
 </body>
 </html>
