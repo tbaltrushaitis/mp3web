@@ -18,8 +18,8 @@ require([
     ) {
 
     var Player  =   new PlayerClass ()
-      , silent  =   checkSilentMode ()
-      , intro   =   checkIntroMode ()
+      , silent  =   checkMode ('silent')
+      , intro   =   checkMode ('intro')
     ;
 
     Player.Populate();

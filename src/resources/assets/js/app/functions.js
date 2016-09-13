@@ -1,16 +1,9 @@
 /*  ASSETS/JS/APP/functions.js  */
 
-//  Check if parameter "SilentMode" is Enabled in URL
-function checkSilentMode () {
+//  Check if parameter ("intro", "silent", etc.) is Enabled in URL
+function checkMode (mode) {
     var aHashParams =   window.location.hash.split('#');
-    return (_.indexOf(aHashParams, 'silent') > -1);
-}
-
-
-//  Check if parameter "Intro" is Enabled in URL
-function checkIntroMode () {
-    var aHashParams =   window.location.hash.split('#');
-    return (_.indexOf(aHashParams, 'intro') > -1);
+    return (_.indexOf(aHashParams, mode) > -1);
 }
 
 
@@ -36,10 +29,10 @@ function sec2time (intParamSecs) {
     //  45296   ->  '12:34:56'
     var strTime =   '00:00:00';
     if ( 'number' === typeof(intParamSecs) && !_.isNaN(intParamSecs) ) {
-        var intSecs     =   Number( intParamSecs )
-          , iHours      =   Number( intSecs / 3600 )
-          , iMinutes    =   Number( (intSecs - iHours * 3600) / 60 )
-          , iSeconds    =   Number( intSecs - iHours * 3600 - iMinutes * 60 )
+        var intSecs     =   parseInt( intParamSecs )
+          , iHours      =   parseInt( intSecs / 3600 )
+          , iMinutes    =   parseInt( (intSecs - iHours * 3600) / 60 )
+          , iSeconds    =   parseInt( intSecs - iHours * 3600 - iMinutes * 60 )
         ;
         strTime =   padl(iHours)
                 +   ':'
