@@ -12,7 +12,7 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrap'], function ($, 
 
         bindEvents();
 
-    };
+    }
 
 
     function getTrackData (Id) {
@@ -28,7 +28,7 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrap'], function ($, 
         Modal.find('#album').val(oMeta.album);
         Modal.find('#year').val(oMeta.year);
         Modal.find('#meta').text( JSON.stringify(oMeta) );
-    };
+    }
 
 
     function saveTrackData () {
@@ -44,7 +44,7 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrap'], function ($, 
 
         var saveResult  =   requestAjax('/' + Id + '/meta', oMeta, 'POST');
         // Modal.modal('toggle');
-    };
+    }
 
 
     /*
@@ -65,7 +65,7 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrap'], function ($, 
             saveTrackData();
         });
 
-    };
+    }
 
     return {
         'start': start

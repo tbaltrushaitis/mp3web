@@ -2,7 +2,7 @@
 
 'use strict';
 
-;(function (require) {
+(function (require) {
 
     var rootPath    =   document.querySelector('body').dataset.rooturl.replace('://', '');
     if (!rootPath.endsWith('/')) {
