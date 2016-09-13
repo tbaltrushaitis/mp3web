@@ -6,8 +6,8 @@
     <!--/ Basic Page Needs
     ================================================== /-->
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible"  content="IE=edge, chrome=1" />
+    <meta http-equiv="Content-Type"     content="text/html; charset=utf-8" />
 
     <title>Premium Music Collection</title>
 
@@ -18,11 +18,7 @@
     <meta name="keywords"       content="mp3, player, laravel" />
     <meta name="author"         content="tbaltrushaitis@gmail.com" />
     <meta name="language"       content="en" />
-    <meta name="robots"         content="index, follow, noarchive" />
-
-    <!--/ Application Specific Metas
-    ================================================== /-->
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta name="robots"         content="index, nofollow, noarchive" />
 
     <!--/ Metas for Crawlers
     ================================================== /-->
@@ -37,6 +33,10 @@
     <!--/ Mobile Specific Metas
     ================================================== /-->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+    <!--/ Application Specific Metas
+    ================================================== /-->
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <!--/ Fonts
     ================================================== /-->
