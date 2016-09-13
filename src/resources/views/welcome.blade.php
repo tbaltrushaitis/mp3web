@@ -20,7 +20,7 @@
         @foreach ($tracks as $idx => $track)
             <li class="list-group-item track">
                 <i class="fa fa-headphones fa-fw"></i>
-                @if ((time() - $track->get('added')) < 1209600)
+                @if ((time() - $track->get('added')) < 604800)
                     <span class="label label-danger">New!</span>
                 @else
                     <span class="label label-success">{{ $track->get('plays', 0) }}</span>
