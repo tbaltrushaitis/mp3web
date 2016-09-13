@@ -29,10 +29,10 @@ function sec2time (intParamSecs) {
     //  45296   ->  '12:34:56'
     var strTime =   '00:00:00';
     if ( 'number' === typeof(intParamSecs) && !_.isNaN(intParamSecs) ) {
-        var intSecs     =   parseInt( intParamSecs )
-          , iHours      =   parseInt( intSecs / 3600 )
-          , iMinutes    =   parseInt( (intSecs - iHours * 3600) / 60 )
-          , iSeconds    =   parseInt( intSecs - iHours * 3600 - iMinutes * 60 )
+        var intSecs     =   parseInt( intParamSecs, 10 )
+          , iHours      =   parseInt( intSecs / 3600, 10 )
+          , iMinutes    =   parseInt( (intSecs - iHours * 3600) / 60, 10 )
+          , iSeconds    =   parseInt( intSecs - iHours * 3600 - iMinutes * 60, 10 )
         ;
         strTime =   padl(iHours)
                 +   ':'
@@ -65,4 +65,48 @@ function genUUID () {
           + s4()
     ;
 }
+
+
+/*
+|--------------------------------------------------------------------------
+|   SEND AJAX REQUEST
+|--------------------------------------------------------------------------
+*/
+function requestAjax (loUrl, loData, loType) {
+    var resp = $.ajax({
+        'async':    false
+      , 'data':     loData || {}
+      , 'timeout':  10000
+      , 'type':     loType || 'GET'
+      , 'dataType': 'json'
+      , 'url':      loUrl
+      , 'beforeSend': function(req) {
+            //console.log("AJAX beforeSend req = ");
+            req.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+        }
+      , 'success':  function (data) {
+            if (data.errorStatus) {
+                console.warn(data.errorMsg || 'An error has occurred');
+            }else{
+                return data;
+            }
+        }
+      , 'error': function () {
+            console.error('An error has occurred');
+        }
+    });
+
+    try {
+        var retResult   =   JSON.parse(resp.responseText);
+        return retResult;
+    }catch (err) {
+        console.error('Cannot parse responseText! ERROR = ', err);
+    };
+
+    return {
+        'error':    true
+      , 'message':  'Cannot get data from ' + url
+    };
+
+};
 
