@@ -49,7 +49,7 @@
                         <table class="table table-bordered table-hover table-striped table-condensed track-table">
                             <thead>
                                 <th>#</th>
-                                <th>Id</th>
+                                <th>Path</th>
                                 <th>Title</th>
                                 <th>Size</th>
                                 <th>Added</th>
@@ -59,23 +59,28 @@
                             <tbody>
                             @foreach ($tracks as $key => $track)
                                 <tr>
+
                                     <td class="table-text"><div>{{ 1 + $key }}</div></td>
-                                    <td class="table-text"><div>{{ $track->get('id') }}</div></td>
-                                    <td class="table-text"><div>{{ $track->get('path') . ' / ' . $track->get('title') }}</div></td>
+                                    <td class="table-text"><div>{{ $track->get('path') . '/' }}</div></td>
+                                    <td class="table-text"><div>{{ $track->get('title') }}</div></td>
                                     <td class="table-text"><div>{{ $track->get('size') }}</div></td>
                                     <td class="table-text"><div>{{ date("Y-m-d", $track->get('added')) }}</div></td>
-                                    <!--/ Edit Button /-->
-                                    <td>
-                                        <form action="{{ url('track/' . $track->get('id')) }}" method="POST">
-                                            {{ csrf_field() }}
-                                            {{ method_field('EDIT') }}
 
-                                            <button type="submit" id="edit-track-{{ $track->get('id') }}" class="btn btn-sm btn-primary">
-                                                <i class="fa fa-btn fa-edit"></i>
-                                            </button>
-                                        </form>
+                                    <!--/ EDIT Button /-->
+                                    <td>
+                                        <button
+                                            type="button"
+                                            id="edit-track-{{ $track->get('id') }}"
+                                            class="btn btn-sm btn-primary btn-edit"
+                                            data-id="{{ $track->get('id') }}"
+                                            data-toggle="modal"
+                                            data-target="#modalEditTrack"
+                                        >
+                                            <i class="fa fa-btn fa-edit"></i>
+                                        </button>
                                     </td>
-                                    <!--/ Delete Button /-->
+
+                                    <!--/ DELETE Button /-->
                                     <td>
                                         <form action="{{ url('track/' . $track->get('id')) }}" method="POST">
                                             {{ csrf_field() }}
@@ -86,6 +91,7 @@
                                             </button>
                                         </form>
                                     </td>
+
                                 </tr>
                             @endforeach
                             </tbody>
