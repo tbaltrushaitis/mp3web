@@ -53,7 +53,7 @@ class MediaController extends Controller {
      * @param  Request  $request
      * @return Response
      */
-    public function Play ($id) {
+    public function mediaPlay ($id) {
         $meta   =   $this->mediaRepository->getTrackMeta($id);
         $plays  =   $meta->get('plays', 0);
         $meta->put('plays', ++$plays);
@@ -67,7 +67,7 @@ class MediaController extends Controller {
      * @param  Request  $request
      * @return Response
      */
-    public function Rate ($id, $vote) {
+    public function mediaRate ($id, $vote) {
         $meta       =   $this->mediaRepository->getTrackMeta($id);
         $rateKey    =   $vote . 's';
         $rateCur    =   $meta->get($rateKey, 0);
@@ -75,71 +75,6 @@ class MediaController extends Controller {
         $saveResult =   $this->mediaRepository->setTrackMeta($meta);
         $saveResult->put('action', $vote);
         return response()->json($saveResult);
-    }
-
-
-    /**
-     * Create a new MediaFile.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create () {
-        //
-    }
-
-
-    /**
-     * Store an Media Track in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store (Request $request) {
-        //
-    }
-
-
-    /**
-     * Update Media Track in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $bet
-     * @return \Illuminate\Http\Response
-     */
-    public function update (Request $request) {
-        //
-    }
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show ($id) {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit ($id) {
-        //
-    }
-
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy ($id) {
-        //
     }
 
 }
