@@ -20,7 +20,7 @@ function stripFilename (s) {
 
 
 function padl(number, length, symbol) {
-    var num =   ('number' !== typeof(number) ? parseInt(number) : number)
+    var num =   ('number' !== typeof(number) ? Number(number) : number)
       , len =   (false === !!length || length <= 0 ? 2 : length)
       , sym =   (false === !!symbol ? '0' : symbol)
       , res =   '' + num
@@ -36,10 +36,10 @@ function sec2time (intParamSecs) {
     //  45296   ->  '12:34:56'
     var strTime =   '00:00:00';
     if ( 'number' === typeof(intParamSecs) && !_.isNaN(intParamSecs) ) {
-        var intSecs     =   parseInt( intParamSecs )
-          , iHours      =   parseInt( intSecs / 3600 )
-          , iMinutes    =   parseInt( (intSecs - iHours * 3600) / 60 )
-          , iSeconds    =   parseInt( intSecs - iHours * 3600 - iMinutes * 60 )
+        var intSecs     =   Number( intParamSecs )
+          , iHours      =   Number( intSecs / 3600 )
+          , iMinutes    =   Number( (intSecs - iHours * 3600) / 60 )
+          , iSeconds    =   Number( intSecs - iHours * 3600 - iMinutes * 60 )
         ;
         strTime =   padl(iHours)
                 +   ':'
