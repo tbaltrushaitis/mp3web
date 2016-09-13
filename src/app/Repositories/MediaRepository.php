@@ -88,13 +88,12 @@ class MediaRepository {
      */
      public function setTrackMeta ($meta) {
         $hash   =   $meta->get('id');
-        if (Storage::disk('meta')->put($hash, $meta->toJson(), 'public')) {
+        if (Storage::disk('meta')->put($hash, $meta->toJson())) {
             $meta->put('action_result', 'SUCCESS');
         }else{
             $meta->put('action_result', 'ERROR');
         };
         return  $meta;
     }
-
 
 }
