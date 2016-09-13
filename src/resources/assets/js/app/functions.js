@@ -20,10 +20,10 @@ function stripFilename (s) {
 
 
 function padl(number, length, symbol) {
-    var num =   ('number' !== $.type(number) ? parseInt(number) : number)
-      , len =   (null === length || undefined === length || length <= 0 ? 2 : length)
-      , sym =   (null === symbol || undefined === symbol ? '0' : symbol)
-      , res =   "" + num
+    var num =   ('number' !== typeof(number) ? parseInt(number) : number)
+      , len =   (false === !!length || length <= 0 ? 2 : length)
+      , sym =   (false === !!symbol ? '0' : symbol)
+      , res =   '' + num
     ;
     while (res.length < len) {
         res =   sym + res;
@@ -42,9 +42,9 @@ function sec2time (intParamSecs) {
           , iSeconds    =   parseInt( intSecs - iHours * 3600 - iMinutes * 60 )
         ;
         strTime =   padl(iHours)
-                +   ":"
+                +   ':'
                 +   padl(iMinutes)
-                +   ":"
+                +   ':'
                 +   padl(iSeconds)
         ;
     }
