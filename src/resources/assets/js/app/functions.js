@@ -101,12 +101,12 @@ function requestAjax (loUrl, loData, loType) {
         return retResult;
     }catch (err) {
         console.error('Cannot parse responseText! ERROR = ', err);
-    };
+    }
 
     return {
         'error':    true
       , 'message':  'Cannot get data from ' + url
     };
 
-};
+}
 
