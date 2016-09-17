@@ -42,9 +42,12 @@ class MediaController extends Controller {
      * @return Response
      */
     public function listAudio (Request $request) {
-        return view('welcome', [
-            'tracks' =>  $this->mediaRepository->getTracksAudio()
-        ]);
+        $arrTracks  =   $this->mediaRepository->getTracksAudio();
+        return  view('welcome', [
+                    'tracks'    =>  array_sort($arrTracks, function ($track) {
+                                        return -1 * $track->get('plays', 0);
+                                    })
+                ]);
     }
 
 
