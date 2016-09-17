@@ -17,7 +17,7 @@ class MediaRepository {
      * @param  none
      * @return Collection
      */
-     public function getTracksAudio () {
+    public function getTracksAudio () {
         $tracks =   [];
         $files  =   Storage::disk('audio')->allFiles();
         $sDir   =   storage_path('media/audio') . DIRECTORY_SEPARATOR;
@@ -29,14 +29,15 @@ class MediaRepository {
             }else{
                 $meta   =   collect([
                     'id'        =>  $hash
-                  , 'name'      =>  $fileName
+                  , 'filename'  =>  $fileName
                   , 'path'      =>  dirname($fileName)
                   , 'title'     =>  basename($fileName)
+                  , 'name'      =>  $fileName
                   , 'size'      =>  Storage::disk('audio')->size($file)
                   , 'url'       =>  'audio/' . $fileName
                   , 'added'     =>  time()
                 ]);
-                Storage::disk('meta')->put($hash, $meta->toJson(), 'public');
+                Storage::disk('meta')->put($hash, $meta->toJson());
                 chmod(storage_path('app/metadata/' . $hash), 0664);
             }
             $tracks[]   =   $meta;
@@ -50,7 +51,7 @@ class MediaRepository {
      * @param  none
      * @return Collection
      */
-     public function getTracksVideo () {
+    public function getTracksVideo () {
         $tracks =   collect(Storage::disk('video')->allFiles());
         return $tracks->all();
     }
@@ -62,18 +63,16 @@ class MediaRepository {
      * @param  none
      * @return Collection
      */
-     public function getTrackMeta ($hash) {
+    public function getTrackMeta ($hash) {
         if (Storage::disk('meta')->exists($hash)) {
             $meta   =   collect(json_decode(Storage::disk('meta')->get($hash), TRUE));
         }else{
             $meta   =   collect([
                 'id'        =>  $hash
-              , 'name'      =>  'no_media'
+              , 'filename'  =>  'no_media'
               , 'title'     =>  'File not exists'
+              , 'name'      =>  'no_media'
               , 'url'       =>  'audio/no_media'
-              , 'plays'     =>  0
-              , 'likes'     =>  0
-              , 'dislikes'  =>  0
             ]);
         };
         return  $meta;
@@ -86,7 +85,7 @@ class MediaRepository {
      * @param  none
      * @return Collection
      */
-     public function setTrackMeta ($meta) {
+    public function setTrackMeta ($meta) {
         $hash   =   $meta->get('id');
         if (Storage::disk('meta')->put($hash, $meta->toJson())) {
             $meta->put('action_result', 'SUCCESS');
