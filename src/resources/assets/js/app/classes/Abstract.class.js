@@ -1,4 +1,4 @@
-﻿/* ASSETS/JS/APP/CLASSES/Abstract.class.js */
+/* ASSETS/JS/APP/CLASSES/Abstract.class.js */
 
 'use strict';
 
@@ -25,7 +25,7 @@ define([
 
         // Show a "working..." message every half-second
         setTimeout ( function working() {
-            if ( "pending" === dfdPrototype.state() ) {
+            if ('pending' === dfdPrototype.state()) {
                 console.timeStamp('\tWorking ... ', i++);
                 if (i <= 20) {
                     setTimeout ( working, 500);
@@ -35,8 +35,8 @@ define([
 
         $.when( dfdPrototype )
          .done( function (oClass) {
-            console.timeStamp('Instance of ' + oClass._entity + ' created:');
-            console.log('\t', oClass);
+            console.timeStamp('Instance of ' + oClass._entity + ' created');
+            console.log('Class Object:', oClass);
             dfdClass.resolve(oClass);
          })
          .always( function (oResult) {
@@ -50,26 +50,25 @@ define([
     //  PROTOTYPE
     Abstract.prototype  =   {
 
-        '_defaults': {
-            '_entity': 'Abstract'
+        _defaults: {
+            _entity: 'Abstract'
         }
 
-      , '_config': {}
-      , '_data': {}
+      , _config: {}
+      , _data: {}
 
 
         //  INIT
-      , '_init': function () {
+      , _init: function () {
             var self = this;
             return self.Init();
         }
 
 
         //  INITIALIZATION
-      , 'Init': function () {
+      , Init: function () {
             var self    =   this
-              , dfdInit =   $.Deferred()
-            ;
+              , dfdInit =   $.Deferred();
 
             //  Apply DEFAULT class OPTIONS
             var loaded  =   $.when( _.extend(self, self._defaults) )
@@ -83,7 +82,7 @@ define([
             });
 
             setTimeout ( function workingInit () {
-                if ( 'pending' === loaded.state() ) {
+                if ('pending' === loaded.state()) {
                     console.timeStamp('\tLoading ... ', i++);
                     if (i <= 20) {
                         setTimeout ( workingInit, 500);
@@ -96,17 +95,16 @@ define([
 
 
         // Load Default Data and Modules
-      , 'Load': function () {
+      , Load: function () {
             var self        =   this
               , dfdMethod   =   $.Deferred()
-              , dfdModules  =   $.Deferred()
-            ;
+              , dfdModules  =   $.Deferred();
 
             dfdModules.resolve(self);
             dfdModules
                 .done( function (loSelf) {
-                    var tStamp  =   {'timestamp': (new Date()).getTime()}
-                      , UUID    =   {'UID': genUUID()}
+                    var tStamp  =   {timestamp: (new Date()).getTime()}
+                      , UUID    =   {UID: genUUID()}
                     ;
                     _.extend(loSelf._config, tStamp, UUID);
                     dfdMethod.resolve(loSelf);
