@@ -38,10 +38,10 @@ class MediaController extends Controller {
 
     /**
      * Display a list of all audiotracks
-     * @param  Request  $request
-     * @return Response
+     * @param  none
+     * @return View
      */
-    public function listAudio (Request $request) {
+    public function listAudio () {
         $arrTracks  =   $this->mediaRepository->getTracksAudio();
         return  view('welcome', [
                     'tracks'    =>  array_sort($arrTracks, function ($track) {
@@ -53,8 +53,8 @@ class MediaController extends Controller {
 
     /**
      * Play - provide track's metadata as JSON
-     * @param  Request  $request
-     * @return Response
+     * @param  String $id
+     * @return Response JSON
      */
     public function mediaPlay ($id) {
         $meta   =   $this->mediaRepository->getTrackMeta($id);
@@ -67,8 +67,8 @@ class MediaController extends Controller {
 
     /**
      * Rate - add like/dislike vote
-     * @param  Request  $request
-     * @return Response
+     * @param  $id, $vote
+     * @return Response JSON
      */
     public function mediaRate ($id, $vote) {
         $meta       =   $this->mediaRepository->getTrackMeta($id);
