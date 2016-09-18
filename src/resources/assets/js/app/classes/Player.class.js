@@ -25,42 +25,42 @@ define([
     Player.prototype.constructor =   Player;
 
     Player.prototype._defaults  =   {
-        '_entity': 'Audio_Player'
-      , '_config': {
-            'selector': 'audio#player'
-          , 'random': null
-          , 'repeat': null
-          , 'volume': 1.00
-          , 'tracks': {
-                'container': '#tracklist'
-              , 'selector':  'li a'
+        _entity: 'Audio_Player'
+      , _config: {
+            selector: 'audio#player'
+          , random: null
+          , repeat: null
+          , volume: 1.00
+          , tracks: {
+                container: '#tracklist'
+              , selector:  'li a'
             }
-          , 'states': {
-                'playing': {
-                    'action':   'Pause'
-                  , 'icon':     'fa-pause'
-                  , 'progress': 'active'
-                  , 'title':    'Pause'
+          , states: {
+                playing: {
+                    action:   'Pause'
+                  , icon:     'fa-pause'
+                  , progress: 'active'
+                  , title:    'Pause'
                 }
-              , 'paused': {
-                    'action':   'Resume'
-                  , 'icon':     'fa-play'
-                  , 'progress': ''
-                  , 'title':    'Resume'
+              , paused: {
+                    action:   'Resume'
+                  , icon:     'fa-play'
+                  , progress: ''
+                  , title:    'Resume'
                 }
-              , 'stopped': {
-                    'action':   'Play'
-                  , 'icon':     'fa-play'
-                  , 'progress': ''
-                  , 'title':    'Play'
+              , stopped: {
+                    action:   'Play'
+                  , icon:     'fa-play'
+                  , progress: ''
+                  , title:    'Play'
                 }
             }
         }
-      , '_data': {
-            'instance': {}
-          , 'tracks': {
-                'current': -1
-              , 'list': []
+      , _data: {
+            instance: {}
+          , tracks: {
+                current: -1
+              , list: []
             }
         }
     };
@@ -102,9 +102,9 @@ define([
                         +   '/'
                         +   trackHash
           , oRequest    =   $.ajax({
-                                'url':     requestUrl
-                              , 'type':    'GET'
-                              , 'timeout': 5000
+                                url:     requestUrl
+                              , type:    'GET'
+                              , timeout: 5000
                             });
 
         oRequest
@@ -138,7 +138,6 @@ define([
                   , trackClone  =   trackDom.clone();
                 trackDom.addClass('animated slideOutUp').delay(1500).remove();
                 domParent.prepend(trackClone.addClass('animated slideInUp'));
-
             })
             .fail( function (loError) {
                 console.warn('Error loading media:\t', loError);
@@ -199,10 +198,9 @@ define([
           , percDone    =   parseInt(this.currentTime * 100 / this.duration, 10)
         ;
         $('#data-time-remain').text(strTime);
-        $('#data-current-progress')
-            .attr({
-                'aria-valuenow': this.currentTime
-              , 'style':         'width: ' + percDone + '%'
+        $('#data-current-progress').attr({
+                'aria-valuenow':    this.currentTime
+              , 'style':            'width: ' + percDone + '%'
             })
         ;
         return strTime;
@@ -242,8 +240,8 @@ define([
     Player.prototype.setButtonState =   function (pState) {
         var self        =   this
           , btnPlay     =   $('#btn-control-play')
-          , domProgress =   $('#data-current-progress')
-        ;
+          , domProgress =   $('#data-current-progress');
+
         // Clean Properties
         self.resetToolbar();
         // Set Properties
@@ -264,21 +262,17 @@ define([
     };
 
     Player.prototype.initCounters   =   function () {
-        $('#data-current-progress')
-            .attr({
-                'aria-valuemin': 0
-              , 'aria-valuemax': this.duration
-              , 'aria-valuenow': 0
-            })
-        ;
+        $('#data-current-progress').attr({
+            'aria-valuemin': 0
+          , 'aria-valuemax': this.duration
+          , 'aria-valuenow': 0
+        });
     };
 
     Player.prototype.setDuration    =   function () {
-        $('#data-current-progress')
-            .attr({
-                'aria-valuemax': this.duration
-            })
-        ;
+        $('#data-current-progress').attr({
+            'aria-valuemax': this.duration
+        });
     };
 
     Player.prototype.Rate   =   function (Rank) {
@@ -296,15 +290,15 @@ define([
                         +   '/'
                         +   actionUrl
           , oRequest    =   $.ajax({
-                                'url':  requestUrl
-                              , 'type':  'POST'
-                              , 'data': {
-                                    'hash':     Hash
-                                  , 'action':   Rank
-                                  , '_token':   $('meta[name="csrf-token"]').attr('content')
+                                url:    requestUrl
+                              , type:   'POST'
+                              , data: {
+                                    hash:   Hash
+                                  , action: Rank
+                                  , _token: $('meta[name="csrf-token"]').attr('content')
                                 }
-                              , 'timeout':  5000
-                              , 'beforeSend': function () {
+                              , timeout:    5000
+                              , beforeSend: function () {
                                     rankHolder.addClass('animated rotateIn rotateOut');
                                 }
                             });
