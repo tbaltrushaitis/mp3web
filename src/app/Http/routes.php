@@ -23,10 +23,10 @@ Route::post('register', ['as' => 'Auth:Register',           'uses' => 'Auth\Auth
 |   Tracks Properties manipulation Routes
 |--------------------------------------------------------------------------
 */
-Route::get('/{hash}',   ['as' => 'Media:Play', 'uses' => 'MediaController@mediaPlay'])
+Route::get('/{hash}',               ['as' => 'Media:Play',  'uses' => 'MediaController@mediaPlay'])
     ->where(['hash' => '[0-9a-f]+']);
 
-Route::post('rate/{hash}/{rate}',   ['as' => 'Media:Rate', 'uses' => 'MediaController@mediaRate'])
+Route::post('rate/{hash}/{rate}',   ['as' => 'Media:Rate',  'uses' => 'MediaController@mediaRate'])
     ->where(['hash' => '[0-9a-f]+', 'rate' => '(dis)?like']);
 
 /*
@@ -41,10 +41,10 @@ Route::get('/home', ['as' => 'Cabinet:Index', 'uses' => 'HomeController@index'])
 |   AJAX Routes
 |--------------------------------------------------------------------------
 */
-Route::get('/{hash}/meta',   ['as' => 'Media:getMeta', 'uses' => 'AjaxController@getMeta'])
+Route::get('/{hash}/meta',  ['as' => 'Meta:get',    'uses' => 'AjaxController@getMeta'])
     ->where(['hash' => '[0-9a-f]+']);
 
 
-Route::post('/{hash}/meta',   ['as' => 'Media:updateMeta', 'uses' => 'AjaxController@updateMeta'])
+Route::post('/{hash}/meta', ['as' => 'Meta:update', 'uses' => 'AjaxController@updateMeta'])
     ->where(['hash' => '[0-9a-f]+']);
 
