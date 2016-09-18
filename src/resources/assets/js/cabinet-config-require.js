@@ -12,8 +12,8 @@
     rootPath    =   (-1 !== pos && pos + 1 < rootPath.length) ? rootPath.substr(pos) : '/';
 
     require.config({
-        'baseUrl':      rootPath + 'assets/js'
-      , 'waitSeconds':  6
+        baseUrl:        rootPath + 'assets/js'
+      , waitSeconds:    6
     });
 
     (function () {
@@ -29,44 +29,44 @@
 
     (function () {
         var config = {
-            'map': {
+            map: {
                 '*': {
                     // 'index': 'app/index'
                 }
             }
-          , 'paths': {
-                'jquery':       'lib/jquery'
-              , 'Tmpl':         'lib/jquery.tmpl'
-              , 'underscore':   'lib/underscore'
-              , 'raty':         'plugins/raty/jquery.raty'
-              , 'functions':    'app/functions'
-              , 'bootstrap':    '//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min'
+          , paths: {
+                jquery:     'lib/jquery'
+              , Tmpl:       'lib/jquery.tmpl'
+              , underscore: 'lib/underscore'
+              , raty:       'plugins/raty/jquery.raty'
+              , functions:  'app/functions'
+              , bootstrap:  '//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min'
 
-              , 'Abstract':     'app/classes/Abstract.class'
+              , Abstract:   'app/classes/Abstract.class'
 
-              , 'cabinetController':    'app/controllers/cabinetController'
+              , cabinetController:  'app/controllers/cabinetController'
             }
-          , 'shim': {
-                'jquery': {
-                    'exports':  'jQuery'
+          , shim: {
+                jquery: {
+                    exports:    'jQuery'
                 }
-              , 'underscore': {
-                    'exports':  '_'
-                  , 'deps':     ['jquery']
+              , underscore: {
+                    exports:    '_'
+                  , deps:       ['jquery']
                 }
-              , 'bootstrap': {
-                    'exports':  'bootstrap'
-                  , 'deps':     ['jquery']
+              , bootstrap: {
+                    exports:    'bootstrap'
+                  , deps:       ['jquery']
                 }
-              , 'Tmpl':         ['jquery']
-              , 'raty':         ['jquery']
-              , 'functions':    ['jquery', 'underscore']
+              , Tmpl:       ['jquery']
+              , raty:       ['jquery']
+              , functions:  ['jquery', 'underscore']
 
-              , 'Abstract':     ['jquery', 'underscore']
+              , Abstract:   ['jquery', 'underscore']
 
-              , 'cabinetController':    ['jquery', 'underscore']
+              , cabinetController:  ['jquery', 'underscore']
             }
-          , 'deps': [
+          , deps: [
                 'jquery'
               , 'underscore'
             ]

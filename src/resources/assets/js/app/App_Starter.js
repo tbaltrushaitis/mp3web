@@ -36,9 +36,9 @@ require([
           , score   =   that.attr('data-score')
         ;
         that.raty({
-            'score':    score
-          , 'readOnly': true
-          , 'path':     'assets/js/plugins/raty/images'
+            score:      score
+          , readOnly:   true
+          , path:       'assets/js/plugins/raty/images'
         });
     });
 
