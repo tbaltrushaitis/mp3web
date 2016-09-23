@@ -4,7 +4,8 @@ ServerSignature Off
 # Disable directory browsing
 Options All -Indexes
 
-php_value error_reporting none # E_ALL
+php_value error_reporting none
+# E_ALL
 
 <FilesMatch "\.(htaccess|htpasswd)$">
     Order Deny,Allow
