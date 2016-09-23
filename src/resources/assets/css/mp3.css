@@ -1,0 +1,252 @@
+/*  BOF: assets/css/mp3.css  */
+
+/* , audio:not([controls]) { */
+audio {
+  background: #666;
+  padding: 2px;
+  display: inline-block;
+  height: 32px;
+}
+
+.float-l {
+  float: left;
+}
+.float-r {
+  float: right;
+}
+
+.no-padding {
+  padding: 0;
+}
+.no-margin {
+  margin: 0;
+}
+
+.header .navbar {
+  margin: 0 0;
+  min-height: 30px;
+}
+.header .navbar.navbar-fixed-top {
+  min-height: 32px;
+}
+.navbar.navbar-default .navbar-toggle {
+  margin-top: 4px;
+}
+.header .navbar-collapse {
+  max-height: 340px;
+  overflow-x: visible;
+  padding-left: 0;
+  padding-right: 0;
+  border: none;
+}
+
+.logo-sm {
+  width: 78px;
+  height: 40px;
+}
+
+.btn-player-option.is-enabled {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  text-decoration: bold;
+}
+
+#player-wrapper {
+  padding: 0px 0px;
+  margin: 0;
+}
+#player-container {
+  display: hidden;
+}
+#player-toolbar {
+  border: 1px solid transparent;
+  display: inline-block;
+  margin: 4px 0 0;
+  padding: 0 5px;
+}
+#player-controls {
+  border: 1px solid transparent;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+#player-bar {
+  border: 1px solid transparent;
+  display: inline-block;
+  margin: 0;
+  padding: 1px 5px 1px 2px;
+}
+#player-toolbar .btn-group .btn {
+  border-radius: 0;
+}
+
+#panel-actions {
+  border: 1px solid transparent;
+  padding: 0 5px;
+  margin: 0;
+}
+  #panel-actions .btn-group .btn-rate
+, #panel-track-info .btn-group .btn-track-info {
+  border-radius: 0;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 4px 0;
+  padding: 0;
+}
+  #panel-actions .btn-group .info-rank
+, #panel-track-info .btn-group .info-plays {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 4px 0 0 -2px;
+  padding: 0;
+}
+
+#player-data {
+  position: relative;
+  margin: 0 2px;
+  padding: 1px 2px;
+}
+#player-data span {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-weight: 500;
+  margin-bottom: 2px 0 0;
+  padding: 4px 5px 5px;
+}
+#player-seek {
+  border: 1px solid #ccc;
+  margin: -1px 2px;
+  padding: 2px 2px 4px;
+}
+
+#player-bar .progress {
+  height: 100%;
+  left: 0;
+  margin-bottom: 0;
+  padding: 0 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+#player-bar .progress-bar {
+/*   background-color: #428bca;
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15) inset; */
+  font-size: 14px;
+  line-height: 28px;
+  height: 100%;
+  text-align: center;
+}
+#player-actions {
+  margin: 0 0;
+}
+.btn-toolbar .btn-group {
+  float: none;
+}
+.btn-toolbar .btn-group .form-group {
+  margin-bottom: 0;
+}
+.btn-group-sm > .btn {
+  padding: 5px 5px;
+}
+
+  .btn-toolbar > .btn + .btn
+, .btn-toolbar > .btn-group + .btn
+, .btn-toolbar > .btn + .btn-group
+, .btn-toolbar > .btn-group + .btn-group {
+  margin-left: -2px;
+}
+.btn-toolbar .btn-group.btn-group-sm {
+  border-radius: 5px;
+}
+
+.text-cover {
+  background: transparent;
+  font-size: 14px;
+  font-weight: 500;
+  position: relative;
+  padding: 0 5px;
+  left: 0;
+  top: 2px;
+  z-index: 25;
+}
+  /* white-space: nowrap; */
+  /* color: #333; */
+.info-rank {
+  -vendor-animation-duration: 1s;
+  -vendor-animation-delay: 0s;
+  -vendor-animation-iteration-count: infinite;
+}
+.info-rank:hover {
+  -webkit-transform: rotate(180deg); /* Safari */
+  transform: rotate(180deg);
+}
+
+#list .nav-tabs {
+  border-bottom: none;
+}
+#list .tab-content.no-padding {
+  padding: 0 0;
+}
+#list .tab-content .raty {
+  display: inline-block !important;
+}
+
+/* Track List */
+.list-group-item.track {
+  background-color: transparent;
+  padding: 2px 10px;
+}
+
+.list-group-item .track {
+  float: left;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+  .list-group-item.active
+, .list-group-item.active:focus
+, .list-group-item.active:hover {
+  background-color: #337ab7;
+}
+
+.track .raty {
+  display: inline-block !important;
+  float: right;
+}
+
+.track a {
+  /* white-space: nowrap; */
+  width: 90%; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 5px;
+  text-decoration: none;
+}
+.track.active a {
+  color: #fff;
+  font-weight: bold;
+}
+.track.active i {
+  color: #fff;
+}
+.list-group-item.track:hover {
+  background-color: #d8d8d8;
+}
+.list-group-item.track:hover a {
+  color: #006600;
+  font-weight: 500;
+  text-shadow: 2px 2px 8px #009900;
+}
+
+p.copyright {
+  color: #fff;
+}
+
+a#developer {
+  color: #45aed6;
+  font-weight: bold;
+}
+
+/*  EOF: assets/css/mp3.css  */

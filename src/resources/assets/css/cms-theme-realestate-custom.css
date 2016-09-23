@@ -1,0 +1,108 @@
+/* BOF: assets/css/cms-theme-realestate-custom.css */
+
+body {
+  color: #555;
+  background: url(../img/misc/bgmain.png) #fff;
+}
+
+h1,h2,h3,h4,h5 {
+  font-weight: normal;
+  font-family: din;
+  margin: 0;
+  padding: 0;
+  color: #000;
+}
+
+h1 {font-size: 60px; margin-bottom: 25px; color: #fff;}
+h2 {font-size: 35px; margin-bottom: 20px; letter-spacing: -1px; }
+h3 {font-size: 25px; margin: 0 0 15px 0; }
+h4 {font-size: 19px; margin: 10px 0; }
+h5 {font-size: 17px; margin: 0 0 5px 0; }
+
+p {margin-bottom: 30px;}
+a {color:#72b70f; text-decoration:none; outline: none;}
+a:hover {color:#333;}
+a.more:hover {background: #64a30a;text-decoration: none;}
+
+table {background-color: #fff;}
+
+.btn{
+  outline: none;
+}
+
+.thumbnail {
+  background-color: #fff;
+}
+
+.modal-content {padding: 20px;}
+
+.inside-banner span > a:hover {
+  color: #b8db87;
+  font-weight: normal;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+  background-color: #72b70f;
+  border-radius: 0;
+  color: #fff;
+  border: none;
+}
+
+@media (max-width: 600px) {
+  .header{text-align: center;}
+  .header ul{width: 100%; margin-bottom: 20px;}
+  h1 {font-size: 40px;}
+  h2 {font-size: 25px;}
+}
+
+/***********************
+********* Header ******
+************************/
+.header {
+  padding: 10px 0;
+}
+.header ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.header ul li {
+  display: inline-block;
+  font-family: Arial, sans-serif;
+  font-size: 13px/22px;
+}
+  .header ul li a
+, .header ul li label {
+  font-size: 13px;
+  text-transform: uppercase;
+}
+.header ul li a:hover {
+  text-decoration: none;
+}
+
+.navbar-default {
+  opacity: 0.95;
+}
+
+/***********************
+********* Footer ******
+************************/
+.footer{
+  background: url(../img/misc/bg.jpg) #222;
+  padding: 20px 0 0 0;
+  color: #999;
+}
+.footer ul {
+  list-style: none;
+  padding: 0;
+}
+.footer a:hover {
+  color: #fff;
+}
+.footer p.copyright {
+  margin: 5px 0 0 0;
+}
+
+/* EOF: assets/css/cms-theme-realestate-custom.css */
