@@ -9,13 +9,13 @@
 
 ## Credits
 
-    * Laravel [5.2](https://laravel.com/docs/5.2) Framework
-    * Font-Awesome [~4.6.3](http://fontawesome.io/) - The iconic font and CSS toolkit.
-    * Bootstrap [~3.3.6](http://getbootstrap.com) - HTML, CSS, and JS framework
-    * animate.css [~3.5.2](http://daneden.github.io/animate.css/) - A cross-browser library of CSS animations.
-    * jQuery [~2.2.4](http://jquery.com/) - JavaScript Library
-    * requirejs [~2.3.1](http://requirejs.org) - A file and module loader for JavaScript. (https://github.com/jrburke/requirejs)
-    * Underscore.js [~1.8.3](http://underscorejs.org) - JavaScript library that provides a whole mess of us
+* Laravel [5.2](https://laravel.com/docs/5.2) Framework
+* Font-Awesome [~4.6.3](http://fontawesome.io/) - The iconic font and CSS toolkit.
+* Bootstrap [~3.3.6](http://getbootstrap.com) - HTML, CSS, and JS framework
+* animate.css [~3.5.2](http://daneden.github.io/animate.css/) - A cross-browser library of CSS animations.
+* jQuery [~2.2.4](http://jquery.com/) - JavaScript Library
+* requirejs [~2.3.1](http://requirejs.org) - A file and module loader for JavaScript. (https://github.com/jrburke/requirejs)
+* Underscore.js [~1.8.3](http://underscorejs.org) - JavaScript library that provides a whole mess of us
 
 ## Getting Started ##
     1. git clone https://github.com/tbaltrushaitis/mp3.git mp3 && cd mp3
@@ -23,16 +23,15 @@
     3.  cp -pr laravel-5.2/ build/ && cd build && composer -vvv update && cd ..
     4.  npm i && bower i
 
+---------
 
 ## Todo List ##
----------
 - Implement search throw items.
 - Highlight recently added items.
 - Create gulpfile.js scenario for automated builds
 - ~~Initial release~~ (Done v0.0.0)
 
 ## Change log ##
-----------
 
 **v1.0.0:**
     - Laravel 5.2 is now used as a backend framework
