@@ -398,17 +398,17 @@ gulp.task('artisan:key:generate', function () {
 });
 
 
-/* gulp.task('jscs', function () {
+// gulp.task('jscs', function () {
     // return gulp.src(config.src.js + "**/*.js")
         // .pipe(jscs())
         // .pipe(jscs.reporter());
-// }); */
+// });
 
-/* gulp.task('jshint', function() {
+// gulp.task('jshint', function() {
     // return gulp.src(config.src.js + '**/*.js')
         // .pipe(jshint('.jshintrc'))
         // .pipe(isProductionBuild ? jshint.reporter('fail') : jshint.reporter('default'));
-// }); */
+// });
 
 // Log file paths in the stream
 gulp.task('files:src', function () {
@@ -430,10 +430,10 @@ gulp.task('show:config', function () {
 });
 
 gulp.task('show:usage', function () {
-    console.info('Usage: gulp <task>');
-    console.info('where <task> is one of:');
-    console.warn('show:config' + '\t', 'Show Configuration file');
-    console.warn('files:src' + '\t', 'Log File Paths in the Stream');
+    console.info('\nUsage: gulp <task>\n');
+    console.info('\nwhere <task> is one of:\n');
+    console.warn('\tshow:config' + '\t', 'Show Configuration file');
+    console.warn('\tfiles:src' + '\t', 'Log File Paths in the Stream');
 });
 
 /*  EOF: ROOT/gulpfile.js  */
