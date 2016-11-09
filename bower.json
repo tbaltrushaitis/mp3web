@@ -43,5 +43,6 @@
         "animate.css": "~3.5.2"
       , "font-awesome": "~4.6.3"
       , "normalize.css": "~4.2.0"
+      , "lodash": "~4.16.6"
     }
 }

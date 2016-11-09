@@ -18,10 +18,10 @@
 * Underscore.js [~1.8.3](http://underscorejs.org) - JavaScript library that provides a whole mess of us
 
 ## Getting Started ##
-    1. git clone https://github.com/tbaltrushaitis/mp3.git mp3 && cd mp3
-    2.  composer -vvv create-project --prefer-dist laravel/laravel laravel-5.2 "5.2.*"
-    3.  cp -pr laravel-5.2/ build/ && cd build && composer -vvv update && cd ..
-    4.  npm i && bower i
+    $ git clone https://github.com/tbaltrushaitis/mp3.git mp3 && cd mp3
+    $ composer -vvv create-project --prefer-dist laravel/laravel laravel-5.2 "5.2.*"
+    $ cp -pr laravel-5.2/ build/ && cd build && composer -vvv update && cd ..
+    $ npm i && bower i
 
 ---------
 

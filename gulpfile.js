@@ -410,7 +410,7 @@ gulp.task('artisan:key:generate', function () {
         // .pipe(isProductionBuild ? jshint.reporter('fail') : jshint.reporter('default'));
 // }); */
 
-// log file paths in the stream
+// Log file paths in the stream
 gulp.task('files:src', function () {
     return  gulp.src([
                 path.join(SRC, '**/*')
