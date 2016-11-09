@@ -51,7 +51,7 @@ class AjaxController extends Controller {
      * @param  Hash  $id
      * @return Response
      */
-    public function updateMeta (Request $request) {
+    public function updateMeta () {
         $params =   collect(Input::all());
         $hash   =   $params->get('id');
         $meta   =   $this->mediaRepository->getTrackMeta($hash);

@@ -1,7 +1,7 @@
 {   "name": "mp3"
-  , "title": "MP3 Audio Player"
+  , "title": "Web MP3 Player"
   , "version": "1.0.0"
-  , "description": "MP3 Audio Player Engine Based on Laravel Framework"
+  , "description": "Web-based MP3 Storage and Player"
   , "author": {
         "name":  "Tomas Baltrushaitis"
       , "email": "tbaltrushaitis@gmail.com"
@@ -12,7 +12,7 @@
   , "homepage": "https://github.com/tbaltrushaitis/mp3"
   , "website": "http://mp3.gsm-center.com.ua/"
   , "readmeFilename": "README.md"
-  , "main": ""
+  , "main": "gulpfile.js"
   , "engines": {
         "node": ">=0.10.1"
       , "php":  ">=5.5.38"
@@ -26,6 +26,7 @@
     }
   , "keywords": [
         "mp3"
+      , "audio"
       , "player"
       , "laravel"
     ]

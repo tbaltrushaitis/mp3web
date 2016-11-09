@@ -48,15 +48,15 @@ audio {
 .btn-player-option.is-enabled {
   background-color: #fff;
   border: 1px solid #ddd;
-  text-decoration: bold;
+  font-weight: bold;
 }
 
 #player-wrapper {
-  padding: 0px 0px;
+  padding: 0;
   margin: 0;
 }
 #player-container {
-  display: hidden;
+  display: none;
 }
 #player-toolbar {
   border: 1px solid transparent;
@@ -240,11 +240,11 @@ audio {
   text-shadow: 2px 2px 8px #009900;
 }
 
-p.copyright {
+.copyright {
   color: #fff;
 }
 
-a#developer {
+#developer {
   color: #45aed6;
   font-weight: bold;
 }

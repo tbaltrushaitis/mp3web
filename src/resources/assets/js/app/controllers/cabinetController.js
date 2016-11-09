@@ -1,6 +1,8 @@
 /*  BOF: assets/js/app/controllers/cabinetController.js  */
 
-define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrap'], function ($, _, tmpl, F) {
+define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrap']
+  , function ($, _, tmpl, F) {
+
     'use strict';
 
     /*
@@ -9,9 +11,7 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrap'], function ($, 
     |--------------------------------------------------------------------------
     */
     function start () {
-
         bindEvents();
-
     }
 
 
@@ -48,15 +48,15 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrap'], function ($, 
         var Modal   =   $('#modalEditTrack');
         var Id      =   Modal.find('#id').val();
         var oMeta   =   {
-            id:     Id
-          , title:  Modal.find('#title').val()
-          , name:   Modal.find('#name').val()
-          , artist: Modal.find('#artist').val()
-          , album:  Modal.find('#album').val()
-          , track:  Modal.find('#track').val()
-          , year:   Modal.find('#year').val()
-          , genre:  Modal.find('#genre').val()
-        };
+                id:     Id
+              , title:  Modal.find('#title').val()
+              , name:   Modal.find('#name').val()
+              , artist: Modal.find('#artist').val()
+              , album:  Modal.find('#album').val()
+              , track:  Modal.find('#track').val()
+              , year:   Modal.find('#year').val()
+              , genre:  Modal.find('#genre').val()
+            };
 
         var saveResult  =   requestAjax('/' + Id + '/meta', oMeta, 'POST');
     }

@@ -52,7 +52,7 @@
                             <input type="text" class="form-control" id="album" placeholder="Track Album">
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group hide">
                         <label for="track" class="col-sm-1 control-label">Track:</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="track" placeholder="Track Number">

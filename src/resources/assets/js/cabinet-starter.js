@@ -3,11 +3,12 @@
 require(['jquery', 'underscore', 'cabinetController', 'functions']
   , function ($, _, cc, F) {
     'use strict';
-    console.timeStamp('MODULES READY');
+    console.timeStamp('CABINET MODULES READY');
 });
 
 define(['jquery', 'underscore', 'cabinetController', 'functions']
   , function ($, _, cc, F) {
+
     'use strict';
 
     var ControllerCabinet   =   cc;

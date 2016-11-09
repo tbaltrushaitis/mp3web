@@ -67,6 +67,7 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!--/ Left Side Of Navbar /-->
                 <ul class="nav navbar-nav">
+                    <li><a href="{{ url('/') }}">MP3</a></li>
                     <li><a href="{{ url('/home') }}">Home</a></li>
                 </ul>
 
@@ -83,6 +84,9 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url('/profile') }}"><i class="fa fa-btn fa-user"></i>Profile</a></li>
+                                <li><a href="{{ url('/playlists') }}"><i class="fa fa-btn fa-list-alt"></i>Playlists</a></li>
+                                <li role="separator" class="divider"></li>
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
                         </li>
