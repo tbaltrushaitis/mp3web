@@ -1,11 +1,12 @@
-# Web-based MP3 Player
+# Web MP3 Player
 
 [![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](http://tbaltrushaitis.mit-license.org/)
 [![Code Climate](https://codeclimate.com/github/tbaltrushaitis/mp3/badges/gpa.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3)
 [![Issue Count](https://codeclimate.com/github/tbaltrushaitis/mp3/badges/issue_count.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3)
 [![Test Coverage](https://codeclimate.com/github/tbaltrushaitis/mp3/badges/coverage.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3/coverage)
 
-## Demo: [Premium Music Collection](http://mp3.gsm-center.com.ua)
+## Demo
+[Premium Music Collection](http://mp3.gsm-center.com.ua)
 
 ## Credits
 
@@ -16,13 +17,6 @@
 * jQuery [2.2.4](http://jquery.com/) - JavaScript Library
 * requirejs [2.3.1](https://github.com/jrburke/requirejs) - A file and module loader for JavaScript
 * Underscore.js [1.8.3](http://underscorejs.org) - JavaScript library that provides a whole mess of us
-
----
-title: "Bootstrap"
-version: "3.3.6"
-description: "HTML, CSS, and JS Framework"
-keywords: "HTML, CSS, JS, Framework"
----
 
 
 ## Getting Started ##
@@ -36,27 +30,26 @@ $ npm i && bower i
 ---------
 
 ## Todo List ##
-- Implement search throw items.
-- Highlight recently added items.
-- Create gulpfile.js scenario for automated builds
-- ~~Initial release~~ (Done v0.0.0)
+- [] Implement search throw items.
+- [x] Highlight recently added items.
+- [x] Create gulpfile.js scenario for automated builds
 
 ## Change log ##
 
-**v1.0.0:**
-    - Laravel 5.2 is now used as a backend framework
-    - Items that was uploaded in less than a week ago marked with "NEW" label
-    - Ability for visitors to register and become Users with access to private cabinet.
-    - Current playing item is moved on top of the list.
-    - Possibility to edit item properties from Admin Panel.
+### v1.0.0:
+- [x] Laravel 5.2 is now used as a backend framework
+- [x] Items that was uploaded in less than a week ago marked with "NEW" label
+- [x] Ability for visitors to register and become Users with access to private cabinet.
+- [x] Current playing item is moved on top of the list.
+- [x] Possibility to edit item properties from Admin Panel.
 
 **v0.0.2:**
-- Added 'Plays' counter which indicates how many times track was listened
+- [x] Added 'Plays' counter which indicates how many times track was listened
 
 **v0.0.1:**
-- Added bower.json file
-- Added package.json data
-- Created directories tree structure
+- [x] Add bower.json file
+- [x] Add package.json data
+- [x] Create directories tree structure
 
 **v0.0.0:**
-- Initial release
+- [x] Initial release

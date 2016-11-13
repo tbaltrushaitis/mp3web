@@ -73,7 +73,7 @@ var Banner  =   {
 
 var envConfig = {
     string:     'env'
-  , default:    {env: process.env.NODE_ENV || 'dev'}
+  , default:    {env: process.env.NODE_ENV || 'test'}
 };
 envConfig   =   parseArgs(process.argv.slice(2), envConfig);
 
@@ -253,6 +253,11 @@ gulp.task('sync:web', function () {
                 .pipe(dirSync(BUILD, WEB, syncOptions))
                 .on('error', console.error.bind(console));
 });
+gulp.task('sync:web:dev', function () {
+    return  gulp.src('')
+                .pipe(dirSync(BUILD, WEB + '.dev', syncOptions))
+                .on('error', console.error.bind(console));
+});
 
 gulp.task('build:css', function () {
     var DEST    =   path.join(BUILD, 'public/assets/css');
@@ -430,10 +435,14 @@ gulp.task('show:config', function () {
 });
 
 gulp.task('show:usage', function () {
-    console.info('\nUsage: gulp <task>\n');
+    console.log('\n' + (new Array(50).join('-')));
+    console.info('\nUsage: gulp <task>\t-\tRun gulp task(s) specified');
     console.info('\nwhere <task> is one of:\n');
+    console.warn('\tshow:usage' + '\t', 'Show this topic');
     console.warn('\tshow:config' + '\t', 'Show Configuration file');
     console.warn('\tfiles:src' + '\t', 'Log File Paths in the Stream');
+    console.log('\n' + (new Array(50).join('-')));
+    console.warn('\n');
 });
 
 /*  EOF: ROOT/gulpfile.js  */
