@@ -30,7 +30,7 @@ $ npm i && bower i
 ---------
 
 ## Todo List ##
-- [] Implement search throw items.
+- [ ] Implement search throw items.
 - [x] Highlight recently added items.
 - [x] Create gulpfile.js scenario for automated builds
 
