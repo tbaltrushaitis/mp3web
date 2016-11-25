@@ -190,12 +190,6 @@ gulp.task('sync:media', function () {
                   , path.join(BUILD, 'public/assets/img')
                   , syncOptions
                 ))
-/*                 .on('error', console.error)
-                .pipe(dirSync(
-                    path.join(BUILD, 'resources/assets/fonts')
-                  , path.join(BUILD, 'public/assets/fonts')
-                  , {printSummary: true, nodelete: true}
-                )) */
                 .on('error', console.error.bind(console));
 });
 gulp.task('sync:assets', function () {
