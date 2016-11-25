@@ -10,7 +10,7 @@
 
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">
-                    <img class="logo-sm" alt="Premium MP3" src="{{ asset('assets/img/logo/logo-sm.png') }}">
+                    <img class="logo-sm" alt="Premium MP3 Collection" src="{{ asset('assets/img/logo/logo-sm.png') }}">
                 </a>
                 <!--/  Navbar toggle button  /-->
                 <a href="#player-wrapper" class="navbar-btn navbar-toggle" data-toggle="collapse" data-target="#player-wrapper" aria-controls="player-wrapper" aria-expanded="false" role="button">
