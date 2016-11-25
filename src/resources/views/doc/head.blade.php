@@ -9,13 +9,13 @@
     <meta http-equiv="X-UA-Compatible"  content="IE=edge, chrome=1" />
     <meta http-equiv="Content-Type"     content="text/html; charset=utf-8" />
 
-    <title>Premium Music Collection</title>
+    <title>Premium Music Collection :: Original Tracks and Best DJ's Remixes</title>
 
     <!--/ Metas
     ================================================== /-->
     <meta name="title"          content="Premium Music Collection" />
-    <meta name="description"    content="MP3 Audio DataBase" />
-    <meta name="keywords"       content="mp3, player, laravel" />
+    <meta name="description"    content="Web MP3 Player and Media Library management. Backend based on Laravel framework, client-size - mostly JavaScript" />
+    <meta name="keywords"       content="mp3, audio, mix, hit, remix, original, original mix, dj, track, theme, party, music, web, player, media, content, library, laravel" />
     <meta name="author"         content="tbaltrushaitis@gmail.com" />
     <meta name="language"       content="en" />
     <meta name="robots"         content="index, nofollow, noarchive" />
@@ -23,8 +23,8 @@
     <!--/ Metas for Crawlers
     ================================================== /-->
     <meta property="og:type"        content="collection" />
-    <meta property="og:title"       content="Premium Music Collection" />
-    <meta property="og:description" content="MP3 Audio DataBase" />
+    <meta property="og:title"       content="Premium Music Collection :: Original Tracks and Best DJ's Remixes" />
+    <meta property="og:description" content="Web MP3 Player and Media Library management. Backend based on Laravel framework, client-size - mostly JavaScript" />
     <meta property="og:image"       content="assets/img/logo/logo-lg.png" />
     <meta property="og:site_name"   content="mp3 Manager and Player" />
     <meta property="og:url"         content="{{ url('/') }}" />
@@ -57,8 +57,8 @@
 
     <!--/ Favicon
     ================================================== /-->
-    <link href="assets/img/favicon.ico" type="image/x-icon" rel="icon" />
-    <link href="assets/img/favicon.ico" type="image/x-icon" rel="shortcut icon" />
+    <link href="assets/img/favicon.ico" type="image/x-icon" rel="icon" alt="Site Icon" />
+    <link href="assets/img/favicon.ico" type="image/x-icon" rel="shortcut icon"  alt="Site Shortcut Icon" />
 
     <!--/ HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries /-->
     <!--[if lt IE 9]>
