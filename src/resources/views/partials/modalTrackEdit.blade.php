@@ -65,15 +65,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="genre" class="col-sm-1 control-label">Genre:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="genre" data-role="tagsinput" placeholder="pop">
+                            <label for="genre" class="col-sm-2 control-label">Genre:</label>
                         </div>
+                        <input type="text" class="list-control" id="track-genre" data-role="tagsinput" placeholder="pop" />
                     </div>
                     <div class="form-group">
-                        <label for="tags" class="col-sm-1 control-label">Tags:</label>
+                        <label for="tags" class="col-sm-2 control-label">Tags:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="tags" data-role="tagsinput" placeholder="100% HIT">
+                            <input type="text" class="form-control" id="track-tags" data-role="tagsinput" placeholder="100% HIT" />
                         </div>
                     </div>
                     <div class="form-group">
