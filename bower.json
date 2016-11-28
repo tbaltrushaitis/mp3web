@@ -1,11 +1,11 @@
-{   "name": "mp3"
-  , "description": "Web-based MP3 Storage and Player"
-  , "main": "index.php"
+{   "name":         "mp3"
+  , "description":  "Web MP3 Player"
+  , "main":         "index.php"
   , "authors": [
         "tbaltrushaitis@gmail.com"
     ]
-  , "private": true
-  , "license": "MIT"
+  , "private":  true
+  , "license":  "MIT"
   , "keywords": [
         "mp3"
       , "audio"
@@ -35,6 +35,7 @@
       , "html5shiv":            "~3.7.3"
       , "jquery":               "~2.2.4"
       , "jquery-tmpl":          "*"
+      , "lodash":               "~4.17.2"
       , "raty":                 "~2.7.0"
       , "respond":              "~1.4.2"
       , "requirejs":            "~2.3.1"
@@ -44,6 +45,5 @@
         "animate.css":      "~3.5.2"
       , "font-awesome":     "~4.6.3"
       , "normalize.css":    "~4.2.0"
-      , "lodash":           "~4.16.6"
     }
 }
