@@ -26,7 +26,7 @@
                     <span class="label label-success">{{ $track->get('plays', 0) }}</span>
                 @endif
                 <a href="{{ $track->get('id') }}">{{ $track->get('title') }}</a>
-                <div class="genre" value="{{ $track->get('genre') }}" data-role="tagsinput"></div>
+                <input class="genre" value="{{ $track->get('genre') }}" data-role="tagsinput" />
                 <div class="raty" data-score="{{ ($track->get('likes') * 5) / max( $track->get('likes') + $track->get('dislikes'), 1) }}"></div>
             </li>
         @endforeach
