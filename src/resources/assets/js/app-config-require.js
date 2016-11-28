@@ -9,7 +9,6 @@ requirejs.config({
       , Tmpl:           'lib/jquery.tmpl'
       , raty:           'plugins/raty/jquery.raty'
       , bootstrapTags:  'plugins/bootstrap-tagsinput/bootstrap-tagsinput'
-
       , Abstract:       'app/classes/Abstract.class'
       , Player:         'app/classes/Player.class'
       , functions:      'app/functions'
@@ -26,7 +25,7 @@ requirejs.config({
             exports:    'bootstrap'
           , deps:       ['jquery']
         }
-      , bootstrapTags:  ['jquery', 'bootstrap']
+      , bootstrapTags:  ['jquery']
       , Tmpl:           ['jquery']
       , raty:           ['jquery']
       , Abstract:       ['jquery']

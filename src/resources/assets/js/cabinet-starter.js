@@ -6,7 +6,7 @@ require(['jquery', 'underscore', 'cabinetController', 'bootstrapTags', 'function
         console.timeStamp('CABINET MODULES READY');
 });
 
-define(['jquery', 'underscore', 'cabinetController', 'functions']
+define(['jquery', 'underscore', 'cabinetController', 'bootstrapTags', 'functions']
   , function ($, _, cc, bsTags, F) {
 
     'use strict';
@@ -21,7 +21,6 @@ define(['jquery', 'underscore', 'cabinetController', 'functions']
         console.timeStamp('CHECK-IN');
         console.info('Starting CabinetController');
         console.groupEnd(pageId);
-
         loCabinet.start();
     });
 
