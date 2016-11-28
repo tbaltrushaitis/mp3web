@@ -13,7 +13,7 @@
 
     <!--/ Metas
     ================================================== /-->
-    <meta name="title"          content="Premium Music Collection" />
+    <meta name="title"          content="Web MP3 Player with Premium Music Collection as a Bonus" />
     <meta name="description"    content="Web MP3 Player and Media Library management. Backend based on Laravel framework, client-size - mostly JavaScript" />
     <meta name="keywords"       content="mp3, audio, mix, hit, remix, original, original mix, dj, track, theme, party, music, web, player, media, content, library, laravel" />
     <meta name="author"         content="tbaltrushaitis@gmail.com" />
