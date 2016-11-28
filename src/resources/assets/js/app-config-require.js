@@ -26,7 +26,7 @@ requirejs.config({
             exports:    'bootstrap'
           , deps:       ['jquery']
         }
-      , bootstrapTags:  ['jquery']
+      , bootstrapTags:  ['jquery', 'bootstrap']
       , Tmpl:           ['jquery']
       , raty:           ['jquery']
       , Abstract:       ['jquery']

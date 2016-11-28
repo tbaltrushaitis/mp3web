@@ -1,7 +1,7 @@
 {   "name": "mp3"
   , "title": "Web MP3 Player"
   , "version": "1.0.0"
-  , "description": "Web-based MP3 Storage and Player"
+  , "description": "Audio MP3 Storage and Player based on Node.js and Laravel"
   , "author": {
         "name":  "Tomas Baltrushaitis"
       , "email": "tbaltrushaitis@gmail.com"

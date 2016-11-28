@@ -1,4 +1,4 @@
-﻿/* ASSETS/JS/APP/App_Starter.js */
+/* ASSETS/JS/APP/App_Starter.js */
 
 'use strict';
 
@@ -7,6 +7,7 @@ require([
       , 'underscore'
       , 'raty'
       , 'Player'
+      , 'bootstrapTags'
       , 'functions'
       , 'bootstrap'
     ]
@@ -15,6 +16,7 @@ require([
       , _
       , raty
       , PlayerClass
+      , bsTags
     ) {
 
     var Player  =   new PlayerClass ()
