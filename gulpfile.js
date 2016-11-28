@@ -316,7 +316,8 @@ gulp.task('bower:css:plugins', function () {
                 path.join(BOWER, 'animate.css/animate.css')
               , path.join(BOWER, 'raty/lib/jquery.raty.css')
               /* , path.join(BOWER, 'bootstrap/dist/css/bootstrap.css')
-              // , path.join(BOWER, 'bootstrap/dist/css/bootstrap-theme.css')
+              // , path.join(BOWER, 'bootstrap/dist/css/bootstrap-theme.css') */
+              , path.join(BOWER, 'bootstrap-tagsinput/dist/bootstrap-tagsinput.css')
               // , path.join(BOWER, 'normalize.css/normalize.css') */
             ])
             .pipe(gulpif('production' === envConfig.env, cleanCSS({debug: true, processImport: false}, function (details) {
@@ -335,6 +336,7 @@ gulp.task('bower:js', function () {
     var DEST = path.join(BUILD, 'public/assets/js/lib');
     return  gulp.src([
                 path.join(BOWER, 'bootstrap/dist/js/bootstrap.js')
+              , path.join(BOWER, 'bootstrap-tagsinput/dist/bootstrap-tagsinput.js')
               , path.join(BOWER, 'jquery/dist/jquery.js')
               , path.join(BOWER, 'jquery-tmpl/jquery.tmpl.js')
               , path.join(BOWER, 'requirejs/require.js')
@@ -355,6 +357,13 @@ gulp.task('bower:plugins', function () {
                 .pipe(gulp.dest( path.join(RESO, 'raty') ))
                 .pipe(changed( path.join(DEST, 'raty') ))
                 .pipe(gulp.dest( path.join(DEST, 'raty') ));
+
+    var TAGS =  gulp.src([
+                    path.join(BOWER, 'bootstrap-tagsinput/dist/*.*')
+                ])
+                .pipe(gulp.dest( path.join(RESO, 'bootstrap-tagsinput') ))
+                .pipe(changed( path.join(DEST, 'bootstrap-tagsinput') ))
+                .pipe(gulp.dest( path.join(DEST, 'bootstrap-tagsinput') ));
 
     var MISC =  gulp.src([
                     path.join(BOWER, 'html5shiv/dist/html5shiv.min.js')

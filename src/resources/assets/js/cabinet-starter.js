@@ -1,19 +1,20 @@
 /*  BOF: assets/js/cabinet-starter.js  */
 
-require(['jquery', 'underscore', 'cabinetController', 'functions']
-  , function ($, _, cc, F) {
-    'use strict';
-    console.timeStamp('CABINET MODULES READY');
+require(['jquery', 'underscore', 'cabinetController', 'bootstrapTags', 'functions']
+  , function ($, _, cc, bsTags, F) {
+        'use strict';
+        console.timeStamp('CABINET MODULES READY');
 });
 
 define(['jquery', 'underscore', 'cabinetController', 'functions']
-  , function ($, _, cc, F) {
+  , function ($, _, cc, bsTags, F) {
 
     'use strict';
 
     var ControllerCabinet   =   cc;
+    var libTags             =   bsTags;
 
-    $.when(ControllerCabinet, F)
+    $.when(ControllerCabinet, libTags, F)
      .then(function (loCabinet) {
         var pageId  =   $('body').attr('data-id_page');
         console.groupCollapsed(pageId);

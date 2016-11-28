@@ -1,7 +1,7 @@
 /*  BOF: assets/js/app/controllers/cabinetController.js  */
 
-define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrap']
-  , function ($, _, tmpl, F) {
+define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrapTags', 'bootstrap']
+  , function ($, _, tmpl, F, bsTags) {
 
     'use strict';
 
@@ -35,6 +35,7 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrap']
         Modal.find('#track').val(oMeta.track);
         Modal.find('#year').val(oMeta.year);
         Modal.find('#genre').val(oMeta.genre);
+        Modal.find('#tags').val(oMeta.tags);
         Modal.find('#meta').text( JSON.stringify(oMeta) );
     }
 
@@ -56,6 +57,7 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrap']
               , track:  Modal.find('#track').val()
               , year:   Modal.find('#year').val()
               , genre:  Modal.find('#genre').val()
+              , tags:   Modal.find('#tags').val()
             };
 
         var saveResult  =   requestAjax('/' + Id + '/meta', oMeta, 'POST');

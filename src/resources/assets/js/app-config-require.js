@@ -3,15 +3,16 @@
 requirejs.config({
     baseUrl: 'assets/js'
   , paths: {
-        jquery:     'lib/jquery'
-      , underscore: 'lib/underscore'
-      , bootstrap:  'lib/bootstrap'
-      , Tmpl:       'lib/jquery.tmpl'
-      , raty:       'plugins/raty/jquery.raty'
+        jquery:         'lib/jquery'
+      , underscore:     'lib/underscore'
+      , bootstrap:      'lib/bootstrap'
+      , Tmpl:           'lib/jquery.tmpl'
+      , raty:           'plugins/raty/jquery.raty'
+      , bootstrapTags:  'plugins/bootstrap-tagsinput/bootstrap-tagsinput'
 
-      , Abstract:   'app/classes/Abstract.class'
-      , Player:     'app/classes/Player.class'
-      , functions:  'app/functions'
+      , Abstract:       'app/classes/Abstract.class'
+      , Player:         'app/classes/Player.class'
+      , functions:      'app/functions'
     }
   , shim: {
         jquery: {
@@ -25,6 +26,7 @@ requirejs.config({
             exports:    'bootstrap'
           , deps:       ['jquery']
         }
+      , bootstrapTags:  ['jquery']
       , Tmpl:           ['jquery']
       , raty:           ['jquery']
       , Abstract:       ['jquery']
