@@ -211,14 +211,16 @@ audio {
   background-color: #337ab7;
 }
 
-.track .raty {
-  display: inline-block !important;
-  float: right;
+  .track .raty
+, .track .genre
+, .track .tags {
+  display:  inline-block !important;
+  float:    right;
 }
 
 .track a {
   /* white-space: nowrap; */
-  width: 90%; 
+  width: 80%;
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 5px;
