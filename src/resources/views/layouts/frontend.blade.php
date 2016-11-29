@@ -1,6 +1,9 @@
 @include('doc.head')
 
-<body id="layout-frontend" class="homepage skin-default theme-default" data-id_page="layout-frontend" data-rooturl="{{ Request::root() }}">
+<body   id="layout-frontend"
+        class="homepage skin-default theme-default"
+        data-id_page="layout-frontend"
+        data-rooturl="{{ Request::root() }}">
 
     <!--/ START: NavBar-Top /-->
     <header class="header" id="header">
@@ -13,7 +16,13 @@
                     <img class="logo-sm" alt="Premium MP3 Collection" src="{{ asset('assets/img/logo/logo-sm.png') }}">
                 </a>
                 <!--/  Navbar toggle button  /-->
-                <a href="#player-wrapper" class="navbar-btn navbar-toggle" data-toggle="collapse" data-target="#player-wrapper" aria-controls="player-wrapper" aria-expanded="false" role="button">
+                <a  href="#player-wrapper"
+                    class="navbar-btn navbar-toggle"
+                    data-toggle="collapse"
+                    data-target="#player-wrapper"
+                    aria-controls="player-wrapper"
+                    aria-expanded="false"
+                    role="button">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
