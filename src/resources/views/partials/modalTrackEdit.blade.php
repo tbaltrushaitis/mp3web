@@ -65,10 +65,10 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="genre" class="col-sm-2 control-label">Genre:</label>
                         <div class="col-sm-10">
-                            <label for="genre" class="col-sm-2 control-label">Genre:</label>
+                            <input type="text" class="list-control" id="track-genre" data-role="tagsinput" placeholder="pop" />
                         </div>
-                        <input type="text" class="list-control" id="track-genre" data-role="tagsinput" placeholder="pop" />
                     </div>
                     <div class="form-group">
                         <label for="tags" class="col-sm-2 control-label">Tags:</label>

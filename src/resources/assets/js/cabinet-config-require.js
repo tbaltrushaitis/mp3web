@@ -31,14 +31,14 @@
         var config = {
             map: {
                 '*': {
-                    // 'index': 'app/index'
+                    index:  'app/index'
                 }
             }
           , paths: {
                 jquery:             'lib/jquery'
               , Tmpl:               'lib/jquery.tmpl'
-              , underscore:         'lib/underscore'
               , bootstrap:          'lib/bootstrap'
+              , underscore:         'lib/lodash'
               , raty:               'plugins/raty/jquery.raty'
               , functions:          'app/functions'
               , bootstrapTags:      'plugins/bootstrap-tagsinput/bootstrap-tagsinput'
