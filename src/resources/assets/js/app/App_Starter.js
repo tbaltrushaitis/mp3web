@@ -105,17 +105,23 @@ require([
     });
 
 
-    if (intro) {
-        setTimeout ( function PlayIntro () {
-            Player.stepForward();
-            setTimeout ( PlayIntro, 10000);
-        }, 1);
-    }else if (false === silent) {
-        Player.stepForward();
-    }else{
+    // START Parameters
+    if (silent) {
         return false;
     }
 
+    if (intro) {
+        setTimeout ( function PlayIntro () {
+            Player.stepForward();
+            setTimeout ( PlayIntro, 5000);
+        }, 100);
+    }else{
+        Player.stepForward();
+    }
+
     //(silent) ? false : Player.stepForward();
+
+    //var elTags  =   $('[data-role="tagsinput"]');
+    //elTags.bsTags('add', { "value": 1 , "text": "Amsterdam"   , "continent": "Europe"});
 
 })();

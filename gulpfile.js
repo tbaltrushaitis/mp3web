@@ -78,7 +78,7 @@ var envConfig = {
 envConfig   =   parseArgs(process.argv.slice(2), envConfig);
 
 gulp.task('default', function () {
-    // place code for your default task here
+    // place code for default task here
 
     (function () {
         switch (envConfig.env) {

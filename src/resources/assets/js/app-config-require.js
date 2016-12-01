@@ -40,8 +40,8 @@ requirejs(['jquery', 'app/App_Starter']
   , function ($) {
         var pageId  =   $('body').attr('data-id_page');
         console.groupCollapsed(pageId);
-        console.timeStamp('CHECK-IN');
-        console.info('APP Started');
+        console.timeStamp('APP.CHECK-IN');
+        console.info('APP::Started');
         console.groupEnd(pageId);
     }
 );

@@ -27,9 +27,11 @@
                 @endif
                 <a class="" href="{{ $track->get('id') }}">{{ $track->get('title') }}</a>
 
-                <span class="genre" value="{{ $track->get('genre') }}" data-role="tagsinput" >
-                    
-                </span>
+                @if (strlen($track->get('genre')) > 0)
+                    @foreach ( explode(',', $track->get('genre')) as $idx => $Genre )
+                        <span class="label label-primary tagholder" id="tag_genre_{{$idx}}">{{ $Genre }}</span>
+                    @endforeach
+                @endif
 
                 <div class="raty" data-score="{{ ($track->get('likes') * 5) / max( $track->get('likes') + $track->get('dislikes'), 1) }}"></div>
             </li>
