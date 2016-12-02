@@ -10,13 +10,15 @@
 
 ## Credits
 
-* Laravel [5.2](https://laravel.com/docs/5.2) Framework
-* Font-Awesome [4.6.3](http://fontawesome.io/) - The iconic font and CSS toolkit
-* Bootstrap [3.3.6](http://getbootstrap.com) - HTML, CSS, and JS framework
-* animate.css [3.5.2](http://daneden.github.io/animate.css/) - A cross-browser library of CSS animations
-* jQuery [2.2.4](http://jquery.com/) - JavaScript Library
-* requirejs [2.3.1](https://github.com/jrburke/requirejs) - A file and module loader for JavaScript
-* Underscore.js [1.8.3](http://underscorejs.org) - JavaScript library that provides a whole mess of us
+Name | Version | Description
+-----|---------|------------
+[Laravel](https://laravel.com/docs/5.2) | 5.2 | Framework
+[Font-Awesome](http://fontawesome.io/) | 4.6.3 | The iconic font and CSS toolkit
+[Bootstrap](http://getbootstrap.com) | 3.3.6 | HTML, CSS, and JS framework
+[animate.css](http://daneden.github.io/animate.css/) | 3.5.2 | A cross-browser library of CSS animations
+[jQuery](http://jquery.com/) | 2.2.4 | JavaScript Library
+[requirejs](https://github.com/jrburke/requirejs) | 2.3.1 | A file and module loader for JavaScript
+[Underscore.js](http://underscorejs.org) | 1.8.3 | JavaScript library that provides a whole mess of us
 
 
 ## Getting Started ##
