@@ -3,6 +3,7 @@
 const fs    =   require('fs');
 const path  =   require('path');
 const del   =   require('del');
+const util  =   require('util');
 
 const merge     =   require('merge-stream');
 const parseArgs =   require('minimist')
@@ -23,71 +24,64 @@ const gulpif    =   require('gulp-if');
 const header    =   require('gulp-header');
 const jscs      =   require('gulp-jscs');
 const jshint    =   require('gulp-jshint');
+const stylish   =   require('jshint-stylish');
 const rename    =   require('gulp-rename');
 const template  =   require('gulp-template');
 const uglify    =   require('gulp-uglify');
-const util      =   require('gulp-util');
-const livereload    =   require('gulp-livereload');
+//const util      =   require('gulp-util');
+//const livereload    =   require('gulp-livereload');
 const gulpSequence  =   require('gulp-sequence')
 
 // const Config    =   require('./app-config.json');
 const pkg   =   require('./package.json');
+const BOWER =   JSON.parse(fs.readFileSync('./.bowerrc')).directory;
 
-const BOWER =   path.join('bower_modules');
 const SRC   =   path.join('src');
 const BUILD =   path.join('build');
 const DIST  =   path.join('dist');
 const WEB   =   path.join('webroot');
 
-const reportOptions = {
-    err:    true
-  , stderr: true
-  , stdout: true
-}
-const execOptions = {
-    continueOnError:    false   // default = false, true means don't emit error event
-  , pipeStdout:         false   // default = false, true means stdout is written to file.contents
-}
-const watchOptions  = {
-    ignoreInitial:  false
-  , verbose:        true
-  , readDelay:      100
-}
-const syncOptions = {
-    printSummary:   true
-  , nodelete:       true
-}
+const reportOptions =   pkg.options.reporting;
+const execOptions   =   pkg.options.exec;
+const watchOptions  =   pkg.options.watch;
+const syncOptions   =   pkg.options.sync;
 
 var now     =   new Date();
 var Banner  =   {
         header: '/*!\n' +
-                ' * <%= pkg.title %> v<%= pkg.version %>: <%= pkg.description %>\n' +
+                ' * <%= pkg.name %> v<%= pkg.version %>: <%= pkg.title %>\n' +
+                ' * <%= pkg.description %>\n' +
                 ' * Copyright: ' + dateFormat(now, "yyyy-mm-dd HH:MM:ss") + ' <%= pkg.author.name %>\n' +
-                ' * Licensed under <%= pkg.license %> license\n' +
+                ' * Licensed under the <%= pkg.license %> conditions\n' +
                 ' * <%= pkg.website %>\n' +
                 ' */\n\n'
       , footer: '\n/*!\n' +
-                ' * EOF: <%= pkg.name %> v<%= pkg.version %>: <%= pkg.description %>\n' +
+                ' * EOF: <%= pkg.name %> v<%= pkg.version %>: <%= pkg.title %>\n' +
                 ' */\n'
     };
 
 var envConfig = {
     string:     'env'
-  , default:    {env: process.env.NODE_ENV || 'test'}
+//  , default:    {env: process.env.NODE_ENV || 'test'}
+  , default:    {env: process.env.NODE_ENV || 'empty'}
 };
 envConfig   =   parseArgs(process.argv.slice(2), envConfig);
 
+//  MAIN ROUTER
 gulp.task('default', function () {
-    // place code for default task here
-
+    //  DEFAULT Scenario Route
     (function () {
         switch (envConfig.env) {
-            case 'production': {
-                gulpSequence('test', 'build', 'deploy')();
+            case 'empty': {
+                gulpSequence('lint', 'show:usage')();
                 break;
             }
             case 'dev': {
                 gulpSequence('build:dev', 'deploy', 'watch')();
+                break;
+            }
+            case 'production': {
+                gulpSequence('test', 'build', 'deploy')();
                 break;
             }
             default: {
@@ -97,14 +91,50 @@ gulp.task('default', function () {
             }
         }
     })();
+
 });
 
 gulp.task('test',       gulpSequence('files:src'));
+gulp.task('lint',       gulpSequence('jshint', 'jscs'));
+
+gulp.task('clean',  gulpSequence(
+    [
+        'clean:build'
+      , 'clean:dist'
+    ]
+));
+gulp.task('artisan',    gulpSequence(
+    'artisan:vendor:publish'
+  , 'artisan:migrate'
+  , 'artisan:clear'
+));
+gulp.task('bower',  gulpSequence(
+    [
+        'bower:fonts'
+        'bower:css:fonts'
+      , 'bower:css:plugins'
+    ]
+  , [
+        'bower:js'
+      , 'bower:plugins'
+    ]
+));
+gulp.task('build:dev',  gulpSequence(
+    [   'clean:resources'
+      , 'clean:public'
+    ]
+  , 'sync:src'
+  , [
+        'sync:media'
+      , 'bower'
+    ]
+  , 'sync:assets:fonts'
+  , [
+        'build:css'
+      , 'build:scripts'
+    ]
+));
 gulp.task('build',      gulpSequence(['clean:resources', 'clean:public'], 'sync:src', 'artisan:vendor:publish', ['sync:media', 'bower'], 'sync:assets:fonts', ['build:css', 'build:scripts']));
-gulp.task('build:dev',  gulpSequence(['clean:resources', 'clean:public'], 'sync:src', ['sync:media', 'bower'], 'sync:assets:fonts', ['build:css', 'build:scripts']));
-gulp.task('clean',      gulpSequence(['clean:build', 'clean:dist']));
-gulp.task('artisan',    gulpSequence('artisan:vendor:publish', 'artisan:migrate', 'artisan:clear'));
-gulp.task('bower',      gulpSequence(['bower:fonts', 'bower:js'], ['bower:css:fonts', 'bower:css:plugins'], 'bower:plugins'));
 gulp.task('dist',       gulpSequence('build', 'sync:dist'));
 gulp.task('deploy',     gulpSequence('sync:web', 'artisan:clear'));
 gulp.task('watch',      gulpSequence('watch:src:views', 'watch:src:css', 'watch:src:js'));
@@ -140,29 +170,29 @@ gulp.task('watch:src:js', function () {
     });
 });
 
-// delete files in the stream
+//  CLEAN
 gulp.task('clean:build', function () {
     return  gulp.src([
-                path.join(BUILD, '*')
-              , path.join(BUILD, '.*')
+                path.join(BUILD, '.*')
+//              , path.join(BUILD, '*')
             ])
             .pipe(vinylPaths(del));
 });
 gulp.task('clean:resources', function () {
     return  gulp.src([
-                path.join(BUILD, 'resources', '*')
-              , path.join(BUILD, 'resources', '.*')
-              , path.join(WEB, 'resources', '*')
-              , path.join(WEB, 'resources', '.*')
+                path.join(BUILD, 'resources', '.*')
+              , path.join(WEB,   'resources', '.*')
+//              , path.join(BUILD, 'resources', '*')
+//              , path.join(WEB,   'resources', '*')
             ])
             .pipe(vinylPaths(del));
 });
 gulp.task('clean:public', function () {
     return  gulp.src([
-                path.join(BUILD, 'public/assets', '*')
-              , path.join(BUILD, 'resources/assets', '.*')
-              , path.join(WEB, 'public/assets', '*')
-              , path.join(WEB, 'resources/assets', '.*')
+//                path.join(BUILD, 'resources/assets',  '.*')
+//              , path.join(WEB,   'resources/assets',  '.*')
+                path.join(BUILD, 'public/assets',   '.*')
+              , path.join(WEB,   'public/assets',   '.*')
             ])
             .pipe(vinylPaths(del));
 });
@@ -174,6 +204,7 @@ gulp.task('clean:dist', function () {
             .pipe(vinylPaths(del));
 });
 
+//  SYNC
 gulp.task('sync:src', function () {
     return  gulp.src('')
                 .pipe(dirSync(SRC, BUILD, {
@@ -253,6 +284,7 @@ gulp.task('sync:web:dev', function () {
                 .on('error', console.error.bind(console));
 });
 
+//  BUILD
 gulp.task('build:css', function () {
     var DEST    =   path.join(BUILD, 'public/assets/css');
     return  gulp.src([
@@ -278,6 +310,7 @@ gulp.task('build:scripts', function () {
         .pipe(gulp.dest(DEST));
 });
 
+//  BOWER
 gulp.task('bower:fonts', function () {
     var RESO = path.join(BUILD, 'resources/assets/fonts');
     // var DEST = path.join(BUILD, 'public/assets/fonts');
@@ -376,6 +409,7 @@ gulp.task('bower:plugins', function () {
     return merge(RATY, MISC);
 });
 
+//  ARTISAN
 gulp.task('artisan:vendor:publish', function () {
     gulp.src('')
         .pipe(exec('cd ' + BUILD + ' && php artisan vendor:publish'))
@@ -406,17 +440,22 @@ gulp.task('artisan:key:generate', function () {
 });
 
 
-// gulp.task('jscs', function () {
-    // return gulp.src(config.src.js + "**/*.js")
-        // .pipe(jscs())
-        // .pipe(jscs.reporter());
-// });
+gulp.task('jscs', function () {
+    return  gulp.src(SRC + 'resources/assets/js/' + "**/*.js")
+                .pipe(jscs())
+                .pipe(jscs.reporter());
+});
 
-// gulp.task('jshint', function() {
-    // return gulp.src(config.src.js + '**/*.js')
-        // .pipe(jshint('.jshintrc'))
-        // .pipe(isProductionBuild ? jshint.reporter('fail') : jshint.reporter('default'));
-// });
+gulp.task('jshint', function () {
+    return  gulp.src(SRC + 'resources/assets/js/' + '**/*.js')
+                .pipe( jshint('.jshintrc') )
+                .pipe( gulpif('production' === envConfig.env
+                        , jshint.reporter('fail', { verbose: true })
+                     //   , jshint.reporter('default', { verbose: true })
+                        , jshint.reporter('jshint-stylish', { verbose: true })
+                        )
+                );
+});
 
 // Log file paths in the stream
 gulp.task('files:src', function () {
@@ -444,6 +483,11 @@ gulp.task('show:usage', function () {
     console.warn('\tshow:usage' + '\t', 'Show this topic');
     console.warn('\tshow:config' + '\t', 'Show Configuration file');
     console.warn('\tfiles:src' + '\t', 'Log File Paths in the Stream');
+    console.warn('\n\tclean' + '\t\t', 'Empty given folders and Delete files');
+    console.warn('\tclean:build' + '\t', 'Clean directory with BUILD');
+    console.warn('\tclean:dist' + '\t', 'Distro files');
+    console.warn('\tclean:resources' + '\t', 'Static CSS, JS and Images');
+    console.warn('\tclean:public' + '\t', 'Directory visible from Internet');
     console.log('\n' + (new Array(50).join('-')));
     console.warn('\n');
 });
