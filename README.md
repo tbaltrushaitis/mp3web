@@ -10,8 +10,8 @@
 
 ## Credits
 
-Name | Version | Description
------|---------|------------
+ Name | Version | Description
+------|---------|-------------
 [Laravel](https://laravel.com/docs/5.2) | 5.2 | Framework
 [Font-Awesome](http://fontawesome.io/) | 4.6.3 | The iconic font and CSS toolkit
 [Bootstrap](http://getbootstrap.com) | 3.3.6 | HTML, CSS, and JS framework
@@ -21,13 +21,36 @@ Name | Version | Description
 [Underscore.js](http://underscorejs.org) | 1.8.3 | JavaScript library that provides a whole mess of us
 
 
-## Getting Started ##
+## Download ##
 ```bash
 $ git clone https://github.com/tbaltrushaitis/mp3.git mp3 && cd mp3
 $ composer -vvv create-project --prefer-dist laravel/laravel laravel-5.2 "5.2.*"
 $ cp -pr laravel-5.2/ build/ && cd build && composer -vvv update && cd ..
 $ npm i && bower i
 ```
+
+## Gulp Tasks Overview ##
+
+In common case gulp command should look like `gulp command:p1:p2`.
+Here is a list of tasks and possible params:
+
+ # | Task | Source | Target | Comment
+---|------|--------|--------|--------
+ - | show:usage | * | * | Show help topic
+ - | show:config | * | * | Log Config File into console
+---|------|--------|--------|--------
+ - | clean | * | * | Empty given folders and Delete files
+ - | clean:build | * | * | Build directory
+ - | clean:dist | * | * | Target directory for release
+ - | clean:resources | * | * | Assets files removal
+ - | clean:public | * | * | Directory accessible from internet.
+---|------|--------|--------|--------
+ - | bower | * | * | Frontend modules manipulations
+ - | bower:fonts | * | * | Fonts
+ - | bower:css:fonts | * | * | CSS files for fonts
+ - | bower:css:plugins | * | * | CSS files for plugins
+---|------|--------|--------|--------
+ - | artisan | * | * | Framework related operations
 
 ---------
 
