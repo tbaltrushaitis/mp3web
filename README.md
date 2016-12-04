@@ -1,5 +1,7 @@
 # Web MP3 Player
 
+![Web MP3 Player Logo](https://github.com/tbaltrushaitis/mp3/blob/tagsInput/logo-lg.png)
+
 [![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](http://tbaltrushaitis.mit-license.org/)
 [![Code Climate](https://codeclimate.com/github/tbaltrushaitis/mp3/badges/gpa.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3)
 [![Issue Count](https://codeclimate.com/github/tbaltrushaitis/mp3/badges/issue_count.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3)
@@ -41,8 +43,8 @@ Here is a list of tasks and possible params:
  2 | show:config | config.json | | Output config file content into console
  | | | |
    | **clean** | | | Empty given entities and/or delete files
- 3 | clean:build | | | Reset build directory
- 4 | clean:dist | | | Reset release directory
+ 3 | clean:build | | ./build/* | Reset build directory
+ 4 | clean:dist | | ./dist/* | Reset release directory
  5 | clean:resources | | | Assets files removal
  6 | clean:public | | | Webroot directory
  | | | |
