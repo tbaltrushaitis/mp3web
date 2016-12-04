@@ -33,6 +33,7 @@ const uglify    =   require('gulp-uglify');
 const gulpSequence  =   require('gulp-sequence')
 
 // const Config    =   require('./app-config.json');
+const ENGINE    =   path.join('laravel-5.2');
 const pkg   =   require('./package.json');
 const BOWER =   JSON.parse(fs.readFileSync('./.bowerrc')).directory;
 
@@ -73,7 +74,7 @@ gulp.task('default', function () {
     (function () {
         switch (envConfig.env) {
             case 'empty': {
-                gulpSequence('lint', 'show:usage')();
+                gulpSequence('lint', 'show:usage', 'sync:engine')();
                 break;
             }
             case 'dev': {
@@ -172,6 +173,11 @@ gulp.task('clean:dist', function () {
 });
 
 //  SYNC
+gulp.task('sync:engine', function () {
+    return  gulp.src('')
+                .pipe(dirSync(ENGINE, BUILD, syncOptions))
+                .on('error', console.error.bind(console));
+});
 gulp.task('sync:src', function () {
     return  gulp.src('')
                 .pipe(dirSync(SRC, BUILD, {
@@ -339,6 +345,7 @@ gulp.task('bower:js', function () {
               , path.join(BOWER, 'bootstrap-tagsinput/dist/bootstrap-tagsinput.js')
               , path.join(BOWER, 'jquery/dist/jquery.js')
               , path.join(BOWER, 'jquery-tmpl/jquery.tmpl.js')
+              , path.join(BOWER, 'lodash/lodash.js')
               , path.join(BOWER, 'requirejs/require.js')
               , path.join(BOWER, 'underscore/underscore.js')
             ])
@@ -416,12 +423,12 @@ gulp.task('jscs', function () {
 gulp.task('jshint', function () {
     return  gulp.src(SRC + 'resources/assets/js/' + '**/*.js')
                 .pipe( jshint('.jshintrc') )
-                .pipe( gulpif('production' === envConfig.env
-                        , jshint.reporter('fail', { verbose: true })
-                     //   , jshint.reporter('default', { verbose: true })
-                        , jshint.reporter('jshint-stylish', { verbose: true })
-                        )
+//                .pipe( gulpif('production' === envConfig.env
+//                        )
+                .pipe( jshint.reporter('fail', { verbose: true })
                 );
+                //        , jshint.reporter('default', { verbose: true })
+                //        , jshint.reporter('jshint-stylish', { verbose: true })
 });
 
 // Log file paths in the stream
