@@ -1,6 +1,6 @@
 # Web MP3 Player
 
-![Web MP3 Player Logo](https://github.com/tbaltrushaitis/mp3/blob/tagsInput/logo-lg.png)
+![Web MP3 Player Logo](src/resources/assets/img/logo/Favicon.png)
 
 [![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](http://tbaltrushaitis.mit-license.org/)
 [![Code Climate](https://codeclimate.com/github/tbaltrushaitis/mp3/badges/gpa.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3)
@@ -41,17 +41,15 @@ Here is a list of tasks and possible params:
  :octocat: | **show** | | | Display various information
  1 | show:usage | | | Show help topic
  2 | show:config | config.json | | Output config file content into console
- | | | |
-   | **clean** | | | Empty given entities and/or delete files
+   | **clean** | | :octocat: | Empty given entities and/or delete files
  3 | clean:build | | ./build/* | Reset build directory
  4 | clean:dist | | ./dist/* | Reset release directory
  5 | clean:resources | | | Assets files removal
  6 | clean:public | | | Webroot directory
- | | | |
- 7 | **bower** | | | Frontend modules manipulations
- 8 | bower:fonts | * | * | Collect fonts
- 9 | bower:css:fonts | * | * | Collect, merge and minify fonts CSS files
- 10 | bower:css:plugins | * | * | CSS files for plugins
+   | **bower** | :octocat: | | Frontend modules manipulations
+ 7 | bower:fonts | * | * | Collect fonts
+ 8 | bower:css:fonts | * | * | Collect, merge and minify fonts CSS files
+ 9 | bower:css:plugins | * | * | CSS files for plugins
    | artisan | * | * | Framework engine console commands
 
 ---------
