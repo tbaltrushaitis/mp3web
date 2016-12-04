@@ -42,27 +42,37 @@ Here is a list of tasks and possible params:
  # | Task | Source | Target | Comment
 ---|------|--------|--------|--------
  :octocat: | **show** | | | Display various information
- 1 | show:usage | | | Show help topic
- 2 | show:config | config.json | | Output config file content into console
-   | **clean** | | :octocat: | Empty given entities and/or delete files
- 3 | clean:build | | ./build/* | Reset build directory
- 4 | clean:dist | | ./dist/* | Reset release directory
- 5 | clean:resources | | | Assets files removal
- 6 | clean:public | | | Webroot directory
-   | **bower** | :+1: | | Frontend modules manipulations
- 7 | bower:fonts | * | * | Collect fonts
- 8 | bower:css:fonts | * | * | Collect, merge and minify fonts CSS files
- 9 | bower:css:plugins | * | * | CSS files for plugins
-   | artisan | * | * | Framework engine console commands
+  1 | show:usage | | | Show help topic
+  2 | show:config | config.json | | Output config file content into console
+    | **clean** | | :octocat: | Empty given entities and/or delete files
+  3 | clean:build | | ./build/* | Reset build directory
+  4 | clean:dist | | ./dist/* | Reset release directory
+  5 | clean:resources | | | Assets files removal
+  6 | clean:public | | | Webroot directory
+    | **bower** | :+1: | | Frontend modules manipulations
+  7 | bower:fonts | * | * | Collect fonts
+  8 | bower:css:fonts | * | * | Collect, merge and minify fonts CSS files
+  9 | bower:css:plugins | * | * | CSS files for plugins
+ 10 | bower:js | * | * | CSS files for plugins
+ 11 | bower:plugins | * | * | CSS files for plugins
+    | **lint** | * | * | Checks JavaScript source code for common mistakes
+ 12 | jscs | * | * | 
+ 13 | jshint | * | * | 
+    | artisan | * | * | Framework engine console commands
 
 ---------
 
 ## Todo List ##
 - [ ] Implement search throw items.
-- [x] Highlight recently added items.
-- [x] Create gulpfile.js scenario for automated builds
 
 ## Change log ##
+
+### v1.0.1:
+- [x] Genre tags added as labels for track
+- [x] gulpfile.js scenario tasks improved
+- [x] setup.sh and setup.rc scripts used to simplify setup and build processes
+- [x] Documentation update
+- [x] Repository page look on github improved with logo image
 
 ### v1.0.0:
 - [x] Laravel 5.2 is now used as a backend framework
