@@ -7,6 +7,8 @@
 [![Issue Count](https://codeclimate.com/github/tbaltrushaitis/mp3/badges/issue_count.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3)
 [![Test Coverage](https://codeclimate.com/github/tbaltrushaitis/mp3/badges/coverage.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3/coverage)
 
+/play clowntown
+
 ## Demo
 [Premium Music Collection](http://mp3.gsm-center.com.ua)
 
@@ -46,7 +48,7 @@ Here is a list of tasks and possible params:
  4 | clean:dist | | ./dist/* | Reset release directory
  5 | clean:resources | | | Assets files removal
  6 | clean:public | | | Webroot directory
-   | **bower** | :octocat: | | Frontend modules manipulations
+   | **bower** | :+1: | | Frontend modules manipulations
  7 | bower:fonts | * | * | Collect fonts
  8 | bower:css:fonts | * | * | Collect, merge and minify fonts CSS files
  9 | bower:css:plugins | * | * | CSS files for plugins
