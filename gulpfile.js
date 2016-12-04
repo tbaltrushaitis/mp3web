@@ -97,43 +97,10 @@ gulp.task('default', function () {
 gulp.task('test',       gulpSequence('files:src'));
 gulp.task('lint',       gulpSequence('jshint', 'jscs'));
 
-gulp.task('clean',  gulpSequence(
-    [
-        'clean:build'
-      , 'clean:dist'
-    ]
-));
-gulp.task('artisan',    gulpSequence(
-    'artisan:vendor:publish'
-  , 'artisan:migrate'
-  , 'artisan:clear'
-));
-gulp.task('bower',  gulpSequence(
-    [
-        'bower:fonts'
-        'bower:css:fonts'
-      , 'bower:css:plugins'
-    ]
-  , [
-        'bower:js'
-      , 'bower:plugins'
-    ]
-));
-gulp.task('build:dev',  gulpSequence(
-    [   'clean:resources'
-      , 'clean:public'
-    ]
-  , 'sync:src'
-  , [
-        'sync:media'
-      , 'bower'
-    ]
-  , 'sync:assets:fonts'
-  , [
-        'build:css'
-      , 'build:scripts'
-    ]
-));
+gulp.task('clean',      gulpSequence(['clean:build', 'clean:dist']));
+gulp.task('artisan',    gulpSequence('artisan:vendor:publish', 'artisan:migrate', 'artisan:clear'));
+gulp.task('bower',      gulpSequence(['bower:fonts', 'bower:css:fonts', 'bower:css:plugins'], ['bower:js', 'bower:plugins']));
+gulp.task('build:dev',  gulpSequence(['clean:resources', 'clean:public'], 'sync:src', ['sync:media', 'bower'], 'sync:assets:fonts', ['build:css', 'build:scripts']));
 gulp.task('build',      gulpSequence(['clean:resources', 'clean:public'], 'sync:src', 'artisan:vendor:publish', ['sync:media', 'bower'], 'sync:assets:fonts', ['build:css', 'build:scripts']));
 gulp.task('dist',       gulpSequence('build', 'sync:dist'));
 gulp.task('deploy',     gulpSequence('sync:web', 'artisan:clear'));
