@@ -66,6 +66,30 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrapTags', 'bootstrap
 
     /*
     |--------------------------------------------------------------------------
+    |   RESET FORM FIELDS
+    |--------------------------------------------------------------------------
+    */
+    function resetForm () {
+        var Modal   =   $('#modalEditTrack');
+
+        Modal.find('.panel-title').text(null);
+        Modal.find('#id').val(null);
+        Modal.find('#filename').val(null);
+        Modal.find('#path').val(null);
+        Modal.find('#title').val(null);
+        Modal.find('#name').val(null);
+        Modal.find('#artist').val(null);
+        Modal.find('#album').val(null);
+        Modal.find('#track').val(null);
+        Modal.find('#year').val(null);
+        Modal.find('#track-genre').val(null);
+        Modal.find('#track-tags').val(null);
+        Modal.find('#meta').text(null);
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
     |   EVENTS BINDING
     |--------------------------------------------------------------------------
     */
@@ -74,6 +98,7 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrapTags', 'bootstrap
         //  EDIT Track in Modal Window
         $('body').delegate('.btn-edit', 'click', function (e) {
             var trackId =   $(e.target).data('id');
+            resetForm();
             loadTrackData(trackId);
         });
 
