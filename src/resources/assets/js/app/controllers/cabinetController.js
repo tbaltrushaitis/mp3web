@@ -34,8 +34,8 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrapTags', 'bootstrap
         Modal.find('#album').val(oMeta.album);
         Modal.find('#track').val(oMeta.track);
         Modal.find('#year').val(oMeta.year);
-        Modal.find('#genre').val(oMeta.genre);
-        Modal.find('#tags').val(oMeta.tags);
+        Modal.find('#track-genre').val(oMeta.genre);
+        Modal.find('#track-tags').val(oMeta.tags);
         Modal.find('#meta').text( JSON.stringify(oMeta) );
     }
 
@@ -56,8 +56,8 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrapTags', 'bootstrap
               , album:  Modal.find('#album').val()
               , track:  Modal.find('#track').val()
               , year:   Modal.find('#year').val()
-              , genre:  Modal.find('#genre').val()
-              , tags:   Modal.find('#tags').val()
+              , genre:  Modal.find('#track-genre').val()
+              , tags:   Modal.find('#track-tags').val()
             };
 
         var saveResult  =   requestAjax('/' + Id + '/meta', oMeta, 'POST');
