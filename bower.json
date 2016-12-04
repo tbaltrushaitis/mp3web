@@ -33,7 +33,7 @@
         "bootstrap":            "~3.3.6"
       , "bootstrap-tagsinput":  "~0.8.0"
       , "html5shiv":            "~3.7.3"
-      , "jquery":               "~2.2.4"
+      , "jquery":               "#2.2.4"
       , "jquery-tmpl":          "*"
       , "lodash":               "~4.17.2"
       , "raty":                 "~2.7.0"
