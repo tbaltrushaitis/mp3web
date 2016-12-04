@@ -12,7 +12,7 @@
 
  Name | Version | Description
 ------|---------|-------------
-[Laravel](https://laravel.com/docs/5.2) | 5.2 | Framework
+[Laravel](https://laravel.com/docs/5.2) | 5.2.0 | Framework
 [Font-Awesome](http://fontawesome.io/) | 4.6.3 | The iconic font and CSS toolkit
 [Bootstrap](http://getbootstrap.com) | 3.3.6 | HTML, CSS, and JS framework
 [animate.css](http://daneden.github.io/animate.css/) | 3.5.2 | A cross-browser library of CSS animations
@@ -31,26 +31,26 @@ $ npm i && bower i
 
 ## Gulp Tasks Overview ##
 
-In common case gulp command should look like `gulp command:p1:p2`.
+In common case gulp command should look like `gulp command:p1:..:pN`.
 Here is a list of tasks and possible params:
 
  # | Task | Source | Target | Comment
 ---|------|--------|--------|--------
- - | show:usage | * | * | Show help topic
- - | show:config | * | * | Log Config File into console
----|------|--------|--------|--------
- - | clean | * | * | Empty given folders and Delete files
- - | clean:build | * | * | Build directory
- - | clean:dist | * | * | Target directory for release
- - | clean:resources | * | * | Assets files removal
- - | clean:public | * | * | Directory accessible from internet.
----|------|--------|--------|--------
- - | bower | * | * | Frontend modules manipulations
- - | bower:fonts | * | * | Fonts
- - | bower:css:fonts | * | * | CSS files for fonts
- - | bower:css:plugins | * | * | CSS files for plugins
----|------|--------|--------|--------
- - | artisan | * | * | Framework related operations
+ :octocat: | **show** | | | Display various information
+ 1 | show:usage | | | Show help topic
+ 2 | show:config | config.json | | Output config file content into console
+ | | | |
+   | **clean** | | | Empty given entities and/or delete files
+ 3 | clean:build | | | Reset build directory
+ 4 | clean:dist | | | Reset release directory
+ 5 | clean:resources | | | Assets files removal
+ 6 | clean:public | | | Webroot directory
+ | | | |
+ 7 | **bower** | | | Frontend modules manipulations
+ 8 | bower:fonts | * | * | Collect fonts
+ 9 | bower:css:fonts | * | * | Collect, merge and minify fonts CSS files
+ 10 | bower:css:plugins | * | * | CSS files for plugins
+   | artisan | * | * | Framework engine console commands
 
 ---------
 
