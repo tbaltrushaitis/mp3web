@@ -1,6 +1,6 @@
 {   "name":     "mp3"
   , "title":    "Web MP3 Player"
-  , "version":      "1.0.0"
+  , "version":  "1.0.0"
   , "description":  "Audio MP3 Storage and Player based on Node.js and Laravel"
   , "author": {
         "name":  "Tomas Baltrushaitis"
@@ -10,7 +10,7 @@
   , "license":  "MIT"
   , "private":  true
   , "homepage": "https://github.com/tbaltrushaitis/mp3"
-  , "website":          "http://mp3.gsm-center.com.ua/"
+  , "website":  "http://mp3.gsm-center.com.ua/"
   , "readmeFilename":   "README.md"
   , "engines": {
         "node": ">=0.10.1"
