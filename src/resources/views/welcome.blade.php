@@ -29,7 +29,7 @@
 
                 @if (strlen($track->get('genre')) > 0)
                     @foreach ( explode(',', $track->get('genre')) as $idx => $Genre )
-                        <span class="label label-primary tagholder" id="tag_genre_{{$idx}}">{{ $Genre }}</span>
+                        <span class="label label-default tagholder" id="tag_genre_{{$idx}}">{{ $Genre }}</span>
                     @endforeach
                 @endif
 
