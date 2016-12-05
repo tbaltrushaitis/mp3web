@@ -105,7 +105,7 @@ function requestAjax (loUrl, loData, loType) {
 
     return {
         error:      true
-      , message:    'Cannot get data from ' + url
+      , message:    'Cannot get data from URL=[' + url + ']'
     };
 
 }
