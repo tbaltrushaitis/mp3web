@@ -11,7 +11,7 @@
 ## Demo
 [Premium Music Collection](http://mp3.gsm-center.com.ua)
 
-:star: :notes: :scorpius: :white_check_mark: :signal_strength: :dvd: :sound: :musical_note: :+1: :musical_keyboard: :saxophone: :violin: :musical_score: :headphones:
+:star: :notes: :scorpius: :white_check_mark: :signal_strength: :dvd: :sound: :musical_note: :+1: :musical_keyboard: :saxophone: :violin: :musical_score: :headphones: 
 
 ## Credits
 
