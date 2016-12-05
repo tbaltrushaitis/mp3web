@@ -34,8 +34,12 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrapTags', 'bootstrap
         Modal.find('#album').val(oMeta.album);
         Modal.find('#track').val(oMeta.track);
         Modal.find('#year').val(oMeta.year);
-        Modal.find('#track-genre').val(oMeta.genre);
-        Modal.find('#track-tags').val(oMeta.tags);
+        Modal.find('#track-genre')
+            .val(oMeta.genre)
+            .prop({'data-role': 'tagsinput'});
+        Modal.find('#track-tags')
+            .val(oMeta.tags)
+            .prop({'data-role': 'tagsinput'});
         Modal.find('#meta').text( JSON.stringify(oMeta) );
     }
 
@@ -72,7 +76,7 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrapTags', 'bootstrap
     function resetForm () {
         var Modal   =   $('#modalEditTrack');
 
-        Modal.find('.panel-title').text(null);
+        Modal.find('.panel-title').text('');
         Modal.find('#id').val(null);
         Modal.find('#filename').val(null);
         Modal.find('#path').val(null);
@@ -82,8 +86,12 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrapTags', 'bootstrap
         Modal.find('#album').val(null);
         Modal.find('#track').val(null);
         Modal.find('#year').val(null);
-        Modal.find('#track-genre').val(null);
-        Modal.find('#track-tags').val(null);
+        Modal.find('#track-genre')
+            .val('')
+            .prop({'data-role': 'tagsinput-disabled'});
+        Modal.find('#track-tags')
+            .val('')
+            .prop({'data-role': 'tagsinput-disabled'});
         Modal.find('#meta').text(null);
     }
 
@@ -98,13 +106,13 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrapTags', 'bootstrap
         //  EDIT Track in Modal Window
         $('body').delegate('.btn-edit', 'click', function (e) {
             var trackId =   $(e.target).data('id');
-            resetForm();
             loadTrackData(trackId);
         });
 
         //  SAVE Track metadata
         $('body').delegate('.btn-save', 'click', function (e) {
             saveTrackData();
+            resetForm();
         });
 
     }
