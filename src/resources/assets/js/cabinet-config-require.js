@@ -8,6 +8,7 @@
     if (!rootPath.endsWith('/')) {
         rootPath += '/';
     }
+
     var pos     =   rootPath.indexOf('/');
     rootPath    =   (-1 !== pos && pos + 1 < rootPath.length) ? rootPath.substr(pos) : '/';
 
