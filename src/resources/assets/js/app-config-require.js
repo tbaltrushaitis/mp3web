@@ -4,7 +4,8 @@ requirejs.config({
     baseUrl: 'assets/js'
   , paths: {
         jquery:         'lib/jquery'
-      , underscore:     'lib/underscore'
+//      , underscore:     'lib/underscore'
+      , underscore:     'lib/lodash'
       , bootstrap:      'lib/bootstrap'
       , Tmpl:           'lib/jquery.tmpl'
       , raty:           'plugins/raty/jquery.raty'
