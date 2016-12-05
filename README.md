@@ -50,15 +50,15 @@ Here is a list of tasks and possible params:
   5 | clean:resources | | | Assets files removal
   6 | clean:public | | | Webroot directory
     | **bower** | :+1: | | Frontend modules manipulations
-  7 | bower:fonts | * | * | Collect fonts
-  8 | bower:css:fonts | * | * | Collect, merge and minify fonts CSS files
-  9 | bower:css:plugins | * | * | CSS files for plugins
- 10 | bower:js | * | * | CSS files for plugins
- 11 | bower:plugins | * | * | CSS files for plugins
-    | **lint** | * | * | Checks JavaScript source code for common mistakes
- 12 | jscs | * | * | 
- 13 | jshint | * | * | 
-    | artisan | * | * | Framework engine console commands
+  7 | bower:fonts | | | Collect fonts
+  8 | bower:css:fonts | | | Collect, merge and minify fonts CSS files
+  9 | bower:css:plugins | | | CSS files for plugins
+ 10 | bower:js | | | CSS files for plugins
+ 11 | bower:plugins | | | CSS files for plugins
+    | **lint** | | | Checks JavaScript source code for common mistakes
+ 12 | jscs | | | 
+ 13 | jshint | | | 
+    | artisan | | | Framework engine console commands
 
 ---------
 
