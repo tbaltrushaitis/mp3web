@@ -102,6 +102,7 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrapTags', 'bootstrap
     |--------------------------------------------------------------------------
     */
     function bindEvents () {
+        var Modal   =   $('#modalEditTrack');
 
         //  EDIT Track in Modal Window
         $('body').delegate('.btn-edit', 'click', function (e) {
@@ -112,6 +113,10 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrapTags', 'bootstrap
         //  SAVE Track metadata
         $('body').delegate('.btn-save', 'click', function (e) {
             saveTrackData();
+        });
+
+        //  RESET Track Edit form
+        Modal.on('hidden.bs.modal', function (e) {
             resetForm();
         });
 
