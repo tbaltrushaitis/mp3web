@@ -19,10 +19,9 @@ require([
       , bsTags
     ) {
 
-    var Player  =   new PlayerClass ()
-      , silent  =   checkMode ('silent')
-      , intro   =   checkMode ('intro')
-    ;
+    var Player  =   new PlayerClass ();
+    var silent  =   checkMode ('silent');
+    var intro   =   checkMode ('intro');
 
     Player.Populate();
 
@@ -33,7 +32,7 @@ require([
         Player.Play(link);
     });
 
-    $('.raty').each( function (idx, el) {
+    $('.raty').each(function (idx, el) {
         var that    =   $(this)
           , score   =   that.attr('data-score')
         ;
@@ -45,15 +44,15 @@ require([
     });
 
     // RATE
-    $('.btn-rate').click( function (e) {
+    $('.btn-rate').click(function (e) {
         e.stopImmediatePropagation();
         var Rate    =   $(this).attr('data-rate');
-        Player.Rate( Rate );
+        Player.Rate(Rate);
         e.preventDefault();
     });
 
     // TEST
-    $('#btn-control-test').click( function (e) {
+    $('#btn-control-test').click(function (e) {
         e.stopImmediatePropagation();
         var Instance    =   Player._data.instance
           , textTracks  =   Instance.textTracks
@@ -69,7 +68,7 @@ require([
         e.preventDefault();
     });
 
-    $('#btn-control-play').click( function (e) {
+    $('#btn-control-play').click(function (e) {
         e.stopImmediatePropagation();
         e.preventDefault();
         var self        =   $(this)
@@ -87,18 +86,18 @@ require([
         }
     });
 
-    $('#btn-control-backward').click( function (e) {
+    $('#btn-control-backward').click(function (e) {
         e.stopImmediatePropagation();
         e.preventDefault();
         Player.stepBackward();
     });
 
-    $('#btn-control-forward').click( function (e) {
+    $('#btn-control-forward').click(function (e) {
         e.preventDefault();
         Player.stepForward();
     });
 
-    $('.btn-player-option').click( function (e) {
+    $('.btn-player-option').click(function (e) {
         e.preventDefault();
         $(this).toggleClass('is-enabled')
             .toggleClass('active');
