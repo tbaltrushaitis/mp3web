@@ -46,32 +46,33 @@ Here is a list of tasks and possible params:
   | | show:usage | | | Show help topic
   | | show:config | config.json | | Output config file content into console
  :octocat: | **clean** | | | | Delete files and directories
-  | | clean:build | | ./build/* | Reset build directory
-  | | clean:dist | | ./dist/* | Reset release directory
-  | | clean:resources | | | Assets files removal
-  | | clean:public | | | Webroot directory
+  | | clean:build | | build/ | Reset build directory
+  | | clean:dist | | dist/ | Reset release directory
+  | | clean:resources | | build/resources/ \
+                          webroot/resources  | Assets files removal
+  | | clean:public | | build/public/assets/ | Webroot directory
  :+1: | **bower** | | | | Frontend modules manager
   | | bower:fonts | | | Collect fonts
   | | bower:css:fonts | | | Collect, merge and minify fonts CSS files
   | | bower:css:plugins | | | CSS files for plugins
-  | | bower:js | | | CSS files for plugins
-  | | bower:plugins | | | CSS files for plugins
+  | | bower:js | | | Plugins itself
+  | | bower:plugins | | | Plugins directories
  :dancers: | **sync** | | | | Copy directories
-  | | sync:engine | | | 
-  | | sync:src | | | 
-  | | sync:media | | | 
-  | | sync:assets | | | 
-  | | sync:assets:css | | | 
+  | | sync:engine | laravel-5.2/ | build/ | Laravel installation
+  | | sync:src | src/ | build/ | Code sources to Build
+  | | sync:assets | build/resources/assets/ | build/public/assets/ | Build Assets to public
+  | | sync:assets:css | src/resources/assets/css/ | build/resources/assets/css/ | 
+  | | sync:assets:media | build/resources/assets/img/ | build/public/assets/img/ | Build Images to public
   | | sync:assets:fonts | | | 
   | | sync:assets:js | | | 
   | | sync:views | | | 
   | | sync:dist | | | 
   | | sync:web | | | 
   | | sync:web:dev | | | 
- :white_check_mark: | **deploy** | | | | Publish releases
  :package: | **build** | | | | Build sources
   | | build | | | Production package
   | | build:dev | | | Test package
+ :white_check_mark: | **deploy** | | | | Publish releases
  :checkered_flag: | **lint** | | | | Checks JavaScript for mistakes
   | | jscs | | | 
   | | jshint | | | 
