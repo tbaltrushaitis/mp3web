@@ -88,7 +88,7 @@ gulp.task('default', function () {
             }
             case 'production': {
                 //gulpSequence('test', 'build', 'dist', 'deploy')();
-                gulpSequence(['clean'], ['sync:engine'], ['sync:src'], ['lint'], ['bower'], ['fixPermissions'])();
+                gulpSequence(['clean'], ['sync:engine'], ['sync:src'], ['sync:assets'], ['lint'], ['bower'], ['fixPermissions'])();
                 break;
             }
             default: {
