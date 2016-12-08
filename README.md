@@ -9,7 +9,7 @@
 
 
 ## Demo
-[Premium Music Collection](http://mp3.gsm-center.com.ua)
+[Premium Music Collection](http://mp3.gsm-center.com.ua) :scorpius:
 
 :star: :notes: :scorpius: :white_check_mark: :signal_strength: :dvd: :sound: :musical_note: :+1: :musical_keyboard: :saxophone: :violin: :musical_score: :headphones: 
 
@@ -39,10 +39,10 @@ $ npm i && bower i
 In common case gulp command should look like `gulp command:p1:..:pN`.
 Here is a list of tasks and possible params:
 
- # | Command | Task | Source | Target | Comment
+ :hash: | Command | Task | Source | Target | Comment
 ---|---------|------|--------|--------|---------
- :id: | **show** | | | | Display information
-  | | files:src | | | List of files
+ :information_source: | **show** | | | | Display information
+  | | files:src | src/ | build/ | List of files
   | | show:usage | | | Show help topic
   | | show:config | config.json | | Output config file content into console
  :octocat: | **clean** | | | | Delete files and directories
@@ -71,8 +71,8 @@ Here is a list of tasks and possible params:
  :package: | **build** | | | | Build sources
   | | build | | | Production package
   | | build:dev | | | Test package
- :white_check_mark: | **deploy** | | | | Publish releases
- :checkered_flag: | **lint** | | | | Checks JavaScript for mistakes
+ :rocket: | **deploy** | | | | Publish releases
+ :white_check_mark: | **lint** | | | | Checks JavaScript for mistakes
   | | jscs | | | 
   | | jshint | | | 
  :watch: | **watch** | | | | Detect files changes
