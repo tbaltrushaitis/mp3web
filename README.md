@@ -8,12 +8,7 @@
 [![Test Coverage](https://codeclimate.com/github/tbaltrushaitis/mp3/badges/coverage.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3/coverage)
 
 # Demo Site
-:point_right: [Premium Music Collection](http://mp3.gsm-center.com.ua) :minidisc: 
-
-----------------
-## And, just a few Emoji Icons
-:musical_score: :musical_keyboard: :violin: :musical_note: :microphone: :star: :loudspeaker: :notes: :scorpius: :white_check_mark: :signal_strength: :dvd: :sound: :musical_note: :+1: :musical_keyboard: :saxophone: :violin: :musical_score: :headphones: :notes: :headphones: :trumpet: :saxophone: :guitar: 
-----------------
+:point_right: [Premium Music Collection](http://mp3.gsm-center.com.ua)
 
 # Credits
 
@@ -43,25 +38,35 @@ Run the `setup.sh` script. In most cases it will do all of the needed stuff to r
 $ ./setup.sh
 ```
 
-## `setup.sh` script actions
+## Actions in `setup.sh` script
 
 ### Check if those packages are installed and available in PATH
-- [x] Composer
-- [x] Node.js
-- [x] NPM
-- [x] Bower
-- [x] Gulp
+- [ ] Composer
+- [ ] Node.js
+- [ ] NPM
+- [ ] Bower
+- [ ] Gulp
 
 ## Gulp Tasks Overview ##
 
-In common case gulp command should look like `gulp command:p1:..:pN`.
-Here is a list of tasks and possible params:
+In common case gulp command should look like
+```bash
+$ gulp command:p1:..:pN --env_VAR=some_VALUE
+
+# e.g.
+# gulp build:css --env=production
+# gulp bower:collect:fonts --env=production
+# or
+# gulp --env=dev
+```
+
+Below is a list of gulp tasks and their possible params:
 
  :hash: | Command | Task | Source | Target | Comment
 ---|---------|------|--------|--------|---------
  :information_source: | **show** | | | | Display information
   | | files:src | src/ | build/ | List of files
-  | | show:usage | | | Show help topic
+  | | usage | | | Show help topic
   | | show:config | config.json | | Output config file content into console
  :octocat: | **clean** | | | | Delete files and directories
   | | clean:build | | build/ | Reset build directory
@@ -75,8 +80,8 @@ Here is a list of tasks and possible params:
   | | bower:js | | | Plugins itself
   | | bower:plugins | | | Plugins directories
  :dancers: | **sync** | | | | Copy directories
-  | | sync:engine | laravel-5.2/ | build/ | Laravel installation
-  | | sync:src | src/ | build/ | Code sources to Build
+  | | sync:engine | laravel-5.2/ | build/ | Framework
+  | | sync:src | src/ | build/ | App source
   | | sync:assets | build/resources/assets/ | build/public/assets/ | Build Assets to public
   | | sync:assets:css | src/resources/assets/css/ | build/resources/assets/css/ | 
   | | sync:assets:media | build/resources/assets/img/ | build/public/assets/img/ | Build Images to public
@@ -130,3 +135,9 @@ Here is a list of tasks and possible params:
 
 **v0.0.0:**
 - [x] Initial release
+
+
+----------------
+## And, just a few Emoji Icons
+:musical_score: :musical_keyboard: :violin: :musical_note: :microphone: :star: :loudspeaker: :notes: :scorpius: :white_check_mark: :signal_strength: :dvd: :sound: :musical_note: :+1: :musical_keyboard: :saxophone: :violin: :musical_score: :headphones: :notes: :headphones: :trumpet: :saxophone: :guitar: 
+----------------
