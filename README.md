@@ -39,26 +39,36 @@ $ npm i && bower i
 In common case gulp command should look like `gulp command:p1:..:pN`.
 Here is a list of tasks and possible params:
 
- # | Task | Source | Target | Comment
----|------|--------|--------|--------
- :octocat: | **show** | | | Display various information
-  1 | show:usage | | | Show help topic
-  2 | show:config | config.json | | Output config file content into console
-    | **clean** | | :octocat: | Empty given entities and/or delete files
-  3 | clean:build | | ./build/* | Reset build directory
-  4 | clean:dist | | ./dist/* | Reset release directory
-  5 | clean:resources | | | Assets files removal
-  6 | clean:public | | | Webroot directory
-    | **bower** | :+1: | | Frontend modules manipulations
-  7 | bower:fonts | | | Collect fonts
-  8 | bower:css:fonts | | | Collect, merge and minify fonts CSS files
-  9 | bower:css:plugins | | | CSS files for plugins
- 10 | bower:js | | | CSS files for plugins
- 11 | bower:plugins | | | CSS files for plugins
-    | **lint** | | | Checks JavaScript source code for common mistakes
- 12 | jscs | | | 
- 13 | jshint | | | 
-    | artisan | | | Framework engine console commands
+ # | Command | Task | Source | Target | Comment
+---|---------|------|--------|--------|---------
+ :id: | **show** | | | | Display information
+  | | files:src | | | List of files
+  | | show:usage | | | Show help topic
+  | | show:config | config.json | | Output config file content into console
+ :octocat: | **clean** | | | | Delete files and directories
+  | | clean:build | | ./build/* | Reset build directory
+  | | clean:dist | | ./dist/* | Reset release directory
+  | | clean:resources | | | Assets files removal
+  | | clean:public | | | Webroot directory
+ :computer: | **bower** | :+1: | | Frontend modules manager
+  | bower:fonts | | | | Collect fonts
+  | | bower:css:fonts | | | Collect, merge and minify fonts CSS files
+  | | bower:css:plugins | | | CSS files for plugins
+  | | bower:js | | | CSS files for plugins
+  | | bower:plugins | | | CSS files for plugins
+ :dancers: | **sync** | | | | Copy directories
+ :package: | **deploy** | | | | Publish releases
+ :white_check_mark: | **build** | | | | Build sources
+  | | build | | | Production package
+  | | build:dev | | | Test package
+ :checkered_flag: | **lint** | | | | Checks JavaScript source code for common mistakes
+  | | jscs | | | 
+  | | jshint | | | 
+ :watch: | **watch** | | | | Development helpers
+  | | watch:src:views | | | Templates
+  | | watch:src:css | | | Styles
+  | | watch:src:js | | | Scripts
+ :on: | **artisan** | | | Laravel console commands
 
 ---------
 
