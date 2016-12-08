@@ -1,4 +1,4 @@
-# Web MP3 Player :star:
+# :notes: :headphones: :trumpet: :saxophone: :guitar: Web MP3 Player :musical_score: :musical_keyboard: :violin: :musical_note: :microphone:
 
 ![Web MP3 Player Logo](src/resources/assets/img/logo/Favicon.png)
 
@@ -8,8 +8,8 @@
 [![Test Coverage](https://codeclimate.com/github/tbaltrushaitis/mp3/badges/coverage.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3/coverage)
 :star:
 
-## Demo :notes:
-[Premium Music Collection](http://mp3.gsm-center.com.ua) :scorpius:
+## :point_right: Demo
+[Premium Music Collection](http://mp3.gsm-center.com.ua) :dancer:
 
 :star: :notes: :scorpius: :white_check_mark: :signal_strength: :dvd: :sound: :musical_note: :+1: :musical_keyboard: :saxophone: :violin: :musical_score: :headphones: 
 
@@ -29,9 +29,15 @@
 ## Download ##
 ```bash
 $ git clone https://github.com/tbaltrushaitis/mp3.git mp3 && cd mp3
-$ composer -vvv create-project --prefer-dist laravel/laravel laravel-5.2 "5.2.*"
-$ cp -pr laravel-5.2/ build/ && cd build && composer -vvv update && cd ..
-$ npm i && bower i
+```
+
+## Configure ##
+Open file `setup.rc` in your favourite editor and change values of build variables in it (e.g. DB_HOST, APP_URL)
+
+## Build &amp; Deploy ##
+Run the `setup.sh` script. In most cases it will do all of the needed staff to run you Web MP3 Player application
+```bash
+$ ./setup.sh
 ```
 
 ## Gulp Tasks Overview ##
