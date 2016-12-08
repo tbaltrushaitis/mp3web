@@ -1,4 +1,4 @@
-# :notes: :headphones: :trumpet: :saxophone: :guitar: Web MP3 Player :musical_score: :musical_keyboard: :violin: :musical_note: :microphone:
+# Web MP3 Player :headphones: :sound: :speaker:
 
 ![Web MP3 Player Logo](src/resources/assets/img/logo/Favicon.png)
 
@@ -6,12 +6,11 @@
 [![Code Climate](https://codeclimate.com/github/tbaltrushaitis/mp3/badges/gpa.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3)
 [![Issue Count](https://codeclimate.com/github/tbaltrushaitis/mp3/badges/issue_count.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3)
 [![Test Coverage](https://codeclimate.com/github/tbaltrushaitis/mp3/badges/coverage.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3/coverage)
-:star:
 
-## :point_right: Demo
-[Premium Music Collection](http://mp3.gsm-center.com.ua) :dancer:
+## :point_right: Demo Site
+[Premium Music Collection](http://mp3.gsm-center.com.ua) :minidisc: :loudspeaker:
 
-:star: :notes: :scorpius: :white_check_mark: :signal_strength: :dvd: :sound: :musical_note: :+1: :musical_keyboard: :saxophone: :violin: :musical_score: :headphones: 
+:musical_score: :musical_keyboard: :violin: :musical_note: :microphone: :star: :notes: :scorpius: :white_check_mark: :signal_strength: :dvd: :sound: :musical_note: :+1: :musical_keyboard: :saxophone: :violin: :musical_score: :headphones: :notes: :headphones: :trumpet: :saxophone: :guitar: 
 
 ## Credits
 
