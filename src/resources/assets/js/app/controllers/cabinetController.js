@@ -26,7 +26,7 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrapTags', 'bootstrap
 
         Modal.find('.panel-title').text('Edit Track [' + Id + ']');
         Modal.find('#id').val(oMeta.id);
-        Modal.find('#filename').val(oMeta.name);
+        Modal.find('#filename').val(oMeta.filename);
         Modal.find('#path').val(oMeta.path);
         Modal.find('#title').val(oMeta.title);
         Modal.find('#name').val(oMeta.name);
