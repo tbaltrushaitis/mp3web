@@ -1,4 +1,4 @@
-# Web MP3 Player
+# Web MP3 Player :star:
 
 ![Web MP3 Player Logo](src/resources/assets/img/logo/Favicon.png)
 
@@ -6,9 +6,9 @@
 [![Code Climate](https://codeclimate.com/github/tbaltrushaitis/mp3/badges/gpa.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3)
 [![Issue Count](https://codeclimate.com/github/tbaltrushaitis/mp3/badges/issue_count.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3)
 [![Test Coverage](https://codeclimate.com/github/tbaltrushaitis/mp3/badges/coverage.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3/coverage)
+:star:
 
-
-## Demo
+## Demo :notes:
 [Premium Music Collection](http://mp3.gsm-center.com.ua) :scorpius:
 
 :star: :notes: :scorpius: :white_check_mark: :signal_strength: :dvd: :sound: :musical_note: :+1: :musical_keyboard: :saxophone: :violin: :musical_score: :headphones: 

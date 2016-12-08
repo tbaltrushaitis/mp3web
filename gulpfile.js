@@ -33,8 +33,8 @@ const uglify    =   require('gulp-uglify');
 const gulpSequence  =   require('gulp-sequence')
 
 // const Config    =   require('./app-config.json');
-const ENGINE    =   path.join('laravel-5.2');
 const pkg   =   require('./package.json');
+const ENGINE =  path.join('laravel-5.2');
 const BOWER =   JSON.parse(fs.readFileSync('./.bowerrc')).directory;
 
 const SRC   =   path.join('src');
@@ -174,6 +174,7 @@ gulp.task('clean:dist', function () {
 
 //  SYNC
 gulp.task('sync:engine', function () {
+    console.log('[LOG]', 'Task sync:engine start');
     return  gulp.src('')
                 .pipe(dirSync(ENGINE, BUILD, syncOptions))
                 .on('error', console.error.bind(console));
@@ -380,7 +381,7 @@ gulp.task('bower:plugins', function () {
                 .pipe(changed( path.join(DEST, 'misc') ))
                 .pipe(gulp.dest( path.join(DEST, 'misc') ));
 
-    return merge(RATY, MISC);
+    return merge(RATY, TAGS, MISC);
 });
 
 //  ARTISAN
@@ -419,7 +420,6 @@ gulp.task('jscs', function () {
                 .pipe(jscs())
                 .pipe(jscs.reporter());
 });
-
 gulp.task('jshint', function () {
     return  gulp.src(SRC + 'resources/assets/js/' + '**/*.js')
                 .pipe( jshint('.jshintrc') )
