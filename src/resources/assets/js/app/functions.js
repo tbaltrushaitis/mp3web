@@ -72,6 +72,8 @@ function genUUID () {
 |   SEND AJAX REQUEST
 |--------------------------------------------------------------------------
 */
+
+
 function requestAjax (loUrl, loData, loType) {
     var resp = $.ajax({
         async:      false
