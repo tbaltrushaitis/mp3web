@@ -50,6 +50,7 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrapTags', 'bootstrap
                 });
 
             _.each(listGenres, function (tagGenre) {
+                console.info("tagGenre = ", tagGenre);
                 elGenres.tagsinput('add', tagGenre);
             });
             // .prop({'data-role': 'tagsinput'});

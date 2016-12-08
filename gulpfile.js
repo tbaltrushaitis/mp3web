@@ -459,7 +459,7 @@ gulp.task('files:src', function () {
 
 gulp.task('show:config', function () {
     //console.info('APP Config: [', Config, ']');
-    console.warn('ENV Config: [', envConfig, ']');
+    console.warn('ENV Config: [', util.inspect(envConfig), ']');
 });
 
 gulp.task('usage', function () {
