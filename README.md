@@ -7,9 +7,6 @@
 [![Issue Count](https://codeclimate.com/github/tbaltrushaitis/mp3/badges/issue_count.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3)
 [![Test Coverage](https://codeclimate.com/github/tbaltrushaitis/mp3/badges/coverage.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3/coverage)
 
-# Demo Site
-:point_right: [Premium Music Collection](http://mp3.gsm-center.com.ua)
-
 # Credits
 
  Name | Version | Description
@@ -23,6 +20,9 @@
 [Underscore.js](http://underscorejs.org) | 1.8.3 | JavaScript library that provides a whole mess of us
 [Composer](https://getcomposer.org/) | :trident: | Dependency Manager for PHP
 
+
+# Live Demo Site
+:point_right: [Premium Music Collection](http://mp3.gsm-center.com.ua)
 
 ## Download ##
 ```bash
