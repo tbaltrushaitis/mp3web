@@ -24,23 +24,41 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrapTags', 'bootstrap
         var Modal   =   $('#modalEditTrack');
         var oMeta   =   requestAjax('/' + Id + '/meta');
 
-        Modal.find('.panel-title').text('Edit Track [' + Id + ']');
-        Modal.find('#id').val(oMeta.id);
-        Modal.find('#filename').val(oMeta.filename);
-        Modal.find('#path').val(oMeta.path);
-        Modal.find('#title').val(oMeta.title);
-        Modal.find('#name').val(oMeta.name);
-        Modal.find('#artist').val(oMeta.artist);
-        Modal.find('#album').val(oMeta.album);
-        Modal.find('#track').val(oMeta.track);
-        Modal.find('#year').val(oMeta.year);
-        Modal.find('#track-genre')
-            .val(oMeta.genre)
-            .prop({'data-role': 'tagsinput'});
-        Modal.find('#track-tags')
-            .val(oMeta.tags)
-            .prop({'data-role': 'tagsinput'});
-        Modal.find('#meta').text( JSON.stringify(oMeta) );
+        $.when(oMeta)
+         .then(function (lo) {
+            console.log('listGenres = [', listGenres, ']');
+
+            Modal.find('.panel-title').text('Edit Track [' + Id + ']');
+            Modal.find('#id').val(lo.id);
+            Modal.find('#filename').val(lo.filename);
+            Modal.find('#path').val(lo.path);
+            Modal.find('#title').val(lo.title);
+            Modal.find('#name').val(lo.name);
+            Modal.find('#artist').val(lo.artist);
+            Modal.find('#album').val(lo.album);
+            Modal.find('#track').val(lo.track);
+            Modal.find('#year').val(lo.year);
+
+            var elGenres    =   Modal.find('#track-genre');
+            var listGenres  =   lo.genre.split(',');
+            elGenres.tagsinput('removeAll')
+                .tagsinput({
+                    maxTags:    5
+                  , maxChars:   10
+                  , trimValue:  true
+                  , allowDuplicates: false
+                });
+
+            _.each(listGenres, function (tagGenre) {
+                elGenres.tagsinput('add', tagGenre);
+            });
+            // .prop({'data-role': 'tagsinput'});
+
+            Modal.find('#track-tags')
+                .val(lo.tags)
+                .prop({'data-role': 'tagsinput'});
+            Modal.find('#meta').text( JSON.stringify(lo) );
+         });
     }
 
 
