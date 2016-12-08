@@ -36,6 +36,7 @@ const gulpSequence  =   require('gulp-sequence')
 const pkg   =   require('./package.json');
 const ENGINE =  path.join('laravel-5.2');
 const BOWER =   JSON.parse(fs.readFileSync('./.bowerrc')).directory;
+const _     =   require('lodash');
 
 const SRC   =   path.join('src');
 const BUILD =   path.join('build');
@@ -46,6 +47,7 @@ const reportOptions =   pkg.options.reporting;
 const execOptions   =   pkg.options.exec;
 const watchOptions  =   pkg.options.watch;
 const syncOptions   =   pkg.options.sync;
+
 
 var now     =   new Date();
 var Banner  =   {
@@ -68,26 +70,30 @@ var envConfig = {
 };
 envConfig   =   parseArgs(process.argv.slice(2), envConfig);
 
+//console.log('\n\n\n', 'Banner.header = [', util.inspect(Banner.header), ']');
+console.log('\n\n\n', 'envConfig = [', util.inspect(envConfig), ']\n\n\n');
+
 //  MAIN ROUTER
 gulp.task('default', function () {
     //  DEFAULT Scenario Route
     (function () {
         switch (envConfig.env) {
             case 'empty': {
-                gulpSequence('lint', 'show:usage', 'sync:engine')();
+                gulpSequence('lint', 'usage')();
                 break;
             }
             case 'dev': {
-                gulpSequence('build:dev', 'deploy', 'watch')();
+                gulpSequence('clean:build', 'build:dev', 'deploy', 'watch')();
                 break;
             }
             case 'production': {
-                gulpSequence('test', 'build', 'deploy')();
+                //gulpSequence('test', 'build', 'dist', 'deploy')();
+                gulpSequence(['clean'], ['sync:engine'], ['sync:src'], ['lint'], ['bower'], ['fixPermissions'])();
                 break;
             }
             default: {
                 // gulpSequence('test', 'show:config', 'watch')();
-                gulpSequence('show:usage')();
+                gulpSequence('usage')();
                 break;
             }
         }
@@ -95,15 +101,24 @@ gulp.task('default', function () {
 
 });
 
-gulp.task('test',       gulpSequence('files:src'));
+gulp.task('test',       gulpSequence(['files:src'], ['usage']));
 gulp.task('lint',       gulpSequence('jshint', 'jscs'));
 
 gulp.task('clean',      gulpSequence(['clean:build', 'clean:dist']));
+
 gulp.task('artisan',    gulpSequence('artisan:vendor:publish', 'artisan:migrate', 'artisan:clear'));
-gulp.task('bower',      gulpSequence(['bower:fonts', 'bower:css:fonts', 'bower:css:plugins'], ['bower:js', 'bower:plugins']));
-gulp.task('build:dev',  gulpSequence(['clean:resources', 'clean:public'], 'sync:src', ['sync:media', 'bower'], 'sync:assets:fonts', ['build:css', 'build:scripts']));
-gulp.task('build',      gulpSequence(['clean:resources', 'clean:public'], 'sync:src', 'artisan:vendor:publish', ['sync:media', 'bower'], 'sync:assets:fonts', ['build:css', 'build:scripts']));
-gulp.task('dist',       gulpSequence('build', 'sync:dist'));
+gulp.task('bower',      gulpSequence(['bower:fonts'], ['bower:css:fonts', 'bower:css:plugins'], ['bower:js'], ['bower:plugins']));
+gulp.task('build:dev',  gulpSequence(['clean:resources', 'clean:public'], ['sync:src'], ['sync:media', 'bower'], 'sync:assets:fonts', ['build:css', 'build:scripts']));
+gulp.task('build',      gulpSequence(
+                            ['clean:build']
+                          , ['sync:engine']
+                          , ['sync:src']
+                          , ['artisan:vendor:publish']
+                          , ['sync:media', 'bower']
+                          , ['sync:assets:fonts']
+                          , ['build:css', 'build:scripts']
+                        ));
+gulp.task('dist',       gulpSequence(['clean:dist'], ['sync:dist']));
 gulp.task('deploy',     gulpSequence('sync:web', 'artisan:clear'));
 gulp.task('watch',      gulpSequence('watch:src:views', 'watch:src:css', 'watch:src:js'));
 
@@ -140,13 +155,13 @@ gulp.task('watch:src:js', function () {
 
 //  CLEAN
 gulp.task('clean:build', function () {
-    return  gulp.src([
-                path.join(BUILD, '.*')
-//              , path.join(BUILD, '*')
-            ])
-            .pipe(vinylPaths(del));
+    return  gulp.src([BUILD]).pipe(vinylPaths(del));
 });
-gulp.task('clean:resources', function () {
+gulp.task('clean:dist', function () {
+    return  gulp.src([DIST]).pipe(vinylPaths(del));
+});
+
+/* gulp.task('clean:resources', function () {
     return  gulp.src([
                 path.join(BUILD, 'resources', '.*')
               , path.join(WEB,   'resources', '.*')
@@ -163,23 +178,17 @@ gulp.task('clean:public', function () {
               , path.join(WEB,   'public/assets',   '.*')
             ])
             .pipe(vinylPaths(del));
-});
-gulp.task('clean:dist', function () {
-    return  gulp.src([
-                path.join(DIST, '*')
-              , path.join(DIST, '.*')
-            ])
-            .pipe(vinylPaths(del));
-});
+});*/
 
 //  SYNC
 gulp.task('sync:engine', function () {
-    console.log('[LOG]', 'Task sync:engine start');
+    console.log('[LOG]', 'Task SYNC:ENGINE start');
     return  gulp.src('')
-                .pipe(dirSync(ENGINE, BUILD, syncOptions))
+                .pipe(dirSync(ENGINE, BUILD, _.extend(syncOptions, {ignore: [/^\.env(.*)?$/i, /^(.*)\.md$/i]})))
                 .on('error', console.error.bind(console));
 });
 gulp.task('sync:src', function () {
+    console.log('[LOG]', 'Task SYNC:SRC start');
     return  gulp.src('')
                 .pipe(dirSync(SRC, BUILD, {
                         printSummary: true
@@ -264,6 +273,7 @@ gulp.task('build:css', function () {
     return  gulp.src([
                 path.join(BUILD, 'resources/assets/css/*.css')
               , '!**/errors.css'
+              , '!**/styles.css'
               // , '!**/fonts-cdn.css'
             ])
             .pipe(concatCSS('styles.css', {rebaseUrls: false}))
@@ -343,7 +353,6 @@ gulp.task('bower:js', function () {
     var DEST = path.join(BUILD, 'public/assets/js/lib');
     return  gulp.src([
                 path.join(BOWER, 'bootstrap/dist/js/bootstrap.js')
-              , path.join(BOWER, 'bootstrap-tagsinput/dist/bootstrap-tagsinput.js')
               , path.join(BOWER, 'jquery/dist/jquery.js')
               , path.join(BOWER, 'jquery-tmpl/jquery.tmpl.js')
               , path.join(BOWER, 'lodash/lodash.js')
@@ -423,12 +432,15 @@ gulp.task('jscs', function () {
 gulp.task('jshint', function () {
     return  gulp.src(SRC + 'resources/assets/js/' + '**/*.js')
                 .pipe( jshint('.jshintrc') )
-//                .pipe( gulpif('production' === envConfig.env
-//                        )
-                .pipe( jshint.reporter('fail', { verbose: true })
-                );
-                //        , jshint.reporter('default', { verbose: true })
+                .pipe(  gulpif('production' === envConfig.env
+                  , jshint.reporter('fail', { verbose: true })
+                  , jshint.reporter('default', { verbose: true })
+                ));
                 //        , jshint.reporter('jshint-stylish', { verbose: true })
+});
+
+gulp.task('fixPermissions', function () {
+    return  gulp.src('**').pipe(chown(48));
 });
 
 // Log file paths in the stream
@@ -446,15 +458,15 @@ gulp.task('files:src', function () {
 });
 
 gulp.task('show:config', function () {
-    console.info('APP Config: [', Config, ']');
+    //console.info('APP Config: [', Config, ']');
     console.warn('ENV Config: [', envConfig, ']');
 });
 
-gulp.task('show:usage', function () {
+gulp.task('usage', function () {
     console.log('\n' + (new Array(50).join('-')));
     console.info('\nUsage: gulp <task>\t-\tRun gulp task(s) specified');
     console.info('\nwhere <task> is one of:\n');
-    console.warn('\tshow:usage' + '\t', 'Show this topic');
+    console.warn('\tusage' + '\t', 'Show this topic');
     console.warn('\tshow:config' + '\t', 'Show Configuration file');
     console.warn('\tfiles:src' + '\t', 'Log File Paths in the Stream');
     console.warn('\n\tclean' + '\t\t', 'Empty given folders and Delete files');
