@@ -50,25 +50,36 @@ Here is a list of tasks and possible params:
   | | clean:dist | | ./dist/* | Reset release directory
   | | clean:resources | | | Assets files removal
   | | clean:public | | | Webroot directory
- :computer: | **bower** | :+1: | | Frontend modules manager
-  | bower:fonts | | | | Collect fonts
+ :+1: | **bower** | | | | Frontend modules manager
+  | | bower:fonts | | | Collect fonts
   | | bower:css:fonts | | | Collect, merge and minify fonts CSS files
   | | bower:css:plugins | | | CSS files for plugins
   | | bower:js | | | CSS files for plugins
   | | bower:plugins | | | CSS files for plugins
  :dancers: | **sync** | | | | Copy directories
- :package: | **deploy** | | | | Publish releases
- :white_check_mark: | **build** | | | | Build sources
+  | | sync:engine | | | 
+  | | sync:src | | | 
+  | | sync:media | | | 
+  | | sync:assets | | | 
+  | | sync:assets:css | | | 
+  | | sync:assets:fonts | | | 
+  | | sync:assets:js | | | 
+  | | sync:views | | | 
+  | | sync:dist | | | 
+  | | sync:web | | | 
+  | | sync:web:dev | | | 
+ :white_check_mark: | **deploy** | | | | Publish releases
+ :package: | **build** | | | | Build sources
   | | build | | | Production package
   | | build:dev | | | Test package
- :checkered_flag: | **lint** | | | | Checks JavaScript source code for common mistakes
+ :checkered_flag: | **lint** | | | | Checks JavaScript for mistakes
   | | jscs | | | 
   | | jshint | | | 
- :watch: | **watch** | | | | Development helpers
+ :watch: | **watch** | | | | Detect files changes
   | | watch:src:views | | | Templates
   | | watch:src:css | | | Styles
   | | watch:src:js | | | Scripts
- :on: | **artisan** | | | Laravel console commands
+ :on: | **artisan** | | | | Laravel console commands
 
 ---------
 
