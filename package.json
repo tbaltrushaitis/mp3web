@@ -1,9 +1,9 @@
 {   "name":     "mp3"
   , "title":    "Web MP3 Player"
   , "version":  "1.0.0"
-  , "description":  "Audio MP3 Storage and Player based on Node.js and Laravel"
+  , "description":  "Web MP3 Player and Media Library Manager based on Node.js, Laravel and HTML5 + lightweight JavaScript MVC modeling on FrontEnd"
   , "author": {
-        "name":  "Tomas Baltrushaitis"
+        "name":  "Baltrushaitis Tomas"
       , "email": "tbaltrushaitis@gmail.com"
       , "url":   "https://github.com/tbaltrushaitis"
     }
@@ -31,9 +31,12 @@
         "mp3"
       , "audio"
       , "player"
-      , "web"
       , "laravel"
+      , "media"
       , "library"
+      , "storage"
+      , "manager"
+      , "web"
     ]
   , "bugs": {
         "url": "https://github.com/tbaltrushaitis/mp3/issues"

@@ -7,12 +7,15 @@
 [![Issue Count](https://codeclimate.com/github/tbaltrushaitis/mp3/badges/issue_count.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3)
 [![Test Coverage](https://codeclimate.com/github/tbaltrushaitis/mp3/badges/coverage.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3/coverage)
 
-## :point_right: Demo Site
-[Premium Music Collection](http://mp3.gsm-center.com.ua) :minidisc: :loudspeaker:
+# Demo Site
+:point_right: [Premium Music Collection](http://mp3.gsm-center.com.ua) :minidisc: 
 
-:musical_score: :musical_keyboard: :violin: :musical_note: :microphone: :star: :notes: :scorpius: :white_check_mark: :signal_strength: :dvd: :sound: :musical_note: :+1: :musical_keyboard: :saxophone: :violin: :musical_score: :headphones: :notes: :headphones: :trumpet: :saxophone: :guitar: 
+----------------
+## And, just a few Emoji Icons
+:musical_score: :musical_keyboard: :violin: :musical_note: :microphone: :star: :loudspeaker: :notes: :scorpius: :white_check_mark: :signal_strength: :dvd: :sound: :musical_note: :+1: :musical_keyboard: :saxophone: :violin: :musical_score: :headphones: :notes: :headphones: :trumpet: :saxophone: :guitar: 
+----------------
 
-## Credits
+# Credits
 
  Name | Version | Description
 ------|---------|-------------
@@ -23,6 +26,7 @@
 [jQuery](http://jquery.com/) | 2.2.4 | JavaScript Library
 [requirejs](https://github.com/jrburke/requirejs) | 2.3.1 | A file and module loader for JavaScript
 [Underscore.js](http://underscorejs.org) | 1.8.3 | JavaScript library that provides a whole mess of us
+[Composer](https://getcomposer.org/) | :trident: | Dependency Manager for PHP
 
 
 ## Download ##
@@ -34,10 +38,19 @@ $ git clone https://github.com/tbaltrushaitis/mp3.git mp3 && cd mp3
 Open file `setup.rc` in your favourite editor and change values of build variables in it (e.g. DB_HOST, APP_URL)
 
 ## Build &amp; Deploy ##
-Run the `setup.sh` script. In most cases it will do all of the needed staff to run you Web MP3 Player application
+Run the `setup.sh` script. In most cases it will do all of the needed stuff to run instance of Web MP3 Player app
 ```bash
 $ ./setup.sh
 ```
+
+## `setup.sh` script actions
+
+### Check if those packages are installed and available in PATH
+- [x] Composer
+- [x] Node.js
+- [x] NPM
+- [x] Bower
+- [x] Gulp
 
 ## Gulp Tasks Overview ##
 

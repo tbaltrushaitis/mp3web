@@ -16,10 +16,18 @@ APP_PATH="${APP_HOME}${APP_DIR}"
 printf "[INFO]\tAPP_PATH=${APP_PATH}\n";
 
 
+_composer=`which composer 2>&1`
+if [ $? -ne 0 ]; then
+    printf "[ERROR]\tPlease install composer\n";
+    printf "[INFO]\thttps://getcomposer.org/\n";
+    exit 1
+fi
+printf "[OK]\tComposer $(composer -V) Installed\n";
+
 ##  ------------------------------------------------------------------------- //
 ##  NODEJS
 ##  ------------------------------------------------------------------------- //
-node=`which node 2>&1`
+_node=`which node 2>&1`
 if [ $? -ne 0 ]; then
     printf "[ERROR]\tPlease install NodeJS\n";
     printf "[INFO]\thttp://nodejs.org/\n";
@@ -31,7 +39,7 @@ printf "[OK]\tNodeJS $(node -v) Installed\n";
 ##  ------------------------------------------------------------------------- //
 ##  NPM
 ##  ------------------------------------------------------------------------- //
-npm=`which npm 2>&1`
+_npm=`which npm 2>&1`
 if [ $? -ne 0 ]; then
     printf "[ERROR]\tPlease install NPM\n";
     exit 1
@@ -42,12 +50,23 @@ printf "[OK]\tNPM v$(npm -v) Installed\n";
 ##  ------------------------------------------------------------------------- //
 ##  BOWER
 ##  ------------------------------------------------------------------------- //
-bower=`which bower 2>&1`
+_bower=`which bower 2>&1`
 if [ $? -ne 0 ]; then
     printf "[ERROR]\tPlease install Bower\n";
     exit 1
 fi
 printf "[OK]\tBower v$(bower -v) Installed\n";
+
+
+##  ------------------------------------------------------------------------- //
+##  GULP
+##  ------------------------------------------------------------------------- //
+_gulp=`which gulp 2>&1`
+if [ $? -ne 0 ]; then
+    printf "[ERROR]\tPlease install Gulp\n";
+    exit 1
+fi
+printf "[OK]\tGulp $(gulp -v) Installed\n";
 
 
 ##  ------------------------------------------------------------------------- //
@@ -104,7 +123,7 @@ printf "[OK]\tBower v$(bower -v) Installed\n";
 #deploy -> sync:web, artisan:clear
 
 ##  ------------------------------------------------------------------------- //
-##  #   COMPOSER
+##  PHP COMPOSER
 ##  ------------------------------------------------------------------------- //
 function composer_setup {
     SIGNATURE_EXPECTED=$(wget http://composer.github.io/installer.sig -O - -q)
@@ -128,7 +147,7 @@ function composer_setup {
 
 function composer_selfupdate {
     composer -vvv selfupdate
-    printf "[LOG]\tCOMPOSER UPDATED\n"
+    printf "[LOG]\tCOMPOSER UPDATED to $(composer -V)\n"
 }
 
 function check_composer {
@@ -138,7 +157,8 @@ function check_composer {
         printf "[INFO]\thttp://getcomposer.org/\n";
         printf "[LOG]\tStarting composer setup ... \n";
         # composer_setup
-        # composer_selfupdate
+        composer_selfupdate
+        printf "[INFO]\tPlease run $# again.\n";
         # exit 1
     fi
 }
@@ -193,8 +213,8 @@ function deps_install {
 }
 
 function deps_outdated {
-    npm outdated
     bower list
+    npm outdated
 }
 
 ##  ------------------------------------------------------------------------- //
@@ -205,6 +225,7 @@ check_engine
 check_git
 
 git_update
+
 deps_install
 deps_outdated
 
