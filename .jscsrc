@@ -12,7 +12,7 @@
   , "disallowYodaConditions":       true
   , "disallowKeywords":             ["with"]
   , "disallowMultipleLineBreaks":   true
-  , "disallowMultipleVarDecl":      true
+  , "disallowMultipleVarDecl":      false
   , "requireSpaceBeforeBlockStatements":    true
   , "requireParenthesesAroundIIFE":         true
   , "requireSpacesInConditionalExpression": true
