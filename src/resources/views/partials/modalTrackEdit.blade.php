@@ -65,14 +65,6 @@
                         </div>
                     </div>
 
-<!--/                    <div class="form-group">
-                        <label for="track-genre" class="col-sm-1 control-label">Genre:</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="track-genre" data-role="tagsinput-disabled" placeholder="pop" />
-                        </div>
-                    </div>
-/-->
-
                     <div class="form-group">
                         <label for="track-genre" class="col-sm-1 control-label">Genre:</label>
                         <div class="col-sm-10">

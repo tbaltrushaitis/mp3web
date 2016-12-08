@@ -79,7 +79,7 @@ Below is a list of gulp tasks and their possible params:
   | | bower:css:plugins | | | CSS files for plugins
   | | bower:js | | | Plugins itself
   | | bower:plugins | | | Plugins directories
- :dancers: | **sync** | | | | Copy directories
+ :twisted_rightwards_arrows: | **sync** | | | | Copy directories
   | | sync:engine | laravel-5.2/ | build/ | Framework
   | | sync:src | src/ | build/ | App source
   | | sync:assets | build/resources/assets/ | build/public/assets/ | Build Assets to public
