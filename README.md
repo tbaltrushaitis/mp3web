@@ -48,8 +48,7 @@ Here is a list of tasks and possible params:
  :octocat: | **clean** | | | | Delete files and directories
   | | clean:build | | build/ | Reset build directory
   | | clean:dist | | dist/ | Reset release directory
-  | | clean:resources | | build/resources/ \
-                          webroot/resources  | Assets files removal
+  | | clean:resources | | build/resources/, webroot/resources/  | Assets files removal
   | | clean:public | | build/public/assets/ | Webroot directory
  :+1: | **bower** | | | | Frontend modules manager
   | | bower:fonts | | | Collect fonts
