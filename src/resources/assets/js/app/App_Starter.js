@@ -110,11 +110,11 @@ require([
     }
 
     if (intro) {
-        setTimeout ( function PlayIntro () {
+        setTimeout (function PlayIntro () {
             Player.stepForward();
             setTimeout ( PlayIntro, 5000);
         }, 100);
-    }else{
+    } else {
         Player.stepForward();
     }
 
