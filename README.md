@@ -1,4 +1,4 @@
-# Web MP3 Player :headphones: :sound: :speaker:
+# Web MP3 Player :headphones: and Media Library Manager
 
 ![Web MP3 Player Logo](src/resources/assets/img/logo/Favicon.png)
 

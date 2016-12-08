@@ -2,7 +2,6 @@
 #
 #   Script to initialize repo
 # - install required node packages
-# - install Karma
 # - install git hooks
 
 source setup.rc
@@ -15,15 +14,6 @@ APP_PATH="${APP_HOME}${APP_DIR}"
 
 printf "[INFO]\tAPP_PATH=${APP_PATH}\n";
 
-
-_composer=`which composer 2>&1`
-if [ $? -ne 0 ]; then
-    printf "[ERROR]\tPlease install composer\n";
-    printf "[INFO]\thttps://getcomposer.org/\n";
-    exit 1
-fi
-printf "[OK]\tComposer $(composer -V) Installed\n";
-
 ##  ------------------------------------------------------------------------- //
 ##  NODEJS
 ##  ------------------------------------------------------------------------- //
@@ -33,7 +23,7 @@ if [ $? -ne 0 ]; then
     printf "[INFO]\thttp://nodejs.org/\n";
     exit 1
 fi
-printf "[OK]\tNodeJS $(node -v) Installed\n";
+printf "[OK]\tNODEJS $(node -v) Installed\n";
 
 
 ##  ------------------------------------------------------------------------- //
@@ -55,7 +45,7 @@ if [ $? -ne 0 ]; then
     printf "[ERROR]\tPlease install Bower\n";
     exit 1
 fi
-printf "[OK]\tBower v$(bower -v) Installed\n";
+printf "[OK]\tBOWER v$(bower -v) Installed\n";
 
 
 ##  ------------------------------------------------------------------------- //
@@ -66,18 +56,7 @@ if [ $? -ne 0 ]; then
     printf "[ERROR]\tPlease install Gulp\n";
     exit 1
 fi
-printf "[OK]\tGulp $(gulp -v) Installed\n";
-
-
-##  ------------------------------------------------------------------------- //
-##  KARMA
-##  ------------------------------------------------------------------------- //
-# karma=`which karma 2>&1`
-# if [ $? -ne 0 ]; then
-  # printf "Installing Karma ... \n";
-  # npm install -g karma
-# fi
-#printf "[OK]\tKarma Installed\n";
+printf "[OK]\tGULP Installed:\n$(gulp -v) \n";
 
 
 ##  ------------------------------------------------------------------------- //
@@ -97,28 +76,10 @@ printf "[OK]\tGulp $(gulp -v) Installed\n";
 #//  GIT
 #git pull origin tagsInput
 
-#//  CLEAN
-#gulp clean:build
-#gulp clean:dist
-#gulp clean:resources
-#gulp clean:public
-
-
-# gulp bower
-#gulp bower:fonts
-#gulp bower:css:fonts
-#gulp bower:css:plugins
-#gulp bower:js
-#gulp bower:plugins
-
 # deploy
 #gulp sync:web
 #gulp artisan:clear
 
-
-# clean
-#[   'clean:build'
-#  , 'clean:dist']
 
 #deploy -> sync:web, artisan:clear
 
@@ -161,6 +122,7 @@ function check_composer {
         printf "[INFO]\tPlease run $# again.\n";
         # exit 1
     fi
+    printf "[OK]\t$(composer -V) Installed\n";
 }
 
 ##  ------------------------------------------------------------------------- //
@@ -206,7 +168,7 @@ function check_git {
 ##  ------------------------------------------------------------------------- //
 function deps_install {
     printf "[LOG]\tInstalling required npm packages ... \n";
-    npm i
+    npm i -verbose
 
     printf "[LOG]\tInstalling required Bower packages ... \n";
     bower i --verbose
@@ -220,14 +182,26 @@ function deps_outdated {
 ##  ------------------------------------------------------------------------- //
 ##  EXECUTION
 ##  ------------------------------------------------------------------------- //
+
 check_composer
 check_engine
 check_git
+sleep 1;
 
 git_update
+sleep 1;
 
 deps_install
-deps_outdated
+sleep 1;
+
+gulp -vvv --env=production
+sleep 1;
+
+# gulp build
+# gulp artisan
+
+# gulp dist
+# gulp deploy;
 
 printf "\n\n[LOG]\tALL DONE\n"
 ##  --------------------------  EOF: setup.sh  -----------------------------  //
