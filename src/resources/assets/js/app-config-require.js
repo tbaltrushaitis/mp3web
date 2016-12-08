@@ -4,6 +4,7 @@ requirejs.config({
     baseUrl: 'assets/js'
   , paths: {
         jquery:         'lib/jquery'
+
 //      , underscore:     'lib/underscore'
       , underscore:     'lib/lodash'
       , bootstrap:      'lib/bootstrap'
@@ -26,7 +27,7 @@ requirejs.config({
             exports:    'bootstrap'
           , deps:       ['jquery']
         }
-      , bootstrapTags:  ['jquery']
+      , bootstrapTags:  ['jquery', 'bootstrap']
       , Tmpl:           ['jquery']
       , raty:           ['jquery']
       , Abstract:       ['jquery']
