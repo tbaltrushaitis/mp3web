@@ -1,7 +1,8 @@
 /*  BOF: ROOT/gulpfile.js  */
 
 //##  Make sure that jQuery included  ##//
-const   jQuery  =   jQuery  ||  require('jquery')(require('jsdom').jsdom().parentWindow)
+//const   jQuery  =   jQuery  ||  require('jquery')(require('jsdom').jsdom().parentWindow)
+const   jQuery  =   jQuery  ||  require('jquery')
       , $       =   $   ||  jQuery
       , _       =   _   ||  require('lodash')
 ;
@@ -57,7 +58,7 @@ const syncOptions   =   pkg.options.sync;
 
 var now     =   new Date();
 var Banner  =   {
-        header: '/*!\n' +
+        header: '\n\n/*!\n' +
                 ' * <%= pkg.name %> v<%= pkg.version %>: <%= pkg.title %>\n' +
                 ' * <%= pkg.description %>\n' +
                 ' * Copyright: ' + dateFormat(now, "yyyy-mm-dd HH:MM:ss") + ' <%= pkg.author.name %>\n' +
@@ -283,9 +284,9 @@ gulp.task('build:css', function () {
               // , '!**/fonts-cdn.css'
             ])
             .pipe(concatCSS('styles.css', {rebaseUrls: false}))
-            .pipe(gulpif('production' === envConfig.env ? cleanCSS({debug: true, processImport: false}, function (details) {
+            .pipe(gulpif('production' === envConfig.env, cleanCSS({debug: true, processImport: false}, function (details) {
                 console.info(details.name + ': ' + details.stats.originalSize + ' -> ' + details.stats.minifiedSize + ' [' + details.stats.timeSpent + 'ms] [' + details.stats.efficiency.toFixed(2) + '%]');
-            }) : false))
+            }), false))
             .pipe(header(Banner.header, {pkg: pkg}))
             .pipe(gulp.dest(DEST));
 });
@@ -295,7 +296,7 @@ gulp.task('build:scripts', function () {
         .pipe(jscs())
         .pipe(jscs.reporter())
         .pipe(changed(DEST))
-        .pipe(gulpif('production' === envConfig.env ? uglify() : false))
+        .pipe(gulpif('production' === envConfig.env, uglify(), false))
         .pipe(header(Banner.header, {pkg: pkg}))
         .pipe(gulp.dest(DEST));
 });
@@ -447,18 +448,15 @@ gulp.task('jshint', function () {
 
 gulp.task('fixPermissions', function () {
     return  gulp.src([
-                path.join(BUILD)
+                path.join(BUILD, '**')
             ])
             .pipe(vinylPaths(function (vPath) {
                 console.log('File:', vPath);
-                //return exec('sudo chown apache:apache ' + vPath);
-                return  $.when(exec('sudo chown apache:apache ' + vPath))
-                         .then(function () {
-                            return Promise.resolve();
-                         });
+                exec('sudo chown apache:apache ' + vPath);
+                return Promise.resolve();
             }));
 });
-                //.pipe(chown(48))
+//.pipe(chown(48))
 
 // Log file paths in the stream
 gulp.task('files:src', function () {
