@@ -67,12 +67,10 @@ Below is a list of gulp tasks and their possible params:
  :information_source: | **show** | | | | Display information
   | | files:src | src/ | build/ | List of files
   | | usage | | | Show help topic
-  | | show:config | config.json | | Output config file content into console
+  | | show:config | .env | | Environment config
  :octocat: | **clean** | | | | Delete files and directories
   | | clean:build | | build/ | Reset build directory
   | | clean:dist | | dist/ | Reset release directory
-  | | clean:resources | | build/resources/, webroot/resources/  | Assets files removal
-  | | clean:public | | build/public/assets/ | Webroot directory
  :+1: | **bower** | | | | Frontend modules manager
   | | bower:fonts | | | Collect fonts
   | | bower:css:fonts | | | Collect, merge and minify fonts CSS files
@@ -96,13 +94,13 @@ Below is a list of gulp tasks and their possible params:
   | | build:dev | | | Test package
  :rocket: | **deploy** | | | | Publish releases
  :white_check_mark: | **lint** | | | | Checks JavaScript for mistakes
-  | | jscs | | | 
-  | | jshint | | | 
- :watch: | **watch** | | | | Detect files changes
+  | | jscs | | | Code style linter and formatter
+  | | jshint | | | Static Code Analysis Tool
+ :restroom: | **watch** | | | | Detect files changes
   | | watch:src:views | | | Templates
   | | watch:src:css | | | Styles
   | | watch:src:js | | | Scripts
- :on: | **artisan** | | | | Laravel console commands
+ :u5408: | **artisan** | | | | Laravel console commands
 
 ---------
 

@@ -1,5 +1,11 @@
 /*  BOF: ROOT/gulpfile.js  */
 
+//##  Make sure that jQuery included  ##//
+const   jQuery  =   jQuery  ||  require('jquery')(require('jsdom').jsdom().parentWindow)
+      , $       =   $   ||  jQuery
+      , _       =   _   ||  require('lodash')
+;
+
 const fs    =   require('fs');
 const path  =   require('path');
 const del   =   require('del');
@@ -36,7 +42,7 @@ const gulpSequence  =   require('gulp-sequence')
 const pkg   =   require('./package.json');
 const ENGINE =  path.join('laravel-5.2');
 const BOWER =   JSON.parse(fs.readFileSync('./.bowerrc')).directory;
-const _     =   require('lodash');
+//const _     =   require('lodash');
 
 const SRC   =   path.join('src');
 const BUILD =   path.join('build');
@@ -277,9 +283,9 @@ gulp.task('build:css', function () {
               // , '!**/fonts-cdn.css'
             ])
             .pipe(concatCSS('styles.css', {rebaseUrls: false}))
-            .pipe(gulpif('production' === envConfig.env, cleanCSS({debug: true, processImport: false}, function (details) {
+            .pipe(gulpif('production' === envConfig.env ? cleanCSS({debug: true, processImport: false}, function (details) {
                 console.info(details.name + ': ' + details.stats.originalSize + ' -> ' + details.stats.minifiedSize + ' [' + details.stats.timeSpent + 'ms] [' + details.stats.efficiency.toFixed(2) + '%]');
-            })))
+            }) : false))
             .pipe(header(Banner.header, {pkg: pkg}))
             .pipe(gulp.dest(DEST));
 });
@@ -289,7 +295,7 @@ gulp.task('build:scripts', function () {
         .pipe(jscs())
         .pipe(jscs.reporter())
         .pipe(changed(DEST))
-        .pipe(gulpif('production' === envConfig.env, uglify()))
+        .pipe(gulpif('production' === envConfig.env ? uglify() : false))
         .pipe(header(Banner.header, {pkg: pkg}))
         .pipe(gulp.dest(DEST));
 });
@@ -440,8 +446,19 @@ gulp.task('jshint', function () {
 });
 
 gulp.task('fixPermissions', function () {
-    return  gulp.src('**').pipe(chown(48));
+    return  gulp.src([
+                path.join(BUILD)
+            ])
+            .pipe(vinylPaths(function (vPath) {
+                console.log('File:', vPath);
+                //return exec('sudo chown apache:apache ' + vPath);
+                return  $.when(exec('sudo chown apache:apache ' + vPath))
+                         .then(function () {
+                            return Promise.resolve();
+                         });
+            }));
 });
+                //.pipe(chown(48))
 
 // Log file paths in the stream
 gulp.task('files:src', function () {
