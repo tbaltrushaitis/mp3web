@@ -1,5 +1,5 @@
-{   "name":         "mp3"
-  , "description":  "Web MP3 Player"
+{   "name":         "mp3web"
+  , "description":  "Web MP3 Player and Media Library Manager based on Node.js, Laravel and HTML5 + lightweight JavaScript MVC modeling on FrontEnd"
   , "main":         "index.php"
   , "authors": [
         "tbaltrushaitis@gmail.com"
