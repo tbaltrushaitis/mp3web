@@ -26,7 +26,6 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrapTags', 'bootstrap
 
         $.when(oMeta)
          .then(function (lo) {
-            console.log('listGenres = [', listGenres, ']');
 
             Modal.find('.panel-title').text('Edit Track [' + Id + ']');
             Modal.find('#id').val(lo.id);
@@ -40,7 +39,9 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrapTags', 'bootstrap
             Modal.find('#year').val(lo.year);
 
             var elGenres    =   Modal.find('#track-genre');
-            var listGenres  =   lo.genre.split(',');
+            var listGenres  =   lo.genre;
+            console.log('listGenres = [', listGenres, ']');
+
             elGenres.tagsinput('removeAll')
                 .tagsinput({
                     maxTags:    5
