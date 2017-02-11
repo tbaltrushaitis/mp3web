@@ -7,7 +7,7 @@
 [![Issue Count](https://codeclimate.com/github/tbaltrushaitis/mp3web/badges/issue_count.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3web)
 [![Test Coverage](https://codeclimate.com/github/tbaltrushaitis/mp3web/badges/coverage.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3web/coverage)
 
-# Credits
+## Credits ##
 
  Name | Version | Description
 ------|---------|-------------
@@ -21,7 +21,7 @@
 [Composer](https://getcomposer.org/) | :trident: | Dependency Manager for PHP
 
 
-# Live Demo Site
+## Live Demo Site ##
 :point_right: [Premium Music Collection](http://mp3.gsm-center.com.ua)
 
 ## Download ##
@@ -38,9 +38,9 @@ Run the `setup.sh` script. In most cases it will do all of the needed stuff to r
 $ ./setup.sh
 ```
 
-## Actions in `setup.sh` script
+## Actions in `setup.sh` script ##
 
-### Check if those packages are installed and available in PATH
+### Check if those packages are installed and available in PATH ###
 - [ ] Composer
 - [ ] Node.js
 - [ ] NPM
@@ -109,14 +109,14 @@ Below is a list of gulp tasks and their possible params:
 
 ## Change log ##
 
-### v1.0.1:
+### v1.0.1: ###
 - [x] Genre tags added as labels for track
 - [x] gulpfile.js scenario tasks improved
 - [x] setup.sh and setup.rc scripts used to simplify setup and build processes
 - [x] Documentation update
 - [x] Repository page look on github improved with logo image
 
-### v1.0.0:
+### v1.0.0: ###
 - [x] Laravel 5.2 is now used as a backend framework
 - [x] Items that was uploaded in less than a week ago marked with "NEW" label
 - [x] Ability for visitors to register and become Users with access to private cabinet.
@@ -136,6 +136,6 @@ Below is a list of gulp tasks and their possible params:
 
 
 ----------------
-## And, just a few Emoji Icons
+## And, just a few Emoji Icons ##
 :musical_score: :musical_keyboard: :violin: :musical_note: :microphone: :star: :loudspeaker: :notes: :scorpius: :white_check_mark: :signal_strength: :dvd: :sound: :musical_note: :+1: :musical_keyboard: :saxophone: :violin: :musical_score: :headphones: :notes: :headphones: :trumpet: :saxophone: :guitar: 
 ----------------
