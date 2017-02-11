@@ -3,9 +3,9 @@
 ![Web MP3 Player Logo](src/resources/assets/img/logo/Favicon.png)
 
 [![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](http://tbaltrushaitis.mit-license.org/)
-[![Code Climate](https://codeclimate.com/github/tbaltrushaitis/mp3/badges/gpa.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3)
-[![Issue Count](https://codeclimate.com/github/tbaltrushaitis/mp3/badges/issue_count.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3)
-[![Test Coverage](https://codeclimate.com/github/tbaltrushaitis/mp3/badges/coverage.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3/coverage)
+[![Code Climate](https://codeclimate.com/github/tbaltrushaitis/mp3web/badges/gpa.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3web)
+[![Issue Count](https://codeclimate.com/github/tbaltrushaitis/mp3web/badges/issue_count.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3web)
+[![Test Coverage](https://codeclimate.com/github/tbaltrushaitis/mp3web/badges/coverage.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3web/coverage)
 
 # Credits
 
@@ -25,8 +25,8 @@
 :point_right: [Premium Music Collection](http://mp3.gsm-center.com.ua)
 
 ## Download ##
-```bash
-$ git clone https://github.com/tbaltrushaitis/mp3.git mp3 && cd mp3
+```sh
+$ git clone https://github.com/tbaltrushaitis/mp3web.git mp3web && cd mp3web
 ```
 
 ## Configure ##
@@ -34,7 +34,7 @@ Open file `setup.rc` in your favourite editor and change values of build variabl
 
 ## Build &amp; Deploy ##
 Run the `setup.sh` script. In most cases it will do all of the needed stuff to run instance of Web MP3 Player app
-```bash
+```sh
 $ ./setup.sh
 ```
 
@@ -50,7 +50,7 @@ $ ./setup.sh
 ## Gulp Tasks Overview ##
 
 In common case gulp command should look like
-```bash
+```sh
 $ gulp command:p1:..:pN --env_VAR=some_VALUE
 
 # e.g.
