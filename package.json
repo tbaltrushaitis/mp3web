@@ -1,6 +1,6 @@
 {   "name":     "mp3web"
   , "title":    "Web MP3 Player and Media Library Manager"
-  , "version":  "1.0.0"
+  , "version":  "1.0.1"
   , "description":  "Web MP3 Player and Media Library Manager based on Node.js, Laravel and HTML5 + lightweight JavaScript MVC modeling on FrontEnd"
   , "author": {
         "name":  "Baltrushaitis Tomas"
@@ -75,7 +75,7 @@
       , "gulp-tar":             "^1.9.0"
       , "gulp-template":        "^4.0.0"
       , "gulp-uglify":          "^2.0.0"
-      , "gulp-util":            "^3.0.7"
+      , "gulp-util":            "^3.0.8"
       , "gulp-watch":           "^4.3.9"
       , "jshint":               "^2.9.3"
       , "jquery":               "~2.2.4"
