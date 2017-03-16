@@ -102,7 +102,7 @@ function requestAjax (loUrl, loData, loType) {
         var retResult   =   JSON.parse(resp.responseText);
         return retResult;
     }catch (err) {
-        console.error('Cannot parse responseText! ERROR = ', err);
+        console.error('[ERROR] Cannot parse responseText = [', err, ']');
     }
 
     return {
