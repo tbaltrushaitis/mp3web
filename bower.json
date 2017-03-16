@@ -27,7 +27,6 @@
       , "docs"
       , "test"
       , "tests"
-      , "build"
       , "laravel-*"
     ]
   , "dependencies": {
