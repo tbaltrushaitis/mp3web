@@ -5,7 +5,7 @@
 |   Application Routes
 |--------------------------------------------------------------------------
 */
-Route::get('/', ['as' => 'Front:Index', 'uses' => 'MediaController@listAudio']);
+Route::get('/',         ['as' => 'Front:Index',     'uses' => 'MediaController@listAudio']);
 
 Route::get('login',     ['as' => 'Auth:LoginForm',  'uses' => 'Auth\AuthController@showLoginForm']);
 Route::post('login',    ['as' => 'Auth:Login',      'uses' => 'Auth\AuthController@login']);

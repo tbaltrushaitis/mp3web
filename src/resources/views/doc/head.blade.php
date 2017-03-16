@@ -13,8 +13,8 @@
 
     <!--/ Metas
     ================================================== /-->
-    <meta name="title"          content="Premium Music Collection" />
-    <meta name="description"    content="Web MP3 Player and Media Library management. Backend based on Laravel framework, client-size - mostly JavaScript" />
+    <meta name="title"          content="Web MP3 Player with Premium Music Collection as a Bonus" />
+    <meta name="description"    content="Web MP3 Player and Media Library management. Backend based on Laravel framework, client-side - mostly JavaScript" />
     <meta name="keywords"       content="mp3, audio, mix, hit, remix, original, original mix, dj, track, theme, party, music, web, player, media, content, library, laravel" />
     <meta name="author"         content="tbaltrushaitis@gmail.com" />
     <meta name="language"       content="en" />
@@ -47,13 +47,21 @@
     ================================================== /-->
     <!--/ bootstrap /-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" />
+
     <!--/ animate.css /-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
+
     <!--/ Custom /-->
     <link rel="stylesheet" href="assets/css/fonts-bundle.css" />
     <link rel="stylesheet" href="assets/css/plugins-bundle.css" />
-    <!--/ <link rel="stylesheet" href="assets/js/plugins/raty/jquery.raty.css" /> /-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rainbow/1.2.0/themes/github.css" />
     <link rel="stylesheet" href="assets/css/styles.css" id="css-default" />
+
+
+    <!--/ <link rel="stylesheet" href="assets/js/plugins/raty/jquery.raty.css" /> /-->
+    <!--/
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    /-->
 
     <!--/ Favicon
     ================================================== /-->

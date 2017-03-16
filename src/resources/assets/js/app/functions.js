@@ -72,6 +72,8 @@ function genUUID () {
 |   SEND AJAX REQUEST
 |--------------------------------------------------------------------------
 */
+
+
 function requestAjax (loUrl, loData, loType) {
     var resp = $.ajax({
         async:      false
@@ -100,12 +102,12 @@ function requestAjax (loUrl, loData, loType) {
         var retResult   =   JSON.parse(resp.responseText);
         return retResult;
     }catch (err) {
-        console.error('Cannot parse responseText! ERROR = ', err);
+        console.error('[ERROR] Cannot parse responseText = [', err, ']');
     }
 
     return {
         error:      true
-      , message:    'Cannot get data from ' + url
+      , message:    'Cannot get data from URL=[' + url + ']'
     };
 
 }

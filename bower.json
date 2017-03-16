@@ -1,21 +1,22 @@
-{   "name": "mp3"
-  , "description": "Web-based MP3 Storage and Player"
-  , "main": "index.php"
+{   "name":         "mp3web"
+  , "description":  "Web MP3 Player and Media Library Manager based on Node.js, Laravel and HTML5 + lightweight JavaScript MVC modeling on FrontEnd"
+  , "main":         "index.php"
   , "authors": [
         "tbaltrushaitis@gmail.com"
     ]
-  , "license": "MIT"
+  , "private":  true
+  , "license":  "MIT"
   , "keywords": [
         "mp3"
       , "audio"
       , "player"
       , "laravel"
+      , "web"
     ]
   , "moduleType": [
         "globals"
     ]
   , "homepage": "https://github.com/tbaltrushaitis/mp3#readme"
-  , "private": true
   , "ignore": [
         "**/.*"
       , "animation"
@@ -26,23 +27,23 @@
       , "docs"
       , "test"
       , "tests"
-      , "build"
       , "laravel-*"
     ]
   , "dependencies": {
-        "bootstrap": "~3.3.6"
-      , "html5shiv": "~3.7.3"
-      , "jquery": "~2.2.4"
-      , "jquery-tmpl": "*"
-      , "raty": "~2.7.0"
-      , "respond": "~1.4.2"
-      , "requirejs": "~2.3.1"
-      , "underscore": "~1.8.3"
+        "bootstrap":            "~3.3.6"
+      , "bootstrap-tagsinput":  "~0.8.0"
+      , "html5shiv":            "~3.7.3"
+      , "jquery":               "~2.2.4"
+      , "jquery-tmpl":          "*"
+      , "lodash":               "~4.17.2"
+      , "raty":                 "~2.7.0"
+      , "respond":              "~1.4.2"
+      , "requirejs":            "~2.3.1"
+      , "underscore":           "~1.8.3"
     }
   , "devDependencies": {
-        "animate.css": "~3.5.2"
-      , "font-awesome": "~4.6.3"
-      , "normalize.css": "~4.2.0"
-      , "lodash": "~4.16.6"
+        "animate.css":      "~3.5.2"
+      , "font-awesome":     "~4.6.3"
+      , "normalize.css":    "~4.2.0"
     }
 }

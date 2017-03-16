@@ -74,8 +74,7 @@
                                             class="btn btn-sm btn-primary btn-edit"
                                             data-id="{{ $track->get('id') }}"
                                             data-toggle="modal"
-                                            data-target="#modalEditTrack"
-                                        >
+                                            data-target="#modalEditTrack">
                                             <i class="fa fa-btn fa-edit"></i>
                                         </button>
                                     </td>

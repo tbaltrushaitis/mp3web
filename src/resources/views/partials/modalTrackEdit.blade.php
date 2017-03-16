@@ -64,10 +64,20 @@
                             <input type="text" class="form-control" id="year" placeholder="2000">
                         </div>
                     </div>
+
                     <div class="form-group">
-                        <label for="genre" class="col-sm-1 control-label">Genre:</label>
+                        <label for="track-genre" class="col-sm-1 control-label">Genre:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="genre" placeholder="pop">
+                            <select multiple id="track-genre" data-role="tagsinput">
+                                <!--/ <option value="Amsterdam">Amsterdam</option> /-->
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="track-tags" class="col-sm-1 control-label">Tags:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="track-tags" data-role="tagsinput-disabled" placeholder="100% HIT" />
                         </div>
                     </div>
                     <div class="form-group">

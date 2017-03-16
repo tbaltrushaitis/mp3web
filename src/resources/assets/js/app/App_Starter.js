@@ -1,4 +1,4 @@
-﻿/* ASSETS/JS/APP/App_Starter.js */
+/* ASSETS/JS/APP/App_Starter.js */
 
 'use strict';
 
@@ -7,6 +7,7 @@ require([
       , 'underscore'
       , 'raty'
       , 'Player'
+      , 'bootstrapTags'
       , 'functions'
       , 'bootstrap'
     ]
@@ -15,12 +16,12 @@ require([
       , _
       , raty
       , PlayerClass
+      , bsTags
     ) {
 
-    var Player  =   new PlayerClass ()
-      , silent  =   checkMode ('silent')
-      , intro   =   checkMode ('intro')
-    ;
+    var Player  =   new PlayerClass ();
+    var silent  =   checkMode ('silent');
+    var intro   =   checkMode ('intro');
 
     Player.Populate();
 
@@ -31,7 +32,7 @@ require([
         Player.Play(link);
     });
 
-    $('.raty').each( function (idx, el) {
+    $('.raty').each(function (idx, el) {
         var that    =   $(this)
           , score   =   that.attr('data-score')
         ;
@@ -43,15 +44,15 @@ require([
     });
 
     // RATE
-    $('.btn-rate').click( function (e) {
+    $('.btn-rate').click(function (e) {
         e.stopImmediatePropagation();
         var Rate    =   $(this).attr('data-rate');
-        Player.Rate( Rate );
+        Player.Rate(Rate);
         e.preventDefault();
     });
 
     // TEST
-    $('#btn-control-test').click( function (e) {
+    $('#btn-control-test').click(function (e) {
         e.stopImmediatePropagation();
         var Instance    =   Player._data.instance
           , textTracks  =   Instance.textTracks
@@ -67,7 +68,7 @@ require([
         e.preventDefault();
     });
 
-    $('#btn-control-play').click( function (e) {
+    $('#btn-control-play').click(function (e) {
         e.stopImmediatePropagation();
         e.preventDefault();
         var self        =   $(this)
@@ -85,35 +86,41 @@ require([
         }
     });
 
-    $('#btn-control-backward').click( function (e) {
+    $('#btn-control-backward').click(function (e) {
         e.stopImmediatePropagation();
         e.preventDefault();
         Player.stepBackward();
     });
 
-    $('#btn-control-forward').click( function (e) {
+    $('#btn-control-forward').click(function (e) {
         e.preventDefault();
         Player.stepForward();
     });
 
-    $('.btn-player-option').click( function (e) {
+    $('.btn-player-option').click(function (e) {
         e.preventDefault();
         $(this).toggleClass('is-enabled')
             .toggleClass('active');
     });
 
 
-    if (intro) {
-        setTimeout ( function PlayIntro () {
-            Player.stepForward();
-            setTimeout ( PlayIntro, 10000);
-        }, 1);
-    }else if (false === silent) {
-        Player.stepForward();
-    }else{
+    // START Parameters
+    if (silent) {
         return false;
     }
 
+    if (intro) {
+        setTimeout (function PlayIntro () {
+            Player.stepForward();
+            setTimeout ( PlayIntro, 5000);
+        }, 100);
+    } else {
+        Player.stepForward();
+    }
+
     //(silent) ? false : Player.stepForward();
+
+    //var elTags  =   $('[data-role="tagsinput"]');
+    //elTags.bsTags('add', { "value": 1 , "text": "Amsterdam"   , "continent": "Europe"});
 
 })();

@@ -3,15 +3,17 @@
 requirejs.config({
     baseUrl: 'assets/js'
   , paths: {
-        jquery:     'lib/jquery'
-      , underscore: 'lib/underscore'
-      , bootstrap:  'lib/bootstrap'
-      , Tmpl:       'lib/jquery.tmpl'
-      , raty:       'plugins/raty/jquery.raty'
+        jquery:         'lib/jquery'
 
-      , Abstract:   'app/classes/Abstract.class'
-      , Player:     'app/classes/Player.class'
-      , functions:  'app/functions'
+//      , underscore:     'lib/underscore'
+      , underscore:     'lib/lodash'
+      , bootstrap:      'lib/bootstrap'
+      , Tmpl:           'lib/jquery.tmpl'
+      , raty:           'plugins/raty/jquery.raty'
+      , bootstrapTags:  'plugins/bootstrap-tagsinput/bootstrap-tagsinput'
+      , Abstract:       'app/classes/Abstract.class'
+      , Player:         'app/classes/Player.class'
+      , functions:      'app/functions'
     }
   , shim: {
         jquery: {
@@ -25,6 +27,7 @@ requirejs.config({
             exports:    'bootstrap'
           , deps:       ['jquery']
         }
+      , bootstrapTags:  ['jquery', 'bootstrap']
       , Tmpl:           ['jquery']
       , raty:           ['jquery']
       , Abstract:       ['jquery']
@@ -39,8 +42,8 @@ requirejs(['jquery', 'app/App_Starter']
   , function ($) {
         var pageId  =   $('body').attr('data-id_page');
         console.groupCollapsed(pageId);
-        console.timeStamp('CHECK-IN');
-        console.info('APP Started');
+        console.timeStamp('APP.CHECK-IN');
+        console.info('APP::Started');
         console.groupEnd(pageId);
     }
 );

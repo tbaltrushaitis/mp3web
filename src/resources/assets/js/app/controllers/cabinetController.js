@@ -1,7 +1,7 @@
 /*  BOF: assets/js/app/controllers/cabinetController.js  */
 
-define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrap']
-  , function ($, _, tmpl, F) {
+define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrapTags', 'bootstrap']
+  , function ($, _, tmpl, F, bsTags) {
 
     'use strict';
 
@@ -24,18 +24,43 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrap']
         var Modal   =   $('#modalEditTrack');
         var oMeta   =   requestAjax('/' + Id + '/meta');
 
-        Modal.find('.panel-title').text('Edit Track [' + Id + ']');
-        Modal.find('#id').val(oMeta.id);
-        Modal.find('#filename').val(oMeta.name);
-        Modal.find('#path').val(oMeta.path);
-        Modal.find('#title').val(oMeta.title);
-        Modal.find('#name').val(oMeta.name);
-        Modal.find('#artist').val(oMeta.artist);
-        Modal.find('#album').val(oMeta.album);
-        Modal.find('#track').val(oMeta.track);
-        Modal.find('#year').val(oMeta.year);
-        Modal.find('#genre').val(oMeta.genre);
-        Modal.find('#meta').text( JSON.stringify(oMeta) );
+        $.when(oMeta)
+         .then(function (lo) {
+
+            Modal.find('.panel-title').text('Edit Track [' + Id + ']');
+            Modal.find('#id').val(lo.id);
+            Modal.find('#filename').val(lo.filename);
+            Modal.find('#path').val(lo.path);
+            Modal.find('#title').val(lo.title);
+            Modal.find('#name').val(lo.name);
+            Modal.find('#artist').val(lo.artist);
+            Modal.find('#album').val(lo.album);
+            Modal.find('#track').val(lo.track);
+            Modal.find('#year').val(lo.year);
+
+            var elGenres    =   Modal.find('#track-genre');
+            var listGenres  =   lo.genre;
+            console.log('listGenres = [', listGenres, ']');
+
+            elGenres.tagsinput('removeAll');
+            elGenres.tagsinput({
+                    maxTags:    5
+                  , maxChars:   10
+                  , trimValue:  true
+                  , allowDuplicates: false
+                });
+
+            _.each(listGenres, function (tagGenre) {
+                console.info("tagGenre = ", tagGenre);
+                elGenres.tagsinput('add', tagGenre);
+            });
+            // .prop({'data-role': 'tagsinput'});
+
+            Modal.find('#track-tags')
+                .val(lo.tags)
+                .prop({'data-role': 'tagsinput'});
+            Modal.find('#meta').text( JSON.stringify(lo) );
+         });
     }
 
 
@@ -55,10 +80,39 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrap']
               , album:  Modal.find('#album').val()
               , track:  Modal.find('#track').val()
               , year:   Modal.find('#year').val()
-              , genre:  Modal.find('#genre').val()
+              , genre:  Modal.find('#track-genre').val()
+              , tags:   Modal.find('#track-tags').val()
             };
 
         var saveResult  =   requestAjax('/' + Id + '/meta', oMeta, 'POST');
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    |   RESET FORM FIELDS
+    |--------------------------------------------------------------------------
+    */
+    function resetForm () {
+        var Modal   =   $('#modalEditTrack');
+
+        Modal.find('.panel-title').text('');
+        Modal.find('#id').val(null);
+        Modal.find('#filename').val(null);
+        Modal.find('#path').val(null);
+        Modal.find('#title').val(null);
+        Modal.find('#name').val(null);
+        Modal.find('#artist').val(null);
+        Modal.find('#album').val(null);
+        Modal.find('#track').val(null);
+        Modal.find('#year').val(null);
+        Modal.find('#track-genre')
+            .val('[]')
+            .prop({'data-role': 'tagsinput-disabled'});
+        Modal.find('#track-tags')
+            .val('')
+            .prop({'data-role': 'tagsinput-disabled'});
+        Modal.find('#meta').text(null);
     }
 
 
@@ -68,6 +122,7 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrap']
     |--------------------------------------------------------------------------
     */
     function bindEvents () {
+        var Modal   =   $('#modalEditTrack');
 
         //  EDIT Track in Modal Window
         $('body').delegate('.btn-edit', 'click', function (e) {
@@ -78,6 +133,11 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrap']
         //  SAVE Track metadata
         $('body').delegate('.btn-save', 'click', function (e) {
             saveTrackData();
+        });
+
+        //  RESET Track Edit form
+        Modal.on('hidden.bs.modal', function (e) {
+            resetForm();
         });
 
     }
