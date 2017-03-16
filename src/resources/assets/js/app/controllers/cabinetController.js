@@ -42,8 +42,8 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrapTags', 'bootstrap
             var listGenres  =   lo.genre;
             console.log('listGenres = [', listGenres, ']');
 
-            elGenres.tagsinput('removeAll')
-                .tagsinput({
+            elGenres.tagsinput('removeAll');
+            elGenres.tagsinput({
                     maxTags:    5
                   , maxChars:   10
                   , trimValue:  true
@@ -107,7 +107,7 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrapTags', 'bootstrap
         Modal.find('#track').val(null);
         Modal.find('#year').val(null);
         Modal.find('#track-genre')
-            .val('')
+            .val('[]')
             .prop({'data-role': 'tagsinput-disabled'});
         Modal.find('#track-tags')
             .val('')

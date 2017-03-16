@@ -27,9 +27,9 @@
                 @endif
                 <a class="" href="{{ $track->get('id') }}">{{ $track->get('title') }}</a>
 
-                @if (strlen($track->get('genre')) > 0)
-                    @foreach ( explode(',', $track->get('genre')) as $idx => $Genre )
-                        <span class="label label-default tagholder" id="tag_genre_{{$idx}}">{{ $Genre }}</span>
+                @if (is_array($track->get('genre')) && count($track->get('genre')) > 0)
+                    @foreach ( $track->get('genre') as $idx => $Genre )
+                        <span class="label label-primary tagholder" id="tag_genre_{{$idx}}">{{ $Genre }}</span>
                     @endforeach
                 @endif
 
