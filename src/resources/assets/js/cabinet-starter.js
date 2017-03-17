@@ -18,7 +18,7 @@ define(['jquery', 'underscore', 'cabinetController', 'bootstrapTags', 'functions
      .then(function (loCabinet) {
         var pageId  =   $('body').attr('data-id_page');
         console.groupCollapsed(pageId);
-        console.timeStamp('CHECK-IN');
+        console.timeStamp(pageId + ':CHECK-IN');
         console.info('Starting CabinetController');
         console.groupEnd(pageId);
         loCabinet.start();
