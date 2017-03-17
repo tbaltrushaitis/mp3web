@@ -28,7 +28,7 @@
     <meta property="og:image"       content="assets/img/logo/logo-lg.png" />
     <meta property="og:site_name"   content="mp3 Manager and Player" />
     <meta property="og:url"         content="{{ url('/') }}" />
-    <meta property="og:see_also"    content="https://github.com/tbaltrushaitis/mp3" />
+    <meta property="og:see_also"    content="https://github.com/tbaltrushaitis/mp3web" />
 
     <!--/ Mobile Specific Metas
     ================================================== /-->
