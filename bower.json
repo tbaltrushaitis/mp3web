@@ -16,7 +16,7 @@
   , "moduleType": [
         "globals"
     ]
-  , "homepage": "https://github.com/tbaltrushaitis/mp3#readme"
+  , "homepage": "https://github.com/tbaltrushaitis/mp3web#readme"
   , "ignore": [
         "**/.*"
       , "animation"
