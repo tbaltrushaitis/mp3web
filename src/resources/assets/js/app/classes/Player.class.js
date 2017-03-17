@@ -21,8 +21,8 @@ define([
         };
 
     //  PROTOTYPE
-    Player.prototype    =   Object.create(Abstract.prototype);
-    Player.prototype.constructor =   Player;
+    Player.prototype                =   Object.create(Abstract.prototype);
+    Player.prototype.constructor    =   Player;
 
     Player.prototype._defaults  =   {
         _entity: 'Audio_Player'
@@ -80,9 +80,9 @@ define([
 
         self._data.instance.addEventListener('play',    self.setButtonPlay.bind(this),  false);
         self._data.instance.addEventListener('pause',   self.setButtonPause.bind(this), false);
-        self._data.instance.addEventListener('ended',   self.stepForward.bind(this), false);
+        self._data.instance.addEventListener('ended',   self.stepForward.bind(this),    false);
 
-        self._data.instance.addEventListener('canplay',     self.initCounters, false);
+        self._data.instance.addEventListener('canplay',     self.initCounters,  false);
         self._data.instance.addEventListener('timeupdate',  self.checkTimeLeft, false);
 
         return self;
