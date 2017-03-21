@@ -101,6 +101,8 @@ define([
                         +   window.location.host
                         +   '/'
                         +   trackHash
+                        +   '/'
+                        +   'meta'
           , oRequest    =   $.ajax({
                                 url:     requestUrl
                               , type:    'GET'
