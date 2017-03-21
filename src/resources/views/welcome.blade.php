@@ -15,10 +15,12 @@
 </div>
 @endsection
 
+
 @section('tracklist')
     @if (count($tracks) > 0)
         @foreach ($tracks as $idx => $track)
             <li class="list-group-item track">
+
                 <i class="fa fa-headphones fa-fw"></i>
                 @if ((time() - $track->get('added')) < 60 * 60 * 24 * 14)
                     <span class="label label-danger">New!</span>
