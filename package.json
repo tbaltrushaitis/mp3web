@@ -84,6 +84,7 @@
       , "lodash":               "~4.17.2"
       , "merge-stream":         "^1.0.0"
       , "minimist":             "^1.2.0"
+      , "nconf":                "^0.8.4"
       , "vinyl-paths":          "^2.1.0"
     }
   , "options": {
