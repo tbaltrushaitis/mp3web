@@ -17,6 +17,7 @@ printf "[INFO]\tAPP_PATH=${APP_PATH}\n";
 source bin/f.sh
 source bin/f-node.sh
 source bin/host-checks.sh
+source bin/setup-engine.sh
 
 okNode
 okNpm
@@ -54,11 +55,11 @@ okGrunt
 deps_install
 sleep 1;
 
+check_engine
+sleep 1;
 
 # check_composer
-# check_engine
 # check_git
-# sleep 1;
 
 # git_update
 # sleep 1;
