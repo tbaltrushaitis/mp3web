@@ -5,7 +5,7 @@
 
 function engine_setup {
     composer -vvv create-project --prefer-dist ${ENGINE_NAME}/${ENGINE_TAG} "${ENGINE_DIR}" "${ENGINE_VERSION}.*"
-    cp -prv "${ENGINE_DIR}" build/ && cp -prv setup.rc build/.env && cd build && composer -vvv update && cd ..
+    # cp -prv "${ENGINE_DIR}" build/ && cp -prv setup.rc build/.env && cd build && composer -vvv update && cd ..
     printf "[INFO]\tEngine ${ENGINE_NAME}-${ENGINE_VERSION} deployed to ${ENGINE_DIR} \n";
 }
 
