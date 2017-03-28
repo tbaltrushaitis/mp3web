@@ -9,7 +9,7 @@ function deps_install {
     npm i -verbose
 
     printf "[LOG]\tInstalling required Bower packages ... \n";
-    bower i --verbose
+    bower i --verbose --production
 }
 
 
