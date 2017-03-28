@@ -14,7 +14,9 @@ APP_PATH="${APP_HOME}${APP_DIR}"
 
 printf "[INFO]\tAPP_PATH=${APP_PATH}\n";
 
-source host-checks.sh
+source bin/f.sh
+source bin/f-node.sh
+source bin/host-checks.sh
 
 okNode
 okNpm
@@ -49,19 +51,21 @@ okGrunt
 ##                                 EXECUTION                                  ##
 ##  ------------------------------------------------------------------------  ##
 
-check_composer
-check_engine
-check_git
-sleep 1;
-
-git_update
-sleep 1;
-
 deps_install
 sleep 1;
 
-gulp -vvv --env=production
-sleep 1;
+
+# check_composer
+# check_engine
+# check_git
+# sleep 1;
+
+# git_update
+# sleep 1;
+
+
+# gulp -vvv --env=production
+# sleep 1;
 
 # gulp build
 # gulp artisan
