@@ -1,7 +1,7 @@
-{   "name":     "mp3web"
-  , "title":    "Web MP3 Player and Media Library Manager"
-  , "version":  "1.0.2"
+{   "name":         "mp3web"
+  , "title":        "Web MP3 Player and Media Library Manager"
   , "description":  "Web MP3 Player and Media Library Manager based on Node.js, Laravel and HTML5 + lightweight JavaScript MVC modeling on FrontEnd"
+  , "version":      "1.0.2"
   , "author": {
         "name":  "Baltrushaitis Tomas"
       , "email": "tbaltrushaitis@gmail.com"
