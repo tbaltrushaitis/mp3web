@@ -40,9 +40,10 @@ const uglify    =   require('gulp-uglify');
 const gulpSequence  =   require('gulp-sequence')
 
 // const Config    =   require('./app-config.json');
-const pkg   =   require('./package.json');
-const ENGINE =  path.join('laravel-5.2');
-const BOWER =   JSON.parse(fs.readFileSync('./.bowerrc')).directory;
+const Config    =   require('nconf');
+const pkg       =   require('./package.json');
+const ENGINE    =   path.join('laravel-5.2');
+const BOWER     =   JSON.parse(fs.readFileSync('./.bowerrc')).directory;
 //const _     =   require('lodash');
 
 const SRC   =   path.join('src');
