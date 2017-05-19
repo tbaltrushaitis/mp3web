@@ -112,7 +112,7 @@ require([
     if (intro) {
         setTimeout (function PlayIntro () {
             Player.stepForward();
-            setTimeout ( PlayIntro, 5000);
+            setTimeout ( PlayIntro, 10000);
         }, 100);
     } else {
         Player.stepForward();

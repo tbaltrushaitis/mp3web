@@ -16,7 +16,7 @@
         "node": ">=0.10.1"
       , "php":  ">=5.5.38"
     }
-  , "main": "gulpfile.js"
+  , "main":     "gulpfile.js"
   , "scripts": {
         "test":  "gulp test"
       , "dev":   "gulp dev"

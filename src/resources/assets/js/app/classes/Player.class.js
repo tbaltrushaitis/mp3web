@@ -188,7 +188,8 @@ define([
         }
         self._data.tracks.current   =   current;
 
-        var link    =   $(self._config.tracks.container).find('a')[current];
+        //var link    =   $(self._config.tracks.container).find('a')[current];
+        var link    =   $(self._config.tracks.container).find(self._config.tracks.selector)[current];
         self.Play( $(link) );
 
         return self;

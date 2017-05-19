@@ -15,9 +15,10 @@ APP_PATH="${APP_HOME}${APP_DIR}"
 printf "[INFO]\tAPP_PATH=${APP_PATH}\n";
 
 source bin/f.sh
+source bin/f-engine.sh
 source bin/f-node.sh
+source bin/f-php-composer.sh
 source bin/host-checks.sh
-source bin/setup-engine.sh
 
 okNode
 okNpm
@@ -55,10 +56,12 @@ okGrunt
 deps_install
 sleep 1;
 
+check_composer
+sleep 1;
+
 check_engine
 sleep 1;
 
-# check_composer
 # check_git
 
 # git_update

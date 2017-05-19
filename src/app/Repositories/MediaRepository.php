@@ -45,6 +45,7 @@ class MediaRepository {
         return $tracks;
     }
 
+
     /**
      * Get all of the video tracks
      *
@@ -60,7 +61,7 @@ class MediaRepository {
     /**
      * Get Track's Metadata as JSON
      *
-     * @param  none
+     * @param  String
      * @return Collection
      */
     public function getTrackMeta ($hash) {
@@ -82,7 +83,7 @@ class MediaRepository {
     /**
      * Set Track's Metadata
      *
-     * @param  none
+     * @param  Collection
      * @return Collection
      */
     public function setTrackMeta ($meta) {
@@ -91,6 +92,31 @@ class MediaRepository {
             $meta->put('action_result', 'SUCCESS');
         }else{
             $meta->put('action_result', 'ERROR');
+        };
+        return  $meta;
+    }
+
+
+    /**
+     * Delete Track's Metadata
+     *
+     * @param  String
+     * @return Collection
+     */
+    public function dropTrackMeta ($hash) {
+        $meta   =   collect([
+            'id'            =>  $hash
+          , 'action'        =>  'DELETE_META'
+          , 'action_result' =>  NULL
+        ]);
+        if (Storage::disk('meta')->exists($hash)) {
+            if (Storage::disk('meta')->delete($hash)) {
+                $meta->put('action_result', 'SUCCESS');
+            }else{
+                $meta->put('action_result', 'ERROR');
+            }
+        }else{
+            $meta->put('action_result', 'FILE_NOT_EXISTS');
         };
         return  $meta;
     }

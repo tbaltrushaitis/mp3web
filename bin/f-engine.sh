@@ -3,6 +3,10 @@
 ##  ENGINE
 ##  ------------------------------------------------------------------------  ##
 
+##  Consists of:
+##      engine_setup
+##      check_engine
+
 function engine_setup {
     composer -vvv create-project --prefer-dist ${ENGINE_NAME}/${ENGINE_TAG} "${ENGINE_DIR}" "${ENGINE_VERSION}.*"
     # cp -prv "${ENGINE_DIR}" build/ && cp -prv setup.rc build/.env && cd build && composer -vvv update && cd ..
@@ -19,3 +23,5 @@ function check_engine {
         # exit 1
     fi
 }
+
+##  ------------------------------------------------------------------------  ##

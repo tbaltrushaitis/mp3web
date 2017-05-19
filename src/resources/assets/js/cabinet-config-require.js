@@ -1,4 +1,10 @@
-/*  BOF: assets/js/cabinet-config-require.js  */
+/*  BOF: ASSETS/JS/cabinet-config-require.js  */
+
+/*!
+ * ASSETS/JS/cabinet-config-require.js
+ * Copyright(c) 2016-2017 Baltrushaitis Tomas
+ * MIT Licensed
+ */
 
 'use strict';
 

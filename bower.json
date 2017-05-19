@@ -36,9 +36,8 @@
       , "laravel-*"
     ]
   , "dependencies": {
-        "bootstrap":            "~3.3.6"
+        "bootstrap":            "~3.3.7"
       , "bootstrap-tagsinput":  "~0.8.0"
-      , "bxSlider":             "~4.2.12"
       , "font-awesome":         "~4.6.3"
       , "html5shiv":            "~3.7.3"
       , "jquery":               "~2.2.4"
@@ -55,5 +54,8 @@
     }
   , "resolutions": {
         "jquery": "~2.2.4"
+    }
+  , "outdatedDependencies": {
+        "bxslider-4":   "bx-slider.js#^4.2.12"
     }
 }

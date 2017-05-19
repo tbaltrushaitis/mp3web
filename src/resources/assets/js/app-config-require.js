@@ -1,12 +1,13 @@
 /*  BOF: assets/js/app-config-require.js  */
 
 requirejs.config({
-    baseUrl: 'assets/js'
+    baseUrl:            'assets/js'
   , paths: {
         jquery:         'lib/jquery'
 
 //      , underscore:     'lib/underscore'
-      , underscore:     'lib/lodash'
+      , underscore:     'lib/underscore'
+      , lodash:         'lib/lodash'
       , bootstrap:      'lib/bootstrap'
       , Tmpl:           'lib/jquery.tmpl'
       , raty:           'plugins/raty/jquery.raty'
@@ -31,7 +32,7 @@ requirejs.config({
       , Tmpl:           ['jquery']
       , raty:           ['jquery']
       , Abstract:       ['jquery']
-      , Player:         ['jquery']
+      , Player:         ['jquery', 'Abstract']
       , functions:      ['jquery']
     }
   , waitSeconds: 6

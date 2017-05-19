@@ -1,0 +1,71 @@
+{   "name":         "mp3web"
+  , "title":        "Web MP3 Player and Media Library Manager"
+  , "description":  "Web MP3 Player and Media Library Manager based on Node.js, Laravel and HTML5 + lightweight JavaScript MVC modeling on FrontEnd"
+  , "version":      "1.0.2"
+  , "author": {
+        "name":  "Baltrushaitis Tomas"
+      , "email": "tbaltrushaitis@gmail.com"
+      , "url":   "https://github.com/tbaltrushaitis"
+    }
+  , "keywords": [
+        "mp3"
+      , "audio"
+      , "player"
+      , "laravel"
+      , "media"
+      , "library"
+      , "storage"
+      , "manager"
+      , "web"
+    ]
+  , "license":          "MIT"
+  , "type":             "project"
+  , "homepage":         "https://github.com/tbaltrushaitis/mp3web"
+  , "authors": [
+        {   "name":     "Tomas Baltrushaitis"
+          , "email":    "tbaltrushaitis@gmail.com"
+        }
+    ]
+  , "require": {
+        "php":                          ">=5.5.9"
+      , "laravel/framework":            "5.2.*"
+      , "invisnik/laravel-steam-auth":  "2.*"
+      , "syntax/steam-api":             "2.0.*"
+      , "wisembly/elephant.io":         "~3.0"
+    }
+  , "require-dev": {
+        "fzaninotto/faker":     "~1.4"
+      , "mockery/mockery":      "0.9.*"
+      , "phpunit/phpunit":      "~4.0"
+      , "symfony/css-selector": "2.8.*|3.0.*"
+      , "symfony/dom-crawler":  "2.8.*|3.0.*"
+    }
+  , "autoload": {
+        "classmap":     []
+      , "psr-4": {
+            "App\\":    "app/"
+        }
+    }
+  , "autoload-dev": {
+        "classmap": []
+    }
+  , "scripts": {
+        "post-root-package-install": [
+            "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ]
+      , "post-create-project-cmd": [
+            "php artisan key:generate"
+        ]
+      , "post-install-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postInstall"
+          , "php artisan optimize"
+        ]
+      , "post-update-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate"
+          , "php artisan optimize"
+        ]
+    }
+  , "config": {
+        "preferred-install": "dist"
+    }
+}

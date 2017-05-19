@@ -1,18 +1,32 @@
 /*  BOF: assets/js/cabinet-starter.js  */
 
-require(['jquery', 'underscore', 'cabinetController', 'bootstrapTags', 'functions']
+require([
+    'jquery'
+  , 'underscore'
+  , 'cabinetController'
+  , 'bootstrapTags'
+  , 'functions'
+    ]
+
   , function ($, _, cc, bsTags, F) {
         'use strict';
         console.timeStamp('CABINET MODULES READY');
 });
 
-define(['jquery', 'underscore', 'cabinetController', 'bootstrapTags', 'functions']
+define([
+    'jquery'
+  , 'underscore'
+  , 'cabinetController'
+  , 'bootstrapTags'
+  , 'functions'
+  ]
+
   , function ($, _, cc, bsTags, F) {
 
     'use strict';
 
-    var ControllerCabinet   =   cc;
-    var libTags             =   bsTags;
+    var ControllerCabinet   =   new (cc());
+    var libTags             =   new (bsTags());
 
     $.when(ControllerCabinet, libTags, F)
      .then(function (loCabinet) {
