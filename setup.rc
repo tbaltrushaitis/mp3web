@@ -2,14 +2,12 @@
 ##                          EDIT ONLY IN THIS FILE                            ##
 ##  ------------------------------------------------------------------------  ##
 
-APP_ENV=${NODE_ENV} || production
-APP_DEBUG=false
-APP_DEBUG=`if [ "development" == "${APP_ENV}" ]; then echo true; else echo false; fi`
-#APP_ENV=production
-#NODE_ENV=production
+APP_ENV=production
+APP_DEBUG=true
+#APP_DEBUG=`if [ "development" == "${APP_ENV}" ]; then echo true; else echo false; fi`
 
 APP_KEY=base64:/this_is-example/key+M=
-APP_URL=http://mp3web.local
+APP_URL=http://mp3.local
 APP_HOME=
 APP_DIR=
 

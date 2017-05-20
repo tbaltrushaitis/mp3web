@@ -22,7 +22,7 @@
   , "type":             "project"
   , "homepage":         "https://github.com/tbaltrushaitis/mp3web"
   , "authors": [
-        {   "name":     "Tomas Baltrushaitis"
+        {   "name":     "Baltrushaitis Tomas"
           , "email":    "tbaltrushaitis@gmail.com"
         }
     ]
@@ -64,6 +64,6 @@
         ]
     }
   , "config": {
-        "preferred-install": "dist"
+        "preferred-install":    "dist"
     }
 }

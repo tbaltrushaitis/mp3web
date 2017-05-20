@@ -89,7 +89,7 @@ envConfig   =   parseArgs(process.argv.slice(2), envConfig);
 //console.log('\n\n\n', 'Banner.header = [', util.inspect(Banner.header), ']');
 console.log('\n\n\n', 'envConfig = [', util.inspect(envConfig), ']\n\n\n');
 console.log('\n\n\n', 'VERSION = [', util.inspect(VERSION), ']\n\n\n');
-console.log('\n\n\n', 'Config = [', util.inspect(Config.get('config')), ']\n\n\n');
+console.log('\n\n\n', 'Config = [', util.inspect(Config), ']\n\n\n');
 
 //  ENV ROUTER
 gulp.task('default', function () {
@@ -146,7 +146,7 @@ gulp.task('build',      gulpSequence(
                           , ['sync:engine']
                           , ['sync:src']
                           , ['bower:collect']
-                          , ['artisan:vendor:publish']
+                        //  , ['artisan:vendor:publish']
                        //   , ['sync:media', 'bower']
                    //       , ['sync:assets:fonts']
                      //     , ['build:css', 'build:scripts']
@@ -177,7 +177,7 @@ gulp.task('bower:collect', function () {
                               , '!**/npm.js'
                             ]))
                             // .pipe(changed(path.resolve(KEEP, JS)))
-                            .pipe(gulp.dest(path.resolve(KEEP, JS)))
+                            .pipe(gulp.dest(path.resolve(DEST, JS)))
                             .pipe(filter([
                                 '**/*.js'
                               , '!**/require.js'
@@ -201,11 +201,11 @@ gulp.task('bower:collect', function () {
                             ]))
                             // .pipe(changed(path.resolve(KEEP, CSS)))
                             .pipe(gulpif('production' === envConfig.env, cleanCSS({debug: true, processImport: true}, function (d) {
-                                console.info(d.name + ': ' + d.stats.originalSize + ' -> ' + d.stats.minifiedSize + ' [' + d.stats.timeSpent + 'ms] [' + d.stats.efficiency.toFixed(2) + '%]');
+                                console.info(d.name + ': ' + d.stats.originalSize + ' -> ' + d.stats.minifiedSize + ' [' + d.stats.timeSpent + 'ms] [' + d.stats.efficiency.toFixed(2) + ']');
                             }), false))
                             //.pipe(gulp.dest(DEST_CSS))
-                            .pipe(gulp.dest(path.resolve(KEEP, CSS)))
-                            .pipe(concatCSS('bower-bundle.css', {rebaseUrls: false}))
+                            .pipe(gulp.dest(path.resolve(DEST, CSS)))
+                            .pipe(concatCSS('bower-bundle.css', {rebaseUrls: true}))
                             .pipe(header(Banner.header, {pkg: pkg}))
                             .pipe(gulp.dest(path.resolve(DEST, CSS)))
                             .pipe(rename('bower-bundle.min.css'))
@@ -558,7 +558,7 @@ gulp.task('fixPermissions', function () {
                 path.join(BUILD, '**')
             ])
             .pipe(vinylPaths(function (vPath) {
-                console.log('File:', vPath);
+                console.log('Chown:', vPath);
                 exec('sudo chown www-data:www-data ' + vPath);
                 return Promise.resolve();
             }));
@@ -574,7 +574,7 @@ gulp.task('files:src', function () {
             ])
             .pipe(changed(BUILD))
             .pipe(vinylPaths(function (paths) {
-                console.log('Changed:', paths);
+                console.info('Changed:', paths);
                 return Promise.resolve();
             }));
 });

@@ -9,13 +9,14 @@
 ## Credits ##
 
  Name | Version | Description
-------|---------|-------------
+:-----|:-------:|:------------
 [Laravel](https://laravel.com/docs/5.2) | 5.2.0 | Framework
-[Font-Awesome](http://fontawesome.io/) | 4.6.3 | The iconic font and CSS toolkit
-[Bootstrap](http://getbootstrap.com) | 3.3.6 | HTML, CSS, and JS framework
+[Font-Awesome](http://fontawesome.io/) | 4.7.0 | The iconic font and CSS toolkit
+[Bootstrap](http://getbootstrap.com) | 3.3.7 | HTML, CSS, and JS framework
+[Bootstrap Tagsinput](https://github.com/bootstrap-tagsinput/bootstrap-tagsinput) | 0.8.0 | jQuery tags input plugin based on Twitter Bootstrap
 [animate.css](http://daneden.github.io/animate.css/) | 3.5.2 | A cross-browser library of CSS animations
 [jQuery](http://jquery.com/) | 2.2.4 | JavaScript Library
-[requirejs](https://github.com/jrburke/requirejs) | 2.3.1 | A file and module loader for JavaScript
+[requirejs](https://github.com/jrburke/requirejs) | 2.3.3 | A file and module loader for JavaScript
 [Underscore.js](http://underscorejs.org) | 1.8.3 | JavaScript library that provides a whole mess of us
 [Composer](https://getcomposer.org/) | :trident: | Dependency Manager for PHP
 

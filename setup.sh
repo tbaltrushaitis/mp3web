@@ -24,7 +24,6 @@ okNode
 okNpm
 okBower
 okGulp
-okGrunt
 
 ##  ------------------------------------------------------------------------  ##
 ##                                 GIT HOOKS                                  ##
@@ -35,8 +34,8 @@ okGrunt
 ##  ------------------------------------------------------------------------  ##
 ##                                 SCENARIO                                   ##
 ##  ------------------------------------------------------------------------  ##
-##  1.  git clone https://github.com/tbaltrushaitis/mp3web.git mp3web
-##  2.  chown -R www-data:www-data mp3web && cd mp3web && rights
+##  1.  git clone https://github.com/tbaltrushaitis/mp3web.git -b "dev-1.0.3" mp3web
+##  2.  sudo chown -R www-data:www-data mp3web && cd mp3web && sudo rights
 ##  3.  composer -vvv create-project --prefer-dist laravel/laravel laravel-5.2 "5.2.*"
 ##  5.  cp -pr laravel-5.2/ build/ && cd build && composer -vvv update && cd -
 ##  3.  ./setup.sh
@@ -50,15 +49,10 @@ okGrunt
 #gulp artisan:clear
 
 #deploy -> sync:web, artisan:clear
-
+# php artisan key:generate
 ##  ------------------------------------------------------------------------  ##
 ##                                 EXECUTION                                  ##
 ##  ------------------------------------------------------------------------  ##
-
-deps_install
-sleep 1;
-deps_outdated
-sleep 1;
 
 check_composer
 sleep 1;
@@ -71,6 +65,10 @@ sleep 1;
 # git_update
 # sleep 1;
 
+deps_install
+sleep 1;
+deps_outdated
+sleep 1;
 
 gulp --verbose --env=production
 sleep 1;

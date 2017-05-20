@@ -1,5 +1,11 @@
 /* ASSETS/JS/APP/app-starter.js */
 
+/*!
+ * ASSETS/JS/APP/app-starter.js
+ * Copyright(c) 2016-2017 Baltrushaitis Tomas
+ * MIT Licensed
+ */
+
 'use strict';
 
 require([
@@ -39,7 +45,8 @@ require([
         that.raty({
             score:      score
           , readOnly:   true
-          , path:       'assets/js/plugins/raty/images'
+          // , path:       'assets/js/plugins/raty/images'
+          , path:       'assets/img'
         });
     });
 
@@ -121,6 +128,6 @@ require([
     //(silent) ? false : Player.stepForward();
 
     //var elTags  =   $('[data-role="tagsinput"]');
-    //elTags.bsTags('add', { "value": 1 , "text": "Amsterdam"   , "continent": "Europe"});
+    //elTags.bsTags('add', {"value": 1, "text": "Amsterdam", "continent": "Europe"});
 
 })();

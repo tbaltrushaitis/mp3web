@@ -26,7 +26,7 @@
     require.onError = function (err) {
         console.warn('[requirejs] Error:', err.requireType);
         if ('timeout' === err.requireType) {
-            console.log('modules: ' + err.requireModules);
+            console.warn('Affected Modules: ' + err.requireModules);
         }
         throw err;
     };
@@ -68,22 +68,22 @@
                 }
               , lodash: {
                     exports:    '_'
- //                 , deps:       ['jquery']
+                  , deps:       ['jquery']
                 }
               , underscore: {
                     exports:    '_'
-//                  , deps:       ['jquery']
+                  , deps:       ['jquery']
                 }
               , bootstrap: {
                     exports:    'bootstrap'
-//                  , deps:       ['jquery']
+                  , deps:       ['jquery']
                 }
               , bootstrapTags:  ['jquery', 'bootstrap']
-//              , Tmpl:           ['jquery']
-//              , raty:           ['jquery']
-//              , Abstract:       ['jquery']
+              , Tmpl:           ['jquery']
+              , raty:           ['jquery']
+              , Abstract:       ['jquery']
               , Player:         ['jquery', 'Abstract']
-//              , functions:      ['jquery']
+              , functions:      ['jquery']
             }
           , deps: [
                 'jquery'
@@ -117,6 +117,7 @@
             console.groupEnd(pageId);
         }, function (err) {
             var failedId    =   err.requireModules && err.requireModules[0];
+            console.warn('[requirejs] Errors in ' + failedId + ':', err.requireModules[0]);
         });
     })();
 

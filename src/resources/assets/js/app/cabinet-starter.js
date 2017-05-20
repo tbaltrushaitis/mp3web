@@ -1,5 +1,11 @@
 /*  BOF: assets/js/app/cabinet-starter.js  */
 
+/*!
+ * ASSETS/JS/APP/cabinet-starter.js
+ * Copyright(c) 2016-2017 Baltrushaitis Tomas
+ * MIT Licensed
+ */
+
 'use strict';
 
 require([
@@ -22,13 +28,10 @@ define([
   , 'bootstrapTags'
   ]
 
-  // , function (require, $, _, cc, bsTags, F) {
   , function (require, $, _, F) {
 
-    // var ControllerCabinet   =   new (cc());
-    // var libTags             =   new (bsTags());
-    var ControllerCabinet   =   new (require('cabinetController'));
-    var libTags             =   new (require('bootstrapTags'));
+    var ControllerCabinet   =   new require('cabinetController');
+    var libTags             =   new require('bootstrapTags');
 
     $.when(ControllerCabinet, libTags, F)
      .then(function (loCabinet) {
