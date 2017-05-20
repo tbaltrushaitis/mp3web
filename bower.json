@@ -29,33 +29,77 @@
       , "build"
       , "bower_components"
       , "bower_modules"
+      , "dist"
       , "node_modules"
       , "docs"
       , "test"
       , "tests"
       , "laravel-*"
+      , "webroot"
     ]
   , "dependencies": {
-        "bootstrap":            "~3.3.7"
+        "animate.css":          "~3.5.2"
+      , "bootstrap":            "~3.3.7"
       , "bootstrap-tagsinput":  "~0.8.0"
-      , "font-awesome":         "~4.6.3"
+      , "font-awesome":         "~4.7.0"
       , "html5shiv":            "~3.7.3"
       , "jquery":               "~2.2.4"
-      , "jquery-tmpl":          "*"
+      , "jquery-tmpl":          "#b504c8afba"
       , "lodash":               "~4.17.2"
-      , "raty":                 "~2.7.0"
+      , "normalize.css":        "~4.2.0"
+      , "raty":                 "~2.7.1"
       , "respond":              "~1.4.2"
       , "requirejs":            "~2.3.1"
       , "underscore":           "~1.8.3"
     }
   , "devDependencies": {
-        "animate.css":      "~3.5.2"
-      , "normalize.css":    "~4.2.0"
     }
   , "resolutions": {
         "jquery": "~2.2.4"
     }
   , "outdatedDependencies": {
         "bxslider-4":   "bx-slider.js#^4.2.12"
+    }
+  , "overrides": {
+        "admin-lte": {
+            "main": [
+                "dist/**/*.*"
+              , "!**/index2.html"
+              , "!**/*.less"
+            ]
+        }
+      , "bootstrap": {
+            "main": [
+                "dist/**/*.*"
+              , "!**/*.less"
+              , "!**/*.map"
+              , "!**/npm.js"
+              , "!**/*.min.js"
+            ]
+        }
+      , "font-awesome": {
+            "main": [
+                "fonts/*"
+              , "css/*.css"
+              , "!css/*.min.css"
+            ]
+        }
+      , "jquery-tmpl": {
+            "main": [
+                "*.js"
+            ]
+        }
+      , "raty": {
+            "main": [
+                "lib/**/*.*"
+            ]
+        }
+      , "wdt-loading": {
+            "main": [
+                "wdtLoading.*"
+              , "wdtLoading.js"
+              , "wdtMarkup.html"
+            ]
+        }
     }
 }

@@ -1,7 +1,7 @@
 {   "name":         "mp3web"
   , "title":        "Web MP3 Player and Media Library Manager"
   , "description":  "Web MP3 Player and Media Library Manager based on Node.js, Laravel and HTML5 + lightweight JavaScript MVC modeling on FrontEnd"
-  , "version":      "1.0.2"
+  , "version":      "1.0.3"
   , "author": {
         "name":  "Baltrushaitis Tomas"
       , "email": "tbaltrushaitis@gmail.com"
@@ -48,8 +48,9 @@
       , "dateformat":           "^2.0.0"
       , "del":                  "^2.2.2"
       , "gulp":                 "^3.9.1"
+      , "gulp-aglio":           "~0.0.10"
       , "gulp-add-src":         "^0.2.0"
-      , "gulp-changed":         "^2.0.0"
+      , "gulp-changed":         "^3.1.0"
       , "gulp-chmod":           "^2.0.0"
       , "gulp-chown":           "^1.1.0"
       , "gulp-clean-css":       "^3.0.4"
@@ -78,9 +79,9 @@
       , "gulp-util":            "^3.0.8"
       , "gulp-watch":           "^4.3.9"
       , "jshint":               "^2.9.3"
-      , "jquery":               "~2.2.4"
-      , "jsdom":                "^9.8.3"
+      , "jsdom":                "^10.1.0"
       , "jshint-stylish":       "^2.2.1"
+      , "main-bower-files":     "^2.13.1"
       , "lodash":               "~4.17.2"
       , "merge-stream":         "^1.0.0"
       , "minimist":             "^1.2.0"
@@ -88,7 +89,19 @@
       , "vinyl-paths":          "^2.1.0"
     }
   , "options": {
-        "reporting": {
+        "bower": {
+            "debugging":    false
+          , "paths": {
+                "bowerDirectory":   "bower_modules"
+              , "bowerrc":          ".bowerrc"
+              , "bowerJson":        "bower.json"
+            }
+        }
+      , "file": {
+            "encoding": "utf8"
+          , "flag":     "r"
+        }
+      , "reporting": {
             "err":    true
           , "stderr": true
           , "stdout": true
@@ -98,13 +111,53 @@
           , "pipeStdout":       false
         }
       , "watch": {
-            "ignoreInitial": false
-          , "verbose":   true
-          , "readDelay": 100
+            "ignoreInitial":    false
+          , "verbose":          true
+          , "readDelay":        100
         }
       , "sync": {
             "printSummary": true
           , "nodelete":     true
+        }
+      , "uglify": {
+            "compress": {
+                "sequences":        true
+              , "properties":       true
+              , "dead_code":        true
+              , "drop_debugger":    true
+              , "unsafe":           false
+              , "conditionals":     true
+              , "comparisons":      true
+              , "evaluate":         true
+              , "booleans":         true
+              , "loops":            true
+              , "unused":           true
+              , "hoist_funs":       true
+              , "hoist_vars":       false
+              , "if_return":        true
+              , "join_vars":        true
+              , "cascade":          true
+              , "side_effects":     true
+              , "warnings":         true
+              , "global_defs":      {}
+            }
+          , "mangle":   false
+          , "output": {
+                "indent_start":     0
+              , "indent_level":     4
+              , "quote_keys":       false
+              , "space_colon":      true
+              , "ascii_only":       false
+              , "inline_script":    false
+              , "width":            80
+              , "max_line_len":     32000
+              , "beautify":         false
+              , "source_map":       null
+              , "bracketize":       false
+              , "comments":         false
+              , "semicolons":       true
+            }
+          , "preserveComments":     false
         }
     }
 }

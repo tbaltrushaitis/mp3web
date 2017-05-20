@@ -1,7 +1,7 @@
 {   "name":         "mp3web"
   , "title":        "Web MP3 Player and Media Library Manager"
   , "description":  "Web MP3 Player and Media Library Manager based on Node.js, Laravel and HTML5 + lightweight JavaScript MVC modeling on FrontEnd"
-  , "version":      "1.0.2"
+  , "version":      "1.0.3"
   , "author": {
         "name":  "Baltrushaitis Tomas"
       , "email": "tbaltrushaitis@gmail.com"
@@ -27,11 +27,9 @@
         }
     ]
   , "require": {
-        "php":                          ">=5.5.9"
-      , "laravel/framework":            "5.2.*"
-      , "invisnik/laravel-steam-auth":  "2.*"
-      , "syntax/steam-api":             "2.0.*"
-      , "wisembly/elephant.io":         "~3.0"
+        "php":                  ">=5.5.9"
+      , "laravel/framework":    "5.2.*"
+      , "wisembly/elephant.io": "~3.0"
     }
   , "require-dev": {
         "fzaninotto/faker":     "~1.4"
