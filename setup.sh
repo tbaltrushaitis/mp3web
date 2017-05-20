@@ -35,10 +35,12 @@ okGrunt
 ##  ------------------------------------------------------------------------  ##
 ##                                 SCENARIO                                   ##
 ##  ------------------------------------------------------------------------  ##
-##  1.  git clone https://github.com/tbaltrushaitis/mp3.git mp3 && cd mp3
-##  2.  composer -vvv create-project --prefer-dist laravel/laravel laravel-5.2 "5.2.*"
-##  3.  cp -pr laravel-5.2/ build/ && cd build && composer -vvv update && cd ..
-##  4.  npm i && bower i
+##  1.  git clone https://github.com/tbaltrushaitis/mp3web.git mp3web
+##  2.  chown -R www-data:www-data mp3web && cd mp3web && rights
+##  3.  composer -vvv create-project --prefer-dist laravel/laravel laravel-5.2 "5.2.*"
+##  5.  cp -pr laravel-5.2/ build/ && cd build && composer -vvv update && cd -
+##  3.  ./setup.sh
+##  6.  npm i && bower i
 
 #//  GIT
 #git pull origin tagsInput
@@ -55,6 +57,8 @@ okGrunt
 
 deps_install
 sleep 1;
+deps_outdated
+sleep 1;
 
 check_composer
 sleep 1;
@@ -68,8 +72,8 @@ sleep 1;
 # sleep 1;
 
 
-# gulp -vvv --env=production
-# sleep 1;
+gulp --verbose --env=production
+sleep 1;
 
 # gulp build
 # gulp artisan

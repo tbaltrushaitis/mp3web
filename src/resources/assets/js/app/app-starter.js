@@ -1,4 +1,4 @@
-/* ASSETS/JS/APP/App_Starter.js */
+/* ASSETS/JS/APP/app-starter.js */
 
 'use strict';
 

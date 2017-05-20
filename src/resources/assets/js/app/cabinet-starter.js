@@ -1,4 +1,6 @@
-/*  BOF: assets/js/cabinet-starter.js  */
+/*  BOF: assets/js/app/cabinet-starter.js  */
+
+'use strict';
 
 require([
     'jquery'
@@ -6,27 +8,27 @@ require([
   , 'cabinetController'
   , 'bootstrapTags'
   , 'functions'
-    ]
-
+]
   , function ($, _, cc, bsTags, F) {
-        'use strict';
         console.timeStamp('CABINET MODULES READY');
 });
 
 define([
-    'jquery'
+    'require'
+  , 'jquery'
   , 'underscore'
+  , 'functions'
   , 'cabinetController'
   , 'bootstrapTags'
-  , 'functions'
   ]
 
-  , function ($, _, cc, bsTags, F) {
+  // , function (require, $, _, cc, bsTags, F) {
+  , function (require, $, _, F) {
 
-    'use strict';
-
-    var ControllerCabinet   =   new (cc());
-    var libTags             =   new (bsTags());
+    // var ControllerCabinet   =   new (cc());
+    // var libTags             =   new (bsTags());
+    var ControllerCabinet   =   new (require('cabinetController'));
+    var libTags             =   new (require('bootstrapTags'));
 
     $.when(ControllerCabinet, libTags, F)
      .then(function (loCabinet) {
@@ -40,4 +42,4 @@ define([
 
 });
 
-/*  EOF: assets/js/cabinet-starter.js  */
+/*  EOF: assets/js/app/cabinet-starter.js  */
