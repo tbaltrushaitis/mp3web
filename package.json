@@ -75,7 +75,7 @@
       , "gulp-sequence":        "^0.4.6"
       , "gulp-tar":             "^1.9.0"
       , "gulp-template":        "^4.0.0"
-      , "gulp-uglify":          "^2.0.0"
+      , "gulp-uglify":          "^3.0.0"
       , "gulp-util":            "^3.0.8"
       , "gulp-watch":           "^4.3.9"
       , "jquery":               "^2.2.4"
