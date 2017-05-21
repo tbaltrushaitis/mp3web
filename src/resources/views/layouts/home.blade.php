@@ -13,7 +13,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-    <title>Premium Music Collection</title>
+    <title>Premium Music Collection :: Admin Dashboard</title>
 
     <!--/ Application Specific Metas
     ================================================== /-->
@@ -25,19 +25,30 @@
 
     <!--/ Fonts
     ================================================== /-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <!--/ <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" /> /-->
 
     <!--/ Styles
     ================================================== /-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+    <!--/ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" /> /-->
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet" /> --}}
+
+    <!--/ Custom styles
+    ================================================== /-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rainbow/1.2.0/themes/github.css" />
+    <link rel="stylesheet" href="assets/css/bower-bundle.css" id="css-bower" />
+    <link rel="stylesheet" href="assets/css/styles.css" id="css-themes" />
+    <link rel="stylesheet" href="assets/css/mp3.css" id="css-custom" />
 
     <!--/ Favicon
     ================================================== /-->
-    <link href="assets/img/favicon.ico" type="image/x-icon" rel="icon" />
-    <link href="assets/img/favicon.ico" type="image/x-icon" rel="shortcut icon" />
+    <link href="assets/img/favicon.ico" type="image/x-icon" rel="icon"          alt="Site Icon" />
+    <link href="assets/img/favicon.ico" type="image/x-icon" rel="shortcut icon" alt="Site Shortcut Icon" />
 
+    <!--/ HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries /-->
+    <!--[if lt IE 9]>
+        <script src="assets/js/lib/html5shiv.min.js"></script>
+        <script src="assets/js/lib/respond.min.js"></script>
+    <![endif]-->
     <style>
         body {
             font-family: 'Lato';
@@ -47,6 +58,7 @@
             margin-right: 6px;
         }
     </style>
+
 </head>
 
 <body id="layout-home" data-id_page="layout-home" data-rooturl="{{ Request::root() }}">
@@ -65,7 +77,7 @@
 
                 <!--/ Branding Image /-->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <!--/ <img class="" alt="Premium MP3" src="{{ asset('assets/img/logo/logo-sm.png') }}" /> /-->
+                    <img class="logo-sm" alt="Premium MP3 Collection" src="{{ asset('assets/img/logo/logo-sm.png') }}" />
                 </a>
             </div>
 
@@ -110,4 +122,5 @@
     @include('cabinet.javascripts')
 
 </body>
+
 </html>

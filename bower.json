@@ -91,6 +91,13 @@
                 "*.js"
             ]
         }
+      , "lato-font": {
+            "main": [
+                "fonts/**/*.*"
+              , "css/*.css"
+              , "!css/*.min.css"
+            ]
+        }
       , "raty": {
             "main": [
                 "lib/**/*.*"

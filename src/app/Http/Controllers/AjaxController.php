@@ -84,7 +84,7 @@ class AjaxController extends Controller {
 
 
     /**
-     * Store an Media Track in storage.
+     * Store a Media Track in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response

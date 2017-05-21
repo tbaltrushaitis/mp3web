@@ -23,7 +23,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: 600;
+  font-weight: 700;
   font-family: 'Roboto', sans-serif;
   color: #272727;
 }
@@ -144,15 +144,18 @@ ul.nostyle i {
 /*************************
 *******Header******
 **************************/
-.navbar.navbar-default {
+  .navbar.navbar-default
+, .navbar.navbar-inverse {
   border: 0;
   border-radius: 0;
   margin-bottom: 0;
 }
-.navbar.navbar-default .navbar-toggle {
+  .navbar.navbar-default .navbar-toggle
+, .navbar.navbar-inverse .navbar-toggle {
   margin-top: 32px;
 }
-.navbar.navbar-default .navbar-brand {
+  .navbar.navbar-default .navbar-brand
+, .navbar.navbar-inverse .navbar-brand {
   height: auto;
   padding: 2px 5px;
 }

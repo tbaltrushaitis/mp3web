@@ -1,17 +1,22 @@
 /*  BOF: ROOT/gulpfile.js  */
 
-//##  Make sure that jQuery included  ##//
-//const   jQuery  =   jQuery  ||  require('jquery')(require('jsdom').jsdom().parentWindow)
-const   jQuery  =   require('jquery')
-      , $       =   $   ||  jQuery
-      , _       =   require('underscore')
-;
+/*!
+ * ASSETS/JS/APP/app-starter.js
+ * Copyright(c) 2016-2017 Baltrushaitis Tomas
+ * MIT Licensed
+ */
 
-const fs    =   require('fs');
-const del   =   require('del');
-const path  =   require('path');
-const util  =   require('util');
-const merge =   require('merge-stream');
+'use strict';
+
+//##  Make sure that jQuery included  ##//
+const $         =   require('jquery');
+const _         =   require('underscore');
+
+const fs        =   require('fs');
+const del       =   require('del');
+const path      =   require('path');
+const util      =   require('util');
+const merge     =   require('merge-stream');
 
 const parseArgs         =   require('minimist');
 const vinylPaths        =   require('vinyl-paths');
@@ -83,7 +88,7 @@ const   Banner  =   {
 
 var envConfig = {
     string:     'env'
-  , default:    {env: process.env.NODE_ENV || 'empty'}
+  , default:    {env: process.env.NODE_ENV || 'test'}
 };
 envConfig   =   parseArgs(process.argv.slice(2), envConfig);
 
@@ -97,17 +102,13 @@ gulp.task('default', function () {
     //  DEFAULT Scenario Route
     (function () {
         switch (envConfig.env) {
-            case 'empty': {
-                gulpSequence('files:src', 'usage')();
-                break;
-            }
             case 'test': {
-                gulpSequence('lint')();
+                gulpSequence('lint');
                 break;
             }
             case 'dev': {
                 //gulpSequence('clean:build', 'build:dev', 'deploy', 'watch')();
-                gulpSequence('build:dev')();
+                gulpSequence('build:dev', 'watch')();
                 break;
             }
             case 'production': {
@@ -138,14 +139,16 @@ gulp.task(  'build:dev',  gulpSequence(
           , ['sync:engine']
           , ['sync:src']
           , ['lint']
-          , ['bower:collect']
+          , ['bower']
+          , ['build:css', 'build:js']
+          , ['sync:resources']
           , ['fixPermissions']
     ));
 gulp.task('build',      gulpSequence(
                             ['clean:build']
                           , ['sync:engine']
                           , ['sync:src']
-                          , ['bower:collect']
+                          , ['bower']
                         //  , ['artisan:vendor:publish']
                        //   , ['sync:media', 'bower']
                    //       , ['sync:assets:fonts']
@@ -154,12 +157,12 @@ gulp.task('build',      gulpSequence(
                         ));
 gulp.task('dist',       gulpSequence(['clean:dist'], ['sync:dist']));
 gulp.task('deploy',     gulpSequence('sync:web', 'artisan:clear'));
-//gulp.task('watch',      gulpSequence('watch:src:views', 'watch:src:css', 'watch:src:js'));
-gulp.task('watch',      gulpSequence('watch:src:php', 'watch:src:css', 'watch:src:js'));
+gulp.task('watch',      gulpSequence('watch:src:views', 'watch:src:css', 'watch:src:js'));
+//gulp.task('watch',      gulpSequence('watch:src:php', 'watch:src:css', 'watch:src:js'));
 
 
 //  BOWER
-gulp.task('bower:collect', function () {
+gulp.task('bower', function () {
 
     var mBower      =   mainBowerFiles(bowerOptions);   //  , {base: BOWER}
 
@@ -170,25 +173,20 @@ gulp.task('bower:collect', function () {
     var FONT    =   path.join('fonts');
     var IMG     =   path.join('img');
 
-    var bowerJS     =   gulp.src(mBower)
-                            .pipe(filter([
-                                '**/*.js'
-                              , '!**/*.min.js'
-                              , '!**/npm.js'
-                            ]))
-                            //.pipe(changed(path.resolve(KEEP, JS)))
-                            .pipe(gulp.dest(path.resolve(DEST, JS)))
-                            .pipe(filter([
-                                '**/*.js'
-                              , '!**/require.js'
-                              , '!**/*-bundle.js'
-                            ]))
-                            .pipe(gulp.dest(path.resolve(KEEP, JS)))
-                            .pipe(gulpif('production' === envConfig.env, uglify(uglifyOptions)))
-                            .pipe(concat('bower-bundle.js'))
-                            .pipe(header(Banner.header, {pkg: pkg}))
-                            .pipe(rename('bower-bundle.min.js'))
-                            .pipe(gulp.dest(path.resolve(DEST, JS)));
+    var bowerJS =   gulp.src(mBower)
+                        .pipe(filter([
+                            '**/*.js'
+                          , '!**/require.js'
+                         // , '!**/*.min.js'
+                         // , '!**/npm.js'
+                        ]))
+                        .pipe(changed(path.resolve(KEEP, JS)))
+                        .pipe(gulp.dest(path.resolve(KEEP, JS)))
+                        .pipe(gulpif('production' === envConfig.env, uglify(uglifyOptions)))
+                        .pipe(concat('bower-bundle.js'))
+                        .pipe(header(Banner.header, {pkg: pkg}))
+                        .pipe(rename('bower-bundle.min.js'))
+                        .pipe(gulp.dest(path.resolve(DEST, JS)));
 
     var bowerCSS    =   gulp.src(mBower)
                             .pipe(filter([
@@ -196,24 +194,23 @@ gulp.task('bower:collect', function () {
                               , '!**/*.min.css'
                               , "!**/AdminLTE-*.css"
                               , "!**/skin-*.css"
-                              , '!**/*-bundle.css'
+                              //, '!**/*-bundle.css'
                             ]))
-                            // .pipe(changed(path.resolve(KEEP, CSS)))
+                            .pipe(changed(path.resolve(KEEP, CSS)))
                             .pipe(gulpif('production' === envConfig.env, cleanCSS(cleanOptions, function (d) {
                                 console.info(d.name + ':\t' + d.stats.originalSize + '\t->\t' + d.stats.minifiedSize + '\t[' + d.stats.timeSpent + 'ms]\t[' + 100 * d.stats.efficiency.toFixed(2) + '%]');
                             }), false))
                             // Writing minified version.
                             .pipe(gulp.dest(path.resolve(KEEP, CSS)))
-                            .pipe(rename({suffix: minifyOptions.suffix}))
-                            .pipe(minifyCSS())
-                            .pipe(gulp.dest(path.resolve(DEST, CSS)))
                             .pipe(concatCSS('bower-bundle.css', {rebaseUrls: true}))
+                            .pipe(minifyCSS())
+                            .pipe(rename({suffix: minifyOptions.suffix}))
                             .pipe(header(Banner.header, {pkg: pkg}))
                             //.pipe(rename('bower-bundle.min.css'))
                             .pipe(gulp.dest(path.resolve(DEST, CSS)));
 
     var bowerFonts  =   gulp.src(mBower)
-                            .pipe(filter(['**/fonts/*.*']))
+                            .pipe(filter(['**/fonts/**/*.*']))
                             .pipe(changed(path.resolve(DEST, FONT)))
                             .pipe(gulp.dest(path.resolve(DEST, FONT)));
 
@@ -234,35 +231,41 @@ gulp.task('bower:collect', function () {
     return  merge(bowerJS, bowerCSS, bowerFonts, bowerImg);
 });
 
-
+//  WATCHERS
 gulp.task('watch:src:views', function () {
-    var wViews  =   gulp.watch([path.join(SRC, 'resources/views/**/*.blade.php')]
+    var wViews  =   gulp.watch([
+                            path.join(SRC, 'resources/views', '**/*.blade.php')
+                        ]
                       , watchOptions
                       , function () {
-                            gulpSequence('sync:views', 'sync:web', 'artisan:clear')();
+                            gulpSequence('sync:src', 'sync:web', 'artisan:clear')();
                     });
     wViews.on('change', function (event) {
-        console.log('View ' + event.path + ' was ' + event.type + ', running tasks...');
+        console.info('View ' + event.path + ' was ' + event.type + ', running tasks...');
     });
 });
+
 gulp.task('watch:src:css', function () {
-    var wCSS    =   gulp.watch([path.join(SRC, 'resources/assets/css/**/*.css')]
+    var wCSS    =   gulp.watch([
+                        path.join(SRC, 'resources/assets/css', '**/*.css')
+                    ]
                   , watchOptions
                   , function () {
-                        gulpSequence('sync:assets:css', 'build:css', 'sync:web')();
+                        gulpSequence('sync:src', 'sync:resources', 'build:css', 'sync:web')();
                     });
     wCSS.on('change', function (event) {
-        console.log('Style ' + event.path + ' was ' + event.type + ', running tasks...');
+        console.info('CSS ' + event.path + ' was ' + event.type + ', running tasks...');
     });
 });
+
 gulp.task('watch:src:js', function () {
-    var wScripts    =   gulp.watch([path.join(SRC, 'resources/assets/js/**/*.js')]
+    var wScripts    =   gulp.watch([path.join(SRC, 'resources/assets/js', '**/*.js')]
                       , watchOptions
                       , function () {
-                            gulpSequence('sync:assets:js', 'build:scripts', 'sync:web')();
+                            gulpSequence('sync:src', 'sync:resources', 'build:js', 'sync:web')();
                         });
     wScripts.on('change', function (event) {
-        console.log('Script ' + event.path + ' was ' + event.type + ', running tasks...');
+        console.info('JS ' + event.path + ' was ' + event.type + ', running tasks...');
     });
 });
 
@@ -294,29 +297,53 @@ gulp.task('clean:public', function () {
 });*/
 
 //  SYNC
-gulp.task('sync:engine', function () {
-    return  gulp.src('')
-                .pipe(dirSync(ENGINE, BUILD, _.extend(syncOptions, {ignore: [/^\.env(.*)?$/i, /^(.*)\.md$/i]})))
-                .on('error', console.error.bind(console));
+gulp.task('sync:resources', function () {
+
+    var DEST    =   path.resolve(path.join(BUILD, 'public'));
+
+    var resAssets   =   gulp.src([
+                                path.join(BUILD, 'resources/assets', '*.*')
+                            ])
+                            //.pipe(changed(path.join(DEST, 'assets')))
+                            .pipe(gulp.dest(path.join(DEST, 'assets')))
+                            .on('error', console.error.bind(console));
+    var resStuff    =   gulp.src([
+                                path.join(BUILD, 'resources', '*.*')
+                            ])
+                            //.pipe(changed(path.resolve(DEST)))
+                            .pipe(gulp.dest(DEST))
+                            .on('error', console.error.bind(console));
+
+    return merge(resAssets, resStuff);
 });
-gulp.task('sync:src', function () {
-    return  gulp.src('')
-                .pipe(dirSync(SRC, BUILD, {
-                        printSummary:   true
-                      , nodelete:       true
-                      , ignore:         ['.env']
-                }))
-                .on('error', console.error.bind(console));
-});
-gulp.task('sync:media', function () {
+
+gulp.task('sync:views', function () {
     return  gulp.src('')
                 .pipe(dirSync(
-                    path.join(BUILD, 'resources/assets/img')
-                  , path.join(BUILD, 'public/assets/img')
+                    path.join(SRC,   'resources/views')
+                  , path.join(BUILD, 'resources/views')
                   , syncOptions
                 ))
                 .on('error', console.error.bind(console));
 });
+
+gulp.task('sync:engine', function () {
+    return  gulp.src('')
+                .pipe(dirSync(
+                    ENGINE
+                  , BUILD
+                  , _.extend(syncOptions, {ignore: [/^\.env(.*)?$/i, /^(.*)\.md$/i]})
+                ))
+                .on('error', console.error.bind(console));
+});
+
+gulp.task('sync:src', function () {
+    return  gulp.src('')
+                .pipe(dirSync(SRC, BUILD, syncOptions))
+                      //, ignore:         ['.env']
+                .on('error', console.error.bind(console));
+});
+
 gulp.task('sync:assets', function () {
     return  gulp.src('')
                 .pipe(dirSync(
@@ -326,7 +353,32 @@ gulp.task('sync:assets', function () {
                 ))
                 .on('error', console.error.bind(console));
 });
-gulp.task('sync:assets:css', function () {
+
+gulp.task('sync:dist', function () {
+    return  gulp.src('')
+                .pipe(dirSync(BUILD, DIST, syncOptions))
+                .on('error', console.error.bind(console));
+});
+
+gulp.task('sync:web', function () {
+    return  gulp.src('')
+                .pipe(dirSync(BUILD, WEB, syncOptions))
+                .on('error', console.error.bind(console));
+});
+
+
+/* gulp.task('sync:media', function () {
+    return  gulp.src('')
+                .pipe(dirSync(
+                    path.join(BUILD, 'resources/assets/img')
+                  , path.join(BUILD, 'public/assets/img')
+                  , syncOptions
+                ))
+                .on('error', console.error.bind(console));
+});
+*/
+
+/* gulp.task('sync:assets:css', function () {
     return  gulp.src('')
                 .pipe(dirSync(
                     path.join(SRC, 'resources/assets/css')
@@ -335,7 +387,9 @@ gulp.task('sync:assets:css', function () {
                 ))
                 .on('error', console.error.bind(console));
 });
-gulp.task('sync:assets:fonts', function () {
+*/
+
+/* gulp.task('sync:assets:fonts', function () {
     return  gulp.src('')
                 .pipe(dirSync(
                     path.join(BUILD, 'resources/assets/fonts')
@@ -344,7 +398,9 @@ gulp.task('sync:assets:fonts', function () {
                 ))
                 .on('error', console.error.bind(console));
 });
-gulp.task('sync:assets:js', function () {
+*/
+
+/* gulp.task('sync:assets:js', function () {
     return  gulp.src('')
                 .pipe(dirSync(
                     path.join(SRC, 'resources/assets/js')
@@ -353,30 +409,9 @@ gulp.task('sync:assets:js', function () {
                 ))
                 .on('error', console.error.bind(console));
 });
-gulp.task('sync:views', function () {
-    return  gulp.src('')
-                .pipe(dirSync(
-                    path.join(SRC, 'resources/views')
-                  , path.join(BUILD, 'resources/views')
-                  , syncOptions
-                ))
-                .on('error', console.error.bind(console));
-});
-gulp.task('sync:dist', function () {
-    return  gulp.src('')
-                .pipe(dirSync(BUILD, DIST, syncOptions))
-                .on('error', console.error.bind(console));
-});
-gulp.task('sync:web', function () {
-    return  gulp.src('')
-                .pipe(dirSync(BUILD, WEB, syncOptions))
-                .on('error', console.error.bind(console));
-});
-gulp.task('sync:web:dev', function () {
-    return  gulp.src('')
-                .pipe(dirSync(BUILD, WEB + '.dev', syncOptions))
-                .on('error', console.error.bind(console));
-});
+*/
+
+
 
 //  BUILD
 gulp.task('build:css', function () {
@@ -388,21 +423,21 @@ gulp.task('build:css', function () {
               // , '!**/fonts-cdn.css'
             ])
             .pipe(concatCSS('styles.css', {rebaseUrls: false}))
-            .pipe(gulpif('production' === envConfig.env, cleanCSS({debug: true, processImport: false}, function (details) {
-                console.info(details.name + ': ' + details.stats.originalSize + ' -> ' + details.stats.minifiedSize + ' [' + details.stats.timeSpent + 'ms] [' + details.stats.efficiency.toFixed(2) + '%]');
+            .pipe(gulpif('production' === envConfig.env, cleanCSS(cleanOptions, function (d) {
+                console.info(d.name + ': ' + d.stats.originalSize + ' -> ' + d.stats.minifiedSize + ' [' + d.stats.timeSpent + 'ms] [' + 100 * d.stats.efficiency.toFixed(2) + '%]');
             }), false))
             .pipe(header(Banner.header, {pkg: pkg}))
             .pipe(gulp.dest(DEST));
 });
-gulp.task('build:scripts', function () {
+gulp.task('build:js', function () {
     var DEST = path.join(BUILD, 'public/assets/js');
-    return gulp.src(path.join(BUILD, 'resources/assets/js/**/*.js'))
-        .pipe(jscs())
-        .pipe(jscs.reporter())
-        .pipe(changed(DEST))
-        .pipe(gulpif('production' === envConfig.env, uglify(uglifyOptions), false))
-        .pipe(header(Banner.header, {pkg: pkg}))
-        .pipe(gulp.dest(DEST));
+    return  gulp.src(path.join(BUILD, 'resources/assets/js', '**/*.js'))
+                .pipe(jscs())
+                .pipe(jscs.reporter())
+                .pipe(changed(DEST))
+                .pipe(gulpif('production' === envConfig.env, uglify(uglifyOptions), false))
+                .pipe(header(Banner.header, {pkg: pkg}))
+                .pipe(gulp.dest(DEST));
 });
 
 //  BOWER
@@ -475,34 +510,7 @@ gulp.task('bower:js', function () {
             .pipe(gulpif('production' === envConfig.env, uglify(uglifyOptions)))
             .pipe(gulp.dest(DEST));
 });
-gulp.task('bower:plugins', function () {
-    var RESO = path.join(BUILD, 'resources/assets/js/plugins');
-    var DEST = path.join(BUILD, 'public/assets/js/plugins');
 
-    var RATY =  gulp.src([
-                    path.join(BOWER, 'raty/lib/**/*.*')
-                ])
-                .pipe(gulp.dest( path.join(RESO, 'raty') ))
-                .pipe(changed( path.join(DEST, 'raty') ))
-                .pipe(gulp.dest( path.join(DEST, 'raty') ));
-
-    var TAGS =  gulp.src([
-                    path.join(BOWER, 'bootstrap-tagsinput/dist/*.*')
-                ])
-                .pipe(gulp.dest( path.join(RESO, 'bootstrap-tagsinput') ))
-                .pipe(changed( path.join(DEST, 'bootstrap-tagsinput') ))
-                .pipe(gulp.dest( path.join(DEST, 'bootstrap-tagsinput') ));
-
-    var MISC =  gulp.src([
-                    path.join(BOWER, 'html5shiv/dist/html5shiv.min.js')
-                  , path.join(BOWER, 'respond/dest/respond.min.js')
-                ])
-                .pipe(gulp.dest( path.join(RESO, 'misc') ))
-                .pipe(changed( path.join(DEST, 'misc') ))
-                .pipe(gulp.dest( path.join(DEST, 'misc') ));
-
-    return merge(RATY, TAGS, MISC);
-});
 
 //  ARTISAN
 gulp.task('artisan:vendor:publish', function () {
@@ -522,15 +530,15 @@ gulp.task('artisan:clear', function () {
             // .pipe(exec('cd ' + WEB + ' && php artisan cache:clear -vvv && cd ..'))
             // .pipe(exec('cd ' + WEB + ' && php artisan config:clear -vvv && cd ..'))
             // .pipe(exec('cd ' + WEB + ' && php artisan route:clear -vvv && cd ..'))
-            .pipe(exec('cd ' + WEB + ' && php artisan view:clear && cd ..'))
+            .pipe(exec('cd ' + WEB + ' && php artisan view:clear && cd ..', execOptions))
             // .pipe(exec('cd ' + WEB + ' && php artisan optimize -vvv && cd ..'))
             // .pipe(exec('cd ' + WEB + ' && php artisan migrate:status -vvv && cd ..'))
-            .pipe(exec('cd ' + WEB + ' && php artisan route:list && cd ..'))
+            .pipe(exec('cd ' + WEB + ' && php artisan route:list && cd ..', execOptions))
             .pipe(exec.reporter(reportOptions));
 });
 gulp.task('artisan:key:generate', function () {
     return gulp.src('')
-            .pipe(exec('cd ' + BUILD + ' && php artisan key:generate && cd ..'))
+            .pipe(exec('cd ' + BUILD + ' && php artisan key:generate && cd ..', execOptions))
             .pipe(exec.reporter(reportOptions));
 });
 
