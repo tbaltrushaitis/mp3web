@@ -10,15 +10,15 @@
 
  Name | Version | Description
 :-----|:-------:|:------------
-[Laravel](https://laravel.com/docs/5.2) | 5.2.0 | Framework
-[Font-Awesome](http://fontawesome.io/) | 4.7.0 | The iconic font and CSS toolkit
+[animate.css](http://daneden.github.io/animate.css/) | 3.5.2 | A cross-browser library of CSS animations
 [Bootstrap](http://getbootstrap.com) | 3.3.7 | HTML, CSS, and JS framework
 [Bootstrap Tagsinput](https://github.com/bootstrap-tagsinput/bootstrap-tagsinput) | 0.8.0 | jQuery tags input plugin based on Twitter Bootstrap
-[animate.css](http://daneden.github.io/animate.css/) | 3.5.2 | A cross-browser library of CSS animations
+[Composer](https://getcomposer.org/) | :trident: | Dependency Manager for PHP
+[Font-Awesome](http://fontawesome.io/) | 4.7.0 | The iconic font and CSS toolkit
 [jQuery](http://jquery.com/) | 2.2.4 | JavaScript Library
+[Laravel](https://laravel.com/docs/5.2) | 5.2.0 | Framework
 [requirejs](https://github.com/jrburke/requirejs) | 2.3.3 | A file and module loader for JavaScript
 [Underscore.js](http://underscorejs.org) | 1.8.3 | JavaScript library that provides a whole mess of us
-[Composer](https://getcomposer.org/) | :trident: | Dependency Manager for PHP
 
 
 ## Live Demo Site ##
@@ -83,7 +83,7 @@ Below is a list of gulp tasks and their possible params:
 | | sync:assets:js | | | 
 | | sync:views | | | 
 | | sync:dist | build/ | dist/ | Create release directory from BUILD
-| | sync:web | build/ | webroot/ | Create/update web public directory
+| | sync:web | build/ | webroot/ | Create/update public web directory
 :five: | **build** | | | Build package
 | | build | | dist/ | Production package
 | | build:dev | | build/ | Development stage test package
