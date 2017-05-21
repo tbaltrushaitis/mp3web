@@ -138,11 +138,12 @@ gulp.task(  'build:dev',  gulpSequence(
             ['clean:build']
           , ['sync:engine']
           , ['sync:src']
-          , ['lint']
+         // , ['lint']
           , ['bower']
           , ['build:css', 'build:js']
           , ['sync:resources']
           , ['fixPermissions']
+          , ['deploy']
     ));
 gulp.task('build',      gulpSequence(
                             ['clean:build']
@@ -309,6 +310,7 @@ gulp.task('sync:resources', function () {
                             .on('error', console.error.bind(console));
     var resStuff    =   gulp.src([
                                 path.join(BUILD, 'resources', '*.*')
+                              , path.join(BUILD, 'resources', '.*')
                             ])
                             //.pipe(changed(path.resolve(DEST)))
                             .pipe(gulp.dest(DEST))
@@ -565,8 +567,8 @@ gulp.task('fixPermissions', function () {
                 path.join(BUILD, '**')
             ])
             .pipe(vinylPaths(function (vPath) {
-                console.log('Chown:', vPath);
-                exec('sudo chown www-data:www-data ' + vPath);
+                //console.log('Chown:', vPath);
+                exec('sudo chown www-data:www-data ' + vPath, execOptions);
                 return Promise.resolve();
             }));
 });
