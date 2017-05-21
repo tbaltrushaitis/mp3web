@@ -26,6 +26,7 @@ const chown         =   require('gulp-chown');
 const concat        =   require('gulp-concat');
 const cleanCSS      =   require('gulp-clean-css');
 const concatCSS     =   require('gulp-concat-css');
+const minifyCSS     =   require('gulp-minify-css');
 const dirSync       =   require('gulp-directory-sync');
 const exec          =   require('gulp-exec');
 const filter        =   require('gulp-filter');
@@ -53,12 +54,14 @@ const DIST  =   path.join('dist');
 const WEB   =   path.join('webroot', path.sep);
 
 const bowerOptions  =   pkg.options.bower;
+const cleanOptions  =   pkg.options.clean;
 const execOptions   =   pkg.options.exec;
 const fileOptions   =   pkg.options.file;
+const minifyOptions =   pkg.options.minify;
 const reportOptions =   pkg.options.reporting;
 const syncOptions   =   pkg.options.sync;
-const watchOptions  =   pkg.options.watch;
 const uglifyOptions =   pkg.options.uglify;
+const watchOptions  =   pkg.options.watch;
 
 const VERSION   =   fs.readFileSync('./VERSION', fileOptions).trim();
 
@@ -196,15 +199,17 @@ gulp.task('bower:collect', function () {
                               , '!**/*-bundle.css'
                             ]))
                             // .pipe(changed(path.resolve(KEEP, CSS)))
-                            .pipe(gulpif('production' === envConfig.env, cleanCSS({debug: true, processImport: true}, function (d) {
-                                console.info(d.name + ': ' + d.stats.originalSize + ' -> ' + d.stats.minifiedSize + ' [' + d.stats.timeSpent + 'ms] [' + d.stats.efficiency.toFixed(2) + ']');
+                            .pipe(gulpif('production' === envConfig.env, cleanCSS(cleanOptions, function (d) {
+                                console.info(d.name + ':\t' + d.stats.originalSize + '\t->\t' + d.stats.minifiedSize + '\t[' + d.stats.timeSpent + 'ms]\t[' + 100 * d.stats.efficiency.toFixed(2) + '%]');
                             }), false))
-                            //.pipe(gulp.dest(DEST_CSS))
+                            // Writing minified version.
+                            .pipe(gulp.dest(path.resolve(DEST, CSS)))
+                            .pipe(rename({suffix: minifyOptions.suffix}))
+                            .pipe(minifyCSS())
                             .pipe(gulp.dest(path.resolve(DEST, CSS)))
                             .pipe(concatCSS('bower-bundle.css', {rebaseUrls: true}))
                             .pipe(header(Banner.header, {pkg: pkg}))
-                            .pipe(gulp.dest(path.resolve(DEST, CSS)))
-                            .pipe(rename('bower-bundle.min.css'))
+                            //.pipe(rename('bower-bundle.min.css'))
                             .pipe(gulp.dest(path.resolve(DEST, CSS)));
 
     var bowerFonts  =   gulp.src(mBower)
