@@ -31,7 +31,7 @@ class AjaxController extends Controller {
      * @return void
      */
     public function __construct (MediaRepository $mediarepository) {
-        $this->middleware('auth');
+        //$this->middleware('auth');
         $this->mediaRepository  =   $mediarepository;
     }
 
@@ -39,11 +39,10 @@ class AjaxController extends Controller {
     /**
      * getMeta - provide track's metadata as JSON
      * @param  Hash  $id
-     * @return Response
+     * @return Response JSON
      */
     public function getMeta ($id) {
-        $meta   =   $this->mediaRepository->getTrackMeta($id);
-        return response()->json($meta);
+        return redirect()->action('MediaController@mediaPlay', [$id]);
     }
 
     /**
@@ -59,6 +58,18 @@ class AjaxController extends Controller {
         $saveResult =   $this->mediaRepository->setTrackMeta($merged);
         $saveResult->put('action', 'save');
         return response()->json($saveResult);
+    }
+
+
+    /**
+     * deleteMeta - Delete Track's metadata and file
+     * @param  Hash  $id
+     * @return Response JSON
+     */
+    public function deleteMeta ($id) {
+        $dropResult =   $this->mediaRepository->dropTrackMeta($id);
+        $dropResult->put('action', 'DROP');
+        return response()->json($dropResult);
     }
 
 

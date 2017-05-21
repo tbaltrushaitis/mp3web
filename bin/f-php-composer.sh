@@ -41,7 +41,7 @@ function check_composer {
         printf "[WARNING]\tComposer not found!\n";
         printf "[INFO]\thttp://getcomposer.org/\n";
         printf "[LOG]\tStarting composer setup ... \n";
-        # composer_setup
+        composer_setup
         composer_selfupdate
         printf "[INFO]\tPlease run $# again.\n";
         # exit 1
@@ -49,4 +49,4 @@ function check_composer {
     printf "[OK]\t$(composer -V) Installed\n";
 }
 
-##  ----------  EOF: php-composer-funcs.sh  --------------------------------  ##
+##  ----------  EOF: f-php-composer.sh  --------------------------------  ##

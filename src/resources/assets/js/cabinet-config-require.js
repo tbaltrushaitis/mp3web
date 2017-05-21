@@ -38,23 +38,30 @@
         var config = {
             map: {
                 '*': {
-                    index:  'app/index'
+                    index:          'app/index'
                 }
             }
           , paths: {
                 jquery:             'lib/jquery'
               , Tmpl:               'lib/jquery.tmpl'
               , bootstrap:          'lib/bootstrap'
-              , underscore:         'lib/lodash'
-              , raty:               'plugins/raty/jquery.raty'
+              , lodash:             'lib/lodash'
+              , underscore:         'lib/underscore'
+              , raty:               'lib/jquery.raty'
               , functions:          'app/functions'
-              , bootstrapTags:      'plugins/bootstrap-tagsinput/bootstrap-tagsinput'
+              , bootstrapTags:      'lib/bootstrap-tagsinput'
               , Abstract:           'app/classes/Abstract.class'
               , cabinetController:  'app/controllers/cabinetController'
             }
+           //   , raty:               'plugins/raty/jquery.raty'
+           //   , bootstrapTags:      'plugins/bootstrap-tagsinput/bootstrap-tagsinput'
           , shim: {
                 jquery: {
                     exports:        'jQuery'
+                }
+              , lodash: {
+                    exports:        '_'
+                  , deps:           ['jquery']
                 }
               , underscore: {
                     exports:        '_'
@@ -92,9 +99,21 @@
         require.config(config);
     })();
 
+/*
+    (function () {
+        require(['app/cabinet-starter']);
+    })();
+*/
+
     // Load Starter Module
     (function () {
-        require(['cabinet-starter']);
+        require(['jquery', 'app/cabinet-starter'], function ($) {
+            var pageId  =   $('body').attr('data-id_page');
+            console.groupCollapsed(pageId);
+            console.timeStamp('CABINET.CHECK-IN');
+            console.info('CABINET::Started');
+            console.groupEnd(pageId);
+        });
     })();
 
 })(require);

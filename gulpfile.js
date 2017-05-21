@@ -2,101 +2,118 @@
 
 //##  Make sure that jQuery included  ##//
 //const   jQuery  =   jQuery  ||  require('jquery')(require('jsdom').jsdom().parentWindow)
-const   jQuery  =   jQuery  ||  require('jquery')
+const   jQuery  =   require('jquery')
       , $       =   $   ||  jQuery
-      , _       =   _   ||  require('lodash')
+      , _       =   require('underscore')
 ;
 
 const fs    =   require('fs');
-const path  =   require('path');
 const del   =   require('del');
+const path  =   require('path');
 const util  =   require('util');
+const merge =   require('merge-stream');
 
-const merge     =   require('merge-stream');
-const parseArgs =   require('minimist')
-const vinylPaths    =   require('vinyl-paths');
-const dateFormat    =   require('dateformat');
+const parseArgs         =   require('minimist');
+const vinylPaths        =   require('vinyl-paths');
+const dateFormat        =   require('dateformat');
+const mainBowerFiles    =   require('main-bower-files');
 
-const gulp      =   require('gulp');
-const changed   =   require('gulp-changed');
-const chmod     =   require('gulp-chmod');
-const chown     =   require('gulp-chown');
-const concat    =   require('gulp-concat');
-const cleanCSS  =   require('gulp-clean-css');
-const concatCSS =   require('gulp-concat-css');
-const dirSync   =   require('gulp-directory-sync');
-const exec      =   require('gulp-exec');
-const filter    =   require('gulp-filter');
-const gulpif    =   require('gulp-if');
-const header    =   require('gulp-header');
-const jscs      =   require('gulp-jscs');
-const jshint    =   require('gulp-jshint');
-const stylish   =   require('jshint-stylish');
-const rename    =   require('gulp-rename');
-const template  =   require('gulp-template');
-const uglify    =   require('gulp-uglify');
+const gulp          =   require('gulp');
+const aglio         =   require('gulp-aglio');
+const changed       =   require('gulp-changed');
+const chmod         =   require('gulp-chmod');
+const chown         =   require('gulp-chown');
+const concat        =   require('gulp-concat');
+const cleanCSS      =   require('gulp-clean-css');
+const concatCSS     =   require('gulp-concat-css');
+const dirSync       =   require('gulp-directory-sync');
+const exec          =   require('gulp-exec');
+const filter        =   require('gulp-filter');
+const gulpif        =   require('gulp-if');
+const header        =   require('gulp-header');
+const jscs          =   require('gulp-jscs');
+const jshint        =   require('gulp-jshint');
+const stylish       =   require('jshint-stylish');
+const rename        =   require('gulp-rename');
+const template      =   require('gulp-template');
+const uglify        =   require('gulp-uglify');
+const gulpSequence  =   require('gulp-sequence');
 //const util      =   require('gulp-util');
 //const livereload    =   require('gulp-livereload');
-const gulpSequence  =   require('gulp-sequence')
 
 // const Config    =   require('./app-config.json');
 const Config    =   require('nconf');
 const pkg       =   require('./package.json');
 const ENGINE    =   path.join('laravel-5.2');
 const BOWER     =   JSON.parse(fs.readFileSync('./.bowerrc')).directory;
-//const _     =   require('lodash');
 
 const SRC   =   path.join('src');
 const BUILD =   path.join('build');
 const DIST  =   path.join('dist');
-const WEB   =   path.join('webroot');
+const WEB   =   path.join('webroot', path.sep);
 
-const reportOptions =   pkg.options.reporting;
+Config.set('options', pkg.options);
+
+const bowerOptions  =   pkg.options.bower;
 const execOptions   =   pkg.options.exec;
-const watchOptions  =   pkg.options.watch;
+const fileOptions   =   pkg.options.file;
+const reportOptions =   pkg.options.reporting;
 const syncOptions   =   pkg.options.sync;
+const watchOptions  =   pkg.options.watch;
+const uglifyOptions =   pkg.options.uglify;
 
+const VERSION   =   fs.readFileSync('./VERSION', fileOptions).trim();
 
 var now     =   new Date();
-var Banner  =   {
-        header: '\n\n/*!\n' +
-                ' * <%= pkg.name %> v<%= pkg.version %>: <%= pkg.title %>\n' +
-                ' * <%= pkg.description %>\n' +
-                ' * Copyright: ' + dateFormat(now, "yyyy-mm-dd HH:MM:ss") + ' <%= pkg.author.name %>\n' +
-                ' * Licensed under the <%= pkg.license %> conditions\n' +
-                ' * <%= pkg.website %>\n' +
-                ' */\n\n'
-      , footer: '\n/*!\n' +
-                ' * EOF: <%= pkg.name %> v<%= pkg.version %>: <%= pkg.title %>\n' +
-                ' */\n'
-    };
+const   Banner  =   {
+            header: '\n/*!\n'
+                  + ' * Package:\t <%= pkg.name %>@<%= pkg.version %>' + '\n'
+                  + ' * Name:\t <%= pkg.title %> \n'
+                  + ' * Version:\t ' + VERSION + '\n'
+                  + ' * Description:\t <%= pkg.description %>' + '\n'
+                  + ' * Built:\t ' + dateFormat(now, 'yyyy-mm-dd HH:MM:ss') + '\n'
+                  + ' * Copyright:\t ' + '2016 - ' + dateFormat(now, 'yyyy') + ' <%= pkg.author.name %>' + '\n'
+                  + ' * Visit:\t <%= pkg.homepage %>' + '\n'
+                  + '**/\n\n'
+          , footer: '\n\n/*!\n'
+                  + ' * EOF: <%= pkg.name %> v<%= pkg.version %>: <%= pkg.title %>' + '\n'
+                  + ' */\n'
+        };
 
 var envConfig = {
     string:     'env'
-//  , default:    {env: process.env.NODE_ENV || 'test'}
   , default:    {env: process.env.NODE_ENV || 'empty'}
 };
 envConfig   =   parseArgs(process.argv.slice(2), envConfig);
 
 //console.log('\n\n\n', 'Banner.header = [', util.inspect(Banner.header), ']');
 console.log('\n\n\n', 'envConfig = [', util.inspect(envConfig), ']\n\n\n');
+console.log('\n\n\n', 'VERSION = [', util.inspect(VERSION), ']\n\n\n');
+console.log('\n\n\n', 'Config = [', util.inspect(Config), ']\n\n\n');
 
-//  MAIN ROUTER
+//  ENV ROUTER
 gulp.task('default', function () {
+
     //  DEFAULT Scenario Route
     (function () {
         switch (envConfig.env) {
             case 'empty': {
-                gulpSequence('lint', 'usage')();
+                gulpSequence('files:src', 'usage')();
+                break;
+            }
+            case 'test': {
+                gulpSequence('lint')();
                 break;
             }
             case 'dev': {
-                gulpSequence('clean:build', 'build:dev', 'deploy', 'watch')();
+                //gulpSequence('clean:build', 'build:dev', 'deploy', 'watch')();
+                gulpSequence('build:dev')();
                 break;
             }
             case 'production': {
                 //gulpSequence('test', 'build', 'dist', 'deploy')();
-                gulpSequence(['clean'], ['sync:engine'], ['sync:src'], ['sync:assets'], ['lint'], ['bower'], ['fixPermissions'])();
+                //gulpSequence(['clean'], ['sync:engine'], ['sync:src'], ['sync:assets'], ['lint'], ['bower'], ['fixPermissions'])();
+                gulpSequence('build')();
                 break;
             }
             default: {
@@ -109,26 +126,114 @@ gulp.task('default', function () {
 
 });
 
-gulp.task('test',       gulpSequence(['files:src'], ['usage']));
-gulp.task('lint',       gulpSequence('jshint', 'jscs'));
-
+gulp.task('test',       gulpSequence(['jscs'], ['usage']));
+gulp.task('lint',       gulpSequence('jscs', 'jshint'));
 gulp.task('clean',      gulpSequence(['clean:build', 'clean:dist']));
 
 gulp.task('artisan',    gulpSequence('artisan:vendor:publish', 'artisan:migrate', 'artisan:clear'));
-gulp.task('bower',      gulpSequence(['bower:fonts'], ['bower:css:fonts', 'bower:css:plugins'], ['bower:js'], ['bower:plugins']));
-gulp.task('build:dev',  gulpSequence(['clean:resources', 'clean:public'], ['sync:src'], ['sync:media', 'bower'], 'sync:assets:fonts', ['build:css', 'build:scripts']));
+//gulp.task('bower',      gulpSequence(['bower:fonts'], ['bower:css:fonts', 'bower:css:plugins'], ['bower:js'], ['bower:plugins']));
+//gulp.task('build:dev',  gulpSequence(['clean:resources', 'clean:public'], ['sync:src'], ['sync:media', 'bower'], 'sync:assets:fonts', ['build:css', 'build:scripts']));
+gulp.task(  'build:dev',  gulpSequence(
+            ['clean:build']
+          , ['sync:engine']
+          , ['sync:src']
+          , ['lint']
+          , ['bower:collect']
+          , ['fixPermissions']
+    ));
 gulp.task('build',      gulpSequence(
                             ['clean:build']
                           , ['sync:engine']
                           , ['sync:src']
-                          , ['artisan:vendor:publish']
-                          , ['sync:media', 'bower']
-                          , ['sync:assets:fonts']
-                          , ['build:css', 'build:scripts']
+                          , ['bower:collect']
+                        //  , ['artisan:vendor:publish']
+                       //   , ['sync:media', 'bower']
+                   //       , ['sync:assets:fonts']
+                     //     , ['build:css', 'build:scripts']
+                          , ['fixPermissions']
                         ));
 gulp.task('dist',       gulpSequence(['clean:dist'], ['sync:dist']));
 gulp.task('deploy',     gulpSequence('sync:web', 'artisan:clear'));
-gulp.task('watch',      gulpSequence('watch:src:views', 'watch:src:css', 'watch:src:js'));
+//gulp.task('watch',      gulpSequence('watch:src:views', 'watch:src:css', 'watch:src:js'));
+gulp.task('watch',      gulpSequence('watch:src:php', 'watch:src:css', 'watch:src:js'));
+
+
+//  BOWER
+gulp.task('bower:collect', function () {
+
+    var mBower      =   mainBowerFiles(bowerOptions);   //  , {base: BOWER}
+
+    var DEST    =   path.join(BUILD, 'public/assets');
+    var KEEP    =   path.join(BUILD, 'resources/bower');
+    var JS      =   path.join('js/lib');
+    var CSS     =   path.join('css');
+    var FONT    =   path.join('fonts');
+    var IMG     =   path.join('img');
+
+    var bowerJS     =   gulp.src(mBower)
+                            .pipe(filter([
+                                '**/*.js'
+                              , '!**/*.min.js'
+                              , '!**/npm.js'
+                            ]))
+                            // .pipe(changed(path.resolve(KEEP, JS)))
+                            .pipe(gulp.dest(path.resolve(DEST, JS)))
+                            .pipe(filter([
+                                '**/*.js'
+                              , '!**/require.js'
+                              , '!**/*-bundle.js'
+                            ]))
+                            .pipe(concat('bower-bundle.js'))
+                            .pipe(gulp.dest(path.resolve(DEST, JS)))
+                            .pipe(gulpif('production' === envConfig.env, uglify(uglifyOptions)))
+                            .pipe(rename('bower-bundle.min.js'))
+                            .pipe(header(Banner.header, {pkg: pkg}))
+                            .pipe(gulp.dest(path.resolve(DEST, JS)))
+    ;
+
+    var bowerCSS    =   gulp.src(mBower)
+                            .pipe(filter([
+                                '**/*.css'
+                              , '!**/*.min.css'
+                              , "!**/AdminLTE-*.css"
+                              , "!**/skin-*.css"
+                              , '!**/*-bundle.css'
+                            ]))
+                            // .pipe(changed(path.resolve(KEEP, CSS)))
+                            .pipe(gulpif('production' === envConfig.env, cleanCSS({debug: true, processImport: true}, function (d) {
+                                console.info(d.name + ': ' + d.stats.originalSize + ' -> ' + d.stats.minifiedSize + ' [' + d.stats.timeSpent + 'ms] [' + d.stats.efficiency.toFixed(2) + ']');
+                            }), false))
+                            //.pipe(gulp.dest(DEST_CSS))
+                            .pipe(gulp.dest(path.resolve(DEST, CSS)))
+                            .pipe(concatCSS('bower-bundle.css', {rebaseUrls: true}))
+                            .pipe(header(Banner.header, {pkg: pkg}))
+                            .pipe(gulp.dest(path.resolve(DEST, CSS)))
+                            .pipe(rename('bower-bundle.min.css'))
+                            .pipe(gulp.dest(path.resolve(DEST, CSS)))
+    ;
+
+    var bowerFonts  =   gulp.src(mBower)
+                            .pipe(filter(['**/fonts/*.*']))
+                            .pipe(changed(path.resolve(DEST, FONT)))
+                            .pipe(gulp.dest(path.resolve(DEST, FONT)));
+
+    var bowerImg    =   gulp.src(mBower)
+                            .pipe(filter([
+                                '**/img/*.*'
+                              , '**/image/*.*'
+                              , '**/images/*.*'
+                              , '**/*.png'
+                              , '**/*.jpg'
+                              , '**/*.jpeg'
+                              , '**/*.gif'
+                              , '**/*.ico'
+                            ]))
+                            .pipe(changed(path.resolve(DEST, IMG)))
+                            .pipe(gulp.dest(path.resolve(DEST, IMG)));
+
+    return  merge(bowerJS, bowerCSS, bowerFonts, bowerImg);
+});
+
 
 gulp.task('watch:src:views', function () {
     var wViews  =   gulp.watch([path.join(SRC, 'resources/views/**/*.blade.php')]
@@ -190,18 +295,16 @@ gulp.task('clean:public', function () {
 
 //  SYNC
 gulp.task('sync:engine', function () {
-    console.log('[LOG]', 'Task SYNC:ENGINE start');
     return  gulp.src('')
                 .pipe(dirSync(ENGINE, BUILD, _.extend(syncOptions, {ignore: [/^\.env(.*)?$/i, /^(.*)\.md$/i]})))
                 .on('error', console.error.bind(console));
 });
 gulp.task('sync:src', function () {
-    console.log('[LOG]', 'Task SYNC:SRC start');
     return  gulp.src('')
                 .pipe(dirSync(SRC, BUILD, {
-                        printSummary: true
-                      , nodelete: true
-                      , ignore: ['.env']
+                        printSummary:   true
+                      , nodelete:       true
+                      , ignore:         ['.env']
                 }))
                 .on('error', console.error.bind(console));
 });
@@ -297,7 +400,7 @@ gulp.task('build:scripts', function () {
         .pipe(jscs())
         .pipe(jscs.reporter())
         .pipe(changed(DEST))
-        .pipe(gulpif('production' === envConfig.env, uglify(), false))
+        .pipe(gulpif('production' === envConfig.env, uglify(uglifyOptions), false))
         .pipe(header(Banner.header, {pkg: pkg}))
         .pipe(gulp.dest(DEST));
 });
@@ -369,7 +472,7 @@ gulp.task('bower:js', function () {
             ])
             .pipe(gulp.dest(RESO))
             .pipe(changed(DEST))
-            .pipe(gulpif('production' === envConfig.env, uglify()))
+            .pipe(gulpif('production' === envConfig.env, uglify(uglifyOptions)))
             .pipe(gulp.dest(DEST));
 });
 gulp.task('bower:plugins', function () {
@@ -433,18 +536,20 @@ gulp.task('artisan:key:generate', function () {
 
 
 gulp.task('jscs', function () {
-    return  gulp.src(SRC + 'resources/assets/js/' + "**/*.js")
-                .pipe(jscs())
+    return  gulp.src( path.join(SRC, 'resources/assets/js/', '**/*.js') )
+                .pipe(jscs('.jscsrc'))
                 .pipe(jscs.reporter());
 });
 gulp.task('jshint', function () {
-    return  gulp.src(SRC + 'resources/assets/js/' + '**/*.js')
+    return  gulp.src( path.join(SRC, 'resources/assets/js/', '**/*.js') )
                 .pipe( jshint('.jshintrc') )
-                .pipe(  gulpif('production' === envConfig.env
-                  , jshint.reporter('fail', { verbose: true })
-                  , jshint.reporter('default', { verbose: true })
+                .pipe( gulpif('production' === envConfig.env
+                  , jshint.reporter('jshint-stylish',   {verbose: true})
+                  , jshint.reporter('default',          {verbose: true})
                 ));
-                //        , jshint.reporter('jshint-stylish', { verbose: true })
+                //  , jshint.reporter('fail',           {verbose: true})
+                //  , jshint.reporter('default',        { verbose: true })
+                //  , jshint.reporter('jshint-stylish', { verbose: true })
 });
 
 gulp.task('fixPermissions', function () {
@@ -452,8 +557,8 @@ gulp.task('fixPermissions', function () {
                 path.join(BUILD, '**')
             ])
             .pipe(vinylPaths(function (vPath) {
-                console.log('File:', vPath);
-                exec('sudo chown apache:apache ' + vPath);
+                console.log('Chown:', vPath);
+                exec('sudo chown www-data:www-data ' + vPath);
                 return Promise.resolve();
             }));
 });
@@ -468,7 +573,7 @@ gulp.task('files:src', function () {
             ])
             .pipe(changed(BUILD))
             .pipe(vinylPaths(function (paths) {
-                console.log('File:', paths);
+                console.info('Changed:', paths);
                 return Promise.resolve();
             }));
 });

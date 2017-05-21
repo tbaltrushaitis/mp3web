@@ -125,7 +125,7 @@ define([
             .val('[]')
             .prop({'data-role': 'tagsinput-disabled'});
         Modal.find('#track-tags')
-            .val('')
+            .val('[]')
             .prop({'data-role': 'tagsinput-disabled'});
         Modal.find('#meta').text(null);
     }

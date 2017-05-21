@@ -1,1 +1,4 @@
-{"directory": "bower_modules"}
+{
+    "directory": "bower_modules"
+  , "color": true
+}

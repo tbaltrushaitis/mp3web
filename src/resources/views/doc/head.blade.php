@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--[if IE 8]> <html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" class="ie8"> <![endif]-->
 <!--[if IE 9]> <html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" class="ie9"> <![endif]-->
-<!--[if !IE]><!--> <html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
+<!--[if !IE]><!--> <html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" class="noie"> <!--<![endif]-->
 <head>
     <!--/ Basic Page Needs
     ================================================== /-->
@@ -26,7 +26,7 @@
     <meta property="og:title"       content="Premium Music Collection :: Original Tracks and Best DJ's Remixes" />
     <meta property="og:description" content="Web MP3 Player and Media Library management. Backend based on Laravel framework, client-size - mostly JavaScript" />
     <meta property="og:image"       content="assets/img/logo/logo-lg.png" />
-    <meta property="og:site_name"   content="mp3 Manager and Player" />
+    <meta property="og:site_name"   content="Web MP3 Player and Media Library Manager" />
     <meta property="og:url"         content="{{ url('/') }}" />
     <meta property="og:see_also"    content="https://github.com/tbaltrushaitis/mp3web" />
 
@@ -40,7 +40,7 @@
 
     <!--/ Fonts
     ================================================== /-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.3/css/font-awesome.min.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" />
 
     <!--/ Styles
@@ -58,9 +58,9 @@
     <link rel="stylesheet" href="assets/css/styles.css" id="css-default" />
 
 
-    <!--/ <link rel="stylesheet" href="assets/js/plugins/raty/jquery.raty.css" /> /-->
     <!--/
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="assets/js/plugins/raty/jquery.raty.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap-theme.min.css" />
     /-->
 
     <!--/ Favicon
