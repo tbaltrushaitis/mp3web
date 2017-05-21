@@ -147,7 +147,6 @@
                 "indent_start":     0
               , "indent_level":     4
               , "quote_keys":       false
-              , "space_colon":      true
               , "ascii_only":       false
               , "inline_script":    false
               , "width":            80
