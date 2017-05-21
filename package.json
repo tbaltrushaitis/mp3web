@@ -69,6 +69,7 @@
       , "gulp-jshint":          "^2.0.1"
       , "gulp-json-editor":     "^2.2.1"
       , "gulp-livereload":      "^3.8.1"
+      , "gulp-minify-css":      "^1.2.4"
       , "gulp-newer":           "^1.2.0"
       , "gulp-rename":          "^1.2.2"
       , "gulp-replace":         "^0.5.4"
@@ -98,23 +99,25 @@
               , "bowerJson":        "bower.json"
             }
         }
-      , "file": {
-            "encoding": "utf8"
-          , "flag":     "r"
-        }
-      , "reporting": {
-            "err":    true
-          , "stderr": true
-          , "stdout": true
+      , "clean": {
+            "debug":            true
+          , "processImport":    true
         }
       , "exec": {
             "continueOnError":  false
           , "pipeStdout":       false
         }
-      , "watch": {
-            "ignoreInitial":    false
-          , "verbose":          true
-          , "readDelay":        100
+      , "file": {
+            "encoding": "utf8"
+          , "flag":     "r"
+        }
+      , "minify": {
+            "suffix": ".min"
+        }
+      , "reporting": {
+            "err":    true
+          , "stderr": true
+          , "stdout": true
         }
       , "sync": {
             "printSummary": true
@@ -157,6 +160,11 @@
               , "comments":         false
               , "semicolons":       true
             }
+        }
+      , "watch": {
+            "ignoreInitial":    false
+          , "verbose":          true
+          , "readDelay":        100
         }
     }
 }
