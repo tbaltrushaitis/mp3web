@@ -52,8 +52,6 @@ const BUILD =   path.join('build');
 const DIST  =   path.join('dist');
 const WEB   =   path.join('webroot', path.sep);
 
-Config.set('options', pkg.options);
-
 const bowerOptions  =   pkg.options.bower;
 const execOptions   =   pkg.options.exec;
 const fileOptions   =   pkg.options.file;
@@ -86,7 +84,6 @@ var envConfig = {
 };
 envConfig   =   parseArgs(process.argv.slice(2), envConfig);
 
-//console.log('\n\n\n', 'Banner.header = [', util.inspect(Banner.header), ']');
 console.log('\n\n\n', 'envConfig = [', util.inspect(envConfig), ']\n\n\n');
 console.log('\n\n\n', 'VERSION = [', util.inspect(VERSION), ']\n\n\n');
 console.log('\n\n\n', 'Config = [', util.inspect(Config), ']\n\n\n');
@@ -188,8 +185,7 @@ gulp.task('bower:collect', function () {
                             .pipe(gulpif('production' === envConfig.env, uglify(uglifyOptions)))
                             .pipe(rename('bower-bundle.min.js'))
                             .pipe(header(Banner.header, {pkg: pkg}))
-                            .pipe(gulp.dest(path.resolve(DEST, JS)))
-    ;
+                            .pipe(gulp.dest(path.resolve(DEST, JS)));
 
     var bowerCSS    =   gulp.src(mBower)
                             .pipe(filter([
@@ -209,8 +205,7 @@ gulp.task('bower:collect', function () {
                             .pipe(header(Banner.header, {pkg: pkg}))
                             .pipe(gulp.dest(path.resolve(DEST, CSS)))
                             .pipe(rename('bower-bundle.min.css'))
-                            .pipe(gulp.dest(path.resolve(DEST, CSS)))
-    ;
+                            .pipe(gulp.dest(path.resolve(DEST, CSS)));
 
     var bowerFonts  =   gulp.src(mBower)
                             .pipe(filter(['**/fonts/*.*']))
