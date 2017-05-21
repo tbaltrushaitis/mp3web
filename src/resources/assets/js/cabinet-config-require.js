@@ -53,8 +53,6 @@
               , Abstract:           'app/classes/Abstract.class'
               , cabinetController:  'app/controllers/cabinetController'
             }
-           //   , raty:               'plugins/raty/jquery.raty'
-           //   , bootstrapTags:      'plugins/bootstrap-tagsinput/bootstrap-tagsinput'
           , shim: {
                 jquery: {
                     exports:        'jQuery'
