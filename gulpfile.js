@@ -176,18 +176,18 @@ gulp.task('bower:collect', function () {
                               , '!**/*.min.js'
                               , '!**/npm.js'
                             ]))
-                            // .pipe(changed(path.resolve(KEEP, JS)))
+                            //.pipe(changed(path.resolve(KEEP, JS)))
                             .pipe(gulp.dest(path.resolve(DEST, JS)))
                             .pipe(filter([
                                 '**/*.js'
                               , '!**/require.js'
                               , '!**/*-bundle.js'
                             ]))
-                            .pipe(concat('bower-bundle.js'))
-                            .pipe(gulp.dest(path.resolve(DEST, JS)))
+                            .pipe(gulp.dest(path.resolve(KEEP, JS)))
                             .pipe(gulpif('production' === envConfig.env, uglify(uglifyOptions)))
-                            .pipe(rename('bower-bundle.min.js'))
+                            .pipe(concat('bower-bundle.js'))
                             .pipe(header(Banner.header, {pkg: pkg}))
+                            .pipe(rename('bower-bundle.min.js'))
                             .pipe(gulp.dest(path.resolve(DEST, JS)));
 
     var bowerCSS    =   gulp.src(mBower)
@@ -203,7 +203,7 @@ gulp.task('bower:collect', function () {
                                 console.info(d.name + ':\t' + d.stats.originalSize + '\t->\t' + d.stats.minifiedSize + '\t[' + d.stats.timeSpent + 'ms]\t[' + 100 * d.stats.efficiency.toFixed(2) + '%]');
                             }), false))
                             // Writing minified version.
-                            .pipe(gulp.dest(path.resolve(DEST, CSS)))
+                            .pipe(gulp.dest(path.resolve(KEEP, CSS)))
                             .pipe(rename({suffix: minifyOptions.suffix}))
                             .pipe(minifyCSS())
                             .pipe(gulp.dest(path.resolve(DEST, CSS)))
