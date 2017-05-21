@@ -295,7 +295,6 @@ gulp.task('clean:public', function () {
 
 //  SYNC
 gulp.task('sync:engine', function () {
-    console.log('[LOG]', 'Task SYNC:ENGINE start');
     return  gulp.src('')
                 .pipe(dirSync(ENGINE, BUILD, _.extend(syncOptions, {ignore: [/^\.env(.*)?$/i, /^(.*)\.md$/i]})))
                 .on('error', console.error.bind(console));

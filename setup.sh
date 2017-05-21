@@ -37,8 +37,8 @@ okGulp
 ##  1.  git clone https://github.com/tbaltrushaitis/mp3web.git -b "dev-1.0.3" mp3web
 ##  2.  sudo chown -R www-data:www-data mp3web && cd mp3web && sudo rights
 ##  3.  composer -vvv create-project --prefer-dist laravel/laravel laravel-5.2 "5.2.*"
-##  5.  cp -pr laravel-5.2/ build/ && cd build && composer -vvv update && cd -
-##  3.  ./setup.sh
+##  4.  cp -pr laravel-5.2/ build/ && cd build && composer -vvv update && cd -
+##  5.  ./setup.sh
 ##  6.  npm i && bower i
 
 #//  GIT

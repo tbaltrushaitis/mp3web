@@ -25,7 +25,7 @@
 :point_right: [Premium Music Collection](http://mp3.gsm-center.com.ua)
 
 ## Download ##
-```sh
+```bash
 $ git clone https://github.com/tbaltrushaitis/mp3web.git mp3web && cd mp3web
 ```
 
@@ -34,73 +34,81 @@ Open file `setup.rc` in your favourite editor and change values of build variabl
 
 ## Build &amp; Deploy ##
 Run the `setup.sh` script. In most cases it will do all of the needed stuff to run instance of Web MP3 Player app
-```sh
+```bash
 $ ./setup.sh
 ```
 
 ## Actions in `setup.sh` script ##
 
 ### Check if those packages are installed and available in PATH ###
-- [ ] Composer
-- [ ] Node.js
-- [ ] NPM
-- [ ] Bower
-- [ ] Gulp
+- [x] Composer
+- [x] Node.js
+- [x] NPM
+- [x] Bower
+- [x] Gulp
 
 ## Gulp Tasks Overview ##
 
 In common case gulp command should look like
-```sh
+```bash
 $ gulp command:p1:..:pN --env_VAR=some_VALUE
 
 # e.g.
-# gulp build:css --env=production
-# gulp bower:collect:fonts --env=production
+# gulp bower:collect --env=production
+# gulp build --env=production
 # or
 # gulp --env=dev
 ```
 
 Below is a list of gulp tasks and their possible params:
 
- :hash: | Command | Task | Source | Target | Comment
----|---------|------|--------|--------|---------
- :information_source: | **show** | | | | Display information
-  | | files:src | src/ | build/ | List of files
-  | | usage | | | Show help topic
-  | | show:config | .env | | Environment config
- :octocat: | **clean** | | | | Delete files and directories
-  | | clean:build | | build/ | Reset build directory
-  | | clean:dist | | dist/ | Reset release directory
- :+1: | **bower** | | | | Frontend modules manager
-  | | bower:fonts | | | Collect fonts
-  | | bower:css:fonts | | | Collect, merge and minify fonts CSS files
-  | | bower:css:plugins | | | CSS files for plugins
-  | | bower:js | | | Plugins itself
-  | | bower:plugins | | | Plugins directories
- :twisted_rightwards_arrows: | **sync** | | | | Copy directories
-  | | sync:engine | laravel-5.2/ | build/ | Framework
-  | | sync:src | src/ | build/ | App source
-  | | sync:assets | build/resources/assets/ | build/public/assets/ | Build Assets to public
-  | | sync:assets:css | src/resources/assets/css/ | build/resources/assets/css/ | 
-  | | sync:assets:media | build/resources/assets/img/ | build/public/assets/img/ | Build Images to public
-  | | sync:assets:fonts | | | 
-  | | sync:assets:js | | | 
-  | | sync:views | | | 
-  | | sync:dist | | | 
-  | | sync:web | | | 
-  | | sync:web:dev | | | 
- :package: | **build** | | | | Build sources
-  | | build | | | Production package
-  | | build:dev | | | Test package
- :rocket: | **deploy** | | | | Publish releases
- :white_check_mark: | **lint** | | | | Checks JavaScript for mistakes
-  | | jscs | | | Code style linter and formatter
-  | | jshint | | | Static Code Analysis Tool
- :restroom: | **watch** | | | | Detect files changes
-  | | watch:src:views | | | Templates
-  | | watch:src:css | | | Styles
-  | | watch:src:js | | | Scripts
- :u5408: | **artisan** | | | | Laravel console commands
+ :hash: | Task | Source | Target | Comment
+:------:|:-----|:------:|:------:|:--------
+ :one: | **show** | | | Display information
+  | usage | | | Show help topic
+  | show:config | .env | | Environment configuration
+  | files:src | src/ | build/ | List of changed files
+ :two: | **clean** | | | | Delete files and directories
+  | clean:build | | build/ | Reset build directory
+  | clean:dist | | dist/ | Reset release directory
+ :three: | **bower** | | | Frontend modules manager
+  | bower:collect | bower_modules/ | resources/assets/ | Collect js, css, fonts and images from bower packages
+ :four: | **sync** | | | Copy directories
+  | sync:engine | laravel-*/ | build/ | Framework Original Sources
+  | sync:src | src/ | build/ | Application sources
+  | sync:assets | build/resources/assets/ | build/public/assets/ | Build Assets to public
+  | sync:assets:css | src/resources/assets/css/ | build/resources/assets/css/ | 
+  | sync:assets:media | build/resources/assets/img/ | build/public/assets/img/ | Build Images to public
+  | sync:assets:fonts | | | 
+  | sync:assets:js | | | 
+  | sync:views | | | 
+  | sync:dist | build/ | dist/ | Create release directory from BUILD
+  | sync:web | build/ | webroot/ | Create/update web public directory
+ :five: | **build** | | | Build package
+  | build | | dist/ | Production package
+  | build:dev | | build/ | Development stage test package
+ :six: | **deploy** | | | Publish releases
+ :seven: | **lint** | | | Checks JS and CSS files for mistakes
+  | jscs | | | Code style linter and formatter
+  | jshint | | | Static Code Analysis Tool
+ :eight: | **watch** | | | Detect files changes
+  | watch:src:views | | | Templates
+  | watch:src:css | | | Styles
+  | watch:src:js | | | Scripts
+ :nine: | **artisan** | | | Laravel console commands
+ :unlock: | fixPermissions | | build/ | Set owner of files to webserver user
+
+
+Below is a list of outdated gulp tasks:
+
+ :hash: | Task | Source | Target | Comment
+:------:|:-----|:------:|:------:|:--------
+ :x: | bower:fonts | | | Collect fonts
+ :x: | bower:css:fonts | | | Collect, merge and minify fonts CSS files
+ :x: | bower:css:plugins | | | CSS files for plugins
+ :x: | bower:js | | | Plugins itself
+ :x: | bower:plugins | | | Plugins directories
+ :x: | sync:web:dev | | | Create/update development web directory
 
 ---------
 
@@ -108,6 +116,8 @@ Below is a list of gulp tasks and their possible params:
 - [ ] Implement search throw items.
 
 ## Change log ##
+
+### v1.0.2: ###
 
 ### v1.0.1: ###
 - [x] Genre tags added as labels for track
@@ -123,19 +133,35 @@ Below is a list of gulp tasks and their possible params:
 - [x] Current playing item is moved on top of the list.
 - [x] Possibility to edit item properties from Admin Panel.
 
-**v0.0.2:**
+### v0.0.2: ###
 - [x] Added 'Plays' counter which indicates how many times track was listened
 
-**v0.0.1:**
+### v0.0.1: ###
 - [x] Add bower.json file
 - [x] Add package.json data
 - [x] Create directories tree structure
 
-**v0.0.0:**
+### v0.0.0: ###
 - [x] Initial release
 
+--------
 
-----------------
-## And, just a few Emoji Icons ##
-:musical_score: :musical_keyboard: :violin: :musical_note: :microphone: :star: :loudspeaker: :notes: :scorpius: :white_check_mark: :signal_strength: :dvd: :sound: :musical_note: :+1: :musical_keyboard: :saxophone: :violin: :musical_score: :headphones: :notes: :headphones: :trumpet: :saxophone: :guitar: 
-----------------
+### Authors and Contributors ###
+
+##### DevTeam #####
+  + @tbaltrushaitis
+
+##### Contributors #####
+  - N/A
+
+--------
+
+### Useful Info ###
+
+ - [GitHub / Basic writing and formatting syntax](https://help.github.com/articles/basic-writing-and-formatting-syntax/)
+ - [BitBucket Markdown Howto](https://bitbucket.org/tutorials/markdowndemo)
+ - [Creating an Automated Build](https://docs.docker.com/docker-hub/builds/)
+ - [Linking containers](https://docs.docker.com/engine/userguide/networking/default_network/dockerlinks.md)
+ - [Cross-host linking containers](https://docs.docker.com/engine/admin/ambassador_pattern_linking.md)
+
+--------
