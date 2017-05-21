@@ -158,7 +158,6 @@
               , "comments":         false
               , "semicolons":       true
             }
-          , "preserveComments":     false
         }
     }
 }
