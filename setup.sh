@@ -9,10 +9,16 @@ source setup.rc
 ##  ------------------------------------------------------------------------  ##
 ##                                PREREQUISITES                               ##
 ##  ------------------------------------------------------------------------  ##
-APP_HOME="$(pwd)/"
-APP_PATH="${APP_HOME}${APP_DIR}"
 
-printf "[INFO]\tAPP_PATH=${APP_PATH}\n";
+APP_HOME="$(pwd)/"                      #   Current directory
+APP_PATH="${APP_HOME}${APP_DIR}"        #   Full path to target directory
+WEB_USER="www-data"                     #   Group of webserver used on host
+ENGINE_DIR="${ENGINE_NAME}-${ENGINE_VERSION}"
+
+
+##  ------------------------------------------------------------------------  ##
+##                                PRE-CHECKS                                  ##
+##  ------------------------------------------------------------------------  ##
 
 source bin/f.sh
 source bin/f-engine.sh
@@ -25,6 +31,9 @@ okNpm
 okBower
 okGulp
 
+info "[INFO]\tAPP_PATH=${APP_PATH}\n";
+info "[INFO]\tENGINE_DIR=${ENGINE_DIR}\n";
+
 ##  ------------------------------------------------------------------------  ##
 ##                                 GIT HOOKS                                  ##
 ##  ------------------------------------------------------------------------  ##
@@ -34,7 +43,7 @@ okGulp
 ##  ------------------------------------------------------------------------  ##
 ##                                 SCENARIO                                   ##
 ##  ------------------------------------------------------------------------  ##
-##  1.  git clone https://github.com/tbaltrushaitis/mp3web.git -b "dev-1.0.3" mp3web
+##  1.  git clone https://github.com/tbaltrushaitis/mp3web.git -b "dev-1.0.2" mp3web
 ##  2.  sudo chown -R www-data:www-data mp3web && cd mp3web && sudo rights
 ##  3.  composer -vvv create-project --prefer-dist laravel/laravel laravel-5.2 "5.2.*"
 ##  4.  cp -pr laravel-5.2/ build/ && cd build && composer -vvv update && cd -
@@ -60,6 +69,9 @@ sleep 1;
 check_engine
 sleep 1;
 
+fix_permissions
+sleep 1;
+
 # check_git
 
 # git_update
@@ -70,7 +82,7 @@ sleep 1;
 deps_outdated
 sleep 1;
 
-gulp --verbose --env=production
+gulp --verbose --env=dev
 sleep 1;
 
 # gulp build

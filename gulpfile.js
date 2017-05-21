@@ -138,10 +138,12 @@ gulp.task(  'build:dev',  gulpSequence(
             ['clean:build']
           , ['sync:engine']
           , ['sync:src']
+          , ['artisan:key:generate']
          // , ['lint']
           , ['bower']
-          , ['build:css', 'build:js']
           , ['sync:resources']
+          , ['sync:assets']
+          , ['build:css', 'build:js']
           , ['fixPermissions']
           , ['deploy']
     ));
@@ -153,7 +155,7 @@ gulp.task('build',      gulpSequence(
                         //  , ['artisan:vendor:publish']
                        //   , ['sync:media', 'bower']
                    //       , ['sync:assets:fonts']
-                     //     , ['build:css', 'build:scripts']
+                     //     , ['build:css', 'build:js']
                           , ['fixPermissions']
                         ));
 gulp.task('dist',       gulpSequence(['clean:dist'], ['sync:dist']));
@@ -168,7 +170,8 @@ gulp.task('bower', function () {
     var mBower      =   mainBowerFiles(bowerOptions);   //  , {base: BOWER}
 
     var DEST    =   path.join(BUILD, 'public/assets');
-    var KEEP    =   path.join(BUILD, 'resources/bower');
+    //var KEEP    =   path.join(BUILD, 'resources/bower');
+    var KEEP    =   path.join(BUILD, 'resources/assets');
     var JS      =   path.join('js/lib');
     var CSS     =   path.join('css');
     var FONT    =   path.join('fonts');
@@ -178,15 +181,17 @@ gulp.task('bower', function () {
                         .pipe(filter([
                             '**/*.js'
                           , '!**/require.js'
-                         // , '!**/*.min.js'
-                         // , '!**/npm.js'
+                          , '!**/*.min.js'
+                          , '!**/npm.js'
                         ]))
                         .pipe(changed(path.resolve(KEEP, JS)))
                         .pipe(gulp.dest(path.resolve(KEEP, JS)))
+                        .pipe(gulp.dest(path.resolve(DEST, JS)))
                         .pipe(gulpif('production' === envConfig.env, uglify(uglifyOptions)))
                         .pipe(concat('bower-bundle.js'))
                         .pipe(header(Banner.header, {pkg: pkg}))
-                        .pipe(rename('bower-bundle.min.js'))
+                        //.pipe(rename('bower-bundle.min.js'))
+                        .pipe(rename({suffix: minifyOptions.suffix}))
                         .pipe(gulp.dest(path.resolve(DEST, JS)));
 
     var bowerCSS    =   gulp.src(mBower)
@@ -297,6 +302,7 @@ gulp.task('clean:public', function () {
             .pipe(vinylPaths(del));
 });*/
 
+
 //  SYNC
 gulp.task('sync:resources', function () {
 
@@ -308,6 +314,7 @@ gulp.task('sync:resources', function () {
                             //.pipe(changed(path.join(DEST, 'assets')))
                             .pipe(gulp.dest(path.join(DEST, 'assets')))
                             .on('error', console.error.bind(console));
+
     var resStuff    =   gulp.src([
                                 path.join(BUILD, 'resources', '*.*')
                               , path.join(BUILD, 'resources', '.*')
@@ -424,95 +431,25 @@ gulp.task('build:css', function () {
               , '!**/styles.css'
               // , '!**/fonts-cdn.css'
             ])
-            .pipe(concatCSS('styles.css', {rebaseUrls: false}))
             .pipe(gulpif('production' === envConfig.env, cleanCSS(cleanOptions, function (d) {
                 console.info(d.name + ': ' + d.stats.originalSize + ' -> ' + d.stats.minifiedSize + ' [' + d.stats.timeSpent + 'ms] [' + 100 * d.stats.efficiency.toFixed(2) + '%]');
             }), false))
+            .pipe(concatCSS('styles.css', {rebaseUrls: false}))
+            .pipe(minifyCSS())
+            .pipe(rename({suffix: minifyOptions.suffix}))
             .pipe(header(Banner.header, {pkg: pkg}))
             .pipe(gulp.dest(DEST));
 });
 gulp.task('build:js', function () {
     var DEST = path.join(BUILD, 'public/assets/js');
     return  gulp.src(path.join(BUILD, 'resources/assets/js', '**/*.js'))
-                .pipe(jscs())
-                .pipe(jscs.reporter())
+                //.pipe(jscs())
+                //.pipe(jscs.reporter())
                 .pipe(changed(DEST))
                 .pipe(gulpif('production' === envConfig.env, uglify(uglifyOptions), false))
                 .pipe(header(Banner.header, {pkg: pkg}))
                 .pipe(gulp.dest(DEST));
 });
-
-//  BOWER
-gulp.task('bower:fonts', function () {
-    var RESO = path.join(BUILD, 'resources/assets/fonts');
-    // var DEST = path.join(BUILD, 'public/assets/fonts');
-    return  gulp.src([
-                path.join(BOWER, 'bootstrap/dist/fonts/*.*')
-              , path.join(BOWER, 'font-awesome/fonts/*.*')
-              , path.join(BOWER, 'lato-font/fonts/**/*.*')
-              , path.join(BOWER, 'raty/lib/fonts/*.*')
-            ])
-            // .pipe(changed(DEST))
-            .pipe(changed(RESO))
-            .pipe(gulp.dest(RESO));
-            // .pipe(gulp.dest(DEST));
-});
-gulp.task('bower:css:fonts', function () {
-    return  gulp.src([
-                path.join(BOWER, 'ionicons/css/ionicons.css')
-              /* , path.join(BOWER, 'font-awesome/css/font-awesome.css')
-              // , path.join(BOWER, 'font-roboto/dist/styles/roboto.css')
-              // , path.join(BOWER, 'glyphicons-halflings/css/glyphicons-halflings.css')
-              // , path.join(BOWER, 'lato-font/css/lato-font.css') */
-            ])
-            .pipe(gulpif('production' === envConfig.env, cleanCSS({debug: true, processImport: false}, function (details) {
-                console.info(details.name + ': ' + details.stats.originalSize + ' -> ' + details.stats.minifiedSize + ' [' + details.stats.timeSpent + 'ms] [' + details.stats.efficiency.toFixed(2) + '%]');
-            })))
-            .pipe(gulp.dest(path.join(BUILD, 'resources/assets/css/fonts')))
-            .pipe(concatCSS('fonts-bundle.css', {rebaseUrls: false}))
-            .pipe(header(Banner.header, {pkg: pkg}))
-            .pipe(gulpif('production' === envConfig.env, cleanCSS({debug: true, processImport: false}, function (details) {
-                console.info(details.name + ': ' + details.stats.originalSize + ' -> ' + details.stats.minifiedSize + ' [' + details.stats.timeSpent + 'ms] [' + details.stats.efficiency.toFixed(2) + '%]');
-            })))
-            .pipe(gulp.dest(path.join(BUILD, 'public/assets/css')));
-});
-gulp.task('bower:css:plugins', function () {
-    return  gulp.src([
-                path.join(BOWER, 'animate.css/animate.css')
-              , path.join(BOWER, 'raty/lib/jquery.raty.css')
-              /* , path.join(BOWER, 'bootstrap/dist/css/bootstrap.css')
-              // , path.join(BOWER, 'bootstrap/dist/css/bootstrap-theme.css') */
-              , path.join(BOWER, 'bootstrap-tagsinput/dist/bootstrap-tagsinput.css')
-              // , path.join(BOWER, 'normalize.css/normalize.css') */
-            ])
-            .pipe(gulpif('production' === envConfig.env, cleanCSS({debug: true, processImport: false}, function (details) {
-                console.info(details.name + ': ' + details.stats.originalSize + ' -> ' + details.stats.minifiedSize + ' [' + details.stats.timeSpent + 'ms] [' + details.stats.efficiency.toFixed(2) + '%]');
-            })))
-            .pipe(gulp.dest(path.join(BUILD, 'resources/assets/css/plugins')))
-            .pipe(concatCSS('plugins-bundle.css', {rebaseUrls: false}))
-            .pipe(header(Banner.header, {pkg: pkg}))
-            .pipe(gulpif('production' === envConfig.env, cleanCSS({debug: true, processImport: false}, function (details) {
-                console.info(details.name + ': ' + details.stats.originalSize + ' -> ' + details.stats.minifiedSize + ' [' + details.stats.timeSpent + 'ms] [' + details.stats.efficiency.toFixed(2) + '%]');
-            })))
-            .pipe(gulp.dest(path.join(BUILD, 'public/assets/css')));
-});
-gulp.task('bower:js', function () {
-    var RESO = path.join(BUILD, 'resources/assets/js/lib');
-    var DEST = path.join(BUILD, 'public/assets/js/lib');
-    return  gulp.src([
-                path.join(BOWER, 'bootstrap/dist/js/bootstrap.js')
-              , path.join(BOWER, 'jquery/dist/jquery.js')
-              , path.join(BOWER, 'jquery-tmpl/jquery.tmpl.js')
-              , path.join(BOWER, 'lodash/lodash.js')
-              , path.join(BOWER, 'requirejs/require.js')
-              , path.join(BOWER, 'underscore/underscore.js')
-            ])
-            .pipe(gulp.dest(RESO))
-            .pipe(changed(DEST))
-            .pipe(gulpif('production' === envConfig.env, uglify(uglifyOptions)))
-            .pipe(gulp.dest(DEST));
-});
-
 
 //  ARTISAN
 gulp.task('artisan:vendor:publish', function () {
