@@ -1,9 +1,24 @@
 /*  BOF: assets/js/app/controllers/cabinetController.js  */
 
-define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrapTags', 'bootstrap']
+/*!
+ * ASSETS/JS/APP/CONTROLLERS/cabinetController.js
+ * Copyright(c) 2016-2017 Baltrushaitis Tomas
+ * MIT Licensed
+ */
+
+'use strict';
+
+define([
+    'jquery'
+  , 'underscore'
+  , 'Tmpl'
+  , 'functions'
+  , 'bootstrapTags'
+  , 'bootstrap'
+    ]
+
   , function ($, _, tmpl, F, bsTags) {
 
-    'use strict';
 
     /*
     |--------------------------------------------------------------------------
@@ -44,11 +59,11 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrapTags', 'bootstrap
 
             elGenres.tagsinput('removeAll');
             elGenres.tagsinput({
-                    maxTags:    5
-                  , maxChars:   10
-                  , trimValue:  true
-                  , allowDuplicates: false
-                });
+                maxTags:            5
+              , maxChars:           15
+              , trimValue:          true
+              , allowDuplicates:    false
+            });
 
             _.each(listGenres, function (tagGenre) {
                 console.info("tagGenre = ", tagGenre);
@@ -60,7 +75,7 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrapTags', 'bootstrap
                 .val(lo.tags)
                 .prop({'data-role': 'tagsinput'});
             Modal.find('#meta').text( JSON.stringify(lo) );
-         });
+        });
     }
 
 
@@ -110,7 +125,7 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrapTags', 'bootstrap
             .val('[]')
             .prop({'data-role': 'tagsinput-disabled'});
         Modal.find('#track-tags')
-            .val('')
+            .val('[]')
             .prop({'data-role': 'tagsinput-disabled'});
         Modal.find('#meta').text(null);
     }

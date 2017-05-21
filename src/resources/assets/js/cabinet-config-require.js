@@ -1,4 +1,10 @@
-/*  BOF: assets/js/cabinet-config-require.js  */
+/*  BOF: ASSETS/JS/cabinet-config-require.js  */
+
+/*!
+ * ASSETS/JS/cabinet-config-require.js
+ * Copyright(c) 2016-2017 Baltrushaitis Tomas
+ * MIT Licensed
+ */
 
 'use strict';
 
@@ -32,23 +38,28 @@
         var config = {
             map: {
                 '*': {
-                    index:  'app/index'
+                    index:          'app/index'
                 }
             }
           , paths: {
                 jquery:             'lib/jquery'
               , Tmpl:               'lib/jquery.tmpl'
               , bootstrap:          'lib/bootstrap'
-              , underscore:         'lib/lodash'
-              , raty:               'plugins/raty/jquery.raty'
+              , lodash:             'lib/lodash'
+              , underscore:         'lib/underscore'
+              , raty:               'lib/jquery.raty'
               , functions:          'app/functions'
-              , bootstrapTags:      'plugins/bootstrap-tagsinput/bootstrap-tagsinput'
+              , bootstrapTags:      'lib/bootstrap-tagsinput'
               , Abstract:           'app/classes/Abstract.class'
               , cabinetController:  'app/controllers/cabinetController'
             }
           , shim: {
                 jquery: {
                     exports:        'jQuery'
+                }
+              , lodash: {
+                    exports:        '_'
+                  , deps:           ['jquery']
                 }
               , underscore: {
                     exports:        '_'
@@ -58,7 +69,7 @@
                     exports:        'bootstrap'
                   , deps:           ['jquery']
                 }
-              , bootstrapTags:      ['jquery']
+              , bootstrapTags:      ['jquery', 'bootstrap']
               , Tmpl:               ['jquery']
               , raty:               ['jquery']
               , functions:          ['jquery', 'underscore']
@@ -86,9 +97,21 @@
         require.config(config);
     })();
 
+/*
+    (function () {
+        require(['app/cabinet-starter']);
+    })();
+*/
+
     // Load Starter Module
     (function () {
-        require(['cabinet-starter']);
+        require(['jquery', 'app/cabinet-starter'], function ($) {
+            var pageId  =   $('body').attr('data-id_page');
+            console.groupCollapsed(pageId);
+            console.timeStamp('CABINET.CHECK-IN');
+            console.info('CABINET::Started');
+            console.groupEnd(pageId);
+        });
     })();
 
 })(require);
