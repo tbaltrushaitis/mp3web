@@ -1,8 +1,8 @@
 /* BOF: assets/css/cms-theme-realestate-custom.css */
 
 body {
-  color: #555;
   background: url(../img/misc/bgmain.png) #fff;
+  color: #555;
 }
 
 h1,h2,h3,h4,h5 {
@@ -14,15 +14,15 @@ h1,h2,h3,h4,h5 {
 }
 
 h1 {font-size: 60px; margin-bottom: 25px; color: #fff;}
-h2 {font-size: 35px; margin-bottom: 20px; letter-spacing: -1px; }
-h3 {font-size: 25px; margin: 0 0 15px 0; }
-h4 {font-size: 19px; margin: 10px 0; }
-h5 {font-size: 17px; margin: 0 0 5px 0; }
+h2 {font-size: 35px; margin-bottom: 20px; letter-spacing: -1px;}
+h3 {font-size: 25px; margin: 0 0 15px 0;}
+h4 {font-size: 19px; margin: 10px 0;}
+h5 {font-size: 17px; margin: 0 0 5px 0;}
 
 p {margin-bottom: 30px;}
 a {color:#72b70f; text-decoration:none; outline: none;}
 a:hover {color:#333;}
-a.more:hover {background: #64a30a;text-decoration: none;}
+a.more:hover {background: #64a30a; text-decoration: none;}
 
 table {background-color: #fff;}
 
@@ -91,8 +91,8 @@ table {background-color: #fff;}
 ************************/
 .footer{
   background: url(../img/misc/bg.jpg) #222;
-  padding: 20px 0 0 0;
   color: #999;
+  padding: 20px 0 0 0;
 }
 .footer ul {
   list-style: none;
