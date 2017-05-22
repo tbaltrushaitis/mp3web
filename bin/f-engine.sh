@@ -31,7 +31,7 @@ function engine_setup {
 
 function fix_permissions {
     cd "${APP_HOME}"
-    sudo chown -R root:${WEB_USER} ${ENGINE_DIR}
+    sudo chown -R ${WEB_USER}:${WEB_USER} ${ENGINE_DIR}
     sudo chmod 775 "${ENGINE_DIR}"
     sudo chmod 775 "${ENGINE_DIR}/storage"
     sudo chmod 775 "${ENGINE_DIR}/bootstrap/cache"

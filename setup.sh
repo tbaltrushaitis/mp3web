@@ -31,8 +31,8 @@ okNpm
 okBower
 okGulp
 
-info "[INFO]\tAPP_PATH=${APP_PATH}\n";
-info "[INFO]\tENGINE_DIR=${ENGINE_DIR}\n";
+info "\tAPP_PATH=${APP_PATH}\n";
+info "\tENGINE_DIR=${ENGINE_DIR}\n";
 
 ##  ------------------------------------------------------------------------  ##
 ##                                 GIT HOOKS                                  ##
@@ -79,11 +79,24 @@ sleep 1;
 
 deps_install
 sleep 1;
-deps_outdated
+# deps_outdated
+# sleep 1;
+
+# gulp build:dev --env=dev #--verbose
+gulp --env=dev #--verbose
 sleep 1;
 
-gulp --verbose --env=dev
+sudo chown -R ${WEB_USER}:${WEB_USER} build/
 sleep 1;
+
+gulp sync:web       --env=dev --verbose
+
+sudo chown -R ${WEB_USER}:${WEB_USER} webroot/
+sleep 1;
+
+gulp artisan:clear  --env=dev --verbose
+
+# gulp deploy  --env=dev --verbose
 
 # gulp build
 # gulp artisan

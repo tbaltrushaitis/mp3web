@@ -25,19 +25,18 @@
 
     <!--/ Fonts
     ================================================== /-->
-    <!--/ <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" /> /-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" />
 
     <!--/ Styles
     ================================================== /-->
-    <!--/ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" /> /-->
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet" /> --}}
 
     <!--/ Custom styles
     ================================================== /-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rainbow/1.2.0/themes/github.css" />
-    <link rel="stylesheet" href="assets/css/bower-bundle.css" id="css-bower" />
-    <link rel="stylesheet" href="assets/css/styles.css" id="css-themes" />
-    <link rel="stylesheet" href="assets/css/mp3.css" id="css-custom" />
+    <link rel="stylesheet" href="assets/css/bower-bundle.min.css" id="css-bower" />
+    <!--/ <link rel="stylesheet" href="assets/css/styles.min.css" id="css-themes" /> /-->
+    <!--/ <link rel="stylesheet" href="assets/css/50-mp3.css" id="css-custom" /> /-->
 
     <!--/ Favicon
     ================================================== /-->
@@ -62,7 +61,7 @@
 </head>
 
 <body id="layout-home" data-id_page="layout-home" data-rooturl="{{ Request::root() }}">
-    <nav class="navbar navbar-inverse navbar-static-top">
+    <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
 
             <div class="navbar-header">

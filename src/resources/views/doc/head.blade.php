@@ -49,20 +49,11 @@
 
     <!--/ Styles
     ================================================== /-->
-    <!--/ bootstrap /-->
-    <!--/ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />  /-->
-    <!--/ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css" /> /-->
-
-    <!--/ animate.css /-->
-    <!--/ 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
-    /-->
-
     <!--/ Custom /-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rainbow/1.2.0/themes/github.css" />
-    <link rel="stylesheet" href="assets/css/bower-bundle.css" id="css-bower" />
-    <link rel="stylesheet" href="assets/css/styles.css" id="css-themes" />
-    <link rel="stylesheet" href="assets/css/mp3.css" id="css-custom" />
+    <link rel="stylesheet" href="assets/css/bower-bundle.min.css" id="css-bower" />
+    <link rel="stylesheet" href="assets/css/styles.min.css" id="css-themes" />
+    <link rel="stylesheet" href="assets/css/50-mp3.css" id="css-custom" />
 
     <!--/ Favicon
     ================================================== /-->

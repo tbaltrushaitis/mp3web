@@ -92,7 +92,7 @@
     }
   , "options": {
         "bower": {
-            "debugging":    true
+            "debugging":    false
           , "paths": {
                 "bowerDirectory":   "bower_modules"
               , "bowerrc":          ".bowerrc"
