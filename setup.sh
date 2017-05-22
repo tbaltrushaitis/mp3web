@@ -83,18 +83,19 @@ sleep 1;
 # sleep 1;
 
 # gulp build:dev --env=dev #--verbose
-gulp --env=dev #--verbose
+gulp --env=production #--verbose
 sleep 1;
 
 sudo chown -R ${WEB_USER}:${WEB_USER} build/
 sleep 1;
 
-gulp sync:web       --env=dev --verbose
+gulp sync:web       --env=production --verbose
 
 sudo chown -R ${WEB_USER}:${WEB_USER} webroot/
 sleep 1;
 
-gulp artisan:clear  --env=dev --verbose
+gulp artisan:clear  --env=production --verbose
+sleep 1;
 
 # gulp deploy  --env=dev --verbose
 

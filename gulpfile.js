@@ -44,10 +44,7 @@ const rename        =   require('gulp-rename');
 const template      =   require('gulp-template');
 const uglify        =   require('gulp-uglify');
 const gulpSequence  =   require('gulp-sequence');
-//const util      =   require('gulp-util');
-//const livereload    =   require('gulp-livereload');
 
-// const Config    =   require('./app-config.json');
 const Config    =   require('nconf');
 const pkg       =   require('./package.json');
 const ENGINE    =   path.join('laravel-5.2');
@@ -95,7 +92,6 @@ envConfig   =   parseArgs(process.argv.slice(2), envConfig);
 
 console.log('\n\n\n', 'envConfig = [', util.inspect(envConfig), ']\n\n\n');
 console.log('VERSION = [', util.inspect(VERSION), ']');
-//console.log('\n\n\n', 'Config = [', util.inspect(Config), ']\n\n\n');
 
 //  ENV ROUTER
 gulp.task('default', function () {
@@ -145,21 +141,20 @@ gulp.task(  'build:dev',  gulpSequence(
   , ['build:css', 'build:js']
  // , 'deploy'
 ));
-         // , ['lint']
+
 gulp.task('build',      gulpSequence(
-                            ['clean:build']
-                          , ['sync:engine']
-                          , ['sync:src']
-                          , ['bower']
-                        //  , ['artisan:vendor:publish']
-                       //   , ['sync:media', 'bower']
-                   //       , ['sync:assets:fonts']
-                     //     , ['build:css', 'build:js']
+                            'clean:build'
+                          , 'sync:engine'
+                          , 'sync:src'
+                          , 'artisan:key:generate'
+                          , 'bower'
+                          , 'sync:resources'
+                          , 'sync:assets'
+                          , ['build:css', 'build:js']
                         ));
 gulp.task('dist',       gulpSequence(['clean:dist'], ['sync:dist']));
 gulp.task('deploy',     gulpSequence('sync:web', 'artisan:clear'));
 gulp.task('watch',      gulpSequence('watch:src:views', 'watch:src:css', 'watch:src:js'));
-//gulp.task('watch',      gulpSequence('watch:src:php', 'watch:src:css', 'watch:src:js'));
 
 
 //  BOWER
@@ -188,7 +183,6 @@ gulp.task('bower', function () {
                         .pipe(gulpif('production' === envConfig.env, uglify(uglifyOptions)))
                         .pipe(concat('bower-bundle.js'))
                         .pipe(header(Banner.header, {pkg: pkg}))
-                        //.pipe(rename('bower-bundle.min.js'))
                         .pipe(rename({suffix: minifyOptions.suffix}))
                         .pipe(gulp.dest(path.resolve(DEST, JS)));
 
@@ -198,7 +192,6 @@ gulp.task('bower', function () {
                               , '!**/*.min.css'
                               , "!**/AdminLTE-*.css"
                               , "!**/skin-*.css"
-                              //, '!**/*-bundle.css'
                             ]))
                             .pipe(changed(path.resolve(KEEP, CSS)))
                             .pipe(gulpif('production' === envConfig.env, cleanCSS(cleanOptions, function (d) {
@@ -210,7 +203,6 @@ gulp.task('bower', function () {
                             .pipe(minifyCSS())
                             .pipe(rename({suffix: minifyOptions.suffix}))
                             .pipe(header(Banner.header, {pkg: pkg}))
-                            //.pipe(rename('bower-bundle.min.css'))
                             .pipe(gulp.dest(path.resolve(DEST, CSS)));
 
     var bowerFonts  =   gulp.src(mBower)
@@ -366,58 +358,11 @@ gulp.task('sync:dist', function () {
                 .on('error', console.error.bind(console));
 });
 
-
 gulp.task('sync:web', function () {
     return  gulp.src('')
                 .pipe(dirSync(BUILD, WEB, syncOptions))
                 .on('error', console.error.bind(console));
 });
-
-
-/* gulp.task('sync:media', function () {
-    return  gulp.src('')
-                .pipe(dirSync(
-                    path.join(BUILD, 'resources/assets/img')
-                  , path.join(BUILD, 'public/assets/img')
-                  , syncOptions
-                ))
-                .on('error', console.error.bind(console));
-});
-*/
-
-/* gulp.task('sync:assets:css', function () {
-    return  gulp.src('')
-                .pipe(dirSync(
-                    path.join(SRC, 'resources/assets/css')
-                  , path.join(BUILD, 'resources/assets/css')
-                  , syncOptions
-                ))
-                .on('error', console.error.bind(console));
-});
-*/
-
-/* gulp.task('sync:assets:fonts', function () {
-    return  gulp.src('')
-                .pipe(dirSync(
-                    path.join(BUILD, 'resources/assets/fonts')
-                  , path.join(BUILD, 'public/assets/fonts')
-                  , syncOptions
-                ))
-                .on('error', console.error.bind(console));
-});
-*/
-
-/* gulp.task('sync:assets:js', function () {
-    return  gulp.src('')
-                .pipe(dirSync(
-                    path.join(SRC, 'resources/assets/js')
-                  , path.join(BUILD, 'resources/assets/js')
-                  , syncOptions
-                ))
-                .on('error', console.error.bind(console));
-});
-*/
-
 
 
 //  BUILD
@@ -468,13 +413,6 @@ gulp.task('artisan:clear', function () {
             .pipe(exec('cd ' + CURDIR + WEB + ' && php artisan -vvv view:clear && cd ..'))
             .pipe(exec('cd ' + CURDIR + WEB + ' && php artisan -vvv route:list && cd ..'))
             .pipe(exec.reporter(reportOptions));
-            // .pipe(exec('cd ' + WEB + ' && php artisan clear-compiled -vvv && cd ..'))
-            // .pipe(exec('cd ' + WEB + ' && php artisan auth:clear-resets -vvv && cd ..'))
-            // .pipe(exec('cd ' + WEB + ' && php artisan cache:clear -vvv && cd ..'))
-            // .pipe(exec('cd ' + WEB + ' && php artisan config:clear -vvv && cd ..'))
-            // .pipe(exec('cd ' + WEB + ' && php artisan route:clear -vvv && cd ..'))
-            // .pipe(exec('cd ' + WEB + ' && php artisan optimize -vvv && cd ..'))
-            // .pipe(exec('cd ' + WEB + ' && php artisan migrate:status -vvv && cd ..'))
 });
 
 gulp.task('artisan:key:generate', function () {
@@ -501,25 +439,6 @@ gulp.task('jshint', function () {
                 //  , jshint.reporter('default',        { verbose: true })
                 //  , jshint.reporter('jshint-stylish', { verbose: true })
 });
-
-gulp.task('fixPermissions', function (p) {
-    var wDir    =   path.resolve(CURDIR) + path.sep;
-    console.log('wDir = ', wDir);
-    return  gulp.src(
-                path.resolve(wDir, '**')
-            )
-            .pipe(chown(WWWUID, WWWGID))
-            .pipe(gulp.dest(wDir));
-});
-/*
-            .pipe(vinylPaths(function (vPath) {
-                console.log('Chown:', vPath);
-                //exec('sudo chown www-data:www-data ' + vPath);
-                exec('sudo chown www-data:www-data ' + vPath);
-                return Promise.resolve();
-            }));
-//.pipe(chown(48))
-*/
 
 
 // Log file paths in the stream
