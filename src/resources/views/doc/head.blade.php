@@ -50,7 +50,7 @@
     <!--/ Styles
     ================================================== /-->
     <!--/ Custom /-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rainbow/1.2.0/themes/github.css" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rainbow/1.2.0/themes/github.css" /> -->
     <link rel="stylesheet" href="assets/css/bower-bundle.min.css" id="css-bower" />
     <link rel="stylesheet" href="assets/css/styles.min.css" id="css-themes" />
     <link rel="stylesheet" href="assets/css/50-mp3.css" id="css-custom" />

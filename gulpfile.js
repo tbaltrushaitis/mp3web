@@ -377,7 +377,7 @@ gulp.task('build:css', function () {
             .pipe(gulpif('production' === envConfig.env, cleanCSS(cleanOptions, function (d) {
                 console.info(d.name + ': ' + d.stats.originalSize + ' -> ' + d.stats.minifiedSize + ' [' + d.stats.timeSpent + 'ms] [' + 100 * d.stats.efficiency.toFixed(2) + '%]');
             }), false))
-            .pipe(concatCSS('styles.css', {rebaseUrls: false}))
+            .pipe(concatCSS('styles.css', {rebaseUrls: true}))
             .pipe(minifyCSS())
             .pipe(rename({suffix: minifyOptions.suffix}))
             .pipe(header(Banner.header, {pkg: pkg}))
@@ -441,7 +441,7 @@ gulp.task('jshint', function () {
 });
 
 
-// Log file paths in the stream
+//  Log file paths in the stream
 gulp.task('files:src', function () {
     return  gulp.src([
                 path.join(SRC, '**/*')

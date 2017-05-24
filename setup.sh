@@ -50,9 +50,6 @@ info "\tENGINE_DIR=${ENGINE_DIR}\n";
 ##  5.  ./setup.sh
 ##  6.  npm i && bower i
 
-#//  GIT
-#git pull origin tagsInput
-
 # deploy
 #gulp sync:web
 #gulp artisan:clear
@@ -83,18 +80,19 @@ sleep 1;
 # sleep 1;
 
 # gulp build:dev --env=dev #--verbose
-gulp --env=production #--verbose
+gulp --env=${APP_ENV} #--verbose
 sleep 1;
 
 sudo chown -R ${WEB_USER}:${WEB_USER} build/
 sleep 1;
 
-gulp sync:web       --env=production --verbose
+gulp sync:web --env=${APP_ENV} --verbose
+sleep 1;
 
 sudo chown -R ${WEB_USER}:${WEB_USER} webroot/
 sleep 1;
 
-gulp artisan:clear  --env=production --verbose
+gulp artisan:clear --env=${APP_ENV} --verbose
 sleep 1;
 
 # gulp deploy  --env=dev --verbose

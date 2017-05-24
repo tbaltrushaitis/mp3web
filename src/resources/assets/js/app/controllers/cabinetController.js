@@ -66,7 +66,7 @@ define([
             });
 
             _.each(listGenres, function (tagGenre) {
-                console.info("tagGenre = ", tagGenre);
+                console.info('tagGenre = ', tagGenre);
                 elGenres.tagsinput('add', tagGenre);
             });
             // .prop({'data-role': 'tagsinput'});
@@ -158,7 +158,7 @@ define([
     }
 
     return {
-        'start': start
+        start:  start
     };
 
 });

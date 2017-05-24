@@ -22,7 +22,7 @@
   , "moduleType": [
         "globals"
     ]
-  , "homepage": "https://github.com/tbaltrushaitis/mp3web#readme"
+  , "homepage": "https://tbaltrushaitis.github.io/mp3web/"
   , "ignore": [
         "**/.*"
       , "animation"
@@ -30,11 +30,11 @@
       , "bower_components"
       , "bower_modules"
       , "dist"
-      , "node_modules"
       , "docs"
+      , "laravel-*"
+      , "node_modules"
       , "test"
       , "tests"
-      , "laravel-*"
       , "webroot"
     ]
   , "dependencies": {

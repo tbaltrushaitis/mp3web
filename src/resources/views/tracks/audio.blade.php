@@ -52,6 +52,9 @@
                             <th>ID</th>
                             <th>Path</th>
                             <th>Title</th>
+                            <th><i class="fa fa-thumbs-o-up fa-lg fa-fw"></i></th>
+                            <th><i class="fa fa-thumbs-o-down fa-lg fa-fw"></i></th>
+                            <th>Plays</th>
                             <th>Size</th>
                             <th>Added</th>
                             <th>Edit</th>
@@ -65,6 +68,9 @@
                                 <td class="table-text"><div>{{ $track->get('id') }}</div></td>
                                 <td class="table-text"><div>{{ $track->get('path') . '/' }}</div></td>
                                 <td class="table-text"><div>{{ $track->get('title') }}</div></td>
+                                <td class="table-text"><div>{{ $track->get('likes') }}</div></td>
+                                <td class="table-text"><div>{{ $track->get('dislikes') }}</div></td>
+                                <td class="table-text"><div>{{ $track->get('plays') }}</div></td>
                                 <td class="table-text"><div>{{ $track->get('size') }}</div></td>
                                 <td class="table-text"><div>{{ date("Y-m-d", $track->get('added')) }}</div></td>
 
