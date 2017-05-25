@@ -80,6 +80,7 @@ class MediaController extends Controller {
         return response()->json($saveResult);
     }
 
+
     /**
      * Drop - delete track's metadata
      * @param  $id
@@ -87,11 +88,10 @@ class MediaController extends Controller {
      */
     public function mediaDrop ($id) {
         // $this->middleware('auth');
-        $actionResult   =   $this->mediaRepository->dropTrackMeta($id);
+        $actionResult =   $this->mediaRepository->dropTrack($id);
+        $actionResult->put('action', 'DROP');
         // return response()->json($actionResult);
-        // return redirect()->action('HomeController@index');
         return redirect()->action('HomeController@index')->with('status', 'Track Metadata removed!');
-        // return redirect()->action('HomeController@index',  ['status' => 'Track Metadata removed!']);
     }
 
 }
