@@ -11,10 +11,10 @@
 
 function deps_install {
     printf "[LOG]\tInstalling NPM packages ... \n";
-    npm i --verbose
+    npm i #--verbose
 
     printf "[LOG]\tInstalling Bower packages ... \n";
-    bower i --verbose --production
+    bower i --production #--verbose 
 }
 
 function deps_outdated {
