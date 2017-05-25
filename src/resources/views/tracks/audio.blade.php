@@ -1,4 +1,4 @@
-@extends('layouts.home')
+@extends('layouts.backend')
 
 @section('content')
     <div class="container-fluid">
@@ -40,7 +40,7 @@
 
             <!--/ Current Tracks /-->
             @if (count($tracks) > 0)
-            <div class="panel panel-default">
+            <div class="panel panel-info">
                 <div class="panel-heading">
                     <strong>Tracklist</strong> <span class="pull-right">[{{ count($tracks) }} item(s)]</span>
                 </div>
@@ -55,6 +55,7 @@
                             <th><i class="fa fa-thumbs-o-up fa-lg fa-fw"></i></th>
                             <th><i class="fa fa-thumbs-o-down fa-lg fa-fw"></i></th>
                             <th>Plays</th>
+                            <th>Rate</th>
                             <th>Size</th>
                             <th>Added</th>
                             <th>Edit</th>
@@ -71,6 +72,7 @@
                                 <td class="table-text"><div>{{ $track->get('likes') }}</div></td>
                                 <td class="table-text"><div>{{ $track->get('dislikes') }}</div></td>
                                 <td class="table-text"><div>{{ $track->get('plays') }}</div></td>
+                                <td class="table-text"><div>{{ round(($track->get('likes') * 5) / max( $track->get('likes') + $track->get('dislikes'), 1), 2) }}</div></td>
                                 <td class="table-text"><div>{{ $track->get('size') }}</div></td>
                                 <td class="table-text"><div>{{ date("Y-m-d", $track->get('added')) }}</div></td>
 
