@@ -330,7 +330,7 @@ gulp.task('sync:engine', function () {
                 .pipe(dirSync(
                     ENGINE
                   , BUILD
-                  , _.extend({}, syncOptions, {ignore: [/^\.env(.*)?$/i, /^(.*)\.md$/i]})
+                  , _.extend({}, syncOptions, {ignore: [/^\.env(.*)?$/i, /^(.*)\.md$/i, /^(.*)\.lock$/i]})
                 ))
                 .on('error', console.error.bind(console));
 });
