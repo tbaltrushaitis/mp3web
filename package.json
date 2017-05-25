@@ -9,7 +9,7 @@
     }
   , "license":  "MIT"
   , "private":  true
-  , "homepage": "https://github.com/tbaltrushaitis/mp3web"
+  , "homepage": "https://tbaltrushaitis.github.io/mp3web/"
   , "website":  "http://mp3.gsm-center.com.ua/"
   , "readmeFilename":   "README.md"
   , "engines": {
@@ -18,10 +18,18 @@
     }
   , "main":     "gulpfile.js"
   , "scripts": {
-        "test":  "gulp test"
-      , "dev":   "gulp dev"
-      , "build": "gulp build"
-      , "prod":  "gulp --env=production"
+        "start":        "gulp usage"
+      , "test":         "./setup.sh test"
+      , "test:build":   "gulp test"
+      , "setup":        "./setup.sh"
+      , "dev":          "gulp dev"
+      , "default":      "gulp dev"
+      , "start":        "./setup.sh install"
+      , "build":        "./setup.sh build"
+      , "rebuild":      "./setup.sh rebuild"
+      , "deploy":       "./setup.sh deploy"
+      , "prod":         "gulp --env=production"
+      , "watch":        "gulp watch"
     }
   , "repository": {
         "type": "git"
@@ -80,7 +88,6 @@
       , "gulp-util":            "^3.0.8"
       , "gulp-watch":           "^4.3.9"
       , "jquery":               "^2.2.4"
-      , "jsdom":                "^10.1.0"
       , "jshint":               "^2.9.3"
       , "jshint-stylish":       "^2.2.1"
       , "lodash":               "~4.17.2"
@@ -89,6 +96,9 @@
       , "minimist":             "^1.2.0"
       , "nconf":                "^0.8.4"
       , "vinyl-paths":          "^2.1.0"
+    }
+  , "outdatedDependencies": {
+        "jsdom":    "^10.1.0"
     }
   , "options": {
         "bower": {
