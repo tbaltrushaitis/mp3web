@@ -4,12 +4,12 @@
 
 APP_ENV=production
 APP_DEBUG=true
-#APP_DEBUG=`if [ "development" == "${APP_ENV}" ]; then echo true; else echo false; fi`
 
 APP_KEY=base64:/this_is-example/key+M=
 APP_URL=http://mp3.local
 APP_HOME=
 APP_DIR="webroot"
+WEB_USER="apache"
 
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
