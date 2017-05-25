@@ -23,7 +23,7 @@ class MediaRepository {
         $sDir   =   storage_path('media/audio') . DIRECTORY_SEPARATOR;
         foreach ($files as $file) {
             $fileName   =   rawurldecode($file);
-            $hash       =   md5_file($sDir . $fileName);
+            $hash       =   md5(dirname($fileName) . md5_file($sDir . $fileName));
             if (Storage::disk('meta')->exists($hash)) {
                 $meta   =   collect(json_decode(Storage::disk('meta')->get($hash), TRUE));
             }else{
@@ -103,21 +103,45 @@ class MediaRepository {
      * @param  String
      * @return Collection
      */
-    public function dropTrackMeta ($hash) {
+    public function dropTrack ($hash) {
         $meta   =   collect([
-            'id'            =>  $hash
-          , 'action'        =>  'DELETE_META'
+            'id'    =>  $hash
+        ]);
+        $meta_result    =   collect([
+            'action'        =>  'DELETE_META'
           , 'action_result' =>  NULL
         ]);
+        $file_result    =   collect([
+            'action'        =>  'DELETE_FILE'
+          , 'action_result' =>  NULL
+        ]);
+        $file_name  =   NULL;
+
         if (Storage::disk('meta')->exists($hash)) {
+            $file_meta  =   collect(json_decode(Storage::disk('meta')->get($hash), TRUE));
+            $file_name  =   $file_meta->get('filename');
             if (Storage::disk('meta')->delete($hash)) {
-                $meta->put('action_result', 'SUCCESS');
+                $meta_result->put('action_result', 'SUCCESS');
             }else{
-                $meta->put('action_result', 'ERROR');
+                $meta_result->put('action_result', 'ERROR');
             }
         }else{
-            $meta->put('action_result', 'FILE_NOT_EXISTS');
+            $meta_result->put('action_result', 'FILE_NOT_EXISTS');
         };
+
+        if (!is_null($file_name) && Storage::disk('audio')->exists($file_name)) {
+            if (Storage::disk('audio')->delete($file_name)) {
+                $file_result->put('action_result', 'SUCCESS');
+            }else{
+                $file_result->put('action_result', 'ERROR');
+            }
+        }else{
+            $file_result->put('action_result', 'FILE_NOT_EXISTS');
+        };
+
+        $meta->put('meta', $meta_result);
+        $meta->put('file', $file_result);
+
         return  $meta;
     }
 
