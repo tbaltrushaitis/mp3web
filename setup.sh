@@ -189,13 +189,13 @@ case "$1" in
         RETVAL=1
     ;;
 
-    "usage" | "help" | "-h")
+    "usage" | "help" | "h")
         splash "usage()";
         usage
         RETVAL=1
     ;;
 
-    "test" | "-t")
+    "test" | "t")
         splash "test()";
         $0 "pre"
         $0 "deps"
@@ -214,13 +214,13 @@ case "$1" in
         RETVAL=$?
     ;;
 
-    "build" | "install" | "i" | "-b")
+    "build" | "install" | "i" | "b")
         splash "Build()";
         Build
         RETVAL=$?
     ;;
 
-    "rebuild" | "b" | "-b")
+    "rebuild" | "rb")
         splash "REbuild()";
         Build
         Deploy
