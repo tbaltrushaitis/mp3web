@@ -1,4 +1,4 @@
-@include('doc.head')
+@include('doc.head-frontend')
 
 <body   id="layout-frontend"
         class="homepage skin-default theme-default"
@@ -13,7 +13,7 @@
 
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">
-                    <img class="logo-sm" alt="Premium MP3 Collection" src="{{ asset('assets/img/logo/logo-sm.png') }}">
+                    <img class="logo-sm" alt="Premium MP3 Collection" src="{{ asset('/assets/img/logo/logo-sm.png') }}" />
                 </a>
                 <!--/  Navbar toggle button  /-->
                 <a  href="#player-wrapper"

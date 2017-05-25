@@ -30,7 +30,7 @@
     <meta property="og:type"        content="collection" />
     <meta property="og:title"       content="Premium Music Collection :: Original Tracks and Best DJ's Remixes" />
     <meta property="og:description" content="Web MP3 Player and Media Library management. Backend based on Laravel framework, client-size - mostly JavaScript" />
-    <meta property="og:image"       content="assets/img/logo/logo-lg.png" />
+    <meta property="og:image"       content="{{ asset('/assets/img/logo/logo-lg.png') }}" />
     <meta property="og:site_name"   content="Web MP3 Player and Media Library Manager" />
     <meta property="og:url"         content="{{ url('/') }}" />
     <meta property="og:see_also"    content="https://github.com/tbaltrushaitis/mp3web" />
@@ -45,24 +45,23 @@
 
     <!--/ Fonts
     ================================================== /-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" />
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" /> -->
 
     <!--/ Styles
     ================================================== /-->
     <!--/ Custom /-->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rainbow/1.2.0/themes/github.css" /> -->
-    <link rel="stylesheet" href="assets/css/bower-bundle.min.css" id="css-bower" />
-    <link rel="stylesheet" href="assets/css/styles.min.css" id="css-themes" />
-    <link rel="stylesheet" href="assets/css/50-mp3.css" id="css-custom" />
+    <link rel="stylesheet" href="{{ asset('/assets/css/bower-bundle.min.css') }}" id="css-bower" />
+    <link rel="stylesheet" href="{{ asset('/assets/css/styles-backend.min.css') }}" id="css-themes" />
 
     <!--/ Favicon
     ================================================== /-->
-    <link href="assets/img/favicon.ico" type="image/x-icon" rel="icon" alt="Site Icon" />
-    <link href="assets/img/favicon.ico" type="image/x-icon" rel="shortcut icon"  alt="Site Shortcut Icon" />
+    <link href="{{ asset('/assets/img/favicon.ico') }}" type="image/x-icon" rel="icon" alt="Site Icon" />
+    <link href="{{ asset('/assets/img/favicon.ico') }}" type="image/x-icon" rel="shortcut icon"  alt="Site Shortcut Icon" />
 
     <!--/ HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries /-->
     <!--[if lt IE 9]>
-        <script src="assets/js/lib/html5shiv.min.js"></script>
-        <script src="assets/js/lib/respond.min.js"></script>
+        <script src="{{ asset('/assets/js/lib/html5shiv.min.js') }}"></script>
+        <script src="{{ asset('/assets/js/lib/respond.min.js') }}"></script>
     <![endif]-->
+
 </head>

@@ -40,9 +40,16 @@ audio {
   border: none;
 }
 
+.navbar-brand {
+  padding-top: 5px;
+}
 .logo-sm {
   width: 78px;
   height: 40px;
+}
+
+section#content {
+  margin-top: 50px;
 }
 
 .btn-player-option.is-enabled {
