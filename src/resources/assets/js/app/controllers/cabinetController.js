@@ -1,4 +1,4 @@
-/*  BOF: assets/js/app/controllers/cabinetController.js  */
+/*  BOF: ASSETS/JS/APP/CONTROLLERS/cabinetController.js  */
 
 /*!
  * ASSETS/JS/APP/CONTROLLERS/cabinetController.js
@@ -9,6 +9,7 @@
 'use strict';
 
 define([
+//require([
     'jquery'
   , 'underscore'
   , 'Tmpl'
@@ -17,14 +18,14 @@ define([
   , 'bootstrap'
     ]
 
-  , function ($, _, tmpl, F, bsTags) {
-
+  , function ($, _, tmpl) {
 
     /*
     |--------------------------------------------------------------------------
     |   START CONTROLLER
     |--------------------------------------------------------------------------
     */
+
     function start () {
         bindEvents();
     }
@@ -47,8 +48,6 @@ define([
             Modal.find('#filename').val(lo.filename);
             Modal.find('#path').val(lo.path);
             Modal.find('#title').val(lo.title);
-            Modal.find('#name').val(lo.name);
-            Modal.find('#artist').val(lo.artist);
             Modal.find('#album').val(lo.album);
             Modal.find('#track').val(lo.track);
             Modal.find('#year').val(lo.year);
@@ -116,8 +115,6 @@ define([
         Modal.find('#filename').val(null);
         Modal.find('#path').val(null);
         Modal.find('#title').val(null);
-        Modal.find('#name').val(null);
-        Modal.find('#artist').val(null);
         Modal.find('#album').val(null);
         Modal.find('#track').val(null);
         Modal.find('#year').val(null);
@@ -158,8 +155,9 @@ define([
     }
 
     return {
-        start:  start
+        'start':  start
     };
 
 });
+
 /*  EOF: assets/js/app/controllers/cabinetController.js  */

@@ -1,4 +1,4 @@
-/*  BOF: assets/js/app-config-require.js  */
+/*  BOF: ASSETS/JS/app-config-require.js  */
 
 /*!
  * ASSETS/JS/app-config-require.js
@@ -24,7 +24,7 @@
     });
 
     require.onError = function (err) {
-        console.warn('[requirejs] Error:', err.requireType);
+        console.warn('[requirejs] Error:', err.requireType, err);
         if ('timeout' === err.requireType) {
             console.warn('Affected Modules: ' + err.requireModules);
         }
@@ -107,7 +107,7 @@
 
     })();
 
-    // Load Starter Module
+    // Load APP-Starter Module
     (function () {
         require(['jquery', 'app/app-starter'], function ($) {
             var pageId  =   $('body').attr('data-id_page');
@@ -128,13 +128,12 @@
 /* requirejs(['jquery', 'app/app-starter']
   , function ($) {
         var pageId  =   $('body').attr('data-id_page');
-        console.groupCollapsed(pageId);
+        console.group(pageId);
         console.timeStamp('APP.CHECK-IN');
         console.info('APP::Started');
         console.groupEnd(pageId);
     }
 );
 */
-
 
 /*  EOF: assets/js/app-config-require.js  */

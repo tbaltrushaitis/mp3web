@@ -23,11 +23,20 @@
       , waitSeconds:    6
     });
 
+    require.onError = function (err) {
+        console.warn('[requirejs] Error:', err.requireType);
+        if ('timeout' === err.requireType) {
+            console.warn('Affected Modules: ' + err.requireModules);
+        }
+        throw err;
+    };
+
     (function () {
         var config = {
             map: {
                 '*': {
                     // 'common': 'app/common'
+                    //index:          'app/index'
                 }
             }
         };
@@ -36,22 +45,17 @@
 
     (function () {
         var config = {
-            map: {
-                '*': {
-                    index:          'app/index'
-                }
-            }
-          , paths: {
+            paths: {
                 jquery:             'lib/jquery'
               , Tmpl:               'lib/jquery.tmpl'
               , bootstrap:          'lib/bootstrap'
               , lodash:             'lib/lodash'
               , underscore:         'lib/underscore'
               , raty:               'lib/jquery.raty'
-              , functions:          'app/functions'
               , bootstrapTags:      'lib/bootstrap-tagsinput'
               , Abstract:           'app/classes/Abstract.class'
               , cabinetController:  'app/controllers/cabinetController'
+              , functions:          'app/functions'
             }
           , shim: {
                 jquery: {
@@ -72,9 +76,9 @@
               , bootstrapTags:      ['jquery', 'bootstrap']
               , Tmpl:               ['jquery']
               , raty:               ['jquery']
-              , functions:          ['jquery', 'underscore']
               , Abstract:           ['jquery', 'underscore']
               , cabinetController:  ['jquery', 'underscore']
+              , functions:          ['jquery', 'underscore']
             }
           , deps: [
                 'jquery'
@@ -97,12 +101,6 @@
         require.config(config);
     })();
 
-/*
-    (function () {
-        require(['app/cabinet-starter']);
-    })();
-*/
-
     // Load Starter Module
     (function () {
         require(['jquery', 'app/cabinet-starter'], function ($) {
@@ -111,8 +109,12 @@
             console.timeStamp('CABINET.CHECK-IN');
             console.info('CABINET::Started');
             console.groupEnd(pageId);
+        }, function (err) {
+            var failedId    =   err.requireModules && err.requireModules[0];
+            console.warn('[requirejs] Errors in ' + failedId + ':', err.requireModules[0]);
         });
     })();
 
 })(require);
+
 /*  EOF: assets/js/cabinet-config-require.js  */

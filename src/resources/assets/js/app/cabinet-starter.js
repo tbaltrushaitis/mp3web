@@ -19,7 +19,8 @@ require([
         console.timeStamp('CABINET MODULES READY');
 });
 
-define([
+//define([
+require([
     'require'
   , 'jquery'
   , 'underscore'
@@ -28,15 +29,15 @@ define([
   , 'bootstrapTags'
   ]
 
-  , function (require, $, _, F) {
+  , function (require, $, _) {
 
     var ControllerCabinet   =   new require('cabinetController');
     var libTags             =   new require('bootstrapTags');
 
-    $.when(ControllerCabinet, libTags, F)
+    $.when(ControllerCabinet, libTags)
      .then(function (loCabinet) {
         var pageId  =   $('body').attr('data-id_page');
-        console.groupCollapsed(pageId);
+        console.group(pageId);
         console.timeStamp(pageId + ':CHECK-IN');
         console.info('Starting CabinetController');
         console.groupEnd(pageId);
