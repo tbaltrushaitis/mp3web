@@ -16,11 +16,15 @@
         }
     ]
   , "require": {
+    }
+  , "require-disabled": {
         "php":                  ">=5.5.9"
       , "laravel/framework":    "5.2.*"
       , "wisembly/elephant.io": "~3.0"
     }
   , "require-dev": {
+    }
+  , "require-dev-disabled": {
         "fzaninotto/faker":     "~1.4"
       , "mockery/mockery":      "0.9.*"
       , "phpunit/phpunit":      "~4.0"
