@@ -90,8 +90,8 @@ var envConfig = {
 };
 envConfig   =   parseArgs(process.argv.slice(2), envConfig);
 
-console.log('\n\n\n', 'envConfig = [', util.inspect(envConfig), ']\n\n\n');
-console.log('VERSION = [', util.inspect(VERSION), ']');
+console.log('\n\n\n', 'envConfig = [', util.inspect(envConfig), ']');
+console.log('VERSION = [', util.inspect(VERSION), ']\n\n\n');
 
 //  ENV ROUTER
 gulp.task('default', function () {
@@ -139,7 +139,6 @@ gulp.task(  'build:dev',  gulpSequence(
   , 'sync:resources'
   , 'sync:assets'
   , ['build:css', 'build:js']
- // , 'deploy'
 ));
 
 gulp.task('build',      gulpSequence(
@@ -368,20 +367,34 @@ gulp.task('sync:web', function () {
 //  BUILD
 gulp.task('build:css', function () {
     var DEST    =   path.join(BUILD, 'public/assets/css');
-    return  gulp.src([
-                path.join(BUILD, 'resources/assets/css/*.css')
-              , '!**/errors.css'
-              , '!**/styles.css'
-              // , '!**/fonts-cdn.css'
-            ])
-            .pipe(gulpif('production' === envConfig.env, cleanCSS(cleanOptions, function (d) {
-                console.info(d.name + ': ' + d.stats.originalSize + ' -> ' + d.stats.minifiedSize + ' [' + d.stats.timeSpent + 'ms] [' + 100 * d.stats.efficiency.toFixed(2) + '%]');
-            }), false))
-            .pipe(concatCSS('styles.css', {rebaseUrls: true}))
-            .pipe(minifyCSS())
-            .pipe(rename({suffix: minifyOptions.suffix}))
-            .pipe(header(Banner.header, {pkg: pkg}))
-            .pipe(gulp.dest(DEST));
+    var frontCSS    =    gulp.src([
+                            path.join(BUILD, 'resources/assets/css/frontend/*.css')
+                          , '!**/errors.css'
+                          , '!**/styles.css'
+                        ])
+                        .pipe(gulpif('production' === envConfig.env, cleanCSS(cleanOptions, function (d) {
+                            console.info(d.name + ': ' + d.stats.originalSize + ' -> ' + d.stats.minifiedSize + ' [' + d.stats.timeSpent + 'ms] [' + 100 * d.stats.efficiency.toFixed(2) + '%]');
+                        }), false))
+                        .pipe(concatCSS('styles-frontend.css', {rebaseUrls: true}))
+                        .pipe(minifyCSS())
+                        .pipe(rename({suffix: minifyOptions.suffix}))
+                        .pipe(header(Banner.header, {pkg: pkg}))
+                        .pipe(gulp.dest(DEST));
+    var backCSS =   gulp.src([
+                        path.join(BUILD, 'resources/assets/css/backend/*.css')
+                      , '!**/errors.css'
+                      , '!**/styles.css'
+                    ])
+                    .pipe(gulpif('production' === envConfig.env, cleanCSS(cleanOptions, function (d) {
+                        console.info(d.name + ': ' + d.stats.originalSize + ' -> ' + d.stats.minifiedSize + ' [' + d.stats.timeSpent + 'ms] [' + 100 * d.stats.efficiency.toFixed(2) + '%]');
+                    }), false))
+                    .pipe(concatCSS('styles-backend.css', {rebaseUrls: true}))
+                    .pipe(minifyCSS())
+                    .pipe(rename({suffix: minifyOptions.suffix}))
+                    .pipe(header(Banner.header, {pkg: pkg}))
+                    .pipe(gulp.dest(DEST));
+
+    return merge(frontCSS, backCSS);
 });
 gulp.task('build:js', function () {
     var DEST = path.join(BUILD, 'public/assets/js');
@@ -408,7 +421,6 @@ gulp.task('artisan:migrate', function () {
 });
 
 gulp.task('artisan:clear', function () {
-    console.info('reportOptions = [', util.inspect(reportOptions), ']');
     return gulp.src('')
             .pipe(exec('cd ' + CURDIR + WEB + ' && php artisan -vvv view:clear && cd ..'))
             .pipe(exec('cd ' + CURDIR + WEB + ' && php artisan -vvv route:list && cd ..'))
@@ -436,8 +448,6 @@ gulp.task('jshint', function () {
                   , jshint.reporter('default',          {verbose: true})
                 ));
                 //  , jshint.reporter('fail',           {verbose: true})
-                //  , jshint.reporter('default',        { verbose: true })
-                //  , jshint.reporter('jshint-stylish', { verbose: true })
 });
 
 
@@ -456,7 +466,6 @@ gulp.task('files:src', function () {
 });
 
 gulp.task('show:config', function () {
-    //console.info('APP Config: [', Config, ']');
     console.warn('ENV Config: [', util.inspect(envConfig), ']');
 });
 
