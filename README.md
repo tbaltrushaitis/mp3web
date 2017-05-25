@@ -38,7 +38,7 @@ Open file `setup.rc` in your favourite editor and change values of build variabl
 ## Build &amp; Deploy ##
 Run the `setup.sh` script. In most cases it will do all of the needed stuff to run instance of Web MP3 Player app
 ```bash
-$ ./setup.sh
+$ ./setup.sh all
 ```
 
 ## Actions in `setup.sh` script ##
