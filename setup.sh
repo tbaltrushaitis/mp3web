@@ -1,10 +1,26 @@
 #!/usr/bin/env bash
 ##  ------------------------------------------------------------------------  ##
-##                   Build project's working directory                        ##
+##                     Build project working directory                        ##
 ##  ------------------------------------------------------------------------  ##
+#
+#   Script to initialize project
+# - Install required node and bower packages
+# - Install framework engine
+# - Update framework installation with project's source scripts.
+# - Deploy dist code into public web
+# - Consist of:
+#   -   usage
+#   -   preSetupChecks
+#   -   depsChecks
+#   -   Build
+#   -   Deploy
 
 set -e
 trap 'echo >&2 Ctrl+C captured, exiting; exit 1' SIGINT
+
+
+source setup.rc
+
 
 function usage () {
     >&2 cat << EOM
@@ -12,19 +28,17 @@ function usage () {
 
 Usage: $0 <command> [<params>]
 
-    $0 usage                    -   show usage information
-    $0 <image | i> [<image_id>] -   build image
+    $0 <usage | help | h>   -   Show usage information
+    $0 <test | t>           -   Perform environment tests
+    $0 <prepare | prep | p> -   Install PHP, BOWER and NPM dependencies.
+    $0 <build | b>          -   Build project directory
+    $0 <deploy | d>         -   Sync sites public web directory (<webroot> by default)
+    $0 <rebuild | rb>       -   Perform <build> and then <deploy> tasks
 
 EOM
     RETVAL=1
 }
 
-#
-#   Script to initialize repo
-# - install required node packages
-# - install git hooks
-
-source setup.rc
 
 ##  ------------------------------------------------------------------------  ##
 ##                                PREREQUISITES                               ##
@@ -32,12 +46,12 @@ source setup.rc
 
 OPTS=$@
 
-WD="$(cd $(dirname $0) && pwd -P)"   #   Current working directory
+WD="$(cd $(dirname $0) && pwd -P)"      #   Current working directory
 APP_HOME="$(pwd)/"                      #   Current directory
 APP_PATH="${APP_HOME}${APP_DIR}"        #   Full path to target directory
-WEB_USER="www-data"                     #   Group of webserver used on host
 ENGINE_DIR="${ENGINE_NAME}-${ENGINE_VERSION}"
 CODE_VERSION="$(cat ./VERSION)"
+# WEB_USER="${WEB_USER}"
 
 BUILD="${WD}/build"
 SRC="${WD}/src"
@@ -60,7 +74,7 @@ source bin/host-checks.sh
 
 
 function preSetupChecks () {
-    info "\t$FUNCNAME params: \t [$@]\n";
+    splash "$FUNCNAME(${@})";
 
     okNode
     okNpm
@@ -75,6 +89,7 @@ info "SRC = \t ${SRC}";
 info "CODE_VERSION = \t ${CODE_VERSION}";
 info "APP_PATH = \t ${APP_PATH}";
 info "ENGINE_DIR = \t ${ENGINE_DIR}";
+info "WEB_USER = \t ${WEB_USER}";
 
 
 ##  ------------------------------------------------------------------------  ##
@@ -104,7 +119,7 @@ info "ENGINE_DIR = \t ${ENGINE_DIR}";
 ##  ------------------------------------------------------------------------  ##
 
 function depsChecks () {
-    info "\t$FUNCNAME params: \t [$@]\n";
+    splash "$FUNCNAME(${@})";
 
     check_composer
     sleep 1;
@@ -129,38 +144,43 @@ function depsChecks () {
 
 
 function Build () {
-    info "\t$FUNCNAME params: \t [$@]\n";
+    splash "$FUNCNAME params: [${@}]";
 
     cd ${WD}
     gulp --env=${APP_ENV} #--verbose
     sleep 1;
 
     cd ${WD}
+    mv -p "${BUILD}/.env" "${BUILD}/.env.${DATE}" 2>/dev/null
     cp -pr ./setup.rc "${BUILD}/.env.setup"
+    cp -pr "${SRC}/composer.json" "${BUILD}/"
+    sleep 1;
 
-    cd build/
-    composer -vvv update
+    cd ${BUILD}
+    composer -v update
+    sleep 1;
 
-    sudo chown -R ${WEB_USER}:${WEB_USER} "${BUILD}/"
+    cd ${WD}
+    sudo chown -R "${WEB_USER}":"${WEB_USER}" "${BUILD}/"
     sleep 1;
 
 }
 
 
 function Deploy () {
-    printf "\t$FUNCNAME params: \t [$@]\n";
+    splash "$FUNCNAME [${@}]";
 
     cd ${WD}
     gulp sync:web --env=${APP_ENV} --verbose
     sleep 1;
 
     cd ${WD}
-    cd "${BUILD}/public/"
-    ln -s ../storage/media/audio/ 1>&2 2>/dev/null
+    cd "${WD}/${APP_DIR}/public/"
+    ln -s ../storage/media/audio/ >&2 2>/dev/null
     sleep 1;
 
     cd ${WD}
-    sudo chown -R "${WEB_USER}":"${WEB_USER}" "${APP_DIR}"
+    sudo chown -R ${WEB_USER}:${WEB_USER} "${APP_DIR}"
     sleep 1;
 
     gulp artisan:clear --env=${APP_ENV} --verbose
@@ -185,37 +205,31 @@ printf "\n-------------------------\t $0 $1 \t----------------------------\n";
 case "$1" in
 
     "")
+        splash "without params";
         usage
-        RETVAL=1
+        RETVAL=0
     ;;
 
-    "usage" | "help" | "h")
+    "usage" | "h")
         splash "usage()";
         usage
-        RETVAL=1
+        RETVAL=0
     ;;
 
     "test" | "t")
         splash "test()";
-        $0 "pre"
-        $0 "deps"
-        RETVAL=$?
-    ;;
-
-    "pre")
-        splash "pre()";
         preSetupChecks
         RETVAL=$?
     ;;
 
-    "deps")
-        splash "deps()";
+    "prepare" | "prep" | "p")
+        splash "prepare()";
         depsChecks
         RETVAL=$?
     ;;
 
-    "build" | "install" | "i" | "b")
-        splash "Build()";
+    "build" | "b")
+        splash "build()";
         Build
         RETVAL=$?
     ;;
@@ -227,8 +241,17 @@ case "$1" in
         RETVAL=$?
     ;;
 
-    "deploy")
+    "deploy" | "d")
         splash "deploy()";
+        Deploy
+        RETVAL=$?
+    ;;
+
+    "all" | "a")
+        splash "all()";
+        preSetupChecks
+        depsChecks
+        Build
         Deploy
         RETVAL=$?
     ;;
