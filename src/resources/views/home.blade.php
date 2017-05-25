@@ -1,4 +1,4 @@
-@extends('layouts.home')
+@extends('layouts.backend')
 
 @section('content')
 <div class="container">
@@ -13,9 +13,21 @@
         </div>
     </div>
 
+    @if( Session::has('status') )
+        <div class="alert alert-success">
+            {{ Session::get('status') }}
+        </div>
+    @endif
+
     @if (session('status'))
         <div class="alert alert-success">
             {{ session('status') }}
+        </div>
+    @endif
+
+    @if (Session('status'))
+        <div class="alert alert-success">
+            {{ Session('status') }}
         </div>
     @endif
 
