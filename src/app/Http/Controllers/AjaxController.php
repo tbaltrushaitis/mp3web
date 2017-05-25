@@ -31,7 +31,7 @@ class AjaxController extends Controller {
      * @return void
      */
     public function __construct (MediaRepository $mediarepository) {
-        $this->middleware('auth');
+        //$this->middleware('auth');
         $this->mediaRepository  =   $mediarepository;
     }
 
@@ -39,12 +39,14 @@ class AjaxController extends Controller {
     /**
      * getMeta - provide track's metadata as JSON
      * @param  Hash  $id
-     * @return Response
+     * @return Response JSON
      */
     public function getMeta ($id) {
+        // return redirect()->action('MediaController@mediaPlay', [$id]);
         $meta   =   $this->mediaRepository->getTrackMeta($id);
         return response()->json($meta);
     }
+
 
     /**
      * updateMeta - Update Track's metadata
@@ -63,6 +65,18 @@ class AjaxController extends Controller {
 
 
     /**
+     * deleteMeta - Delete Track's metadata and file
+     * @param  Hash  $id
+     * @return Response JSON
+     */
+    public function deleteMeta ($id) {
+        // $dropResult =   $this->mediaRepository->dropTrackMeta($id);
+        // $dropResult->put('action', 'DROP');
+        // return response()->json($dropResult);
+    }
+
+
+    /**
      * Create a new MediaFile.
      *
      * @return \Illuminate\Http\Response
@@ -73,7 +87,7 @@ class AjaxController extends Controller {
 
 
     /**
-     * Store an Media Track in storage.
+     * Store a Media Track in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -105,6 +119,7 @@ class AjaxController extends Controller {
         //
     }
 
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -123,7 +138,9 @@ class AjaxController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy ($id) {
-        //
+        $dropResult =   $this->mediaRepository->dropTrack($id);
+        $dropResult->put('action', 'DESTROY');
+        return response()->json($dropResult);
     }
 
 }

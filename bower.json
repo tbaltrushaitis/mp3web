@@ -1,5 +1,7 @@
 {   "name":         "mp3web"
+  , "title":        "Web MP3 Player and Media Library Manager"
   , "description":  "Web MP3 Player and Media Library Manager based on Node.js, Laravel and HTML5 + lightweight JavaScript MVC modeling on FrontEnd"
+  , "version":      "1.0.2"
   , "main":         "index.php"
   , "authors": [
         "tbaltrushaitis@gmail.com"
@@ -11,39 +13,102 @@
       , "audio"
       , "player"
       , "laravel"
+      , "media"
+      , "library"
+      , "storage"
+      , "manager"
       , "web"
     ]
   , "moduleType": [
         "globals"
     ]
-  , "homepage": "https://github.com/tbaltrushaitis/mp3web#readme"
+  , "homepage": "https://tbaltrushaitis.github.io/mp3web/"
   , "ignore": [
         "**/.*"
       , "animation"
       , "build"
       , "bower_components"
       , "bower_modules"
-      , "node_modules"
+      , "dist"
       , "docs"
+      , "laravel-*"
+      , "node_modules"
       , "test"
       , "tests"
-      , "laravel-*"
+      , "webroot"
     ]
   , "dependencies": {
-        "bootstrap":            "~3.3.6"
+        "animate.css":          "~3.5.2"
+      , "bootstrap":            "~3.3.7"
       , "bootstrap-tagsinput":  "~0.8.0"
+      , "font-awesome":         "~4.7.0"
       , "html5shiv":            "~3.7.3"
       , "jquery":               "~2.2.4"
-      , "jquery-tmpl":          "*"
+      , "jquery-tmpl":          "#b504c8afba"
+      , "lato-font":            "~3.0.0"
       , "lodash":               "~4.17.2"
-      , "raty":                 "~2.7.0"
+      , "normalize.css":        "~4.2.0"
+      , "raty":                 "~2.7.1"
       , "respond":              "~1.4.2"
-      , "requirejs":            "~2.3.1"
+      , "requirejs":            "~2.3.3"
+      , "roboto-webfont-bower": "roboto-webfont#~0.1.1"
       , "underscore":           "~1.8.3"
     }
   , "devDependencies": {
-        "animate.css":      "~3.5.2"
-      , "font-awesome":     "~4.6.3"
-      , "normalize.css":    "~4.2.0"
+    }
+  , "resolutions": {
+        "jquery": "~2.2.4"
+    }
+  , "outdatedDependencies": {
+        "bxslider-4":   "bx-slider.js#^4.2.12"
+    }
+  , "overrides": {
+        "admin-lte": {
+            "main": [
+                "dist/**/*.*"
+              , "!**/index2.html"
+              , "!**/*.less"
+            ]
+        }
+      , "bootstrap": {
+            "main": [
+                "dist/**/*.*"
+              , "!**/*.less"
+              , "!**/*.map"
+              , "!**/npm.js"
+              , "!**/*.min.js"
+            ]
+        }
+      , "font-awesome": {
+            "main": [
+                "fonts/*"
+              , "css/*.css"
+              , "!css/*.min.css"
+            ]
+        }
+      , "jquery-tmpl": {
+            "main": [
+                "*.js"
+            ]
+        }
+      , "lato-font": {
+            "main": [
+                "fonts/**/*.*"
+              , "css/*.css"
+              , "!css/*.min.css"
+            ]
+        }
+      , "raty": {
+            "main": [
+                "lib/**/*.*"
+            ]
+        }
+      , "wdt-loading": {
+            "main": [
+                "wdtLoading.*"
+              , "wdtLoading.js"
+              , "wdtMarkup.html"
+            ]
+        }
     }
 }

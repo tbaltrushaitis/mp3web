@@ -40,9 +40,16 @@ audio {
   border: none;
 }
 
+.navbar-brand {
+  padding-top: 5px;
+}
 .logo-sm {
   width: 78px;
   height: 40px;
+}
+
+section#content {
+  margin-top: 50px;
 }
 
 .btn-player-option.is-enabled {
@@ -172,13 +179,13 @@ audio {
   /* white-space: nowrap; */
   /* color: #333; */
 .info-rank {
-  -vendor-animation-duration: 1s;
-  -vendor-animation-delay: 0s;
-  -vendor-animation-iteration-count: infinite;
+  -vendor-animation-duration:           1s;
+  -vendor-animation-delay:              0s;
+  -vendor-animation-iteration-count:    infinite;
 }
 .info-rank:hover {
-  -webkit-transform: rotate(180deg); /* Safari */
-  transform: rotate(180deg);
+  -webkit-transform:    rotate(180deg); /* Safari */
+  transform:            rotate(180deg);
 }
 
 #list .nav-tabs {
@@ -206,10 +213,10 @@ audio {
 }
 
   .list-group-item.active
-, .list-group-item.active:focus
-, .list-group-item.active:hover {
+, .list-group-item.active:focus {
   background-color: #337ab7;
 }
+/* , .list-group-item.active:hover { */
 
   .track .raty
 , .track .genre

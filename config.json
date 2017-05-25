@@ -1,0 +1,13 @@
+{   "APP_URL":      "http://mp3.local"
+  , "ENGINE": {
+        "NAME":     "LARAVEL"
+      , "VERSION":  "5.2.0"
+    }
+  , "MYSQL": {
+        "HOST":     "127.0.0.1"
+      , "PORT":     "3306"
+      , "BASE":     "mp3_db"
+      , "USER":     "mp3_user"
+      , "PASS":     "ysmsJ0kT7MCaRw2DFYnMJ8Ls"
+    }
+}

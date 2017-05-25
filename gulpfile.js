@@ -1,101 +1,117 @@
 /*  BOF: ROOT/gulpfile.js  */
 
+/*!
+ * ./gulpfile.js
+ * Copyright(c) 2016-2017 Baltrushaitis Tomas
+ * MIT Licensed
+ */
+
+'use strict';
+
 //##  Make sure that jQuery included  ##//
-//const   jQuery  =   jQuery  ||  require('jquery')(require('jsdom').jsdom().parentWindow)
-const   jQuery  =   jQuery  ||  require('jquery')
-      , $       =   $   ||  jQuery
-      , _       =   _   ||  require('lodash')
-;
+const $         =   require('jquery');
+const _         =   require('underscore');
 
-const fs    =   require('fs');
-const path  =   require('path');
-const del   =   require('del');
-const util  =   require('util');
-
+const fs        =   require('fs');
+const del       =   require('del');
+const path      =   require('path');
+const util      =   require('util');
 const merge     =   require('merge-stream');
-const parseArgs =   require('minimist')
-const vinylPaths    =   require('vinyl-paths');
-const dateFormat    =   require('dateformat');
 
-const gulp      =   require('gulp');
-const changed   =   require('gulp-changed');
-const chmod     =   require('gulp-chmod');
-const chown     =   require('gulp-chown');
-const concat    =   require('gulp-concat');
-const cleanCSS  =   require('gulp-clean-css');
-const concatCSS =   require('gulp-concat-css');
-const dirSync   =   require('gulp-directory-sync');
-const exec      =   require('gulp-exec');
-const filter    =   require('gulp-filter');
-const gulpif    =   require('gulp-if');
-const header    =   require('gulp-header');
-const jscs      =   require('gulp-jscs');
-const jshint    =   require('gulp-jshint');
-const stylish   =   require('jshint-stylish');
-const rename    =   require('gulp-rename');
-const template  =   require('gulp-template');
-const uglify    =   require('gulp-uglify');
-//const util      =   require('gulp-util');
-//const livereload    =   require('gulp-livereload');
-const gulpSequence  =   require('gulp-sequence')
+const parseArgs         =   require('minimist');
+const vinylPaths        =   require('vinyl-paths');
+const dateFormat        =   require('dateformat');
+const mainBowerFiles    =   require('main-bower-files');
 
-// const Config    =   require('./app-config.json');
-const pkg   =   require('./package.json');
-const ENGINE =  path.join('laravel-5.2');
-const BOWER =   JSON.parse(fs.readFileSync('./.bowerrc')).directory;
-//const _     =   require('lodash');
+const gulp          =   require('gulp');
+const aglio         =   require('gulp-aglio');
+const changed       =   require('gulp-changed');
+const chmod         =   require('gulp-chmod');
+const chown         =   require('gulp-chown');
+const concat        =   require('gulp-concat');
+const cleanCSS      =   require('gulp-clean-css');
+const concatCSS     =   require('gulp-concat-css');
+const minifyCSS     =   require('gulp-minify-css');
+const dirSync       =   require('gulp-directory-sync');
+const exec          =   require('gulp-exec');
+const filter        =   require('gulp-filter');
+const gulpif        =   require('gulp-if');
+const header        =   require('gulp-header');
+const jscs          =   require('gulp-jscs');
+const jshint        =   require('gulp-jshint');
+const stylish       =   require('jshint-stylish');
+const rename        =   require('gulp-rename');
+const template      =   require('gulp-template');
+const uglify        =   require('gulp-uglify');
+const gulpSequence  =   require('gulp-sequence');
 
-const SRC   =   path.join('src');
-const BUILD =   path.join('build');
-const DIST  =   path.join('dist');
-const WEB   =   path.join('webroot');
+const Config    =   require('nconf');
+const pkg       =   require('./package.json');
+const ENGINE    =   path.join('laravel-5.2');
+const BOWER     =   JSON.parse(fs.readFileSync('./.bowerrc')).directory;
 
-const reportOptions =   pkg.options.reporting;
-const execOptions   =   pkg.options.exec;
-const watchOptions  =   pkg.options.watch;
-const syncOptions   =   pkg.options.sync;
+const SRC       =   path.join('src');
+const BUILD     =   path.join('build', path.sep);
+const DIST      =   path.join('dist');
+const WEB       =   path.join('webroot', path.sep);
+const CURDIR    =   path.join(__dirname, path.sep);
 
+const bowerOptions  =   _.extend({}, pkg.options.bower);
+const cleanOptions  =   _.extend({}, pkg.options.clean);
+const execOptions   =   _.extend({}, pkg.options.exec);
+const fileOptions   =   _.extend({}, pkg.options.file);
+const minifyOptions =   _.extend({}, pkg.options.minify);
+const reportOptions =   _.extend({}, pkg.options.reporting);
+const syncOptions   =   _.extend({}, pkg.options.sync);
+const uglifyOptions =   _.extend({}, pkg.options.uglify);
+const watchOptions  =   _.extend({}, pkg.options.watch);
+
+const VERSION   =   fs.readFileSync('./VERSION', fileOptions).trim();
 
 var now     =   new Date();
-var Banner  =   {
-        header: '\n\n/*!\n' +
-                ' * <%= pkg.name %> v<%= pkg.version %>: <%= pkg.title %>\n' +
-                ' * <%= pkg.description %>\n' +
-                ' * Copyright: ' + dateFormat(now, "yyyy-mm-dd HH:MM:ss") + ' <%= pkg.author.name %>\n' +
-                ' * Licensed under the <%= pkg.license %> conditions\n' +
-                ' * <%= pkg.website %>\n' +
-                ' */\n\n'
-      , footer: '\n/*!\n' +
-                ' * EOF: <%= pkg.name %> v<%= pkg.version %>: <%= pkg.title %>\n' +
-                ' */\n'
-    };
+const   Banner  =   {
+            header: '\n/*!\n'
+                  + ' * Package:\t <%= pkg.name %>@<%= pkg.version %>' + '\n'
+                  + ' * Name:\t <%= pkg.title %> \n'
+                  + ' * Version:\t ' + VERSION + '\n'
+                  + ' * Description:\t <%= pkg.description %>' + '\n'
+                  + ' * Built:\t ' + dateFormat(now, 'yyyy-mm-dd HH:MM:ss') + '\n'
+                  + ' * Copyright:\t ' + '2016 - ' + dateFormat(now, 'yyyy') + ' <%= pkg.author.name %>' + '\n'
+                  + ' * Visit:\t <%= pkg.homepage %>' + '\n'
+                  + '**/\n\n'
+          , footer: '\n\n/*!\n'
+                  + ' * EOF: <%= pkg.name %> v<%= pkg.version %>: <%= pkg.title %>' + '\n'
+                  + ' */\n'
+        };
 
 var envConfig = {
     string:     'env'
-//  , default:    {env: process.env.NODE_ENV || 'test'}
-  , default:    {env: process.env.NODE_ENV || 'empty'}
+  , default:    {env: process.env.NODE_ENV || 'test'}
 };
 envConfig   =   parseArgs(process.argv.slice(2), envConfig);
 
-//console.log('\n\n\n', 'Banner.header = [', util.inspect(Banner.header), ']');
-console.log('\n\n\n', 'envConfig = [', util.inspect(envConfig), ']\n\n\n');
+console.log('\n\n\n', 'envConfig = [', util.inspect(envConfig), ']');
+console.log('VERSION = [', util.inspect(VERSION), ']\n\n\n');
 
-//  MAIN ROUTER
+//  ENV ROUTER
 gulp.task('default', function () {
+
     //  DEFAULT Scenario Route
     (function () {
         switch (envConfig.env) {
-            case 'empty': {
-                gulpSequence('lint', 'usage')();
+            case 'test': {
+                gulpSequence('lint');
                 break;
             }
             case 'dev': {
-                gulpSequence('clean:build', 'build:dev', 'deploy', 'watch')();
+                //gulpSequence('clean:build', 'build:dev', 'deploy', 'watch')();
+                gulpSequence('build:dev', 'watch')();
                 break;
             }
             case 'production': {
                 //gulpSequence('test', 'build', 'dist', 'deploy')();
-                gulpSequence(['clean'], ['sync:engine'], ['sync:src'], ['sync:assets'], ['lint'], ['bower'], ['fixPermissions'])();
+                //gulpSequence(['clean'], ['sync:engine'], ['sync:src'], ['sync:assets'], ['lint'], ['bower'], ['fixPermissions'])();
+                gulpSequence('build')();
                 break;
             }
             default: {
@@ -108,55 +124,143 @@ gulp.task('default', function () {
 
 });
 
-gulp.task('test',       gulpSequence(['files:src'], ['usage']));
-gulp.task('lint',       gulpSequence('jshint', 'jscs'));
-
+gulp.task('test',       gulpSequence(['jscs'], ['usage']));
+gulp.task('lint',       gulpSequence('jscs', 'jshint'));
 gulp.task('clean',      gulpSequence(['clean:build', 'clean:dist']));
 
 gulp.task('artisan',    gulpSequence('artisan:vendor:publish', 'artisan:migrate', 'artisan:clear'));
-gulp.task('bower',      gulpSequence(['bower:fonts'], ['bower:css:fonts', 'bower:css:plugins'], ['bower:js'], ['bower:plugins']));
-gulp.task('build:dev',  gulpSequence(['clean:resources', 'clean:public'], ['sync:src'], ['sync:media', 'bower'], 'sync:assets:fonts', ['build:css', 'build:scripts']));
+
+gulp.task(  'build:dev',  gulpSequence(
+    'clean:build'
+  , 'sync:engine'
+  , 'sync:src'
+  , 'artisan:key:generate'
+  , 'bower'
+  , 'sync:resources'
+  , 'sync:assets'
+  , ['build:css', 'build:js']
+));
+
 gulp.task('build',      gulpSequence(
-                            ['clean:build']
-                          , ['sync:engine']
-                          , ['sync:src']
-                          , ['artisan:vendor:publish']
-                          , ['sync:media', 'bower']
-                          , ['sync:assets:fonts']
-                          , ['build:css', 'build:scripts']
+                            'clean:build'
+                          , 'sync:engine'
+                          , 'sync:src'
+                          , 'artisan:key:generate'
+                          , 'bower'
+                          , 'sync:resources'
+                          , 'sync:assets'
+                          , ['build:css', 'build:js']
                         ));
 gulp.task('dist',       gulpSequence(['clean:dist'], ['sync:dist']));
 gulp.task('deploy',     gulpSequence('sync:web', 'artisan:clear'));
 gulp.task('watch',      gulpSequence('watch:src:views', 'watch:src:css', 'watch:src:js'));
 
+
+//  BOWER
+gulp.task('bower', function () {
+
+    var mBower      =   mainBowerFiles(bowerOptions);   //  , {base: BOWER}
+
+    var DEST    =   path.join(BUILD, 'public/assets');
+    //var KEEP    =   path.join(BUILD, 'resources/bower');
+    var KEEP    =   path.join(BUILD, 'resources/assets');
+    var JS      =   path.join('js/lib');
+    var CSS     =   path.join('css');
+    var FONT    =   path.join('fonts');
+    var IMG     =   path.join('img');
+
+    var bowerJS =   gulp.src(mBower)
+                        .pipe(filter([
+                            '**/*.js'
+                          //, '!**/require.js'
+                          , '!**/*.min.js'
+                          , '!**/npm.js'
+                        ]))
+                        .pipe(changed(path.resolve(KEEP, JS)))
+                        .pipe(gulp.dest(path.resolve(KEEP, JS)))
+                        .pipe(gulp.dest(path.resolve(DEST, JS)))
+                        .pipe(gulpif('production' === envConfig.env, uglify(uglifyOptions)))
+                        .pipe(concat('bower-bundle.js'))
+                        .pipe(header(Banner.header, {pkg: pkg}))
+                        .pipe(rename({suffix: minifyOptions.suffix}))
+                        .pipe(gulp.dest(path.resolve(DEST, JS)));
+
+    var bowerCSS    =   gulp.src(mBower)
+                            .pipe(filter([
+                                '**/*.css'
+                              , '!**/*.min.css'
+                              , "!**/AdminLTE-*.css"
+                              , "!**/skin-*.css"
+                            ]))
+                            .pipe(changed(path.resolve(KEEP, CSS)))
+                            .pipe(gulpif('production' === envConfig.env, cleanCSS(cleanOptions, function (d) {
+                                console.info(d.name + ':\t' + d.stats.originalSize + '\t->\t' + d.stats.minifiedSize + '\t[' + d.stats.timeSpent + 'ms]\t[' + 100 * d.stats.efficiency.toFixed(2) + '%]');
+                            }), false))
+                            // Writing minified version.
+                            .pipe(gulp.dest(path.resolve(KEEP, CSS)))
+                            .pipe(concatCSS('bower-bundle.css', {rebaseUrls: true}))
+                            .pipe(minifyCSS())
+                            .pipe(rename({suffix: minifyOptions.suffix}))
+                            .pipe(header(Banner.header, {pkg: pkg}))
+                            .pipe(gulp.dest(path.resolve(DEST, CSS)));
+
+    var bowerFonts  =   gulp.src(mBower)
+                            .pipe(filter(['**/fonts/**/*.*']))
+                            .pipe(changed(path.resolve(DEST, FONT)))
+                            .pipe(gulp.dest(path.resolve(DEST, FONT)));
+
+    var bowerImg    =   gulp.src(mBower)
+                            .pipe(filter([
+                                '**/img/*.*'
+                              , '**/image/*.*'
+                              , '**/images/*.*'
+                              , '**/*.png'
+                              , '**/*.jpg'
+                              , '**/*.jpeg'
+                              , '**/*.gif'
+                              , '**/*.ico'
+                            ]))
+                            .pipe(changed(path.resolve(DEST, IMG)))
+                            .pipe(gulp.dest(path.resolve(DEST, IMG)));
+
+    return  merge(bowerJS, bowerCSS, bowerFonts, bowerImg);
+});
+
+//  WATCHERS
 gulp.task('watch:src:views', function () {
-    var wViews  =   gulp.watch([path.join(SRC, 'resources/views/**/*.blade.php')]
+    var wViews  =   gulp.watch([
+                            path.join(SRC, 'resources/views', '**/*.blade.php')
+                        ]
                       , watchOptions
                       , function () {
-                            gulpSequence('sync:views', 'sync:web', 'artisan:clear')();
+                            gulpSequence('sync:src', 'sync:web', 'artisan:clear')();
                     });
     wViews.on('change', function (event) {
-        console.log('View ' + event.path + ' was ' + event.type + ', running tasks...');
+        console.info('View ' + event.path + ' was ' + event.type + ', running tasks...');
     });
 });
+
 gulp.task('watch:src:css', function () {
-    var wCSS    =   gulp.watch([path.join(SRC, 'resources/assets/css/**/*.css')]
+    var wCSS    =   gulp.watch([
+                        path.join(SRC, 'resources/assets/css', '**/*.css')
+                    ]
                   , watchOptions
                   , function () {
-                        gulpSequence('sync:assets:css', 'build:css', 'sync:web')();
+                        gulpSequence('sync:src', 'sync:resources', 'build:css', 'sync:web')();
                     });
     wCSS.on('change', function (event) {
-        console.log('Style ' + event.path + ' was ' + event.type + ', running tasks...');
+        console.info('CSS ' + event.path + ' was ' + event.type + ', running tasks...');
     });
 });
+
 gulp.task('watch:src:js', function () {
-    var wScripts    =   gulp.watch([path.join(SRC, 'resources/assets/js/**/*.js')]
+    var wScripts    =   gulp.watch([path.join(SRC, 'resources/assets/js', '**/*.js')]
                       , watchOptions
                       , function () {
-                            gulpSequence('sync:assets:js', 'build:scripts', 'sync:web')();
+                            gulpSequence('sync:src', 'sync:resources', 'build:js', 'sync:web')();
                         });
     wScripts.on('change', function (event) {
-        console.log('Script ' + event.path + ' was ' + event.type + ', running tasks...');
+        console.info('JS ' + event.path + ' was ' + event.type + ', running tasks...');
     });
 });
 
@@ -187,32 +291,56 @@ gulp.task('clean:public', function () {
             .pipe(vinylPaths(del));
 });*/
 
+
 //  SYNC
-gulp.task('sync:engine', function () {
-    console.log('[LOG]', 'Task SYNC:ENGINE start');
-    return  gulp.src('')
-                .pipe(dirSync(ENGINE, BUILD, _.extend(syncOptions, {ignore: [/^\.env(.*)?$/i, /^(.*)\.md$/i]})))
-                .on('error', console.error.bind(console));
+gulp.task('sync:resources', function () {
+
+    var DEST    =   path.resolve(path.join(BUILD, 'public'));
+
+    var resAssets   =   gulp.src([
+                                path.join(BUILD, 'resources/assets', '*.*')
+                            ])
+                            //.pipe(changed(path.join(DEST, 'assets')))
+                            .pipe(gulp.dest(path.join(DEST, 'assets')))
+                            .on('error', console.error.bind(console));
+
+    var resStuff    =   gulp.src([
+                                path.join(BUILD, 'resources', '*.*')
+                              , path.join(BUILD, 'resources', '.*')
+                            ])
+                            //.pipe(changed(path.resolve(DEST)))
+                            .pipe(gulp.dest(DEST))
+                            .on('error', console.error.bind(console));
+
+    return merge(resAssets, resStuff);
 });
-gulp.task('sync:src', function () {
-    console.log('[LOG]', 'Task SYNC:SRC start');
-    return  gulp.src('')
-                .pipe(dirSync(SRC, BUILD, {
-                        printSummary: true
-                      , nodelete: true
-                      , ignore: ['.env']
-                }))
-                .on('error', console.error.bind(console));
-});
-gulp.task('sync:media', function () {
+
+gulp.task('sync:views', function () {
     return  gulp.src('')
                 .pipe(dirSync(
-                    path.join(BUILD, 'resources/assets/img')
-                  , path.join(BUILD, 'public/assets/img')
+                    path.join(SRC,   'resources/views')
+                  , path.join(BUILD, 'resources/views')
                   , syncOptions
                 ))
                 .on('error', console.error.bind(console));
 });
+
+gulp.task('sync:engine', function () {
+    return  gulp.src('')
+                .pipe(dirSync(
+                    ENGINE
+                  , BUILD
+                  , _.extend({}, syncOptions, {ignore: [/^\.env(.*)?$/i, /^(.*)\.md$/i, /^(.*)\.lock$/i]})
+                ))
+                .on('error', console.error.bind(console));
+});
+
+gulp.task('sync:src', function () {
+    return  gulp.src('')
+                .pipe(dirSync(SRC, BUILD, syncOptions))
+                .on('error', console.error.bind(console));
+});
+
 gulp.task('sync:assets', function () {
     return  gulp.src('')
                 .pipe(dirSync(
@@ -222,243 +350,108 @@ gulp.task('sync:assets', function () {
                 ))
                 .on('error', console.error.bind(console));
 });
-gulp.task('sync:assets:css', function () {
-    return  gulp.src('')
-                .pipe(dirSync(
-                    path.join(SRC, 'resources/assets/css')
-                  , path.join(BUILD, 'resources/assets/css')
-                  , syncOptions
-                ))
-                .on('error', console.error.bind(console));
-});
-gulp.task('sync:assets:fonts', function () {
-    return  gulp.src('')
-                .pipe(dirSync(
-                    path.join(BUILD, 'resources/assets/fonts')
-                  , path.join(BUILD, 'public/assets/fonts')
-                  , syncOptions
-                ))
-                .on('error', console.error.bind(console));
-});
-gulp.task('sync:assets:js', function () {
-    return  gulp.src('')
-                .pipe(dirSync(
-                    path.join(SRC, 'resources/assets/js')
-                  , path.join(BUILD, 'resources/assets/js')
-                  , syncOptions
-                ))
-                .on('error', console.error.bind(console));
-});
-gulp.task('sync:views', function () {
-    return  gulp.src('')
-                .pipe(dirSync(
-                    path.join(SRC, 'resources/views')
-                  , path.join(BUILD, 'resources/views')
-                  , syncOptions
-                ))
-                .on('error', console.error.bind(console));
-});
+
 gulp.task('sync:dist', function () {
     return  gulp.src('')
                 .pipe(dirSync(BUILD, DIST, syncOptions))
                 .on('error', console.error.bind(console));
 });
+
 gulp.task('sync:web', function () {
     return  gulp.src('')
                 .pipe(dirSync(BUILD, WEB, syncOptions))
                 .on('error', console.error.bind(console));
 });
-gulp.task('sync:web:dev', function () {
-    return  gulp.src('')
-                .pipe(dirSync(BUILD, WEB + '.dev', syncOptions))
-                .on('error', console.error.bind(console));
-});
+
 
 //  BUILD
 gulp.task('build:css', function () {
     var DEST    =   path.join(BUILD, 'public/assets/css');
-    return  gulp.src([
-                path.join(BUILD, 'resources/assets/css/*.css')
-              , '!**/errors.css'
-              , '!**/styles.css'
-              // , '!**/fonts-cdn.css'
-            ])
-            .pipe(concatCSS('styles.css', {rebaseUrls: false}))
-            .pipe(gulpif('production' === envConfig.env, cleanCSS({debug: true, processImport: false}, function (details) {
-                console.info(details.name + ': ' + details.stats.originalSize + ' -> ' + details.stats.minifiedSize + ' [' + details.stats.timeSpent + 'ms] [' + details.stats.efficiency.toFixed(2) + '%]');
-            }), false))
-            .pipe(header(Banner.header, {pkg: pkg}))
-            .pipe(gulp.dest(DEST));
+    var frontCSS    =    gulp.src([
+                            path.join(BUILD, 'resources/assets/css/frontend/*.css')
+                          , '!**/errors.css'
+                          , '!**/styles.css'
+                        ])
+                        .pipe(gulpif('production' === envConfig.env, cleanCSS(cleanOptions, function (d) {
+                            console.info(d.name + ': ' + d.stats.originalSize + ' -> ' + d.stats.minifiedSize + ' [' + d.stats.timeSpent + 'ms] [' + 100 * d.stats.efficiency.toFixed(2) + '%]');
+                        }), false))
+                        .pipe(concatCSS('styles-frontend.css', {rebaseUrls: true}))
+                        .pipe(minifyCSS())
+                        .pipe(rename({suffix: minifyOptions.suffix}))
+                        .pipe(header(Banner.header, {pkg: pkg}))
+                        .pipe(gulp.dest(DEST));
+    var backCSS =   gulp.src([
+                        path.join(BUILD, 'resources/assets/css/backend/*.css')
+                      , '!**/errors.css'
+                      , '!**/styles.css'
+                    ])
+                    .pipe(gulpif('production' === envConfig.env, cleanCSS(cleanOptions, function (d) {
+                        console.info(d.name + ': ' + d.stats.originalSize + ' -> ' + d.stats.minifiedSize + ' [' + d.stats.timeSpent + 'ms] [' + 100 * d.stats.efficiency.toFixed(2) + '%]');
+                    }), false))
+                    .pipe(concatCSS('styles-backend.css', {rebaseUrls: true}))
+                    .pipe(minifyCSS())
+                    .pipe(rename({suffix: minifyOptions.suffix}))
+                    .pipe(header(Banner.header, {pkg: pkg}))
+                    .pipe(gulp.dest(DEST));
+
+    return merge(frontCSS, backCSS);
 });
-gulp.task('build:scripts', function () {
+gulp.task('build:js', function () {
     var DEST = path.join(BUILD, 'public/assets/js');
-    return gulp.src(path.join(BUILD, 'resources/assets/js/**/*.js'))
-        .pipe(jscs())
-        .pipe(jscs.reporter())
-        .pipe(changed(DEST))
-        .pipe(gulpif('production' === envConfig.env, uglify(), false))
-        .pipe(header(Banner.header, {pkg: pkg}))
-        .pipe(gulp.dest(DEST));
-});
-
-//  BOWER
-gulp.task('bower:fonts', function () {
-    var RESO = path.join(BUILD, 'resources/assets/fonts');
-    // var DEST = path.join(BUILD, 'public/assets/fonts');
-    return  gulp.src([
-                path.join(BOWER, 'bootstrap/dist/fonts/*.*')
-              , path.join(BOWER, 'font-awesome/fonts/*.*')
-              , path.join(BOWER, 'lato-font/fonts/**/*.*')
-              , path.join(BOWER, 'raty/lib/fonts/*.*')
-            ])
-            // .pipe(changed(DEST))
-            .pipe(changed(RESO))
-            .pipe(gulp.dest(RESO));
-            // .pipe(gulp.dest(DEST));
-});
-gulp.task('bower:css:fonts', function () {
-    return  gulp.src([
-                path.join(BOWER, 'ionicons/css/ionicons.css')
-              /* , path.join(BOWER, 'font-awesome/css/font-awesome.css')
-              // , path.join(BOWER, 'font-roboto/dist/styles/roboto.css')
-              // , path.join(BOWER, 'glyphicons-halflings/css/glyphicons-halflings.css')
-              // , path.join(BOWER, 'lato-font/css/lato-font.css') */
-            ])
-            .pipe(gulpif('production' === envConfig.env, cleanCSS({debug: true, processImport: false}, function (details) {
-                console.info(details.name + ': ' + details.stats.originalSize + ' -> ' + details.stats.minifiedSize + ' [' + details.stats.timeSpent + 'ms] [' + details.stats.efficiency.toFixed(2) + '%]');
-            })))
-            .pipe(gulp.dest(path.join(BUILD, 'resources/assets/css/fonts')))
-            .pipe(concatCSS('fonts-bundle.css', {rebaseUrls: false}))
-            .pipe(header(Banner.header, {pkg: pkg}))
-            .pipe(gulpif('production' === envConfig.env, cleanCSS({debug: true, processImport: false}, function (details) {
-                console.info(details.name + ': ' + details.stats.originalSize + ' -> ' + details.stats.minifiedSize + ' [' + details.stats.timeSpent + 'ms] [' + details.stats.efficiency.toFixed(2) + '%]');
-            })))
-            .pipe(gulp.dest(path.join(BUILD, 'public/assets/css')));
-});
-gulp.task('bower:css:plugins', function () {
-    return  gulp.src([
-                path.join(BOWER, 'animate.css/animate.css')
-              , path.join(BOWER, 'raty/lib/jquery.raty.css')
-              /* , path.join(BOWER, 'bootstrap/dist/css/bootstrap.css')
-              // , path.join(BOWER, 'bootstrap/dist/css/bootstrap-theme.css') */
-              , path.join(BOWER, 'bootstrap-tagsinput/dist/bootstrap-tagsinput.css')
-              // , path.join(BOWER, 'normalize.css/normalize.css') */
-            ])
-            .pipe(gulpif('production' === envConfig.env, cleanCSS({debug: true, processImport: false}, function (details) {
-                console.info(details.name + ': ' + details.stats.originalSize + ' -> ' + details.stats.minifiedSize + ' [' + details.stats.timeSpent + 'ms] [' + details.stats.efficiency.toFixed(2) + '%]');
-            })))
-            .pipe(gulp.dest(path.join(BUILD, 'resources/assets/css/plugins')))
-            .pipe(concatCSS('plugins-bundle.css', {rebaseUrls: false}))
-            .pipe(header(Banner.header, {pkg: pkg}))
-            .pipe(gulpif('production' === envConfig.env, cleanCSS({debug: true, processImport: false}, function (details) {
-                console.info(details.name + ': ' + details.stats.originalSize + ' -> ' + details.stats.minifiedSize + ' [' + details.stats.timeSpent + 'ms] [' + details.stats.efficiency.toFixed(2) + '%]');
-            })))
-            .pipe(gulp.dest(path.join(BUILD, 'public/assets/css')));
-});
-gulp.task('bower:js', function () {
-    var RESO = path.join(BUILD, 'resources/assets/js/lib');
-    var DEST = path.join(BUILD, 'public/assets/js/lib');
-    return  gulp.src([
-                path.join(BOWER, 'bootstrap/dist/js/bootstrap.js')
-              , path.join(BOWER, 'jquery/dist/jquery.js')
-              , path.join(BOWER, 'jquery-tmpl/jquery.tmpl.js')
-              , path.join(BOWER, 'lodash/lodash.js')
-              , path.join(BOWER, 'requirejs/require.js')
-              , path.join(BOWER, 'underscore/underscore.js')
-            ])
-            .pipe(gulp.dest(RESO))
-            .pipe(changed(DEST))
-            .pipe(gulpif('production' === envConfig.env, uglify()))
-            .pipe(gulp.dest(DEST));
-});
-gulp.task('bower:plugins', function () {
-    var RESO = path.join(BUILD, 'resources/assets/js/plugins');
-    var DEST = path.join(BUILD, 'public/assets/js/plugins');
-
-    var RATY =  gulp.src([
-                    path.join(BOWER, 'raty/lib/**/*.*')
-                ])
-                .pipe(gulp.dest( path.join(RESO, 'raty') ))
-                .pipe(changed( path.join(DEST, 'raty') ))
-                .pipe(gulp.dest( path.join(DEST, 'raty') ));
-
-    var TAGS =  gulp.src([
-                    path.join(BOWER, 'bootstrap-tagsinput/dist/*.*')
-                ])
-                .pipe(gulp.dest( path.join(RESO, 'bootstrap-tagsinput') ))
-                .pipe(changed( path.join(DEST, 'bootstrap-tagsinput') ))
-                .pipe(gulp.dest( path.join(DEST, 'bootstrap-tagsinput') ));
-
-    var MISC =  gulp.src([
-                    path.join(BOWER, 'html5shiv/dist/html5shiv.min.js')
-                  , path.join(BOWER, 'respond/dest/respond.min.js')
-                ])
-                .pipe(gulp.dest( path.join(RESO, 'misc') ))
-                .pipe(changed( path.join(DEST, 'misc') ))
-                .pipe(gulp.dest( path.join(DEST, 'misc') ));
-
-    return merge(RATY, TAGS, MISC);
+    return  gulp.src(path.join(BUILD, 'resources/assets/js', '**/*.js'))
+                //.pipe(jscs())
+                //.pipe(jscs.reporter())
+                .pipe(changed(DEST))
+                .pipe(gulpif('production' === envConfig.env, uglify(uglifyOptions), false))
+                .pipe(header(Banner.header, {pkg: pkg}))
+                .pipe(gulp.dest(DEST));
 });
 
 //  ARTISAN
 gulp.task('artisan:vendor:publish', function () {
     gulp.src('')
-        .pipe(exec('cd ' + BUILD + ' && php artisan vendor:publish'))
+        .pipe(exec('cd ' + BUILD + ' && php artisan -vvv vendor:publish'))
         .pipe(exec.reporter(reportOptions));
 });
+
 gulp.task('artisan:migrate', function () {
     gulp.src('')
-        .pipe(exec('php artisan migrate'))
+        .pipe(exec('php artisan -vvv migrate'))
         .pipe(exec.reporter(reportOptions));
 });
+
 gulp.task('artisan:clear', function () {
     return gulp.src('')
-            // .pipe(exec('cd ' + WEB + ' && php artisan clear-compiled -vvv && cd ..'))
-            // .pipe(exec('cd ' + WEB + ' && php artisan auth:clear-resets -vvv && cd ..'))
-            // .pipe(exec('cd ' + WEB + ' && php artisan cache:clear -vvv && cd ..'))
-            // .pipe(exec('cd ' + WEB + ' && php artisan config:clear -vvv && cd ..'))
-            // .pipe(exec('cd ' + WEB + ' && php artisan route:clear -vvv && cd ..'))
-            .pipe(exec('cd ' + WEB + ' && php artisan view:clear && cd ..'))
-            // .pipe(exec('cd ' + WEB + ' && php artisan optimize -vvv && cd ..'))
-            // .pipe(exec('cd ' + WEB + ' && php artisan migrate:status -vvv && cd ..'))
-            .pipe(exec('cd ' + WEB + ' && php artisan route:list && cd ..'))
+            .pipe(exec('cd ' + CURDIR + WEB + ' && php artisan -vvv view:clear && cd ..'))
+            .pipe(exec('cd ' + CURDIR + WEB + ' && php artisan -vvv route:list && cd ..'))
             .pipe(exec.reporter(reportOptions));
 });
+
 gulp.task('artisan:key:generate', function () {
+    console.info('reportOptions = [', util.inspect(reportOptions), ']');
     return gulp.src('')
-            .pipe(exec('cd ' + BUILD + ' && php artisan key:generate && cd ..'))
+            .pipe(exec('cd ' + BUILD + ' && php artisan -vvv key:generate && cd ..'))
             .pipe(exec.reporter(reportOptions));
 });
 
 
 gulp.task('jscs', function () {
-    return  gulp.src(SRC + 'resources/assets/js/' + "**/*.js")
-                .pipe(jscs())
+    return  gulp.src( path.join(SRC, 'resources/assets/js/', '**/*.js') )
+                .pipe(jscs('.jscsrc'))
                 .pipe(jscs.reporter());
 });
 gulp.task('jshint', function () {
-    return  gulp.src(SRC + 'resources/assets/js/' + '**/*.js')
+    return  gulp.src( path.join(SRC, 'resources/assets/js/', '**/*.js') )
                 .pipe( jshint('.jshintrc') )
-                .pipe(  gulpif('production' === envConfig.env
-                  , jshint.reporter('fail', { verbose: true })
-                  , jshint.reporter('default', { verbose: true })
+                .pipe( gulpif('production' === envConfig.env
+                  , jshint.reporter('jshint-stylish',   {verbose: true})
+                  , jshint.reporter('default',          {verbose: true})
                 ));
-                //        , jshint.reporter('jshint-stylish', { verbose: true })
+                //  , jshint.reporter('fail',           {verbose: true})
 });
 
-gulp.task('fixPermissions', function () {
-    return  gulp.src([
-                path.join(BUILD, '**')
-            ])
-            .pipe(vinylPaths(function (vPath) {
-                console.log('File:', vPath);
-                exec('sudo chown apache:apache ' + vPath);
-                return Promise.resolve();
-            }));
-});
-//.pipe(chown(48))
 
-// Log file paths in the stream
+//  Log file paths in the stream
 gulp.task('files:src', function () {
     return  gulp.src([
                 path.join(SRC, '**/*')
@@ -467,13 +460,12 @@ gulp.task('files:src', function () {
             ])
             .pipe(changed(BUILD))
             .pipe(vinylPaths(function (paths) {
-                console.log('File:', paths);
+                console.info('Changed:', paths);
                 return Promise.resolve();
             }));
 });
 
 gulp.task('show:config', function () {
-    //console.info('APP Config: [', Config, ']');
     console.warn('ENV Config: [', util.inspect(envConfig), ']');
 });
 

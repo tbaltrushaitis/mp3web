@@ -1,5 +1,11 @@
 ﻿/* ASSETS/JS/APP/CLASSES/Player.class.js */
 
+/*!
+ * ASSETS/JS/APP/CLASSES/Player.class.js
+ * Copyright(c) 2016-2017 Baltrushaitis Tomas
+ * MIT Licensed
+ */
+
 'use strict';
 
 define([
@@ -16,9 +22,9 @@ define([
 
     //  CONSTRUCTOR
     var Player  =   function () {
-            var self    =   this;
-            Abstract.call(self);
-        };
+        var self    =   this;
+        Abstract.call(self);
+    };
 
     //  PROTOTYPE
     Player.prototype                =   Object.create(Abstract.prototype);
@@ -101,6 +107,9 @@ define([
                         +   window.location.host
                         +   '/'
                         +   trackHash
+                        +   '/'
+                        +   'play'
+//                        +   'meta'
           , oRequest    =   $.ajax({
                                 url:     requestUrl
                               , type:    'GET'
@@ -186,7 +195,8 @@ define([
         }
         self._data.tracks.current   =   current;
 
-        var link    =   $(self._config.tracks.container).find('a')[current];
+        //var link    =   $(self._config.tracks.container).find('a')[current];
+        var link    =   $(self._config.tracks.container).find(self._config.tracks.selector)[current];
         self.Play( $(link) );
 
         return self;

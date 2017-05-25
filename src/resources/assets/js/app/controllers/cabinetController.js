@@ -1,15 +1,31 @@
-/*  BOF: assets/js/app/controllers/cabinetController.js  */
+/*  BOF: ASSETS/JS/APP/CONTROLLERS/cabinetController.js  */
 
-define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrapTags', 'bootstrap']
-  , function ($, _, tmpl, F, bsTags) {
+/*!
+ * ASSETS/JS/APP/CONTROLLERS/cabinetController.js
+ * Copyright(c) 2016-2017 Baltrushaitis Tomas
+ * MIT Licensed
+ */
 
-    'use strict';
+'use strict';
+
+define([
+//require([
+    'jquery'
+  , 'underscore'
+  , 'Tmpl'
+  , 'functions'
+  , 'bootstrapTags'
+  , 'bootstrap'
+    ]
+
+  , function ($, _, tmpl) {
 
     /*
     |--------------------------------------------------------------------------
     |   START CONTROLLER
     |--------------------------------------------------------------------------
     */
+
     function start () {
         bindEvents();
     }
@@ -32,8 +48,6 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrapTags', 'bootstrap
             Modal.find('#filename').val(lo.filename);
             Modal.find('#path').val(lo.path);
             Modal.find('#title').val(lo.title);
-            Modal.find('#name').val(lo.name);
-            Modal.find('#artist').val(lo.artist);
             Modal.find('#album').val(lo.album);
             Modal.find('#track').val(lo.track);
             Modal.find('#year').val(lo.year);
@@ -44,14 +58,14 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrapTags', 'bootstrap
 
             elGenres.tagsinput('removeAll');
             elGenres.tagsinput({
-                    maxTags:    5
-                  , maxChars:   10
-                  , trimValue:  true
-                  , allowDuplicates: false
-                });
+                maxTags:            5
+              , maxChars:           15
+              , trimValue:          true
+              , allowDuplicates:    false
+            });
 
             _.each(listGenres, function (tagGenre) {
-                console.info("tagGenre = ", tagGenre);
+                console.info('tagGenre = ', tagGenre);
                 elGenres.tagsinput('add', tagGenre);
             });
             // .prop({'data-role': 'tagsinput'});
@@ -60,7 +74,7 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrapTags', 'bootstrap
                 .val(lo.tags)
                 .prop({'data-role': 'tagsinput'});
             Modal.find('#meta').text( JSON.stringify(lo) );
-         });
+        });
     }
 
 
@@ -101,8 +115,6 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrapTags', 'bootstrap
         Modal.find('#filename').val(null);
         Modal.find('#path').val(null);
         Modal.find('#title').val(null);
-        Modal.find('#name').val(null);
-        Modal.find('#artist').val(null);
         Modal.find('#album').val(null);
         Modal.find('#track').val(null);
         Modal.find('#year').val(null);
@@ -110,7 +122,7 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrapTags', 'bootstrap
             .val('[]')
             .prop({'data-role': 'tagsinput-disabled'});
         Modal.find('#track-tags')
-            .val('')
+            .val('[]')
             .prop({'data-role': 'tagsinput-disabled'});
         Modal.find('#meta').text(null);
     }
@@ -143,8 +155,9 @@ define(['jquery', 'underscore', 'Tmpl', 'functions', 'bootstrapTags', 'bootstrap
     }
 
     return {
-        'start': start
+        'start':  start
     };
 
 });
+
 /*  EOF: assets/js/app/controllers/cabinetController.js  */

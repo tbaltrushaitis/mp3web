@@ -1,5 +1,14 @@
 /*  ASSETS/JS/APP/functions.js  */
 
+/*!
+ * ASSETS/JS/APP/functions.js
+ * Copyright(c) 2016-2017 Baltrushaitis Tomas
+ * MIT Licensed
+ */
+
+'use strict';
+
+
 //  Check if parameter ("intro", "silent", etc.) is Enabled in URL
 function checkMode (mode) {
     var aHashParams =   window.location.hash.split('#');
@@ -72,7 +81,6 @@ function genUUID () {
 |   SEND AJAX REQUEST
 |--------------------------------------------------------------------------
 */
-
 
 function requestAjax (loUrl, loData, loType) {
     var resp = $.ajax({

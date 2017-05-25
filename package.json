@@ -1,7 +1,7 @@
-{   "name":     "mp3web"
-  , "title":    "Web MP3 Player and Media Library Manager"
-  , "version":  "1.0.1"
+{   "name":         "mp3web"
+  , "title":        "Web MP3 Player and Media Library Manager"
   , "description":  "Web MP3 Player and Media Library Manager based on Node.js, Laravel and HTML5 + lightweight JavaScript MVC modeling on FrontEnd"
+  , "version":      "1.0.2"
   , "author": {
         "name":  "Baltrushaitis Tomas"
       , "email": "tbaltrushaitis@gmail.com"
@@ -9,19 +9,26 @@
     }
   , "license":  "MIT"
   , "private":  true
-  , "homepage": "https://github.com/tbaltrushaitis/mp3web"
+  , "homepage": "https://tbaltrushaitis.github.io/mp3web/"
   , "website":  "http://mp3.gsm-center.com.ua/"
   , "readmeFilename":   "README.md"
   , "engines": {
         "node": ">=0.10.1"
       , "php":  ">=5.5.38"
     }
-  , "main": "gulpfile.js"
+  , "main":     "gulpfile.js"
   , "scripts": {
-        "test":  "gulp test"
-      , "dev":   "gulp dev"
-      , "build": "gulp build"
-      , "prod":  "gulp production"
+        "start":    "./setup.sh"
+      , "test":     "./setup.sh test"
+      , "setup":    "./setup.sh prepare"
+      , "build":    "./setup.sh build"
+      , "deploy":   "./setup.sh deploy"
+      , "rebuild":  "./setup.sh rebuild"
+      , "all":      "./setup.sh all"
+      , "default":  "gulp --env=test"
+      , "dev":      "gulp --env=dev"
+      , "prod":     "gulp --env=production"
+      , "watch":    "gulp watch"
     }
   , "repository": {
         "type": "git"
@@ -39,27 +46,28 @@
       , "web"
     ]
   , "bugs": {
-        "url": "https://github.com/tbaltrushaitis/mp3/issues"
+        "url": "https://github.com/tbaltrushaitis/mp3web/issues"
     }
   , "dependencies": {
     }
   , "devDependencies": {
         "bower":                "^1.7.9"
-      , "dateformat":           "^1.0.12"
+      , "dateformat":           "^2.0.0"
       , "del":                  "^2.2.2"
       , "gulp":                 "^3.9.1"
       , "gulp-add-src":         "^0.2.0"
-      , "gulp-changed":         "^1.3.2"
-      , "gulp-chmod":           "^1.3.0"
+      , "gulp-aglio":           "~0.0.10"
+      , "gulp-changed":         "^3.1.0"
+      , "gulp-chmod":           "^2.0.0"
       , "gulp-chown":           "^1.1.0"
-      , "gulp-clean-css":       "^2.1.3"
+      , "gulp-clean-css":       "^3.0.4"
       , "gulp-concat":          "^2.6.0"
       , "gulp-concat-css":      "^2.3.0"
       , "gulp-data":            "^1.2.1"
       , "gulp-directory-sync":  "^1.2.3"
       , "gulp-exec":            "^2.1.2"
-      , "gulp-file-include":    "^0.14.0"
-      , "gulp-filter":          "^4.0.0"
+      , "gulp-file-include":    "^1.0.0"
+      , "gulp-filter":          "^5.0.0"
       , "gulp-gzip":            "^1.4.0"
       , "gulp-header":          "^1.8.8"
       , "gulp-if":              "^2.0.1"
@@ -68,42 +76,105 @@
       , "gulp-jshint":          "^2.0.1"
       , "gulp-json-editor":     "^2.2.1"
       , "gulp-livereload":      "^3.8.1"
+      , "gulp-minify-css":      "^1.2.4"
       , "gulp-newer":           "^1.2.0"
       , "gulp-rename":          "^1.2.2"
       , "gulp-replace":         "^0.5.4"
       , "gulp-sequence":        "^0.4.6"
       , "gulp-tar":             "^1.9.0"
       , "gulp-template":        "^4.0.0"
-      , "gulp-uglify":          "^2.0.0"
+      , "gulp-uglify":          "^3.0.0"
       , "gulp-util":            "^3.0.8"
       , "gulp-watch":           "^4.3.9"
+      , "jquery":               "^2.2.4"
       , "jshint":               "^2.9.3"
-      , "jquery":               "~2.2.4"
-      , "jsdom":                "^9.8.3"
       , "jshint-stylish":       "^2.2.1"
       , "lodash":               "~4.17.2"
+      , "main-bower-files":     "^2.13.1"
       , "merge-stream":         "^1.0.0"
       , "minimist":             "^1.2.0"
+      , "nconf":                "^0.8.4"
       , "vinyl-paths":          "^2.1.0"
+      , "underscore":           "^1.8.3"
+    }
+  , "outdatedDependencies": {
+        "jsdom":    "^10.1.0"
     }
   , "options": {
-        "reporting": {
-            "err":    true
-          , "stderr": true
-          , "stdout": true
+        "bower": {
+            "debugging":    false
+          , "paths": {
+                "bowerDirectory":   "bower_modules"
+              , "bowerrc":          ".bowerrc"
+              , "bowerJson":        "bower.json"
+            }
+        }
+      , "clean": {
+            "debug":            true
+          , "processImport":    true
         }
       , "exec": {
             "continueOnError":  false
           , "pipeStdout":       false
         }
-      , "watch": {
-            "ignoreInitial": false
-          , "verbose":   true
-          , "readDelay": 100
+      , "file": {
+            "encoding": "utf8"
+          , "flag":     "r"
+        }
+      , "minify": {
+            "suffix": ".min"
+        }
+      , "reporting": {
+            "err":    true
+          , "stderr": true
+          , "stdout": true
         }
       , "sync": {
             "printSummary": true
           , "nodelete":     true
+        }
+      , "uglify": {
+            "compress": {
+                "sequences":        true
+              , "properties":       true
+              , "dead_code":        true
+              , "drop_debugger":    true
+              , "unsafe":           false
+              , "conditionals":     true
+              , "comparisons":      true
+              , "evaluate":         true
+              , "booleans":         true
+              , "loops":            true
+              , "unused":           true
+              , "hoist_funs":       true
+              , "hoist_vars":       false
+              , "if_return":        true
+              , "join_vars":        true
+              , "cascade":          true
+              , "side_effects":     true
+              , "warnings":         true
+              , "global_defs":      {}
+            }
+          , "mangle":   false
+          , "output": {
+                "indent_start":     0
+              , "indent_level":     4
+              , "quote_keys":       false
+              , "ascii_only":       false
+              , "inline_script":    false
+              , "width":            80
+              , "max_line_len":     32000
+              , "beautify":         false
+              , "source_map":       null
+              , "bracketize":       false
+              , "comments":         false
+              , "semicolons":       true
+            }
+        }
+      , "watch": {
+            "ignoreInitial":    false
+          , "verbose":          true
+          , "readDelay":        100
         }
     }
 }

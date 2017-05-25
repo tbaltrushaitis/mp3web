@@ -1,0 +1,41 @@
+##  ------------------------------------------------------------------------  ##
+##                          EDIT ONLY IN THIS FILE                            ##
+##  ------------------------------------------------------------------------  ##
+
+APP_ENV=production
+APP_DEBUG=true
+
+APP_KEY=base64:/this_is-example/key+M=
+APP_URL=http://mp3.local
+APP_HOME=
+APP_DIR="webroot"
+WEB_USER="apache"
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=mp3_db
+DB_USERNAME=mp3_user
+DB_PASSWORD=ysmsJ0kT7MCaRw2DFYnMJ8Ls
+
+ENGINE_NAME=laravel
+ENGINE_TAG=laravel
+ENGINE_VERSION=5.2
+
+GIT_REPO=https://github.com/tbaltrushaitis/mp3web.git
+GIT_BRANCH=master
+
+CACHE_DRIVER=file
+SESSION_DRIVER=file
+QUEUE_DRIVER=sync
+
+#REDIS_HOST=127.0.0.1
+#REDIS_PASSWORD=null
+#REDIS_PORT=6379
+
+#MAIL_DRIVER=smtp
+#MAIL_HOST=mailtrap.io
+#MAIL_PORT=2525
+#MAIL_USERNAME=null
+#MAIL_PASSWORD=null
+#MAIL_ENCRYPTION=null

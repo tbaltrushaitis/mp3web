@@ -7,42 +7,39 @@ define([
       , 'underscore'
       , 'functions'
     ]
-  , function (
-        $
-      , _
-  ) {
+  , function ($, _) {
 
     //  CONSTRUCTOR
     var Abstract    =   function () {
         var self            =   this
           , dfdClass        =   $.Deferred()
           , dfdPrototype    =   $.Deferred()
+          , i               =   0
         ;
         console.groupCollapsed('Abstract.class Constructor');
 
         // INIT
         dfdPrototype =  self._init();
 
-        // Show a "working..." message every half-second
-        setTimeout ( function working() {
+        // Wait while instance initialized
+        setTimeout (function working() {
             if ('pending' === dfdPrototype.state()) {
-                console.timeStamp('\tWorking ... ', i++);
+                console.log( '\tLoading ' + self._entity + ' ... ', i++ );
                 if (i <= 20) {
                     setTimeout ( working, 500);
                 }
             }
         }, 1);
 
-        $.when( dfdPrototype )
-         .done( function (oClass) {
+        $.when(dfdPrototype)
+         .done(function (oClass) {
             console.timeStamp('Instance of ' + oClass._entity + ' created');
-            console.log('Class Object:', oClass);
+            console.log('Class ' + oClass._entity + ' Object:', oClass);
             dfdClass.resolve(oClass);
          })
-         .always( function (oResult) {
+         .always(function (oResult) {
             console.groupEnd('Abstract.class Constructor');
-         })
-        ;
+         });
 
         return dfdClass.promise();
     };
@@ -51,24 +48,26 @@ define([
     Abstract.prototype  =   {
 
         _defaults: {
-            _entity: 'Abstract'
+            _entity:    'Abstract.class'
         }
 
-      , _config: {}
-      , _data: {}
+      , _config:    new Object()
+      , _data:      new Object()
 
 
         //  INIT
-      , _init: function () {
+      , _init:  function () {
             var self = this;
             return self.Init();
         }
 
 
         //  INITIALIZATION
-      , Init: function () {
+      , Init:   function () {
             var self    =   this
-              , dfdInit =   $.Deferred();
+              , dfdInit =   $.Deferred()
+              , i       =   0
+            ;
 
             //  Apply DEFAULT class OPTIONS
             var loaded  =   $.when( _.extend(self, self._defaults) )
@@ -81,11 +80,11 @@ define([
                 dfdInit.resolve(objSelf);
             });
 
-            setTimeout ( function workingInit () {
+            setTimeout (function workingInit () {
                 if ('pending' === loaded.state()) {
-                    console.timeStamp('\tLoading ... ', i++);
+                    console.timeStamp('\tInit '  + self._entity + ' ... ', i++);
                     if (i <= 20) {
-                        setTimeout ( workingInit, 500);
+                        setTimeout (workingInit, 500);
                     }
                 }
             }, 1);
@@ -95,14 +94,14 @@ define([
 
 
         // Load Default Data and Modules
-      , Load: function () {
+      , Load:   function () {
             var self        =   this
               , dfdMethod   =   $.Deferred()
               , dfdModules  =   $.Deferred();
 
             dfdModules.resolve(self);
             dfdModules
-                .done( function (loSelf) {
+                .done(function (loSelf) {
                     var tStamp  =   {timestamp: (new Date()).getTime()}
                       , UUID    =   {UID: genUUID()}
                     ;
