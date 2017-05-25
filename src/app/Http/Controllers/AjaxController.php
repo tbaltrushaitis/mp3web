@@ -42,8 +42,11 @@ class AjaxController extends Controller {
      * @return Response JSON
      */
     public function getMeta ($id) {
-        return redirect()->action('MediaController@mediaPlay', [$id]);
+        // return redirect()->action('MediaController@mediaPlay', [$id]);
+        $meta   =   $this->mediaRepository->getTrackMeta($id);
+        return response()->json($meta);
     }
+
 
     /**
      * updateMeta - Update Track's metadata
@@ -67,9 +70,9 @@ class AjaxController extends Controller {
      * @return Response JSON
      */
     public function deleteMeta ($id) {
-        $dropResult =   $this->mediaRepository->dropTrackMeta($id);
-        $dropResult->put('action', 'DROP');
-        return response()->json($dropResult);
+        // $dropResult =   $this->mediaRepository->dropTrackMeta($id);
+        // $dropResult->put('action', 'DROP');
+        // return response()->json($dropResult);
     }
 
 
@@ -116,6 +119,7 @@ class AjaxController extends Controller {
         //
     }
 
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -134,7 +138,9 @@ class AjaxController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy ($id) {
-        //
+        $dropResult =   $this->mediaRepository->dropTrack($id);
+        $dropResult->put('action', 'DESTROY');
+        return response()->json($dropResult);
     }
 
 }
