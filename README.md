@@ -38,9 +38,9 @@ $ WEB_USER="$(whoami)"
 $ sudo chmod 775 mp3web
 $ cd mp3web
 $ sudo chown -R ${WEB_USER}:${WEB_USER} * && sudo chown -R ${WEB_USER}:${WEB_USER} .*
-$ sudo find . -type f -exec chmod 664 {} \; \
-&& sudo find . -type d -exec chmod 775 {} \; \
-&& sudo find . -type f -name *.sh -exec sudo chmod a+x {} \;
+$   sudo find . -type f -exec chmod 664 {} \; \
+ && sudo find . -type d -exec chmod 775 {} \; \
+ && sudo find . -type f -name *.sh -exec sudo chmod a+x {} \;
 ```
 
 ## Configure ##
