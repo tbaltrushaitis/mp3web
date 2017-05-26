@@ -19,7 +19,7 @@
 [Composer](https://getcomposer.org/) | :trident: | Dependency Manager for PHP
 [Font-Awesome](http://fontawesome.io/) | 4.7.0 | The iconic font and CSS toolkit
 [jQuery](http://jquery.com/) | 2.2.4 | JavaScript Library
-[Laravel](https://laravel.com/docs/5.2) | 5.2.0 | Framework
+[Laravel](https://laravel.com/docs/5.2) | 5.2.31 | Framework
 [requirejs](https://github.com/jrburke/requirejs) | 2.3.3 | A file and module loader for JavaScript
 [Underscore.js](http://underscorejs.org) | 1.8.3 | JavaScript library that provides a whole mess of us
 
@@ -27,23 +27,38 @@
 ## Live Demo Site ##
 :point_right: [Premium Music Collection](http://mp3.gsm-center.com.ua)
 
-## Download ##
+## Clone from github ##
 ```bash
-$ git clone https://github.com/tbaltrushaitis/mp3web.git mp3web && cd mp3web
+$ git clone -b latest https://github.com/tbaltrushaitis/mp3web.git mp3web
+```
+
+## Set file permissions ##
+```bash
+$ WEB_USER="$(whoami)"
+$ sudo chmod 775 mp3web
+$ cd mp3web
+$ sudo chown -R ${WEB_USER}:${WEB_USER} * && sudo chown -R ${WEB_USER}:${WEB_USER} .*
+$   sudo find . -type f -exec chmod 664 {} \; \
+ && sudo find . -type d -exec chmod 775 {} \; \
+ && sudo find . -type f -name *.sh -exec sudo chmod a+x {} \;
 ```
 
 ## Configure ##
 Open file `setup.rc` in your favourite editor and change values of build variables in it (e.g. DB_HOST, APP_URL)
 
 ## Build &amp; Deploy ##
-Run the `setup.sh` script. In most cases it will do all of the needed stuff to run instance of Web MP3 Player app
+
+ - With NPM
+
+ - Advanced users may want to use directly `setup.sh` script directives.
+   In most cases running this script with **all** parameter will do all of the needed stuff to run instance of Web MP3 Player application
 ```bash
 $ ./setup.sh all
 ```
 
 ## Actions in `setup.sh` script ##
 
-### Check if those packages are installed and available in PATH ###
+### It will check if those packages are installed and available in PATH: ###
 - [x] Composer
 - [x] Node.js
 - [x] NPM
@@ -57,7 +72,7 @@ In common case gulp command should look like
 $ gulp command:p1:..:pN --env_VAR=some_VALUE
 
 # e.g.
-# gulp bower:collect --env=production
+# gulp bower --env=production
 # gulp build --env=production
 # or
 # gulp --env=dev

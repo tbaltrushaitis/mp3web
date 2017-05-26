@@ -264,6 +264,7 @@ gulp.task('watch:src:js', function () {
     });
 });
 
+
 //  CLEAN
 gulp.task('clean:build', function () {
     return  gulp.src([BUILD]).pipe(vinylPaths(del));
@@ -271,25 +272,6 @@ gulp.task('clean:build', function () {
 gulp.task('clean:dist', function () {
     return  gulp.src([DIST]).pipe(vinylPaths(del));
 });
-
-/* gulp.task('clean:resources', function () {
-    return  gulp.src([
-                path.join(BUILD, 'resources', '.*')
-              , path.join(WEB,   'resources', '.*')
-//              , path.join(BUILD, 'resources', '*')
-//              , path.join(WEB,   'resources', '*')
-            ])
-            .pipe(vinylPaths(del));
-});
-gulp.task('clean:public', function () {
-    return  gulp.src([
-//                path.join(BUILD, 'resources/assets',  '.*')
-//              , path.join(WEB,   'resources/assets',  '.*')
-                path.join(BUILD, 'public/assets',   '.*')
-              , path.join(WEB,   'public/assets',   '.*')
-            ])
-            .pipe(vinylPaths(del));
-});*/
 
 
 //  SYNC
@@ -300,7 +282,7 @@ gulp.task('sync:resources', function () {
     var resAssets   =   gulp.src([
                                 path.join(BUILD, 'resources/assets', '*.*')
                             ])
-                            //.pipe(changed(path.join(DEST, 'assets')))
+                            .pipe(changed(path.join(DEST, 'assets')))
                             .pipe(gulp.dest(path.join(DEST, 'assets')))
                             .on('error', console.error.bind(console));
 
@@ -308,14 +290,14 @@ gulp.task('sync:resources', function () {
                                 path.join(BUILD, 'resources', '*.*')
                               , path.join(BUILD, 'resources', '.*')
                             ])
-                            //.pipe(changed(path.resolve(DEST)))
+                            .pipe(changed(DEST))
                             .pipe(gulp.dest(DEST))
                             .on('error', console.error.bind(console));
 
     return merge(resAssets, resStuff);
 });
 
-gulp.task('sync:views', function () {
+/* gulp.task('sync:views', function () {
     return  gulp.src('')
                 .pipe(dirSync(
                     path.join(SRC,   'resources/views')
@@ -323,14 +305,18 @@ gulp.task('sync:views', function () {
                   , syncOptions
                 ))
                 .on('error', console.error.bind(console));
-});
+}); */
 
 gulp.task('sync:engine', function () {
     return  gulp.src('')
                 .pipe(dirSync(
                     ENGINE
                   , BUILD
-                  , _.extend({}, syncOptions, {ignore: [/^\.env(.*)?$/i, /^(.*)\.md$/i, /^(.*)\.lock$/i]})
+                  , _.extend({}, syncOptions, {ignore: [
+                        /^\.env(.*)?$/i
+                      , /^(.*)\.md$/i
+                      , /^(.*)\.lock$/i
+                    ]})
                 ))
                 .on('error', console.error.bind(console));
 });
@@ -364,31 +350,28 @@ gulp.task('sync:web', function () {
 });
 
 
-//  BUILD
+//  BUNDLE CSS and JS
 gulp.task('build:css', function () {
     var DEST    =   path.join(BUILD, 'public/assets/css');
+    var FROM    =   path.join(BUILD, 'resources/assets/css');
     var frontCSS    =    gulp.src([
-                            path.join(BUILD, 'resources/assets/css/frontend/*.css')
-                          , '!**/errors.css'
-                          , '!**/styles.css'
+                            path.join(FROM, 'frontend', '*.css')
                         ])
                         .pipe(gulpif('production' === envConfig.env, cleanCSS(cleanOptions, function (d) {
                             console.info(d.name + ': ' + d.stats.originalSize + ' -> ' + d.stats.minifiedSize + ' [' + d.stats.timeSpent + 'ms] [' + 100 * d.stats.efficiency.toFixed(2) + '%]');
                         }), false))
-                        .pipe(concatCSS('styles-frontend.css', {rebaseUrls: true}))
+                        .pipe(concatCSS('styles-frontend-bundle.css', {rebaseUrls: true}))
                         .pipe(minifyCSS())
                         .pipe(rename({suffix: minifyOptions.suffix}))
                         .pipe(header(Banner.header, {pkg: pkg}))
                         .pipe(gulp.dest(DEST));
     var backCSS =   gulp.src([
-                        path.join(BUILD, 'resources/assets/css/backend/*.css')
-                      , '!**/errors.css'
-                      , '!**/styles.css'
+                        path.join(FROM, 'backend', '*.css')
                     ])
                     .pipe(gulpif('production' === envConfig.env, cleanCSS(cleanOptions, function (d) {
                         console.info(d.name + ': ' + d.stats.originalSize + ' -> ' + d.stats.minifiedSize + ' [' + d.stats.timeSpent + 'ms] [' + 100 * d.stats.efficiency.toFixed(2) + '%]');
                     }), false))
-                    .pipe(concatCSS('styles-backend.css', {rebaseUrls: true}))
+                    .pipe(concatCSS('styles-backend-bundle.css', {rebaseUrls: true}))
                     .pipe(minifyCSS())
                     .pipe(rename({suffix: minifyOptions.suffix}))
                     .pipe(header(Banner.header, {pkg: pkg}))
@@ -396,11 +379,12 @@ gulp.task('build:css', function () {
 
     return merge(frontCSS, backCSS);
 });
+
 gulp.task('build:js', function () {
     var DEST = path.join(BUILD, 'public/assets/js');
     return  gulp.src(path.join(BUILD, 'resources/assets/js', '**/*.js'))
-                //.pipe(jscs())
-                //.pipe(jscs.reporter())
+                .pipe(jscs())
+                .pipe(jscs.reporter())
                 .pipe(changed(DEST))
                 .pipe(gulpif('production' === envConfig.env, uglify(uglifyOptions), false))
                 .pipe(header(Banner.header, {pkg: pkg}))
@@ -435,6 +419,7 @@ gulp.task('artisan:key:generate', function () {
 });
 
 
+//  LINTERS
 gulp.task('jscs', function () {
     return  gulp.src( path.join(SRC, 'resources/assets/js/', '**/*.js') )
                 .pipe(jscs('.jscsrc'))
