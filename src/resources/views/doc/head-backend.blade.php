@@ -30,7 +30,7 @@
     <meta property="og:type"        content="collection" />
     <meta property="og:title"       content="Premium Music Collection :: Original Tracks and Best DJ's Remixes" />
     <meta property="og:description" content="Web MP3 Player and Media Library management. Backend based on Laravel framework, client-size - mostly JavaScript" />
-    <meta property="og:image"       content="{{ asset('/assets/img/logo/logo-lg.png') }}" />
+    <meta property="og:image"       content="{{ asset('assets/img/logo/logo-lg.png') }}" />
     <meta property="og:site_name"   content="Web MP3 Player and Media Library Manager" />
     <meta property="og:url"         content="{{ url('/') }}" />
     <meta property="og:see_also"    content="https://github.com/tbaltrushaitis/mp3web" />
@@ -50,13 +50,13 @@
     <!--/ Styles
     ================================================== /-->
     <!--/ Custom /-->
-    <link rel="stylesheet" href="{{ asset('/assets/css/bower-bundle.min.css') }}" id="css-bower" />
-    <link rel="stylesheet" href="{{ asset('/assets/css/styles-backend.min.css') }}" id="css-themes" />
+    <link rel="stylesheet" href="{{ asset('assets/css/bower-bundle.min.css') }}" id="css-bower" />
+    <link rel="stylesheet" href="{{ asset('assets/css/styles-backend.min.css') }}" id="css-themes" />
 
     <!--/ Favicon
     ================================================== /-->
-    <link href="{{ asset('/assets/img/favicon.ico') }}" type="image/x-icon" rel="icon" alt="Site Icon" />
-    <link href="{{ asset('/assets/img/favicon.ico') }}" type="image/x-icon" rel="shortcut icon"  alt="Site Shortcut Icon" />
+    <link href="{{ asset('assets/img/favicon.ico') }}" type="image/x-icon" rel="icon" alt="Site Icon" />
+    <link href="{{ asset('assets/img/favicon.ico') }}" type="image/x-icon" rel="shortcut icon"  alt="Site Shortcut Icon" />
 
     <!--/ HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries /-->
     <!--[if lt IE 9]>
