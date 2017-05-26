@@ -13,19 +13,20 @@
 
 function check_engine {
     if [ ! -d "${ENGINE_DIR}" ]; then
-        warn "[WARNING]\tEngine directory ${ENGINE_DIR} not found!\n";
-        log "[LOG]\tStarting engine setup ... \n";
+        warn "[WARNING]\tEngine directory ${ENGINE_DIR} not found!";
+        log "Starting engine setup ... \n";
         engine_setup
         fix_permissions
         # exit 1
     fi
+    
 }
 
 
 function engine_setup {
     composer -vvv create-project --prefer-dist ${ENGINE_NAME}/${ENGINE_TAG} "${ENGINE_DIR}" "${ENGINE_VERSION}.*"
     # cp -prv "${ENGINE_DIR}" build/ && cp -prv setup.rc build/.env && cd build && composer -vvv update && cd ..
-    info "Engine ${ENGINE_NAME}-${ENGINE_VERSION} deployed to ${ENGINE_DIR} \n";
+    info "Engine ${ENGINE_NAME}-${ENGINE_VERSION} deployed to ${ENGINE_DIR}";
 }
 
 
