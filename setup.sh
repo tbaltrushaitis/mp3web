@@ -15,11 +15,20 @@
 #   -   Build
 #   -   Deploy
 
+if [ -n "$APP_DEBUG" ]; then
+    set -x
+fi
+
 set -e
 trap 'echo >&2 Ctrl+C captured, exiting; exit 1' SIGINT
 
-
-source setup.rc
+## Source settings
+if [ -f ./setup.rc ]; then
+    #. setup.rc
+    source setup.rc
+else
+    exit 1
+fi
 
 
 function usage () {
@@ -66,6 +75,7 @@ DATETIME="$(date "+%Y-%m-%d")_$(date "+%H-%M-%S")"
 ##                                PRE-CHECKS                                  ##
 ##  ------------------------------------------------------------------------  ##
 
+## Source functions
 source bin/f.sh
 source bin/f-engine.sh
 source bin/f-node.sh
