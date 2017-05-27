@@ -204,7 +204,7 @@ section#content {
   padding: 2px 10px;
 }
 
-.list-group-item .track {
+.list-group-item.track {
   float: left;
   font-size: 12px;
   overflow: hidden;
@@ -246,7 +246,7 @@ section#content {
 }
 .list-group-item.track:hover a {
   color: #006600;
-  font-weight: 500;
+  font-weight: 600;
   text-shadow: 2px 2px 8px #009900;
 }
 
