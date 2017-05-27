@@ -240,7 +240,8 @@ section#content {
 .track.active i {
   color: #fff;
 }
-.list-group-item.track:hover {
+  .list-group-item.track:hover
+, .list-group-item.active:hover {
   background-color: #d8d8d8;
 }
 .list-group-item.track:hover a {
