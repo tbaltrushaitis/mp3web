@@ -1,0 +1,15 @@
+/*  BOF: assets/css/backend/10-default.css  */
+
+body {
+  font-family:  'Lato';
+}
+
+.fa-btn {
+  margin-right: 6px;
+}
+
+.navbar-brand {
+  padding-top: 5px;
+}
+
+/*  EOF: assets/css/backend/10-default.css  */

@@ -1,6 +1,10 @@
-@include('doc.head-backend')
+@include('doc.head-app')
 
-<body id="app-layout">
+<body   id="layout-app"
+        class="app skin-default theme-default"
+        data-id_page="layout-app"
+        data-rooturl="{{ Request::root() }}">
+
     <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
             <div class="navbar-header">
@@ -14,7 +18,7 @@
                 </button>
 
                 <!--/ Branding Image /-->
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/') }}" target="_self">
                     <img class="logo-sm" alt="Premium MP3 Collection" src="{{ asset('/assets/img/logo/logo-sm.png') }}" />
                 </a>
             </div>
@@ -22,7 +26,7 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!--/ Left Side Of Navbar /-->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">Home</a></li>
+                    <li><a href="{{ url('/cabinet') }}" target="_self">Cabinet</a></li>
                 </ul>
 
                 <!--/ Right Side Of Navbar /-->

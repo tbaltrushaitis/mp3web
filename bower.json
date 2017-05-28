@@ -38,7 +38,8 @@
       , "webroot"
     ]
   , "dependencies": {
-        "animate.css":          "~3.5.2"
+        "admin-lte":            "~2.3.11"
+      , "animate.css":          "~3.5.2"
       , "bootstrap":            "~3.3.7"
       , "bootstrap-tagsinput":  "~0.8.0"
       , "font-awesome":         "~4.7.0"
@@ -77,7 +78,7 @@
               , "!**/*.map"
               , "!**/npm.js"
               , "!**/*.min.js"
-              , "!*-theme.css"
+              , "!*-theme.*"
             ]
         }
       , "font-awesome": {
