@@ -7,7 +7,7 @@
                     Copyright &copy; <? echo date("Y"); ?> <strong>{{ env('APP_NAME') }}</strong>
                     <br />Материалы представлены исключительно для ознакомительного прослушивания.
                 </p>
-                Powered by <a id="developer" target="_blank" href="http://gsm-center.com.ua/" title="Professional Websites Development">Tom&#96;AS</a>
+                Powered by <a id="developer" target="blank" href="http://gsm-center.com.ua/" title="Professional Websites Development">Tom&#96;AS</a>
             </div>
             <div class="col-sm-5 col-xs-11">
                 <ul class="social-icons">

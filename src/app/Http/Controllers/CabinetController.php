@@ -6,9 +6,13 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use Auth;
+// use Input;
+// use Storage;
+
 use App\Repositories\MediaRepository;
 
-class FrontController extends Controller {
+class CabinetController extends Controller {
 
     /**
      * The MediaRepository
@@ -24,22 +28,18 @@ class FrontController extends Controller {
      * @return void
      */
     public function __construct (MediaRepository $mediarepository) {
-        // $this->middleware('auth');
+        $this->middleware('auth');
         $this->mediaRepository  =   $mediarepository;
     }
 
     /**
-     * Display a list of all audiotracks
-     * @param  none
-     * @return View
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function index () {
-        $arrTracks  =   $this->mediaRepository->getTracksAudio();
-        return  view('frontend', [
-                    'tracks'    =>  array_sort($arrTracks, function ($track) {
-                                        return -1 * $track->get('plays', 0);
-                                    })
-                ]);
+        return view('tracks.audio', [
+            'tracks' =>  $this->mediaRepository->getTracksAudio()
+        ]);
     }
-
 }

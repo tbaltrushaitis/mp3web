@@ -12,9 +12,12 @@
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 
             <div class="navbar-header">
+
+                <!--/ Branding Image /-->
                 <a class="navbar-brand" href="#">
                     <img class="logo-sm" alt="Premium MP3 Collection" src="{{ asset('assets/img/logo/logo-sm.png') }}" />
                 </a>
+
                 <!--/  Navbar toggle button  /-->
                 <a  href="#player-wrapper"
                     class="navbar-btn navbar-toggle"
@@ -43,7 +46,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="{{ url('/home') }}" target="_blank"><i class="fa fa-btn fa-dashboard"></i>  Cabinet</a></li>
+                                    <li><a href="{{ url('/cabinet') }}" target="_blank"><i class="fa fa-btn fa-dashboard"></i>  Cabinet</a></li>
                                     <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>  Logout</a></li>
                                 </ul>
                             </li>

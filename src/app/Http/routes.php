@@ -5,7 +5,8 @@
 |   Application Routes
 |-------------------------------------------------------------------------------
 */
-Route::get('/', ['as' => 'Front:Index', 'uses' => 'MediaController@listAudio']);
+// Route::get('/', ['as' => 'Front:Index', 'uses' => 'MediaController@listAudio']);
+Route::get('/', ['as' => 'Front:Index', 'uses' => 'FrontController@index']);
 
 
 /*
@@ -27,7 +28,7 @@ Route::delete('/{hash}',            ['as' => 'Media:Delete', 'uses' => 'MediaCon
 
 /*
 |-------------------------------------------------------------------------------
-|   Backend Routes
+|   Authentication Routes
 |-------------------------------------------------------------------------------
 */
 Route::get('login',     ['as' => 'Auth:LoginForm',  'uses' => 'Auth\AuthController@showLoginForm']);
@@ -51,7 +52,7 @@ Route::post('register', ['as' => 'Auth:Register',           'uses' => 'Auth\Auth
 |   Cabinet Routes
 |-------------------------------------------------------------------------------
 */
-Route::get('/home', ['as' => 'Cabinet:Index', 'uses' => 'HomeController@index']);
+Route::get('/cabinet', ['as' => 'Cabinet:Index', 'uses' => 'CabinetController@index']);
 
 
 /*

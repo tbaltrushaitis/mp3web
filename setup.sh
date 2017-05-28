@@ -43,6 +43,7 @@ Usage: $0 <command> [<params>]
     $0 <build | b>          -   Build project directory
     $0 <deploy | d>         -   Sync sites public web directory (<webroot> by default)
     $0 <rebuild | rb>       -   Perform <build> and then <deploy> tasks
+    $0 <redeploy | rd>       -   Perform <build> and then <deploy> tasks
 
 EOM
     RETVAL=1
@@ -122,6 +123,8 @@ function depsChecks () {
 
     deps_install
     sleep 1;
+
+    return 0;
 }
 
 # check_git
@@ -154,6 +157,7 @@ function Build () {
     sudo chown -R "${WEB_USER}":"${WEB_USER}" "${BUILD}/"
     sleep 1;
 
+    return 0;
 }
 
 
@@ -176,6 +180,7 @@ function Deploy () {
     gulp artisan:clear --env=${APP_ENV} --verbose
     sleep 1;
 
+    return 0;
 }
 
 # gulp deploy  --env=dev --verbose

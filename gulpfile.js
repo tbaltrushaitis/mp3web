@@ -91,6 +91,7 @@ var envConfig = {
 envConfig   =   parseArgs(process.argv.slice(2), envConfig);
 
 console.log('\n\n\n', 'envConfig = [', util.inspect(envConfig), ']');
+console.log('NODE_ENV = [', util.inspect(envConfig.env), ']');
 console.log('VERSION = [', util.inspect(VERSION), ']\n\n\n');
 
 //  ENV ROUTER
@@ -257,7 +258,7 @@ gulp.task('watch:src:js', function () {
     var wScripts    =   gulp.watch([path.join(SRC, 'resources/assets/js', '**/*.js')]
                       , watchOptions
                       , function () {
-                            gulpSequence('sync:src', 'sync:resources', 'build:js', 'sync:web')();
+                            gulpSequence('sync:src', 'sync:resources', 'lint', 'build:js', 'sync:web')();
                         });
     wScripts.on('change', function (event) {
         console.info('JS ' + event.path + ' was ' + event.type + ', running tasks...');
@@ -366,12 +367,12 @@ gulp.task('build:css', function () {
                         .pipe(header(Banner.header, {pkg: pkg}))
                         .pipe(gulp.dest(DEST));
     var backCSS =   gulp.src([
-                        path.join(FROM, 'backend', '*.css')
+                        path.join(FROM, 'cabinet', '*.css')
                     ])
                     .pipe(gulpif('production' === envConfig.env, cleanCSS(cleanOptions, function (d) {
                         console.info(d.name + ': ' + d.stats.originalSize + ' -> ' + d.stats.minifiedSize + ' [' + d.stats.timeSpent + 'ms] [' + 100 * d.stats.efficiency.toFixed(2) + '%]');
                     }), false))
-                    .pipe(concatCSS('styles-backend-bundle.css', {rebaseUrls: true}))
+                    .pipe(concatCSS('styles-cabinet-bundle.css', {rebaseUrls: true}))
                     .pipe(minifyCSS())
                     .pipe(rename({suffix: minifyOptions.suffix}))
                     .pipe(header(Banner.header, {pkg: pkg}))
@@ -383,8 +384,8 @@ gulp.task('build:css', function () {
 gulp.task('build:js', function () {
     var DEST = path.join(BUILD, 'public/assets/js');
     return  gulp.src(path.join(BUILD, 'resources/assets/js', '**/*.js'))
-                .pipe(jscs())
-                .pipe(jscs.reporter())
+                //.pipe(jscs('.jscsrc'))
+                //.pipe(jscs.reporter())
                 .pipe(changed(DEST))
                 .pipe(gulpif('production' === envConfig.env, uglify(uglifyOptions), false))
                 .pipe(header(Banner.header, {pkg: pkg}))
@@ -412,7 +413,7 @@ gulp.task('artisan:clear', function () {
 });
 
 gulp.task('artisan:key:generate', function () {
-    console.info('reportOptions = [', util.inspect(reportOptions), ']');
+    //console.info('reportOptions = [', util.inspect(reportOptions), ']');
     return gulp.src('')
             .pipe(exec('cd ' + BUILD + ' && php artisan -vvv key:generate && cd ..'))
             .pipe(exec.reporter(reportOptions));
@@ -421,14 +422,20 @@ gulp.task('artisan:key:generate', function () {
 
 //  LINTERS
 gulp.task('jscs', function () {
-    return  gulp.src( path.join(SRC, 'resources/assets/js/', '**/*.js') )
+    return  gulp.src([
+                    path.join(SRC, 'resources/assets/js/', '*.js')
+                  , path.join(SRC, 'resources/assets/js/app', '**/*.js')
+                ])
                 .pipe(jscs('.jscsrc'))
                 .pipe(jscs.reporter());
 });
 gulp.task('jshint', function () {
-    return  gulp.src( path.join(SRC, 'resources/assets/js/', '**/*.js') )
-                .pipe( jshint('.jshintrc') )
-                .pipe( gulpif('production' === envConfig.env
+    return  gulp.src([
+                    path.join(SRC, 'resources/assets/js/', '*.js')
+                  , path.join(SRC, 'resources/assets/js/app', '**/*.js')
+                ])
+                .pipe(jshint('.jshintrc'))
+                .pipe(gulpif('production' === envConfig.env
                   , jshint.reporter('jshint-stylish',   {verbose: true})
                   , jshint.reporter('default',          {verbose: true})
                 ));
