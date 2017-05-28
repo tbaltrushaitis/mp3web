@@ -24,6 +24,7 @@ ENGINE_VERSION=5.2
 
 GIT_REPO=https://github.com/tbaltrushaitis/mp3web.git
 GIT_BRANCH="latest"
+GIT_COMMIT=
 
 CACHE_DRIVER=file
 SESSION_DRIVER=file
