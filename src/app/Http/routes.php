@@ -21,7 +21,10 @@ Route::get('/{hash}/play',          ['as' => 'Media:Play',  'uses' => 'MediaCont
     ->where(['hash' => '[0-9a-f]+']);
 
 Route::post('rate/{hash}/{rate}',   ['as' => 'Media:Rate',  'uses' => 'MediaController@mediaRate'])
-    ->where(['hash' => '[0-9a-f]+', 'rate' => '(dis)?like']);
+    ->where([
+        'hash'  =>  '[0-9a-f]+'
+      , 'rate'  =>  '(dis)?like'
+    ]);
 
 Route::delete('/{hash}',            ['as' => 'Media:Delete', 'uses' => 'MediaController@mediaDrop'])
     ->where(['hash' => '[0-9a-f]+']);
@@ -52,7 +55,8 @@ Route::post('register', ['as' => 'Auth:Register',           'uses' => 'Auth\Auth
 |   Cabinet Routes
 |-------------------------------------------------------------------------------
 */
-Route::get('/cabinet', ['as' => 'Cabinet:Index', 'uses' => 'CabinetController@index']);
+Route::get('/cabinet',      ['as' => 'Cabinet:Index',       'uses' => 'CabinetController@index']);
+Route::get('/dashboard',    ['as' => 'Cabinet:Dashboard',   'uses' => 'CabinetController@showDashboard']);
 
 
 /*
