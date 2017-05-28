@@ -27,12 +27,14 @@
 ## Live Demo Site ##
 :point_right: [Premium Music Collection](http://mp3.gsm-center.com.ua)
 
-## Clone from github ##
+## Getting started ##
+
+### Clone from github ###
 ```bash
 $ git clone -b latest https://github.com/tbaltrushaitis/mp3web.git mp3web
 ```
 
-## Set file permissions ##
+### Set file permissions ###
 ```bash
 $ WEB_USER="$(whoami)"
 $ sudo chmod 775 mp3web
@@ -43,7 +45,7 @@ $   sudo find . -type f -exec chmod 664 {} \; \
  && sudo find . -type f -name *.sh -exec sudo chmod a+x {} \;
 ```
 
-## Configure ##
+### Configure ###
 Open file `setup.rc` in your favourite editor and change values of build variables in it (e.g. DB_HOST, APP_URL)
 
 ## Build &amp; Deploy ##
@@ -56,9 +58,9 @@ Open file `setup.rc` in your favourite editor and change values of build variabl
 $ ./setup.sh all
 ```
 
-## Actions in `setup.sh` script ##
+### Actions in `setup.sh` script ###
 
-### It will check if those packages are installed and available in PATH: ###
+#### It will check if those packages are installed and available in PATH: ####
 - [x] Composer
 - [x] Node.js
 - [x] NPM
