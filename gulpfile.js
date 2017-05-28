@@ -204,7 +204,7 @@ gulp.task('bower', function () {
                             .pipe(filter([
                                 '**/*.css'
                               , '!**/*.min.css'
-                              , "!**/AdminLTE-*.css"
+                              //, "!**/AdminLTE-*.css"
                               , "!**/skin-*.css"
                             ]))
                             .pipe(changed(path.resolve(KEEP, CSS)))
@@ -381,7 +381,7 @@ gulp.task('build:css', function () {
                         .pipe(gulpif('production' === envConfig.env, cleanCSS(cleanOptions, function (d) {
                             console.info(d.name + ': ' + d.stats.originalSize + ' -> ' + d.stats.minifiedSize + ' [' + d.stats.timeSpent + 'ms] [' + 100 * d.stats.efficiency.toFixed(2) + '%]');
                         }), false))
-                        .pipe(concatCSS('styles-frontend-bundle.css', {rebaseUrls: true}))
+                        .pipe(concatCSS('frontend-bundle.css', {rebaseUrls: true}))
                         .pipe(minifyCSS())
                         .pipe(headfoot.header(Banner.header))
                         .pipe(headfoot.footer(Banner.footer))
@@ -393,7 +393,7 @@ gulp.task('build:css', function () {
                     .pipe(gulpif('production' === envConfig.env, cleanCSS(cleanOptions, function (d) {
                         console.info(d.name + ': ' + d.stats.originalSize + ' -> ' + d.stats.minifiedSize + ' [' + d.stats.timeSpent + 'ms] [' + 100 * d.stats.efficiency.toFixed(2) + '%]');
                     }), false))
-                    .pipe(concatCSS('styles-cabinet-bundle.css', {rebaseUrls: true}))
+                    .pipe(concatCSS('cabinet-bundle.css', {rebaseUrls: true}))
                     .pipe(minifyCSS())
                     //.pipe(header(Banner.header, {pkg: pkg}))
                     .pipe(headfoot.header(Banner.header))

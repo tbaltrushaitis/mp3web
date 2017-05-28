@@ -1,7 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!--[if lt IE 7 ]><html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" class="ie6"> <![endif]-->
-<!--[if IE 7 ]><html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" class="ie7"> <![endif]-->
-<!--[if IE 8 ]><html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" class="ie8"> <![endif]-->
+<!--[if lt IE 9 ]><html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" class="ie8"> <![endif]-->
 <!--[if IE 9 ]><html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" class="ie9"> <![endif]-->
 <!--[if IE 10 ]><html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" class="ie10"> <![endif]-->
 <!--[if IE 11 ]><html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" class="ie11"> <![endif]-->
@@ -13,7 +11,7 @@
     <meta http-equiv="X-UA-Compatible"  content="IE=edge, chrome=1" />
     <meta http-equiv="Content-Type"     content="text/html; charset=utf-8" />
 
-    <title>Premium Music Collection :: Admin Dashboard</title>
+    <title>Premium Music Collection :: Auth</title>
 
     <!--/ Metas
     ================================================== /-->
@@ -51,7 +49,7 @@
     ================================================== /-->
     <!--/ Custom /-->
     <link rel="stylesheet" href="{{ asset('assets/css/bower-bundle.min.css') }}" id="css-bower" />
-    <link rel="stylesheet" href="{{ asset('assets/css/styles-backend.min.css') }}" id="css-themes" />
+    <link rel="stylesheet" href="{{ asset('assets/css/cabinet-bundle.min.css') }}" id="css-cabinet" />
 
     <!--/ Favicon
     ================================================== /-->
