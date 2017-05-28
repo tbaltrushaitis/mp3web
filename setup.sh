@@ -43,7 +43,6 @@ Usage: $0 <command> [<params>]
     $0 <build | b>          -   Build project directory
     $0 <deploy | d>         -   Sync sites public web directory (<webroot> by default)
     $0 <rebuild | rb>       -   Perform <build> and then <deploy> tasks
-    $0 <redeploy | rd>       -   Perform <build> and then <deploy> tasks
 
 EOM
     RETVAL=1
@@ -60,11 +59,14 @@ WD="$(cd $(dirname $0) && pwd -P)"      #   Current working directory
 APP_HOME="$(pwd)/"                      #   Current directory
 APP_PATH="${APP_HOME}${APP_DIR}"        #   Full path to target directory
 ENGINE_DIR="${ENGINE_NAME}-${ENGINE_VERSION}"
-CODE_VERSION="$(cat ./VERSION)"
-# WEB_USER="${WEB_USER}"
 
-BUILD="${WD}/build"
+CODE_VERSION="$(cat ./VERSION)"
+GIT_COMMIT="$(git rev-list --remove-empty --remotes --max-count=1 --date-order --reverse)"
+
+printf "${GIT_COMMIT}" > COMMIT
+
 SRC="${WD}/src"
+BUILD="${WD}/build"
 DIST="${WD}/dist"
 
 DATE="$(date +"%Y%m%d%H%M%S")"
@@ -87,20 +89,22 @@ source bin/host-checks.sh
 ##  ------------------------------------------------------------------------  ##
 
 function preSetupChecks () {
-    splash "$FUNCNAME(${@})";
+    splash "$FUNCNAME params: (${@})";
 
     okNode
     okNpm
     okBower
     okGulp
 
+    return 0;
 }
 
-info "WD = \t ${WD}";
+info "WD = \t\t ${WD}";
 info "CODE_VERSION = \t ${CODE_VERSION}";
+info "GIT_COMMIT = \t ${GIT_COMMIT}";
 info "ENGINE_DIR = \t ${ENGINE_DIR}";
 info "WEB_USER = \t ${WEB_USER}";
-info "SRC = \t ${SRC}";
+info "SRC = \t\t ${SRC}";
 info "BUILD = \t ${BUILD}";
 info "APP_PATH = \t ${APP_PATH}";
 
@@ -124,20 +128,16 @@ function depsChecks () {
     deps_install
     sleep 1;
 
-    return 0;
+    # deps_outdated
+    # sleep 1;
+
+    exit 0;
 }
 
-# check_git
-
-# git_update
-# sleep 1;
-
-# deps_outdated
-# sleep 1;
 
 
 function Build () {
-    splash "$FUNCNAME params: [${@}]";
+    splash "$FUNCNAME params: (${@})";
 
     cd ${WD}
     gulp --env=${APP_ENV} #--verbose
@@ -157,7 +157,7 @@ function Build () {
     sudo chown -R ${WEB_USER}:${WEB_USER} "${BUILD}/"
     sleep 1;
 
-    return 0;
+    exit 0;
 }
 
 
@@ -180,16 +180,9 @@ function Deploy () {
     gulp artisan:clear --env=${APP_ENV} --verbose
     sleep 1;
 
-    return 0;
+    exit 0;
 }
 
-# gulp deploy  --env=dev --verbose
-
-# gulp build
-# gulp artisan
-
-# gulp dist
-# gulp deploy;
 
 ##  ------------------------------------------------------------------------  ##
 ##                                  EXECUTION                                 ##
@@ -199,50 +192,50 @@ printf "\n-------------------------\t $0 $1 \t----------------------------\n";
 case "$1" in
 
     "")
-        splash "without params";
+        log "without params";
         usage
         RETVAL=0
     ;;
 
     "usage" | "h")
-        splash "usage()";
+        log "usage()";
         usage
         RETVAL=0
     ;;
 
     "test" | "t")
-        splash "test()";
+        log "test()";
         preSetupChecks
         RETVAL=$?
     ;;
 
     "prepare" | "prep" | "p")
-        splash "prepare()";
+        log "prepare()";
         depsChecks
         RETVAL=$?
     ;;
 
     "build" | "b")
-        splash "build()";
+        info "build()";
         Build
         RETVAL=$?
     ;;
 
     "rebuild" | "rb")
-        splash "REbuild()";
+        info "REbuild()";
         Build
         Deploy
         RETVAL=$?
     ;;
 
     "deploy" | "d")
-        splash "deploy()";
+        info "deploy()";
         Deploy
         RETVAL=$?
     ;;
 
     "all" | "a")
-        splash "all()";
+        info "all()";
         preSetupChecks
         depsChecks
         Build
@@ -251,12 +244,14 @@ case "$1" in
     ;;
 
     *)
+        info "UNKNOWN command";
+        usage
         RETVAL=1
     ;;
 
 esac
 
-printf "\n\n[LOG]\tALL DONE\n"
+splash "ALL DONE!"
 
 exit $RETVAL
 
@@ -269,6 +264,17 @@ exit $RETVAL
 ##  4.  cp -pr laravel-5.2/ build/ && cd build && composer -vvv update && cd -
 ##  5.  ./setup.sh
 ##  6.  npm i && bower i
+
+# git_update
+# sleep 1;
+
+# gulp deploy  --env=dev --verbose
+
+# gulp build
+# gulp artisan
+
+# gulp dist
+# gulp deploy;
 
 # deploy
 #gulp sync:web

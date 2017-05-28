@@ -10,7 +10,7 @@
 
 //##  Make sure that jQuery included  ##//
 const $         =   require('jquery');
-const _         =   require('underscore');
+const _         =   require('lodash');
 
 const fs        =   require('fs');
 const del       =   require('del');
@@ -37,6 +37,7 @@ const exec          =   require('gulp-exec');
 const filter        =   require('gulp-filter');
 const gulpif        =   require('gulp-if');
 const header        =   require('gulp-header');
+const headfoot      =   require('gulp-headerfooter');
 const jscs          =   require('gulp-jscs');
 const jshint        =   require('gulp-jshint');
 const stylish       =   require('jshint-stylish');
@@ -67,21 +68,29 @@ const uglifyOptions =   _.extend({}, pkg.options.uglify);
 const watchOptions  =   _.extend({}, pkg.options.watch);
 
 const VERSION   =   fs.readFileSync('./VERSION', fileOptions).trim();
+const COMMIT    =   fs.readFileSync('./COMMIT', fileOptions).trim();
 
 var now     =   new Date();
+var headerTpl   =   _.template( '\n/*!\n'
+                              + ' * Package:\t <%= pkg.name %>@<%= pkg.version %>' + '\n'
+                              + ' * Name:\t <%= pkg.title %> \n'
+                              + ' * Version:\t ' + VERSION + '\n'
+                              + ' * Commit:\t ' + COMMIT + '\n'
+                              + ' * Description:\t <%= pkg.description %>' + '\n'
+                              + ' * Built:\t ' + dateFormat(now, 'yyyy-mm-dd HH:MM:ss') + '\n'
+                              + ' * Copyright:\t ' + '2016 - ' + dateFormat(now, 'yyyy') + ' <%= pkg.author.name %>' + '\n'
+                              + ' * Visit:\t <%= pkg.homepage %>' + '\n'
+                              + '**/\n\n'
+                    );
+var footerTpl   =   _.template( '\n\n/*!\n'
+                              + ' * EOF: <%= pkg.name %> v<%= pkg.version %>: <%= pkg.title %>' + '\n'
+                              + ' * Commit:\t ' + COMMIT + '\n'
+                              + ' */\n'
+                    );
+
 const   Banner  =   {
-            header: '\n/*!\n'
-                  + ' * Package:\t <%= pkg.name %>@<%= pkg.version %>' + '\n'
-                  + ' * Name:\t <%= pkg.title %> \n'
-                  + ' * Version:\t ' + VERSION + '\n'
-                  + ' * Description:\t <%= pkg.description %>' + '\n'
-                  + ' * Built:\t ' + dateFormat(now, 'yyyy-mm-dd HH:MM:ss') + '\n'
-                  + ' * Copyright:\t ' + '2016 - ' + dateFormat(now, 'yyyy') + ' <%= pkg.author.name %>' + '\n'
-                  + ' * Visit:\t <%= pkg.homepage %>' + '\n'
-                  + '**/\n\n'
-          , footer: '\n\n/*!\n'
-                  + ' * EOF: <%= pkg.name %> v<%= pkg.version %>: <%= pkg.title %>' + '\n'
-                  + ' */\n'
+            header: headerTpl({pkg: pkg})
+          , footer: footerTpl({pkg: pkg})
         };
 
 var envConfig = {
@@ -94,6 +103,7 @@ console.log('\n\n\n');
 console.log('envConfig = [', util.inspect(envConfig), ']');
 console.log('NODE_ENV = [', util.inspect(envConfig.env), ']');
 console.log('VERSION = [', util.inspect(VERSION), ']');
+console.log('COMMIT = [', util.inspect(COMMIT), ']');
 console.log('\n\n\n');
 
 //  ENV ROUTER
@@ -162,7 +172,7 @@ gulp.task('watch',      gulpSequence('watch:src:views', 'watch:src:css', 'watch:
 //  BOWER
 gulp.task('bower', function () {
 
-    var mBower      =   mainBowerFiles(bowerOptions);   //  , {base: BOWER}
+    var mBower      =   mainBowerFiles(bowerOptions, {base: BOWER});   //  , {base: BOWER}
 
     var DEST    =   path.join(BUILD, 'public/assets');
     //var KEEP    =   path.join(BUILD, 'resources/bower');
@@ -184,7 +194,9 @@ gulp.task('bower', function () {
                         .pipe(gulp.dest(path.resolve(DEST, JS)))
                         .pipe(gulpif('production' === envConfig.env, uglify(uglifyOptions)))
                         .pipe(concat('bower-bundle.js'))
-                        .pipe(header(Banner.header, {pkg: pkg}))
+                        //.pipe(header(Banner.header, {pkg: pkg}))
+                        .pipe(headfoot.header(Banner.header))
+                        .pipe(headfoot.footer(Banner.footer))
                         .pipe(rename({suffix: minifyOptions.suffix}))
                         .pipe(gulp.dest(path.resolve(DEST, JS)));
 
@@ -203,13 +215,19 @@ gulp.task('bower', function () {
                             .pipe(gulp.dest(path.resolve(KEEP, CSS)))
                             .pipe(concatCSS('bower-bundle.css', {rebaseUrls: true}))
                             .pipe(minifyCSS())
+                            //.pipe(header(Banner.header, {pkg: pkg}))
+                            .pipe(headfoot.header(Banner.header))
+                            .pipe(headfoot.footer(Banner.footer))
                             .pipe(rename({suffix: minifyOptions.suffix}))
-                            .pipe(header(Banner.header, {pkg: pkg}))
                             .pipe(gulp.dest(path.resolve(DEST, CSS)));
 
     var bowerFonts  =   gulp.src(mBower)
                             .pipe(filter(['**/fonts/**/*.*']))
-                            .pipe(changed(path.resolve(DEST, FONT)))
+                            //.pipe(changed(path.resolve(DEST, FONT)))
+                            .pipe(vinylPaths(function (paths) {
+                                //console.info('FONT Paths:', paths);
+                                return Promise.resolve();
+                            }))
                             .pipe(gulp.dest(path.resolve(DEST, FONT)));
 
     var bowerImg    =   gulp.src(mBower)
@@ -365,8 +383,9 @@ gulp.task('build:css', function () {
                         }), false))
                         .pipe(concatCSS('styles-frontend-bundle.css', {rebaseUrls: true}))
                         .pipe(minifyCSS())
+                        .pipe(headfoot.header(Banner.header))
+                        .pipe(headfoot.footer(Banner.footer))
                         .pipe(rename({suffix: minifyOptions.suffix}))
-                        .pipe(header(Banner.header, {pkg: pkg}))
                         .pipe(gulp.dest(DEST));
     var backCSS =   gulp.src([
                         path.join(FROM, 'cabinet', '*.css')
@@ -376,8 +395,10 @@ gulp.task('build:css', function () {
                     }), false))
                     .pipe(concatCSS('styles-cabinet-bundle.css', {rebaseUrls: true}))
                     .pipe(minifyCSS())
+                    //.pipe(header(Banner.header, {pkg: pkg}))
+                    .pipe(headfoot.header(Banner.header))
+                    .pipe(headfoot.footer(Banner.footer))
                     .pipe(rename({suffix: minifyOptions.suffix}))
-                    .pipe(header(Banner.header, {pkg: pkg}))
                     .pipe(gulp.dest(DEST));
 
     return merge(frontCSS, backCSS);
@@ -390,7 +411,9 @@ gulp.task('build:js', function () {
                 //.pipe(jscs.reporter())
                 .pipe(changed(DEST))
                 .pipe(gulpif('production' === envConfig.env, uglify(uglifyOptions), false))
-                .pipe(header(Banner.header, {pkg: pkg}))
+                //.pipe(header(Banner.header, {pkg: pkg}))
+                .pipe(headfoot.header(Banner.header))
+                .pipe(headfoot.footer(Banner.footer))
                 .pipe(gulp.dest(DEST));
 });
 
