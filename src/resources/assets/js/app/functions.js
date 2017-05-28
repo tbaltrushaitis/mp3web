@@ -55,8 +55,8 @@ function sec2time (intParamSecs) {
 
 
 function genUUID () {
-    function s4() {
-        return  Math.floor( (1 + Math.random()) * 0x10000 )
+    function s4 () {
+        return  Math.floor((1 + Math.random()) * 0x10000)
                     .toString(16)
                     .substring(1);
     }
@@ -97,7 +97,7 @@ function requestAjax (loUrl, loData, loType) {
       , success:    function (data) {
             if (data.errorStatus) {
                 console.warn(data.errorMsg || 'An error has occurred');
-            }else{
+            } else {
                 return data;
             }
         }
@@ -109,7 +109,7 @@ function requestAjax (loUrl, loData, loType) {
     try {
         var retResult   =   JSON.parse(resp.responseText);
         return retResult;
-    }catch (err) {
+    } catch (err) {
         console.error('[ERROR] Cannot parse responseText = [', err, ']');
     }
 

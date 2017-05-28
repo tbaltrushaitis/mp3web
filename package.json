@@ -177,4 +177,6 @@
           , "readDelay":        100
         }
     }
+  , "jshintConfig": {
+    }
 }

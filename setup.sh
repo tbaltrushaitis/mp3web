@@ -72,16 +72,18 @@ DATETIME="$(date "+%Y-%m-%d")_$(date "+%H-%M-%S")"
 # printf "\n----------------------------  ${DATE}  ---------------------------\n";
 
 ##  ------------------------------------------------------------------------  ##
-##                                PRE-CHECKS                                  ##
+##                                 FUNCTIONS                                  ##
 ##  ------------------------------------------------------------------------  ##
 
-## Source functions
 source bin/f.sh
 source bin/f-engine.sh
 source bin/f-node.sh
 source bin/f-php-composer.sh
 source bin/host-checks.sh
 
+##  ------------------------------------------------------------------------  ##
+##                                PRE-CHECKS                                  ##
+##  ------------------------------------------------------------------------  ##
 
 function preSetupChecks () {
     splash "$FUNCNAME(${@})";
@@ -102,28 +104,6 @@ info "ENGINE_DIR = \t ${ENGINE_DIR}";
 info "WEB_USER = \t ${WEB_USER}";
 
 
-##  ------------------------------------------------------------------------  ##
-##                                 GIT HOOKS                                  ##
-##  ------------------------------------------------------------------------  ##
-##  printf "[info] Installing git hooks ... \n"
-##  ln -sf ../../validate-commit-msg.js .git/hooks/commit-msg
-
-##  ------------------------------------------------------------------------  ##
-##                                 SCENARIO                                   ##
-##  ------------------------------------------------------------------------  ##
-##  1.  git clone https://github.com/tbaltrushaitis/mp3web.git -b "dev-1.0.2" mp3web
-##  2.  sudo chown -R www-data:www-data mp3web && cd mp3web && sudo rights
-##  3.  composer -vvv create-project --prefer-dist laravel/laravel laravel-5.2 "5.2.*"
-##  4.  cp -pr laravel-5.2/ build/ && cd build && composer -vvv update && cd -
-##  5.  ./setup.sh
-##  6.  npm i && bower i
-
-# deploy
-#gulp sync:web
-#gulp artisan:clear
-
-#deploy -> sync:web, artisan:clear
-# php artisan key:generate
 ##  ------------------------------------------------------------------------  ##
 ##                                 EXECUTION                                  ##
 ##  ------------------------------------------------------------------------  ##
@@ -197,7 +177,6 @@ function Deploy () {
     sleep 1;
 
 }
-
 
 # gulp deploy  --env=dev --verbose
 
@@ -275,5 +254,27 @@ esac
 printf "\n\n[LOG]\tALL DONE\n"
 
 exit $RETVAL
+
+##  ------------------------------------------------------------------------  ##
+##                                 SCENARIO                                   ##
+##  ------------------------------------------------------------------------  ##
+##  1.  git clone https://github.com/tbaltrushaitis/mp3web.git -b "dev-1.0.2" mp3web
+##  2.  sudo chown -R www-data:www-data mp3web && cd mp3web && sudo rights
+##  3.  composer -vvv create-project --prefer-dist laravel/laravel laravel-5.2 "5.2.*"
+##  4.  cp -pr laravel-5.2/ build/ && cd build && composer -vvv update && cd -
+##  5.  ./setup.sh
+##  6.  npm i && bower i
+
+# deploy
+#gulp sync:web
+#gulp artisan:clear
+
+#deploy -> sync:web, artisan:clear
+# php artisan key:generate
+##  ------------------------------------------------------------------------  ##
+##                                 GIT HOOKS                                  ##
+##  ------------------------------------------------------------------------  ##
+##  printf "[info] Installing git hooks ... \n"
+##  ln -sf ../../validate-commit-msg.js .git/hooks/commit-msg
 
 ##  --------------------------  EOF: setup.sh  -----------------------------  ##
