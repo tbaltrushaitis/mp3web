@@ -33,7 +33,7 @@ class CabinetController extends Controller {
     }
 
     /**
-     * Show the application dashboard.
+     * Show the cabinet dashboard.
      *
      * @return \Illuminate\Http\Response
      */
@@ -42,4 +42,5 @@ class CabinetController extends Controller {
             'tracks' =>  $this->mediaRepository->getTracksAudio()
         ]);
     }
+
 }
