@@ -24,7 +24,7 @@ function log () {
 
 
 function info () {
-    echo -en "\n${BBlue}[$FUNCNAME]:${NC}\t" "${@}";
+    echo -en "\n${BBlue}[$FUNCNAME]: ${NC}\t" "${@}";
 }
 
 
