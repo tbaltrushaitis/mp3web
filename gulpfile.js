@@ -204,8 +204,8 @@ gulp.task('bower', function () {
                             .pipe(filter([
                                 '**/*.css'
                               , '!**/*.min.css'
-                              //, "!**/AdminLTE-*.css"
                               , "**/skin-blue.css"
+                              //, "!**/AdminLTE-*.css"
                               , "!**/skin-*.css"
                             ]))
                             .pipe(changed(path.resolve(KEEP, CSS)))
