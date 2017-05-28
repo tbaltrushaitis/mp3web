@@ -90,9 +90,11 @@ var envConfig = {
 };
 envConfig   =   parseArgs(process.argv.slice(2), envConfig);
 
-console.log('\n\n\n', 'envConfig = [', util.inspect(envConfig), ']');
+console.log('\n\n\n');
+console.log('envConfig = [', util.inspect(envConfig), ']');
 console.log('NODE_ENV = [', util.inspect(envConfig.env), ']');
-console.log('VERSION = [', util.inspect(VERSION), ']\n\n\n');
+console.log('VERSION = [', util.inspect(VERSION), ']');
+console.log('\n\n\n');
 
 //  ENV ROUTER
 gulp.task('default', function () {

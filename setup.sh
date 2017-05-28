@@ -97,12 +97,12 @@ function preSetupChecks () {
 }
 
 info "WD = \t ${WD}";
-info "BUILD = \t ${BUILD}";
-info "SRC = \t ${SRC}";
 info "CODE_VERSION = \t ${CODE_VERSION}";
-info "APP_PATH = \t ${APP_PATH}";
 info "ENGINE_DIR = \t ${ENGINE_DIR}";
 info "WEB_USER = \t ${WEB_USER}";
+info "SRC = \t ${SRC}";
+info "BUILD = \t ${BUILD}";
+info "APP_PATH = \t ${APP_PATH}";
 
 
 ##  ------------------------------------------------------------------------  ##
@@ -110,7 +110,7 @@ info "WEB_USER = \t ${WEB_USER}";
 ##  ------------------------------------------------------------------------  ##
 
 function depsChecks () {
-    splash "$FUNCNAME(${@})";
+    splash "$FUNCNAME params: [${@}]";
 
     check_composer
     sleep 1;
@@ -154,7 +154,7 @@ function Build () {
     sleep 1;
 
     cd ${WD}
-    sudo chown -R "${WEB_USER}":"${WEB_USER}" "${BUILD}/"
+    sudo chown -R ${WEB_USER}:${WEB_USER} "${BUILD}/"
     sleep 1;
 
     return 0;
@@ -162,7 +162,7 @@ function Build () {
 
 
 function Deploy () {
-    splash "$FUNCNAME [${@}]";
+    splash "$FUNCNAME params: [${@}]";
 
     cd ${WD}
     gulp sync:web --env=${APP_ENV} --verbose
