@@ -11,7 +11,7 @@
     <meta http-equiv="X-UA-Compatible"  content="IE=edge, chrome=1" />
     <meta http-equiv="Content-Type"     content="text/html; charset=utf-8" />
 
-    <title>Premium Music Collection :: Original Tracks and Best DJ's Remixes</title>
+    <title>Premium Music Collection :: Cabinet</title>
 
     <!--/ Metas
     ================================================== /-->
@@ -49,8 +49,7 @@
     ================================================== /-->
     <!--/ Custom /-->
     <link rel="stylesheet" href="{{ asset('assets/css/bower-bundle.min.css') }}" id="css-bower" />
-    <link rel="stylesheet" href="{{ asset('assets/css/styles-frontend-bundle.min.css') }}" id="css-themes" />
-    <link rel="stylesheet" href="{{ asset('assets/css/frontend/50-mp3.css') }}" id="css-custom" />
+    <link rel="stylesheet" href="{{ asset('assets/css/cabinet-bundle.min.css') }}" id="css-cabinet" />
 
     <!--/ Favicon
     ================================================== /-->
@@ -59,7 +58,8 @@
 
     <!--/ HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries /-->
     <!--[if lt IE 9]>
-        <script src="{{ asset('/assets/js/lib/html5shiv.min.js') }}"></script>
-        <script src="{{ asset('/assets/js/lib/respond.min.js') }}"></script>
+        <script src="{{ asset('assets/js/lib/html5shiv.min.js') }}"></script>
+        <script src="{{ asset('assets/js/lib/respond.min.js') }}"></script>
     <![endif]-->
+
 </head>

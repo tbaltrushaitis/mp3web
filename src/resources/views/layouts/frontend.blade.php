@@ -1,7 +1,7 @@
-@include('doc.head-frontend')
+@include('frontend.head')
 
 <body   id="layout-frontend"
-        class="homepage skin-default theme-default"
+        class="layout-frontend homepage skin-default theme-default"
         data-id_page="layout-frontend"
         data-rooturl="{{ Request::root() }}">
 
@@ -116,8 +116,8 @@
 
     </section><!--/#list-->
 
-    @include('doc.footer')
-    @include('doc.javascripts')
+    @include('frontend.footer')
+    @include('frontend.javascripts')
 
 </body>
 </html>

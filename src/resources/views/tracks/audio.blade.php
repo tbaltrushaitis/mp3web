@@ -40,7 +40,7 @@
 
             <!--/ Current Tracks /-->
             @if (count($tracks) > 0)
-            <div class="panel panel-info">
+            <div class="panel panel-info box box-info">
                 <div class="panel-heading">
                     <strong>Tracklist</strong> <span class="pull-right">[{{ count($tracks) }} item(s)]</span>
                 </div>

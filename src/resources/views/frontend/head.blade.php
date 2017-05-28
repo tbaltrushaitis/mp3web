@@ -1,4 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--[if lt IE 9 ]><html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" class="ie8"> <![endif]-->
 <!--[if IE 9 ]><html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" class="ie9"> <![endif]-->
 <!--[if IE 10 ]><html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" class="ie10"> <![endif]-->
 <!--[if IE 11 ]><html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" class="ie11"> <![endif]-->
@@ -10,7 +11,7 @@
     <meta http-equiv="X-UA-Compatible"  content="IE=edge, chrome=1" />
     <meta http-equiv="Content-Type"     content="text/html; charset=utf-8" />
 
-    <title>Premium Music Collection :: Cabinet</title>
+    <title>Premium Music Collection :: Original Tracks and Best DJ's Remixes</title>
 
     <!--/ Metas
     ================================================== /-->
@@ -48,7 +49,8 @@
     ================================================== /-->
     <!--/ Custom /-->
     <link rel="stylesheet" href="{{ asset('assets/css/bower-bundle.min.css') }}" id="css-bower" />
-    <link rel="stylesheet" href="{{ asset('assets/css/styles-cabinet-bundle.min.css') }}" id="css-cabinet" />
+    <link rel="stylesheet" href="{{ asset('assets/css/frontend-bundle.min.css') }}" id="css-frontend" />
+    <!--/ <link rel="stylesheet" href="{{ asset('assets/css/frontend/50-mp3.css') }}" id="css-custom" /> /-->
 
     <!--/ Favicon
     ================================================== /-->
@@ -57,8 +59,7 @@
 
     <!--/ HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries /-->
     <!--[if lt IE 9]>
-        <script src="{{ asset('assets/js/lib/html5shiv.min.js') }}"></script>
-        <script src="{{ asset('assets/js/lib/respond.min.js') }}"></script>
+        <script src="{{ asset('/assets/js/lib/html5shiv.min.js') }}"></script>
+        <script src="{{ asset('/assets/js/lib/respond.min.js') }}"></script>
     <![endif]-->
-
 </head>

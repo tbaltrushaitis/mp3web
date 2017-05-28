@@ -1,7 +1,7 @@
-@include('doc.head-cabinet')
+@include('cabinet.head')
 
 <body   id="layout-cabinet"
-        class="cabinet skin-default theme-default"
+        class="layout-cabinet skin-default theme-default"
         data-id_page="layout-cabinet"
         data-rooturl="{{ Request::root() }}">
 
@@ -40,8 +40,8 @@
                     <ul class="nav navbar-nav navbar-right">
                         <!--/ Authentication Links /-->
                         @if (Auth::guest())
-                            <li><a href="{{ url('/login') }}">Login</a></li>
-                            <li><a href="{{ url('/register') }}">Register</a></li>
+                            <li><a href="{{ url('/login') }}" target="blank">Login</a></li>
+                            <li><a href="{{ url('/register') }}" target="blank">Register</a></li>
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

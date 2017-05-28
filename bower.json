@@ -47,7 +47,7 @@
       , "jquery":               "~2.2.4"
       , "jquery-tmpl":          "#b504c8afba"
       , "lato-font":            "~3.0.0"
-      , "lodash":               "~4.17.2"
+      , "lodash":               "~4.17.4"
       , "normalize.css":        "~4.2.0"
       , "raty":                 "~2.7.1"
       , "respond":              "~1.4.2"
