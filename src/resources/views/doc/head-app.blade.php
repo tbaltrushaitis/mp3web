@@ -49,7 +49,7 @@
     ================================================== /-->
     <!--/ Custom /-->
     <link rel="stylesheet" href="{{ asset('assets/css/bower-bundle.min.css') }}" id="css-bower" />
-    <link rel="stylesheet" href="{{ asset('assets/css/cabinet-bundle.min.css') }}" id="css-cabinet" />
+    <link rel="stylesheet" href="{{ asset('assets/css/app-bundle.min.css') }}" id="css-app" />
 
     <!--/ Favicon
     ================================================== /-->

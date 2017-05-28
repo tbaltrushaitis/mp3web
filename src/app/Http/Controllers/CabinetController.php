@@ -43,4 +43,15 @@ class CabinetController extends Controller {
         ]);
     }
 
+    /**
+     * Show the cabinet dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showDashboard () {
+        return view('dashboard', [
+            'tracks' =>  $this->mediaRepository->getTracksAudio()
+        ]);
+    }
+
 }

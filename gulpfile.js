@@ -205,6 +205,7 @@ gulp.task('bower', function () {
                                 '**/*.css'
                               , '!**/*.min.css'
                               //, "!**/AdminLTE-*.css"
+                              , "**/skin-blue.css"
                               , "!**/skin-*.css"
                             ]))
                             .pipe(changed(path.resolve(KEEP, CSS)))
