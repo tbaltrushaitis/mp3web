@@ -8,7 +8,7 @@
       , "url":   "https://github.com/tbaltrushaitis"
     }
   , "license":  "MIT"
-  , "private":  true
+  , "private":  false
   , "homepage": "https://tbaltrushaitis.github.io/mp3web/"
   , "website":  "http://mp3.gsm-center.com.ua/"
   , "readmeFilename":   "README.md"
@@ -56,7 +56,7 @@
       , "del":                  "^2.2.2"
       , "gulp":                 "^3.9.1"
       , "gulp-add-src":         "^0.2.0"
-      , "gulp-aglio":           "~0.0.10"
+      , "gulp-aglio":           "^0.0.10"
       , "gulp-changed":         "^3.1.0"
       , "gulp-chmod":           "^2.0.0"
       , "gulp-chown":           "^1.1.0"
@@ -89,7 +89,7 @@
       , "jquery":               "^2.2.4"
       , "jshint":               "^2.9.3"
       , "jshint-stylish":       "^2.2.1"
-      , "lodash":               "~4.17.2"
+      , "lodash":               "^4.17.4"
       , "main-bower-files":     "^2.13.1"
       , "merge-stream":         "^1.0.0"
       , "minimist":             "^1.2.0"
