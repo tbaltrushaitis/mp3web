@@ -53,6 +53,7 @@
               , underscore:         'lib/underscore'
               , raty:               'lib/jquery.raty'
               , bootstrapTags:      'lib/bootstrap-tagsinput'
+              , LTEapp:             'lib/bower-bundle.min'
               , Abstract:           'app/classes/Abstract.class'
               , cabinetController:  'app/controllers/cabinetController'
               , functions:          'app/functions'
@@ -76,6 +77,7 @@
               , bootstrapTags:      ['jquery', 'bootstrap']
               , Tmpl:               ['jquery']
               , raty:               ['jquery']
+              , LTEapp:             ['jquery', 'bootstrap']
               , Abstract:           ['jquery', 'underscore']
               , cabinetController:  ['jquery', 'underscore']
               , functions:          ['jquery', 'underscore']

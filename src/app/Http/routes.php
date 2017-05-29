@@ -40,9 +40,9 @@ Route::get('logout',    ['as' => 'Auth:Logout',     'uses' => 'Auth\AuthControll
 
 Route::group(['prefix' => 'password'], function () {
 
-    Route::post('email',            ['as' => 'Password:send',           'uses' => 'Auth\PasswordController@sendResetLinkEmail']);   //  'password/email'
-    Route::post('reset',            ['as' => 'Password:reset',          'uses' => 'Auth\PasswordController@reset']);                //  'password/reset'
-    Route::get('reset/{token?}',    ['as' => 'Password:showResetForm',  'uses' => 'Auth\PasswordController@showResetForm']);        //  'password/reset/{token?}'
+    Route::post('email',            ['as' => 'Password:send',           'uses' => 'Auth\PasswordController@sendResetLinkEmail']);
+    Route::post('reset',            ['as' => 'Password:reset',          'uses' => 'Auth\PasswordController@reset']);
+    Route::get('reset/{token?}',    ['as' => 'Password:showResetForm',  'uses' => 'Auth\PasswordController@showResetForm']);
 
 });
 
@@ -53,7 +53,7 @@ Route::post('register', ['as' => 'Auth:Register',           'uses' => 'Auth\Auth
 /*
 |-------------------------------------------------------------------------------
 |   Cabinet Routes
-|-------------------------------------------------------------------------------
+|-------------------------------------------------------------------------------W
 */
 Route::get('/cabinet',      ['as' => 'Cabinet:Index',       'uses' => 'CabinetController@index']);
 Route::get('/dashboard',    ['as' => 'Cabinet:Dashboard',   'uses' => 'CabinetController@showDashboard']);
@@ -70,7 +70,6 @@ Route::get('/{hash}/meta',      ['as' => 'Meta:get',    'uses' => 'AjaxControlle
 Route::post('/{hash}/meta',     ['as' => 'Meta:update', 'uses' => 'AjaxController@updateMeta'])
     ->where(['hash' => '[0-9a-f]+']);
 
-// Route::delete('/{hash}/meta',   ['as' => 'Meta:delete', 'uses' => 'AjaxController@deleteMeta'])
 Route::delete('/{hash}/meta',   ['as' => 'Meta:delete', 'uses' => 'AjaxController@destroy'])
     ->where(['hash' => '[0-9a-f]+']);
 
