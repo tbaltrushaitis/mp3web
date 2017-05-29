@@ -1,0 +1,30 @@
+pipelines:
+  default:
+    - step:
+        script:
+          - echo "This script runs on all branches that don't have any specific pipeline assigned in 'branches'.""
+  branches:
+    master:
+      - step:
+          script:
+            - echo "This script runs only on commit to the MASTER branch."
+            - uname -a
+            - free -m
+            - df -H
+            - netstat -apn
+            - docker info
+            - printf "Everything is awesome!\n";
+    dev-1.0.2:
+      - step:
+          script:
+            - echo "This script runs only on commit to the dev-1.0.2 branch."
+            - git clone https://bitbucket.org/tbaltrushaitis/mp3web mp3web
+            - cd mp3web
+            - CODE_VERSION="$(cat ./VERSION)"
+            - printf "CODE_VERSION\t = \t ${CODE_VERSION}";
+            - GIT_BRANCH="dev-${CODE_VERSION}";
+            - git checkout ${GIT_BRANCH}
+            - git branch
+            - git pull
+            - ls -als
+            - printf "Everything is awesome!\n";
