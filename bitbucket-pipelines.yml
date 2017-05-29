@@ -37,6 +37,7 @@ pipelines:
             # - npm run setup
             # - npm run build
             # - npm run deploy
+            - pwd
             - ./setup prepare --env=production
             - ./setup build --env=production
             - ./setup deploy --env=production
