@@ -11,6 +11,8 @@
 ##      fatal
 ##      splash
 
+##      Delay
+
 ##      loadEnv
 ##      saveEnv
 
@@ -55,7 +57,19 @@ function splash () {
 }
 
 ##  ------------------------------------------------------------------------  ##
-##              Load Environment Variables From .env Files
+##                             Timeout Helper                                 ##
+##  ------------------------------------------------------------------------  ##
+
+function Delay () {
+    local T=1;
+    printf "\nTimeout ${T} second(s) ... ";
+    sleep 1;
+    printf "DONE\n";
+    return 0;
+}
+
+##  ------------------------------------------------------------------------  ##
+##              Load Environment Variables From .env Files                    ##
 ##  ------------------------------------------------------------------------  ##
 
 function loadEnv () {
