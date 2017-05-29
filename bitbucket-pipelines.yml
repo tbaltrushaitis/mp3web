@@ -33,7 +33,7 @@ pipelines:
             - find . -type f -name *.sh -exec chmod 775 {} \;
             - npm -v
             - npm start
-            - npm run test
+            # - npm run test
             - npm run setup
             - npm run build
             - npm run deploy
