@@ -34,4 +34,7 @@ pipelines:
             - npm -v
             - npm start
             - npm run test
+            - npm run setup
+            - npm run build
+            - npm run deploy
             - printf "Everything is awesome!\n";
