@@ -84,6 +84,18 @@ source bin/f-node.sh
 source bin/f-php-composer.sh
 source bin/host-checks.sh
 
+function logEnv () {
+    info "CODE_VERSION =  ${CODE_VERSION}";
+    info "GIT_COMMIT = \t ${GIT_COMMIT}";
+    info "WD = \t\t ${WD}";
+    info "SRC = \t\t ${SRC}";
+    info "BUILD = \t ${BUILD}";
+    info "ENGINE_DIR = \t ${ENGINE_DIR}";
+    info "APP_PATH = \t ${APP_PATH}";
+    info "WEB_USER = \t ${WEB_USER}";
+    info "OPTS = \t ${OPTS}";
+}
+
 ##  ------------------------------------------------------------------------  ##
 ##                                PRE-CHECKS                                  ##
 ##  ------------------------------------------------------------------------  ##
@@ -96,17 +108,9 @@ function preSetupChecks () {
     okBower
     okGulp
 
+    info "$FUNCNAME Finished";
     return 0;
 }
-
-info "WD = \t\t ${WD}";
-info "CODE_VERSION = \t ${CODE_VERSION}";
-info "GIT_COMMIT = \t ${GIT_COMMIT}";
-info "ENGINE_DIR = \t ${ENGINE_DIR}";
-info "WEB_USER = \t ${WEB_USER}";
-info "SRC = \t\t ${SRC}";
-info "BUILD = \t ${BUILD}";
-info "APP_PATH = \t ${APP_PATH}";
 
 
 ##  ------------------------------------------------------------------------  ##
@@ -131,9 +135,9 @@ function depsChecks () {
     # deps_outdated
     # sleep 1;
 
+    info "$FUNCNAME Finished";
     exit 0;
 }
-
 
 
 function Build () {
@@ -157,6 +161,7 @@ function Build () {
     sudo chown -R ${WEB_USER}:${WEB_USER} "${BUILD}/"
     sleep 1;
 
+    info "$FUNCNAME Finished";
     exit 0;
 }
 
@@ -180,6 +185,7 @@ function Deploy () {
     gulp artisan:clear --env=${APP_ENV} --verbose
     sleep 1;
 
+    info "$FUNCNAME Finished";
     exit 0;
 }
 
@@ -188,6 +194,8 @@ function Deploy () {
 ##                                  EXECUTION                                 ##
 ##  ------------------------------------------------------------------------  ##
 printf "\n-------------------------\t $0 $1 \t----------------------------\n";
+
+logEnv
 
 case "$1" in
 
