@@ -38,7 +38,7 @@ pipelines:
             # - npm run build
             # - npm run deploy
             - pwd
-            - ./setup prepare --env=production
-            - ./setup build --env=production
-            - ./setup deploy --env=production
+            - ./setup.sh prepare --env=production
+            - ./setup.sh build --env=production
+            - ./setup.sh deploy --env=production
             - printf "Everything is awesome!\n";
