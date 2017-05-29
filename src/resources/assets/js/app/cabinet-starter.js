@@ -14,8 +14,9 @@ require([
   , 'cabinetController'
   , 'bootstrapTags'
   , 'functions'
+  , 'LTEapp'
 ]
-  , function ($, _, cc, bsTags, F) {
+  , function ($, _, cc, bsTags, F, LTE) {
         console.timeStamp('CABINET MODULES READY');
 });
 
@@ -27,14 +28,15 @@ require([
   , 'functions'
   , 'cabinetController'
   , 'bootstrapTags'
+  , 'LTEapp'
   ]
 
-  , function (require, $, _) {
+  , function (require, $, _, LTE) {
 
     var ControllerCabinet   =   new require('cabinetController');
     var libTags             =   new require('bootstrapTags');
 
-    $.when(ControllerCabinet, libTags)
+    $.when(ControllerCabinet, libTags, LTE)
      .then(function (loCabinet) {
         var pageId  =   $('body').attr('data-id_page');
         console.group(pageId);
