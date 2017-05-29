@@ -24,7 +24,6 @@ trap 'echo >&2 Ctrl+C captured, exiting; exit 1' SIGINT
 
 ## Source settings
 if [ -f ./setup.rc ]; then
-    #. setup.rc
     source setup.rc
 else
     exit 1
@@ -85,6 +84,8 @@ source bin/f-php-composer.sh
 source bin/host-checks.sh
 
 function logEnv () {
+    splash "$FUNCNAME Started with: (${@})";
+
     info "CODE_VERSION =  ${CODE_VERSION}";
     info "GIT_COMMIT = \t ${GIT_COMMIT}";
     info "WD = \t\t ${WD}";
@@ -94,6 +95,9 @@ function logEnv () {
     info "APP_PATH = \t ${APP_PATH}";
     info "WEB_USER = \t ${WEB_USER}";
     info "OPTS = \t ${OPTS}";
+
+    info "$FUNCNAME Finished";
+    return 0;
 }
 
 ##  ------------------------------------------------------------------------  ##
@@ -101,7 +105,7 @@ function logEnv () {
 ##  ------------------------------------------------------------------------  ##
 
 function preSetupChecks () {
-    splash "$FUNCNAME params: (${@})";
+    splash "$FUNCNAME Started with: (${@})";
 
     okNode
     okNpm
@@ -118,19 +122,19 @@ function preSetupChecks () {
 ##  ------------------------------------------------------------------------  ##
 
 function depsChecks () {
-    splash "$FUNCNAME params: [${@}]";
+    splash "$FUNCNAME Started with: (${@})";
 
     check_composer
-    sleep 1;
+    Delay
 
     check_engine
-    sleep 1;
+    Delay
 
     # fix_permissions
     # sleep 1;
 
     deps_install
-    sleep 1;
+    Delay
 
     # deps_outdated
     # sleep 1;
@@ -141,25 +145,25 @@ function depsChecks () {
 
 
 function Build () {
-    splash "$FUNCNAME params: (${@})";
+    splash "$FUNCNAME Started with: (${@})";
 
     cd ${WD}
     gulp --env=${APP_ENV} #--verbose
-    sleep 1;
+    Delay
 
     cd ${WD}
     mv -p "${BUILD}/.env" "${BUILD}/.env.${DATE}" 2>/dev/null
     cp -pr ./setup.rc "${BUILD}/.env.setup"
     cp -pr "${SRC}/composer.json" "${BUILD}/"
-    sleep 1;
+    Delay
 
     cd ${BUILD}
     composer -v update
-    sleep 1;
+    Delay
 
     cd ${WD}
     sudo chown -R ${WEB_USER}:${WEB_USER} "${BUILD}/"
-    sleep 1;
+    Delay
 
     info "$FUNCNAME Finished";
     exit 0;
@@ -167,23 +171,23 @@ function Build () {
 
 
 function Deploy () {
-    splash "$FUNCNAME params: [${@}]";
+    splash "$FUNCNAME params: (${@})";
 
     cd ${WD}
     gulp sync:web --env=${APP_ENV} --verbose
-    sleep 1;
+    Delay
 
     cd ${WD}
     cd "${WD}/${APP_DIR}/public/"
     ln -s ../storage/media/audio/ >&2 2>/dev/null
-    sleep 1;
+    Delay
 
     cd ${WD}
     sudo chown -R ${WEB_USER}:${WEB_USER} "${APP_DIR}"
-    sleep 1;
+    Delay
 
     gulp artisan:clear --env=${APP_ENV} --verbose
-    sleep 1;
+    Delay
 
     info "$FUNCNAME Finished";
     exit 0;
@@ -232,6 +236,7 @@ case "$1" in
     "rebuild" | "rb")
         info "REbuild()";
         Build
+        Delay
         Deploy
         RETVAL=$?
     ;;
@@ -245,8 +250,11 @@ case "$1" in
     "all" | "a")
         info "all()";
         preSetupChecks
+        Delay
         depsChecks
+        Delay
         Build
+        Delay
         Deploy
         RETVAL=$?
     ;;
@@ -259,9 +267,9 @@ case "$1" in
 
 esac
 
-splash "ALL DONE!"
+splash "ALL DONE!";
 
-exit $RETVAL
+exit ${RETVAL};
 
 ##  ------------------------------------------------------------------------  ##
 ##                                 SCENARIO                                   ##
