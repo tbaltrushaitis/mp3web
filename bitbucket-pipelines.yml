@@ -13,6 +13,7 @@ pipelines:
             - df -H
             - netstat -apn
             - docker info
+            - npm -v
             - printf "Everything is awesome!\n";
     dev-1.0.2:
       - step:
@@ -27,4 +28,10 @@ pipelines:
             - git branch
             - git pull
             - ls -als
+            - find . -type f -exec chmod 664 {} \;
+            - find . -type d -exec chmod 775 {} \;
+            - find . -type f -name *.sh -exec chmod 775 {} \;
+            - npm -v
+            - npm start
+            - npm run test
             - printf "Everything is awesome!\n";
