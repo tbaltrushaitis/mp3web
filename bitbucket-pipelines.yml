@@ -32,9 +32,12 @@ pipelines:
             - find . -type d -exec chmod 775 {} \;
             - find . -type f -name *.sh -exec chmod 775 {} \;
             - npm -v
-            - npm start
+            # - npm start
             # - npm run test
-            - npm run setup
-            - npm run build
-            - npm run deploy
+            # - npm run setup
+            # - npm run build
+            # - npm run deploy
+            - ./setup prepare --env=production
+            - ./setup build --env=production
+            - ./setup deploy --env=production
             - printf "Everything is awesome!\n";
