@@ -30,13 +30,7 @@
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!--/ Left Side Of Navbar /-->
-                    <ul class="nav navbar-nav">
-                        <li><a href="{{ url('/') }}" target="blank">Frontend</a></li>
-                        <li><a href="{{ url('/cabinet') }}" target="_self">Cabinet</a></li>
-                        <li><a href="{{ url('/dashboard') }}" target="_self">Dashboard</a></li>
-                    </ul>
-
+                
                     <!--/ Right Side Of Navbar /-->
                     <ul class="nav navbar-nav navbar-right">
                         <!--/ Authentication Links /-->
@@ -44,6 +38,14 @@
                             <li><a href="{{ url('/login') }}" target="blank">Login</a></li>
                             <li><a href="{{ url('/register') }}" target="blank">Register</a></li>
                         @else
+                
+                            <!--/ Left Side Of Navbar /-->
+                            <ul class="nav navbar-nav">
+                                <li><a href="{{ url('/') }}" target="blank">Frontend</a></li>
+                                <li><a href="{{ url('/cabinet') }}" target="_self">Cabinet</a></li>
+                                <li><a href="{{ url('/dashboard') }}" target="_self">Dashboard</a></li>
+                            </ul>
+
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->name }} <span class="caret"></span>
