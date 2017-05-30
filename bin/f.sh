@@ -64,7 +64,7 @@ function Delay () {
     printf "\nTimeout ${T} second(s) ... ";
     sleep 1;
     printf "DONE\n";
-    exit 0;
+    # exit 0;
 }
 
 ##  ------------------------------------------------------------------------  ##
