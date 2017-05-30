@@ -37,16 +37,16 @@ function composer_selfupdate {
 
 
 function check_composer {
-    _composer=`which composer 2>&1`
-    if [ $? -ne 0 ]; then
-        printf "[WARNING]\tComposer not found!\n";
+    # _composer=`which composer 2>&1`
+    # if [ $? -ne 0 ]; then
+        # printf "[WARNING]\tComposer not found!\n";
         printf "[INFO]\thttp://getcomposer.org/\n";
         printf "[LOG]\tStarting composer setup ... \n";
         composer_setup
         composer_selfupdate
         printf "[INFO]\tPlease run $# again.\n";
         # exit 1
-    fi
+    # fi
     printf "[OK]\t$(composer -V) Installed\n";
 }
 
