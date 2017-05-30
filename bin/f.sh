@@ -45,7 +45,6 @@ function fatal () {
     echo -ne "****************** $FUNCNAME *************************"
     echo -ne "%s\n" "$@"
     echo -ne "****************** $FUNCNAME *************************"
-    RETVAL=1
 }
 
 
@@ -65,7 +64,7 @@ function Delay () {
     printf "\nTimeout ${T} second(s) ... ";
     sleep 1;
     printf "DONE\n";
-    return 0;
+    exit 0;
 }
 
 ##  ------------------------------------------------------------------------  ##
