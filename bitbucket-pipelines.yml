@@ -20,7 +20,7 @@ pipelines:
           script:
             - echo "This script runs only on commit to the dev-1.0.2 branch."
             - uname -a
-            - apt install php
+            - apt install php5 php5-cli php5-common 
             - git clone https://bitbucket.org/tbaltrushaitis/mp3web mp3web
             - cd mp3web
             - CODE_VERSION="$(cat ./VERSION)"
