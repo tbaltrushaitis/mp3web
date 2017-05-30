@@ -148,7 +148,7 @@ function Build () {
     splash "$FUNCNAME Started with: (${@})";
 
     cd ${WD}
-    gulp --env=${APP_ENV} #--verbose
+    node gulpfile.js --env=${APP_ENV} #--verbose
     Delay
 
     cd ${WD}
@@ -174,7 +174,7 @@ function Deploy () {
     splash "$FUNCNAME params: (${@})";
 
     cd ${WD}
-    gulp sync:web --env=${APP_ENV} --verbose
+    node gulpfile.js sync:web --env=${APP_ENV} --verbose
     Delay
 
     cd ${WD}
@@ -186,7 +186,7 @@ function Deploy () {
     sudo chown -R ${WEB_USER}:${WEB_USER} "${APP_DIR}"
     Delay
 
-    gulp artisan:clear --env=${APP_ENV} --verbose
+    node gulpfile.js artisan:clear --env=${APP_ENV} --verbose
     Delay
 
     info "$FUNCNAME Finished";
