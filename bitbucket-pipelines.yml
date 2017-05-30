@@ -19,6 +19,8 @@ pipelines:
       - step:
           script:
             - echo "This script runs only on commit to the dev-1.0.2 branch."
+            - uname -a
+            - apt install php
             - git clone https://bitbucket.org/tbaltrushaitis/mp3web mp3web
             - cd mp3web
             - CODE_VERSION="$(cat ./VERSION)"
