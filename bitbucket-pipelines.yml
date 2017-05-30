@@ -44,7 +44,6 @@ pipelines:
             - pwd
             - php -v
             - which wget
-            - which composer
             # - ./setup.sh test --env=production
             - ./setup.sh prepare --env=production
             - ./setup.sh build --env=production
