@@ -115,7 +115,7 @@ Below is a list of gulp tasks and their possible params:
 | | watch:src:css | | | Styles
 | | watch:src:js | | | Scripts
  :nine: | **artisan** | | | Laravel console commands
- :unlock:| fixPermissions | | build/ | Set owner of files to webserver user
+ :unlock: | fixPermissions | | build/ | Set owner of files to webserver user
 
 ---------
 
@@ -123,12 +123,12 @@ Below is a list of gulp tasks and their possible params:
 
  :hash: | Task | Source | Target | Comment
 :------:|:-----|:------:|:------:|:--------
-| :x: | bower:fonts | | | Collect fonts
-| :x: | bower:css:fonts | | | Collect, merge and minify fonts CSS files
-| :x: | bower:css:plugins | | | CSS files for plugins
-| :x: | bower:js | | | Plugins itself
-| :x: | bower:plugins | | | Plugins directories
-| :x: | sync:web:dev | | | Create/update development web directory
+ :x: | bower:fonts | | | Collect fonts
+ :x: | bower:css:fonts | | | Collect, merge and minify fonts CSS files
+ :x: | bower:css:plugins | | | CSS files for plugins
+ :x: | bower:js | | | Plugins itself
+ :x: | bower:plugins | | | Plugins directories
+ :x: | sync:web:dev | | | Create/update development web directory
 
 ---------
 
