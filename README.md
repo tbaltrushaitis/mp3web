@@ -83,16 +83,16 @@ Below is a list of gulp tasks and their possible params:
 
  :hash: | Task | Source | Target | Comment
 :------:|:-----|:------:|:------:|:--------
-| :one: | **show** | | | Display information
+ :one: | **show** | | | Display information
 | | usage | | | Show help topic
 | | show:config | .env | | Environment configuration
 | | files:src | src/ | build/ | List of changed files
-| :two: | **clean** | | | | Delete files and directories
+ :two: | **clean** | | | | Delete files and directories
 | | clean:build | | build/ | Reset build directory
 | | clean:dist | | dist/ | Reset release directory
  :three: | **bower** | | | Frontend modules manager
 | | bower:collect | bower_modules/ | resources/assets/ | Collect js, css, fonts and images from bower packages
-| :four: | **sync** | | | Copy directories
+ :four: | **sync** | | | Copy directories
 | | sync:engine | laravel-*/ | build/ | Framework Original Sources
 | | sync:src | src/ | build/ | Application sources
 | | sync:assets | build/resources/assets/ | build/public/assets/ | Build Assets to public
@@ -103,19 +103,19 @@ Below is a list of gulp tasks and their possible params:
 | | sync:views | | | 
 | | sync:dist | build/ | dist/ | Create release directory from BUILD
 | | sync:web | build/ | webroot/ | Create/update public web directory
-| :five: | **build** | | | Build package
+ :five: | **build** | | | Build package
 | | build | | dist/ | Production package
 | | build:dev | | build/ | Development stage test package
-| :six: | **deploy** | | | Publish releases
-| :seven: | **lint** | | | Checks JS and CSS files for mistakes
+ :six: | **deploy** | | | Publish releases
+ :seven: | **lint** | | | Checks JS and CSS files for mistakes
 | | jscs | | | Code style linter and formatter
 | | jshint | | | Static Code Analysis Tool
-| :eight: | **watch** | | | Detect files changes
+ :eight: | **watch** | | | Detect files changes
 | | watch:src:views | | | Templates
 | | watch:src:css | | | Styles
 | | watch:src:js | | | Scripts
-| :nine: | **artisan** | | | Laravel console commands
-| :unlock:| fixPermissions | | build/ | Set owner of files to webserver user
+ :nine: | **artisan** | | | Laravel console commands
+ :unlock:| fixPermissions | | build/ | Set owner of files to webserver user
 
 ---------
 
@@ -133,33 +133,33 @@ Below is a list of gulp tasks and their possible params:
 ---------
 
 ## Todo List ##
-[ ] Implement search throw items.
+ - [ ] Implement search throw items.
 
 ## Change log ##
 
 ### v1.0.2: ###
 
 ### v1.0.1: ###
-[x] Genre tags added as labels for track
-[x] gulpfile.js scenario tasks improved
-[x] setup.sh and setup.rc scripts used to simplify setup and build processes
-[x] Documentation update
-[x] Repository page look on github improved with logo image
+ - [x] Genre tags added as labels for track
+ - [x] gulpfile.js scenario tasks improved
+ - [x] setup.sh and setup.rc scripts used to simplify setup and build processes
+ - [x] Documentation update
+ - [x] Repository page look on github improved with logo image
 
 ### v1.0.0: ###
- [x] Laravel 5.2 is now used as a backend framework
- [x] Items that was uploaded in less than a week ago marked with "NEW" label
- [x] Ability for visitors to register and become Users with access to private cabinet.
- [x] Current playing item is moved on top of the list.
- [x] Possibility to edit item properties from Admin Panel.
+ - [x] Laravel 5.2 is now used as a backend framework
+ - [x] Items that was uploaded in less than a week ago marked with "NEW" label
+ - [x] Ability for visitors to register and become Users with access to private cabinet.
+ - [x] Current playing item is moved on top of the list.
+ - [x] Possibility to edit item properties from Admin Panel.
 
 ### v0.0.2: ###
- [x] Added 'Plays' counter which indicates how many times track was listened
+ - [x] Added 'Plays' counter which indicates how many times track was listened
 
 ### v0.0.1: ###
- [x] Add bower.json file
- [x] Add package.json data
- [x] Create directories tree structure
+ - [x] Add bower.json file
+ - [x] Add package.json data
+ - [x] Create directories tree structure
 
 ### v0.0.0: ###
  [x] Initial release
