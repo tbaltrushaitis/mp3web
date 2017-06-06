@@ -47,7 +47,7 @@ $   sudo find . -type f -exec chmod 664 {} \; \
 ### Configure ###
 Open file `setup.rc` in your favourite editor and change values of build variables in it (e.g. DB_HOST, APP_URL)
 
-## Build &amp; Deploy ##
+## Build and Deploy ##
 
  - With NPM
 
