@@ -62,7 +62,7 @@ function splash () {
 function Delay () {
     local T=1;
     printf "\nTimeout ${T} second(s) ... ";
-    sleep 1;
+    sleep T;
     printf "DONE\n";
     # exit 0;
 }
