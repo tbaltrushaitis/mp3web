@@ -147,22 +147,22 @@ Below is a list of gulp tasks and their possible params:
 [x] Repository page look on github improved with logo image
 
 ### v1.0.0: ###
-[x] Laravel 5.2 is now used as a backend framework
-[x] Items that was uploaded in less than a week ago marked with "NEW" label
-[x] Ability for visitors to register and become Users with access to private cabinet.
-[x] Current playing item is moved on top of the list.
-[x] Possibility to edit item properties from Admin Panel.
+ [x] Laravel 5.2 is now used as a backend framework
+ [x] Items that was uploaded in less than a week ago marked with "NEW" label
+ [x] Ability for visitors to register and become Users with access to private cabinet.
+ [x] Current playing item is moved on top of the list.
+ [x] Possibility to edit item properties from Admin Panel.
 
 ### v0.0.2: ###
-[x] Added 'Plays' counter which indicates how many times track was listened
+ [x] Added 'Plays' counter which indicates how many times track was listened
 
 ### v0.0.1: ###
-[x] Add bower.json file
-[x] Add package.json data
-[x] Create directories tree structure
+ [x] Add bower.json file
+ [x] Add package.json data
+ [x] Create directories tree structure
 
 ### v0.0.0: ###
-[x] Initial release
+ [x] Initial release
 
 --------
 
