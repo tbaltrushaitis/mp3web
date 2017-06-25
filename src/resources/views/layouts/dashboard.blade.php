@@ -21,7 +21,7 @@ desired effect
 |---------------------------------------------------------|
 /-->
 <body   id="layout-dashboard"
-        class="skin-blue hold-transition fixed sidebar-collapse theme-default"
+        class="skin-blue hold-transition layout-boxed sidebar-collapse theme-default"
         data-id_page="layout-dashboard"
         data-rooturl="{{ Request::root() }}">
 
