@@ -188,7 +188,7 @@ gulp.task(  'build:dev',  gulpSequence(
   , 'artisan:key:generate'
   , 'bower'
   , 'sync:bower:fonts'
-  , 'sync:resources'
+  , 'sync:assets2public'
   , 'sync:assets'
   , ['build:css', 'build:js']
 ));
@@ -200,12 +200,12 @@ gulp.task('build',      gulpSequence(
                           , 'artisan:key:generate'
                           , 'bower'
                           , 'sync:bower:fonts'
-                          , 'sync:resources'
+                          , 'sync:assets2public'
                           , 'sync:assets'
                           , ['build:css', 'build:js']
                         ));
-gulp.task('dist',       gulpSequence(['clean:dist'], ['sync:dist']));
-gulp.task('deploy',     gulpSequence('sync:web', 'artisan:clear'));
+gulp.task('dist',       gulpSequence(['clean:dist'], ['sync:build2dist']));
+gulp.task('deploy',     gulpSequence('sync:build2web', 'artisan:clear'));
 gulp.task('watch',      gulpSequence('watch:src:views', 'watch:src:css', 'watch:src:js'));
 
 
@@ -217,7 +217,7 @@ gulp.task('watch:src:views', function () {
                         ]
                       , watchOptions
                       , function () {
-                            gulpSequence('sync:src2build', 'sync:web', 'artisan:clear')();
+                            gulpSequence('sync:src2build', 'sync:build2web', 'artisan:clear')();
                     });
     wViews.on('change', function (event) {
         console.info('View ' + event.path + ' was ' + event.type + ', running tasks...');
@@ -230,7 +230,7 @@ gulp.task('watch:src:css', function () {
                     ]
                   , watchOptions
                   , function () {
-                        gulpSequence('sync:src2build', 'sync:resources', 'build:css', 'sync:web')();
+                        gulpSequence('sync:src2build', 'sync:assets2public', 'build:css', 'sync:build2web')();
                     });
     wCSS.on('change', function (event) {
         console.info('CSS ' + event.path + ' was ' + event.type + ', running tasks...');
@@ -241,7 +241,7 @@ gulp.task('watch:src:js', function () {
     var wScripts    =   gulp.watch([path.join(SRC, 'resources/assets/js', '**/*.js')]
                       , watchOptions
                       , function () {
-                            gulpSequence('sync:src2build', 'sync:resources', 'lint', 'build:js', 'sync:web')();
+                            gulpSequence('sync:src2build', 'sync:assets2public', 'lint', 'build:js', 'sync:build2web')();
                         });
     wScripts.on('change', function (event) {
         console.info('JS ' + event.path + ' was ' + event.type + ', running tasks...');
@@ -352,85 +352,6 @@ gulp.task('sync:bower:fonts', function () {
 
     return merge(resLato);
 });
-
-
-gulp.task('sync:resources', function () {
-
-    var DEST    =   path.resolve(path.join(BUILD, 'public'));
-
-    var resAssets   =   gulp.src([
-                                path.join(BUILD, 'resources/assets', '*.*')
-                            ])
-                            .pipe(changed(path.join(DEST, 'assets')))
-                            .pipe(gulp.dest(path.join(DEST, 'assets')))
-                            .on('error', console.error.bind(console));
-
-    var resStuff    =   gulp.src([
-                                path.join(BUILD, 'resources', '*.*')
-                              , path.join(BUILD, 'resources', '.*')
-                            ])
-                            .pipe(changed(DEST))
-                            .pipe(gulp.dest(DEST))
-                            .on('error', console.error.bind(console));
-
-    return merge(resAssets, resStuff);
-});
-
-
-/* gulp.task('sync:views', function () {
-    return  gulp.src('')
-                .pipe(dirSync(
-                    path.join(SRC,   'resources/views')
-                  , path.join(BUILD, 'resources/views')
-                  , syncOptions
-                ))
-                .on('error', console.error.bind(console));
-}); */
-
-/* gulp.task('sync:engine', function () {
-    return  gulp.src('')
-                .pipe(dirSync(
-                    ENGINE
-                  , BUILD
-                  , _.extend({}, syncOptions, {ignore: [
-                        /^\.env(.*)?$/i
-                      , /^(.*)\.md$/i
-                      , /^(.*)\.lock$/i
-                    ]})
-                ))
-                .on('error', console.error.bind(console));
-});
-*/
-
-/* gulp.task('sync:src', function () {
-    return  gulp.src('')
-                .pipe(dirSync(SRC, BUILD, syncOptions))
-                .on('error', console.error.bind(console));
-});
-*/
-
-gulp.task('sync:assets', function () {
-    return  gulp.src('')
-                .pipe(dirSync(
-                    path.join(BUILD, 'resources/assets')
-                  , path.join(BUILD, 'public/assets')
-                  , syncOptions
-                ))
-                .on('error', console.error.bind(console));
-});
-
-gulp.task('sync:dist', function () {
-    return  gulp.src('')
-                .pipe(dirSync(BUILD, DIST, syncOptions))
-                .on('error', console.error.bind(console));
-});
-
-gulp.task('sync:web', function () {
-    return  gulp.src('')
-                .pipe(dirSync(BUILD, WEB, syncOptions))
-                .on('error', console.error.bind(console));
-});
-
 
 
 //  BUNDLE CSS and JS
