@@ -22,10 +22,16 @@ fi
 set -e
 trap 'echo >&2 Ctrl+C captured, exiting; exit 1' SIGINT
 
+##  Colors
+if [ -f ./bin/.bash_colors ]; then
+    source ./bin/.bash_colors
+fi
+
 ## Source settings
 if [ -f ./setup.rc ]; then
     source setup.rc
 else
+    printf "Missing file [setup.rc]\n"
     exit 1
 fi
 
@@ -34,7 +40,8 @@ function usage () {
     >&2 cat << EOM
             ${BWhite}Build application${NC}
 
-Usage: $0 <command> [<params>]
+Usage:
+    $0 <command> [<params>]
 
     $0 <usage | help | h>   -   Show usage information
     $0 <test | t>           -   Perform environment tests
@@ -96,7 +103,7 @@ function logEnv () {
     info "WEB_USER = \t ${WEB_USER}";
     info "OPTS = \t ${OPTS}";
 
-    info "$FUNCNAME Finished";
+    splash "$FUNCNAME Finished";
     return 0;
 }
 
@@ -112,7 +119,7 @@ function preSetupChecks () {
     okBower
     okGulp
 
-    info "$FUNCNAME Finished";
+    splash "$FUNCNAME Finished";
     return 0;
 }
 
@@ -139,7 +146,7 @@ function depsChecks () {
     # deps_outdated
     # sleep 1;
 
-    info "$FUNCNAME Finished";
+    splash "$FUNCNAME Finished";
     exit 0;
 }
 
@@ -165,7 +172,7 @@ function Build () {
     sudo chown -R ${WEB_USER}:${WEB_USER} "${BUILD}/"
     Delay
 
-    info "$FUNCNAME Finished";
+    splash "$FUNCNAME Finished";
     exit 0;
 }
 
@@ -174,22 +181,22 @@ function Deploy () {
     splash "$FUNCNAME params: (${@})";
 
     cd ${WD}
-    node gulpfile.js sync:web --env=${APP_ENV} --verbose
-    Delay
+    node gulpfile.js sync:web --env=${APP_ENV} --verbose    \
+ && Delay
 
     cd ${WD}
     cd "${WD}/${APP_DIR}/public/"
-    ln -s ../storage/media/audio/ >&2 2>/dev/null
-    Delay
+    ln -s ../storage/media/audio/ >&2 2>/dev/null    \
+ && Delay
 
     cd ${WD}
-    sudo chown -R ${WEB_USER}:${WEB_USER} "${APP_DIR}"
-    Delay
+    sudo chown -R ${WEB_USER}:${WEB_USER} "${APP_DIR}"    \
+ && Delay
 
-    node gulpfile.js artisan:clear --env=${APP_ENV} --verbose
-    Delay
+    node gulpfile.js artisan:clear --env=${APP_ENV} --verbose    \
+ && Delay
 
-    info "$FUNCNAME Finished";
+    splash "$FUNCNAME Finished";
     exit 0;
 }
 
@@ -229,15 +236,14 @@ case "$1" in
 
     "build" | "b")
         info "build()";
-        Build
+        Build && Delay
         RETVAL=$?
     ;;
 
     "rebuild" | "rb")
         info "REbuild()";
-        Build
-        Delay
-        Deploy
+        Build && Delay
+        Deploy && Delay
         RETVAL=$?
     ;;
 
@@ -249,18 +255,15 @@ case "$1" in
 
     "all" | "a")
         info "all()";
-        preSetupChecks
-        Delay
-        depsChecks
-        Delay
-        Build
-        Delay
-        Deploy
+        preSetupChecks && Delay
+        depsChecks && Delay
+        Build && Delay
+        Deploy && Delay
         RETVAL=$?
     ;;
 
     *)
-        info "UNKNOWN command";
+        error "UNKNOWN command: $1";
         usage
         RETVAL=1
     ;;
