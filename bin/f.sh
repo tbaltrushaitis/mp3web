@@ -16,43 +16,45 @@
 ##      loadEnv
 ##      saveEnv
 
+##      set_permissions
+
 ##  ------------------------------------------------------------------------  ##
 ##                                    LOGGERS                                 ##
 ##  ------------------------------------------------------------------------  ##
 
 function log () {
-    printf "[$FUNCNAME][$(date +'%Y%m%d%H%M%S')]\t%s\n" "$@";
+    echo -en "\n${White}[$FUNCNAME][$(date +'%Y%m%d%H%M%S')]:\t" "${@}" "\n${NC}";
 }
 
 
 function info () {
-    echo -en "\n${BBlue}[$FUNCNAME]: ${NC}\t" "${@}";
+    echo -en "\n${BBlue}[$FUNCNAME][$(date +'%Y%m%d%H%M%S')]:\t" "${@}${NC}";
 }
 
 
 function warn () {
-    echo -en "\n${BYellow}[$FUNCNAME]:${NC}\t" "${@}";
+    echo -en "\n${BYellow}[$FUNCNAME][$(date +'%Y%m%d%H%M%S')]:\t" "${@}${NC}";
 }
 
 
 function error () {
-    echo -en "\n${BRed}[$FUNCNAME]:${NC}\t" "${@}" "\n" 1>&2;
+    echo -en "\n${BRed}[$FUNCNAME][$(date +'%Y%m%d%H%M%S')]:\t" "${@}" "\n${NC}" 1>&2;
 }
 
 
 function fatal () {
-    echo -e "\n";
+    echo -e "\n${BRed}";
     echo -ne "****************** $FUNCNAME *************************"
     echo -ne "%s\n" "$@"
-    echo -ne "****************** $FUNCNAME *************************"
+    echo -ne "****************** $FUNCNAME *************************\n${NC}"
 }
 
 
 function splash () {
-    echo -ne "\n";
+    echo -ne "\n${BCyan}";
     echo -ne "****************** === *************************\n"
-    echo -ne "${BBlue}[$FUNCNAME]${NC}:\t" "${@}" "\n";
-    echo -ne "****************** === *************************\n"
+    echo -ne "[$FUNCNAME][$(date +'%Y%m%d%H%M%S')]:\t" "${@}" "\n";
+    echo -ne "****************** === *************************\n${NC}"
 }
 
 ##  ------------------------------------------------------------------------  ##
@@ -125,3 +127,22 @@ function saveEnv () {
     fi
 
 }
+
+
+##  ------------------------------------------------------------------------  ##
+##                              PERMISSIONS
+##  ------------------------------------------------------------------------  ##
+function set_permissions {
+    set W_DIR="${@}"
+    printf "\n------------------  SET PERMISSIONS  ------------------------\n";
+    chown -R root:${WEB_GROUP} ${W_DIR}
+    chmod 775 ${W_DIR}
+
+    cd ${W_DIR}
+    find . -type d -exec chmod 775 {} \;
+    find . -type f -exec chmod 664 {} \;
+
+    printf "PERMISSIONS CHANGED FOR: [${W_DIR}] \n\n";
+    printf "======================================================\n";
+}
+
