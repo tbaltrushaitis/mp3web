@@ -1,6 +1,6 @@
 {   "name":         "mp3web"
   , "title":        "Web MP3 Player and Media Library Manager"
-  , "description":  "Web MP3 Player and Media Library Manager based on Node.js, Laravel and HTML5 + lightweight JavaScript MVC modeling on FrontEnd"
+  , "description":  "Web MP3 Player and Media Library Manager with respect to Laravel, HTML5 and lightweight JavaScript MVC implementation based on requirejs"
   , "version":      "1.0.2"
   , "author": {
         "name":  "Baltrushaitis Tomas"
@@ -16,6 +16,26 @@
         "node": ">=0.10.1"
       , "php":  ">=5.5.38"
     }
+  , "files":    [
+        "./bin/"
+      , "./gulp-tasks/"
+      , "./src/"
+      , ".bowerrc"
+      , ".eslintrc"
+      , ".gitattributes"
+      , ".gitconfig"
+      , ".gitignore"
+      , ".jscsrc"
+      , ".jshintrc"
+      , ".npmrc"
+      , "bitbucket-pipelines.yml"
+      , "bower.json"
+      , "gulpfile.js"
+      , "README.md"
+      , "setup.sh"
+      , "setup.rc"
+      , "VERSION"
+    ]
   , "main":     "gulpfile.js"
   , "scripts": {
         "start":    "./setup.sh"
@@ -51,7 +71,7 @@
   , "dependencies": {
     }
   , "devDependencies": {
-        "bower":                "^1.7.9"
+        "bower":                "^1.8.0"
       , "dateformat":           "^2.0.0"
       , "del":                  "^2.2.2"
       , "gulp":                 "^3.9.1"
@@ -80,12 +100,14 @@
       , "gulp-newer":           "^1.2.0"
       , "gulp-rename":          "^1.2.2"
       , "gulp-replace":         "^0.5.4"
+      , "gulp-require-tasks":   "^1.1.1"
       , "gulp-sequence":        "^0.4.6"
       , "gulp-tar":             "^1.9.0"
       , "gulp-template":        "^4.0.0"
       , "gulp-uglify":          "^3.0.0"
       , "gulp-util":            "^3.0.8"
       , "gulp-watch":           "^4.3.9"
+      , "handybower":           "^1.2.5"
       , "jquery":               "^2.2.4"
       , "jshint":               "^2.9.3"
       , "jshint-stylish":       "^2.2.1"
@@ -94,8 +116,10 @@
       , "merge-stream":         "^1.0.0"
       , "minimist":             "^1.2.0"
       , "nconf":                "^0.8.4"
-      , "vinyl-paths":          "^2.1.0"
+      , "run-sequence":         "^1.2.2"
       , "underscore":           "^1.8.3"
+      , "versionn":             "^1.0.2"
+      , "vinyl-paths":          "^2.1.0"
     }
   , "outdatedDependencies": {
         "gulp-header":  "^1.8.8"
@@ -175,7 +199,7 @@
       , "watch": {
             "ignoreInitial":    false
           , "verbose":          true
-          , "readDelay":        100
+          , "readDelay":        500
         }
     }
   , "jshintConfig": {
