@@ -133,14 +133,15 @@ function saveEnv () {
 ##                              PERMISSIONS
 ##  ------------------------------------------------------------------------  ##
 function set_permissions {
-    set W_DIR="${@}"
+    W_DIR="$1"
     printf "\n------------------  SET PERMISSIONS  ------------------------\n";
-    chown -R root:${WEB_GROUP} ${W_DIR}
-    chmod 775 ${W_DIR}
+    info "W_DIR = ${W_DIR}"
+    sudo chown -R root:"${WEB_USER}" "${W_DIR}"
+    sudo chmod 775 "${W_DIR}"
 
-    cd ${W_DIR}
-    find . -type d -exec chmod 775 {} \;
-    find . -type f -exec chmod 664 {} \;
+    cd "${W_DIR}"
+    sudo find . -type d -exec chmod 775 {} \;
+    sudo find . -type f -exec chmod 664 {} \;
 
     printf "PERMISSIONS CHANGED FOR: [${W_DIR}] \n\n";
     printf "======================================================\n";
