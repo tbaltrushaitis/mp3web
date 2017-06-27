@@ -54,6 +54,11 @@ EOM
     RETVAL=1
 }
 
+##  root password for sudo operations
+echo "Please enter your sudo Password: "
+# read -s SUDO_PASS_INPUT
+# export SUDO_PW=${SUDO_PASS_INPUT}
+sudo -v
 
 ##  ------------------------------------------------------------------------  ##
 ##                                PREREQUISITES                               ##
@@ -77,6 +82,11 @@ DIST="${WD}/dist"
 
 DATE="$(date +"%Y%m%d%H%M%S")"
 DATETIME="$(date "+%Y-%m-%d")_$(date "+%H-%M-%S")"
+
+for D in "${BUILD} ${DIST}"
+    do
+        mkdir -p "${D}"
+    done
 
 # printf "\n----------------------------  ${DATE}  ---------------------------\n";
 
@@ -147,12 +157,16 @@ function depsChecks () {
     # sleep 1;
 
     splash "$FUNCNAME Finished";
-    exit 0;
+    # exit 0;
 }
 
 
 function Build () {
     splash "$FUNCNAME Started with: (${@})";
+
+    # mkdir -p ${BUILD} # && chmod 775 ${BUILD}
+    mkdir -p ${BUILD}
+    set_permissions ${BUILD}
 
     cd ${WD}
     node gulpfile.js --env=${APP_ENV} #--verbose
@@ -169,16 +183,20 @@ function Build () {
     Delay
 
     cd ${WD}
-    sudo chown -R ${WEB_USER}:${WEB_USER} "${BUILD}/"
+    # sudo chown -R ${WEB_USER}:${WEB_USER} "${BUILD}/"
+    set_permissions ${BUILD}
     Delay
 
     splash "$FUNCNAME Finished";
-    exit 0;
+    # exit 0;
 }
 
 
 function Deploy () {
     splash "$FUNCNAME params: (${@})";
+
+    mkdir -p "${WD}/${APP_DIR}/public/" #&& chmod -R 775 "${WD}/${APP_DIR}/public/"
+    set_permissions ${WD}/${APP_DIR}
 
     cd ${WD}
     node gulpfile.js sync:web --env=${APP_ENV} --verbose    \
@@ -197,7 +215,7 @@ function Deploy () {
  && Delay
 
     splash "$FUNCNAME Finished";
-    exit 0;
+    # exit 0;
 }
 
 
