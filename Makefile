@@ -81,7 +81,7 @@ clean-dist:
 	# @ NODE_ENV=test $(MOCHA)
 
 dev:
-	@ ./setup.sh
+	@ ./setup.sh all
 	# @ NODE_ENV=development gulp
 
 prod:
