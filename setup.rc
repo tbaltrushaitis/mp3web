@@ -7,9 +7,10 @@ APP_DEBUG=true
 
 APP_KEY=base64:/this_is-example/key+M=
 APP_URL=http://mp3.local
+APP_BASE=
 APP_HOME=
 APP_DIR="webroot"
-WEB_USER="apache"
+WEB_USER="www-data"
 
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
