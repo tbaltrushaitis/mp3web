@@ -2,12 +2,12 @@ pipelines:
   default:
     - step:
         script:
-          - echo "This script runs on all branches that don't have any specific pipeline assigned in 'branches'.""
+          - echo "This script runs on all branches that don't have any specific pipeline assigned in 'branches'.\n"
   branches:
     master:
       - step:
           script:
-            - echo "This script runs only on commit to the MASTER branch."
+            - printf "This script runs only on commit to the MASTER branch.\n"
             - uname -a
             - free -m
             - df -H
@@ -18,7 +18,7 @@ pipelines:
     dev-1.0.2:
       - step:
           script:
-            - echo "This script runs only on commit to the dev-1.0.2 branch."
+            - printf "This script runs only on commit to the dev-1.0.2 branch.\n"
             - uname -a
             - apt-get update -y
             - apt -y install php5 php5-cli php5-common
@@ -26,7 +26,7 @@ pipelines:
             # - cd mp3web
             - CODE_VERSION="$(cat ./VERSION)"
             - printf "CODE_VERSION\t = \t ${CODE_VERSION}";
-            - GIT_BRANCH="dev-${CODE_VERSION}";
+            # - GIT_BRANCH="dev-${CODE_VERSION}";
             # - git checkout ${BITBUCKET_BRANCH}
             - git branch
             # - git pull
@@ -50,4 +50,7 @@ pipelines:
             # - ./setup.sh prepare --env=production
             # - ./setup.sh build --env=production
             # - ./setup.sh deploy --env=production
+      - step:
+          script:
+            - printf "Step 2\n"
             - printf "Everything is awesome!\n";
