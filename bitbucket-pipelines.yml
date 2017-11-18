@@ -18,32 +18,15 @@ pipelines:
     dev-1.0.2:
       - step:
           script:
-            - printf "This script runs only on commit to the dev-1.0.2 branch.\n"
+            - printf "[Step_1] This script runs only on commit to the [${BITBUCKET_BRANCH}] branch.\n"
             - uname -a
+            - pwd
+      - step:
+          script:
+            - printf "[Step_2] This script runs only on commit to the [${BITBUCKET_BRANCH}] branch.\n"
             - apt-get update -y
             - apt -y install php5 php5-cli php5-common
-            # - git clone https://bitbucket.org/tbaltrushaitis/mp3web mp3web
-            # - cd mp3web
-            - CODE_VERSION="$(cat ./VERSION)"
-            - printf "CODE_VERSION\t = \t ${CODE_VERSION}";
-            # - GIT_BRANCH="dev-${CODE_VERSION}";
-            # - git checkout ${BITBUCKET_BRANCH}
-            - git branch
-            # - git pull
-            - ls -als
-            - find . -type f -exec chmod 664 {} \;
-            - find . -type d -exec chmod 775 {} \;
-            - find . -type f -name "*.sh" -exec chmod 775 {} \;
-            - npm -v
-            - npm i
-            # - npm start
-            # - npm run test
-            # - npm run setup
-            # - npm run build
-            # - npm run deploy
-            - pwd
             - php -v
-            - which wget
             - make
             - make dev
             # - ./setup.sh test --env=production
@@ -52,5 +35,6 @@ pipelines:
             # - ./setup.sh deploy --env=production
       - step:
           script:
-            - printf "Step 2\n"
+            - printf "[Step_3] This script runs only on commit to the [${BITBUCKET_BRANCH}] branch.\n"
+            - make prod
             - printf "Everything is awesome!\n";

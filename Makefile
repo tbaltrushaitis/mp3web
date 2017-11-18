@@ -93,7 +93,7 @@ dev:
 	# @ NODE_ENV=development gulp
 
 prod:
-	@ NODE_ENV=production
+	@ NODE_ENV=production ./setup.sh "all"
 
 release:
 	git submodule update
