@@ -59,7 +59,7 @@ EOM
 echo "Please enter your sudo Password: "
 # read -s SUDO_PASS_INPUT
 # export SUDO_PW=${SUDO_PASS_INPUT}
-sudo -v
+# sudo -v
 
 ##  ------------------------------------------------------------------------  ##
 ##                                PREREQUISITES                               ##
@@ -217,9 +217,13 @@ function Deploy () {
   # mkdir -p "${WD}/${APP_DIR}/public/";
   # set_permissions ${WD}/${APP_DIR};
 
+  # cd ${WD}
+  # node gulpfile.js deploy --env=${APP_ENV} --verbose        \
+  # && Delay;
+
   cd ${WD}
-  node gulpfile.js sync:web --env=${APP_ENV} --verbose        \
-  && Delay;
+  cp -prv ${BUILD}/* ${DIST}/ 2>/dev/null
+  warn "Directory [${BUILD}/*] content COPIED to [${DIST}/]";
 
   # cd ${WD}
   # cd "${WD}/${APP_DIR}/public/"
@@ -292,7 +296,7 @@ case "$1" in
 
   "deploy" | "d")
     info "deploy()";
-    Deploy
+    Deploy && Delay
     RETVAL=$?
   ;;
 

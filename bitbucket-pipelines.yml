@@ -20,20 +20,20 @@ pipelines:
           script:
             - echo "This script runs only on commit to the dev-1.0.2 branch."
             - uname -a
-            - apt-get update
-            - apt -y install php5 php5-cli php5-common 
-            - git clone https://bitbucket.org/tbaltrushaitis/mp3web mp3web
-            - cd mp3web
+            - apt-get update -y
+            - apt -y install php5 php5-cli php5-common
+            # - git clone https://bitbucket.org/tbaltrushaitis/mp3web mp3web
+            # - cd mp3web
             - CODE_VERSION="$(cat ./VERSION)"
             - printf "CODE_VERSION\t = \t ${CODE_VERSION}";
             - GIT_BRANCH="dev-${CODE_VERSION}";
-            - git checkout ${GIT_BRANCH}
+            # - git checkout ${BITBUCKET_BRANCH}
             - git branch
-            - git pull
+            # - git pull
             - ls -als
             - find . -type f -exec chmod 664 {} \;
             - find . -type d -exec chmod 775 {} \;
-            - find . -type f -name *.sh -exec chmod 775 {} \;
+            - find . -type f -name "*.sh" -exec chmod 775 {} \;
             - npm -v
             - npm i
             # - npm start
@@ -44,8 +44,10 @@ pipelines:
             - pwd
             - php -v
             - which wget
+            - make
+            - make dev
             # - ./setup.sh test --env=production
-            - ./setup.sh prepare --env=production
-            - ./setup.sh build --env=production
-            - ./setup.sh deploy --env=production
+            # - ./setup.sh prepare --env=production
+            # - ./setup.sh build --env=production
+            # - ./setup.sh deploy --env=production
             - printf "Everything is awesome!\n";

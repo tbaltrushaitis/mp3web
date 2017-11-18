@@ -55,12 +55,12 @@ const uglify        =   require('gulp-uglify');
 
 //const Config    =   require('nconf');
 const pkg     =   require('./package.json');
-const ENGINE  =   path.join('laravel-5.2');
+const ENGINE  =   path.join('laravel-5.2.31');
 const BOWER   =   JSON.parse(fs.readFileSync('./.bowerrc')).directory;
 
 global.Config =   require('nconf');
 //global.pkg  =   require('./package.json');
-global.ENGINE =   path.join('laravel-5.2');
+global.ENGINE =   path.join('laravel-5.2.31');
 global.BOWER  =   JSON.parse(fs.readFileSync('./.bowerrc')).directory;
 
 const SRC     =   path.join('src');
@@ -91,7 +91,7 @@ const watchOptions  =   _.extend({}, pkg.options.watch);
 const VERSION = fs.readFileSync('./VERSION', fileOptions).trim();
 const COMMIT  = fs.readFileSync('./COMMIT',  fileOptions).trim();
 
-global.NODE_ENV = global.NODE_ENV || fs.readFileSync('./.NODE_ENV', fileOptions).trim();
+global.NODE_ENV = process.env.NODE_ENV || fs.readFileSync('./.NODE_ENV', fileOptions).trim();
 
 var now = new Date();
 var headerTpl = _.template( '\n/*!\n'
@@ -205,7 +205,8 @@ gulp.task('build', gulpSequence(
   , ['build:css', 'build:js']
 ));
 gulp.task('dist',       gulpSequence(['clean:dist'], ['sync:build2dist']));
-gulp.task('deploy',     gulpSequence('sync:build2web', 'artisan:clear'));
+// gulp.task('deploy',     gulpSequence('sync:build2web', 'artisan:clear'));
+gulp.task('deploy',     ['sync:build2web', 'artisan:clear']);
 gulp.task('watch',      gulpSequence('watch:src:views', 'watch:src:css', 'watch:src:js'));
 
 
