@@ -6,7 +6,7 @@
   , "authors": [
         "tbaltrushaitis@gmail.com"
     ]
-  , "private":  true
+  , "private":  false
   , "license":  "MIT"
   , "keywords": [
         "mp3"
@@ -95,9 +95,9 @@
         }
       , "lato-font": {
             "main": [
-                "fonts/**/*.*"
-              , "css/*.css"
+                "css/*.css"
               , "!css/*.min.css"
+              , "!fonts/**"
             ]
         }
       , "raty": {
@@ -112,5 +112,49 @@
               , "wdtMarkup.html"
             ]
         }
+    }
+  , "overridesDisabled": {
+        "lato-font": {
+            "main": [
+                "fonts/**"
+              , "css/*.css"
+              , "!css/*.min.css"
+            ]
+        }
+    }
+  , "group": {
+        "front":    [
+            "animate.css"
+          , "bootstrap"
+          , "font-awesome"
+          , "html5shiv"
+          , "jquery"
+          , "lodash"
+          , "raty"
+          , "requirejs"
+          , "roboto-webfont-bower"
+        ]
+      , "fonts":    [
+            "bootstrap"
+          , "font-awesome"
+          , "lato-font"
+          , "raty"
+          , "roboto-webfont-bower"
+        ]
+      , "home": [
+            "admin-lte"
+          , "animate.css"
+          , "bootstrap"
+          , "bootstrap-tagsinput"
+          , "font-awesome"
+          , "html5shiv"
+          , "jquery"
+          , "jquery-tmpl"
+          , "lato-font"
+          , "lodash"
+          , "raty"
+          , "requirejs"
+        ]
+      , "admin":    ["BOWER-PACKAGE-1", "BOWER-PACKAGE-2", "BOWER-PACKAGE-3"]
     }
 }
