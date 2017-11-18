@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
 ##  ------------------------------------------------------------------------  ##
-##  PHP COMPOSER
+##              f-php-composer.sh: PHP COMPOSER setup and update              ##
 ##  ------------------------------------------------------------------------  ##
-##  - Install php composer
-
-##  Consists of:
-##      composer_setup
-##      composer_selfupdate
-##      check_composer
+##  Provides:
+##    composer_setup()
+##    composer_selfupdate()
+##    composer_check()
+##  ------------------------------------------------------------------------  ##
 
 function composer_setup {
   SIGNATURE_EXPECTED=$(wget http://composer.github.io/installer.sig -O - -q)
@@ -17,7 +16,7 @@ function composer_setup {
   if [ "$SIGNATURE_EXPECTED" = "$SIGNATURE_ACTUAL" ]
   then
     printf "[OK]\tCorrect installer signature [$SIGNATURE_ACTUAL]\n"
-    sudo php composer-setup.php --install-dir=/bin --filename=composer
+    sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
     RESULT=$?
     mv composer-setup.php composer-setup-DONE-$(date +"%s").php
     printf "[LOG]\tCOMPOSER INSTALL FINISHED\n"
@@ -32,21 +31,20 @@ function composer_setup {
 
 function composer_selfupdate {
   composer -vvv selfupdate
-  printf "[LOG]\tCOMPOSER UPDATED to $(composer -V)\n"
+  info "[LOG]\tCOMPOSER UPDATED to $(composer -V)\n"
 }
 
 
-function check_composer {
-  # _composer=`which composer 2>&1`
-  # if [ $? -ne 0 ]; then
-    # printf "[WARNING]\tComposer not found!\n";
-    printf "[INFO]\thttp://getcomposer.org/\n";
-    printf "[LOG]\tStarting composer setup ... \n";
+function composer_check {
+  _composer=`which composer 2>&1`;
+  if [ $? -ne 0 ]; then
+    warn "Composer not found!";
+    info "Starting composer setup from [http://getcomposer.org/] ... \n";
     composer_setup
     composer_selfupdate
-    printf "[INFO]\tPlease run $# again.\n";
+    info "\t FINISHED composer setup. Please run $# again.\n";
     # exit 1
-  # fi
+  fi
   printf "[OK]\t$(composer -V) Installed\n";
 }
 
