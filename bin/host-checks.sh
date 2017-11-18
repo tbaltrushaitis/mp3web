@@ -3,12 +3,12 @@
 ##            host-checks.sh: Test variables, packages, etc                   ##
 ##  ------------------------------------------------------------------------  ##
 
-##  Consists of:
-##      okNode
-##      okNpm
-##      okBower
-##      okGulp
-##      okGrunt
+##  Provides:
+##    okNode()
+##    okNpm()
+##    okBower()
+##    okGulp()
+##    okGrunt()
 
 ##  ------------------------------------------------------------------------  ##
 ##                                  NODEJS                                    ##
@@ -98,4 +98,3 @@ function okGrunt () {
     fi
     printf "[OK]\tGRUNT Installed:\n$(grunt -V) \n";
 }
-
