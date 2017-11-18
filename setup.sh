@@ -146,6 +146,9 @@ function preSetupChecks () {
 function depsChecks () {
   splash "$FUNCNAME Started with: (${@})";
 
+  createDirTree "${BUILD} ${DIST}"
+  Delay
+
   composer_check
   Delay
 
@@ -153,10 +156,10 @@ function depsChecks () {
   Delay
 
   # fix_permissions
-  # sleep 1;
+  # Delay
 
-  deps_install
-  Delay
+  # deps_install
+  # Delay
 
   # deps_outdated
   # sleep 1;
@@ -170,26 +173,36 @@ function Build () {
   splash "$FUNCNAME Started with: (${@})";
 
   # mkdir -p ${BUILD} # && chmod 775 ${BUILD}
-  mkdir -p ${BUILD}
-  set_permissions ${BUILD}
+  # mkdir -p ${BUILD}
+  # set_permissions ${BUILD}
+
+  # cd ${WD}
+  # node gulpfile.js --env=${APP_ENV} #--verbose
+  # Delay
+
 
   cd ${WD}
-  node gulpfile.js --env=${APP_ENV} #--verbose
+  cp -prv ${ENGINE_DIR}/* "${BUILD}/" 2>/dev/null
+  warn "Engine directory [${ENGINE_DIR}] COPIED to [${BUILD}/]";
+  # mv -p "${BUILD}/.env" "${BUILD}/.env.${DATE}" 2>/dev/null
+  # cp -prv setup.rc "${BUILD}/.env"
+  # info "COPIED setup.rc to [${BUILD}/.env]";
+  # cp -pr "${SRC}/composer.json" "${BUILD}/"
+  # warn "COPIED [${SRC}/composer.json] to [${BUILD}/]";
+  # cd "${BUILD}" && composer -vvv update && cd -
+
+
+  cp -prv "${SRC}/.env" "${BUILD}/"
+  cp -prv "${SRC}/composer.json" "${BUILD}/"
   Delay
 
-  cd ${WD}
-  mv -p "${BUILD}/.env" "${BUILD}/.env.${DATE}" 2>/dev/null
-  cp -pr ./setup.rc "${BUILD}/.env.setup"
-  cp -pr "${SRC}/composer.json" "${BUILD}/"
-  Delay
+  # cd ${BUILD}
+  # composer -v update
+  # Delay
 
-  cd ${BUILD}
-  composer -v update
-  Delay
-
-  cd ${WD}
-  set_permissions ${BUILD}
-  Delay
+  # cd ${WD}
+  # set_permissions ${BUILD}
+  # Delay
 
   splash "$FUNCNAME Finished";
   # exit 0;
@@ -291,7 +304,7 @@ case "$1" in
   ;;
 
   *)
-    error "UNKNOWN command: $1";
+    fatal "UNKNOWN command: $1";
     usage
     RETVAL=1
   ;;

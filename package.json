@@ -15,6 +15,7 @@
   , "engines": {
         "node": ">=6.11.0"
       , "php":  ">=5.5.38"
+      , "laravel/framework": ">=5.2.31"
     }
   , "files":    [
         "./bin/"

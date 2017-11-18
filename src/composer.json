@@ -55,6 +55,7 @@
       , "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate"
           , "php artisan vendor:publish"
+          , "php artisan key:generate"
           , "php artisan optimize"
         ]
     }

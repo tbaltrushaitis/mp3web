@@ -13,8 +13,8 @@
 
 function engine_check {
   if [ ! -d "${ENGINE_DIR}" ]; then
-    warn "[WARNING]\tEngine directory ${ENGINE_DIR} not found!";
-    log "Starting engine setup ... \n";
+    error "Engine directory [${ENGINE_DIR}] not found!";
+    warn "Starting engine setup ... \n";
     engine_setup
     fix_engine_permissions
     # exit 1
@@ -23,9 +23,14 @@ function engine_check {
 
 
 function engine_setup {
-  composer -vvv create-project --prefer-dist ${ENGINE_NAME}/${ENGINE_TAG} "${ENGINE_DIR}" "${ENGINE_VERSION}.*"
-  # cp -prv "${ENGINE_DIR}" build/ && cp -prv setup.rc build/.env && cd build && composer -vvv update && cd ..
-  info "Engine ${ENGINE_NAME}-${ENGINE_VERSION} deployed to ${ENGINE_DIR}";
+  # composer -vvv create-project --prefer-dist ${ENGINE_NAME}/${ENGINE_TAG} "${ENGINE_DIR}" "${ENGINE_VERSION}.*"
+  git clone -b "v${ENGINE_VERSION}" "https://github.com/laravel/laravel" "${ENGINE_DIR}"
+  warn "Engine ${ENGINE_NAME}-${ENGINE_TAG} DEPLOYED to [${ENGINE_DIR}]";
+  # cp -pr ${ENGINE_DIR}/* build/
+  # warn "Engine directory [${ENGINE_DIR}] COPIED to [build/]";
+  # cp -prv setup.rc build/.env
+  # warn "COPIED setup.rc to [build/.env]";
+  # cd build && composer -vvv update && cd ..
 }
 
 
