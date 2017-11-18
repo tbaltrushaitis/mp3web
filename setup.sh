@@ -52,7 +52,7 @@ function usage () {
     $0 <rebuild | rb>       -   Perform <build> and then <deploy> tasks
 
 EOM
-  RETVAL=1;
+  # RETVAL=1;
 }
 
 ##  root password for sudo operations
@@ -67,7 +67,6 @@ sudo -v
 
 OPTS=$@
 
-# WD="$(cd $(dirname $0) && pwd -P)"    #   Current working directory
 WD="$(pwd -P)"                          #   Current working directory
 APP_HOME="$(pwd -P)/"                   #   Current directory
 APP_PATH="${APP_HOME}${APP_DIR}"        #   Full path to target directory
@@ -85,10 +84,11 @@ DIST="${WD}/dist"
 DATE="$(date +"%Y%m%d%H%M%S")"
 DATETIME="$(date "+%Y-%m-%d")_$(date "+%H-%M-%S")"
 
-for D in "${BUILD} ${DIST}"
-  do
-    mkdir -p "${D}"
-  done
+# for D in "${BUILD}" "${DIST}"
+#   do
+#     mkdir -p "${D}"
+#   done
+
 
 # printf "\n----------------------------  ${DATE}  ---------------------------\n";
 
@@ -111,6 +111,7 @@ function logEnv () {
   info "WD = \t\t ${WD}";
   info "SRC = \t\t ${SRC}";
   info "BUILD = \t ${BUILD}";
+  info "DIST = \t ${DIST}";
   info "ENGINE_DIR = \t ${ENGINE_DIR}";
   info "APP_PATH = \t ${APP_PATH}";
   info "WEB_USER = \t ${WEB_USER}";
@@ -123,6 +124,7 @@ function logEnv () {
 ##  ------------------------------------------------------------------------  ##
 ##                                PRE-CHECKS                                  ##
 ##  ------------------------------------------------------------------------  ##
+
 
 function preSetupChecks () {
   splash "$FUNCNAME Started with: (${@})";
@@ -144,10 +146,10 @@ function preSetupChecks () {
 function depsChecks () {
   splash "$FUNCNAME Started with: (${@})";
 
-  check_composer
+  composer_check
   Delay
 
-  check_engine
+  engine_check
   Delay
 
   # fix_permissions
@@ -245,6 +247,12 @@ case "$1" in
   "test" | "t")
     log "test()";
     preSetupChecks
+    RETVAL=$?
+  ;;
+
+  "tree")
+    log "tree()";
+    createDirTree "${BUILD} ${DIST}"
     RETVAL=$?
   ;;
 

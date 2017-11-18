@@ -133,23 +133,23 @@ function saveEnv () {
 ##  ------------------------------------------------------------------------  ##
 
 function createDirTree {
-  local TREE_LIST="$1";
   printf "\n--------------------  CREATE PROJECT DIRS  ---------------------\n";
+  local TREE_LIST="$1";
   info "TREE_LIST = [${TREE_LIST}]";
 
-  for D in "${TREE_LIST}"
+  for D in ${TREE_LIST}
     do
       info "D = [${D}]";
       mkdir -p "${D}" 2>&1 > /dev/null;
     done
 
-  printf "CREATED PROJECT DIRS FROM LIST: [${W_DIR}] \n\n";
-  printf "==================================================================\n";
+  printf "FINISHED CREATE PROJECT DIRS \n";
+  printf "\n================================================================\n";
 }
 
 function set_permissions {
-  W_DIR="$1"
   printf "\n------------------------  SET PERMISSIONS  ---------------------\n";
+  W_DIR="$1"
   info "W_DIR = ${W_DIR}"
   sudo chown -R ${WEB_USER}:${WEB_USER} "${W_DIR}"
   sudo chmod 775 "${W_DIR}"
@@ -158,6 +158,6 @@ function set_permissions {
   sudo find . -type d -exec chmod 775 {} \;
   sudo find . -type f -exec chmod 664 {} \;
 
-  printf "PERMISSIONS CHANGED FOR: [${W_DIR}] \n\n";
-  printf "==================================================================\n";
+  printf "PERMISSIONS CHANGED FOR: [${W_DIR}] \n";
+  printf "\n================================================================\n";
 }
