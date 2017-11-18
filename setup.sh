@@ -158,8 +158,8 @@ function depsChecks () {
   # fix_permissions
   # Delay
 
-  # deps_install
-  # Delay
+  deps_install
+  Delay
 
   # deps_outdated
   # sleep 1;
@@ -182,7 +182,7 @@ function Build () {
 
 
   cd ${WD}
-  cp -prv ${ENGINE_DIR}/* "${BUILD}/" 2>/dev/null
+  cp -prv ${ENGINE_DIR}/* ${BUILD}/ 2>/dev/null
   warn "Engine directory [${ENGINE_DIR}] COPIED to [${BUILD}/]";
   # mv -p "${BUILD}/.env" "${BUILD}/.env.${DATE}" 2>/dev/null
   # cp -prv setup.rc "${BUILD}/.env"
@@ -192,13 +192,15 @@ function Build () {
   # cd "${BUILD}" && composer -vvv update && cd -
 
 
+  cp -prv ${SRC}/* ${BUILD}/ 2>/dev/null
   cp -prv "${SRC}/.env" "${BUILD}/"
-  cp -prv "${SRC}/composer.json" "${BUILD}/"
+  # cp -prv "${SRC}/composer.json" "${BUILD}/"
+  # cp -prv ${SRC}/.* ${BUILD}/ 2>/dev/null
   Delay
 
-  # cd ${BUILD}
-  # composer -v update
-  # Delay
+  cd ${BUILD}
+  composer -v update
+  Delay
 
   # cd ${WD}
   # set_permissions ${BUILD}
@@ -212,24 +214,24 @@ function Build () {
 function Deploy () {
   splash "$FUNCNAME params: (${@})";
 
-  mkdir -p "${WD}/${APP_DIR}/public/";
-  set_permissions ${WD}/${APP_DIR};
+  # mkdir -p "${WD}/${APP_DIR}/public/";
+  # set_permissions ${WD}/${APP_DIR};
 
   cd ${WD}
   node gulpfile.js sync:web --env=${APP_ENV} --verbose        \
   && Delay;
 
-  cd ${WD}
-  cd "${WD}/${APP_DIR}/public/"
-  ln -s ../storage/media/audio/ >&2 2>/dev/null               \
-  && Delay;
-
-  cd ${WD}
-  sudo chown -R ${WEB_USER}:${WEB_USER} "${APP_DIR}"          \
-  && Delay;
-
-  node gulpfile.js artisan:clear --env=${APP_ENV} --verbose   \
-  && Delay;
+  # cd ${WD}
+  # cd "${WD}/${APP_DIR}/public/"
+  # ln -s ../storage/media/audio/ >&2 2>/dev/null               \
+  # && Delay;
+  #
+  # cd ${WD}
+  # sudo chown -R ${WEB_USER}:${WEB_USER} "${APP_DIR}"          \
+  # && Delay;
+  #
+  # node gulpfile.js artisan:clear --env=${APP_ENV} --verbose   \
+  # && Delay;
 
   splash "$FUNCNAME Finished";
   # exit 0;
