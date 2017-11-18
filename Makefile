@@ -2,11 +2,13 @@
 ##                                Build Project                               ##
 ##  ------------------------------------------------------------------------  ##
 
-NAME := tbaltrushaitis/mp3web
-
+REPO_HOST := "https://bitbucket.org"
+REPO_NAME := "tbaltrushaitis"
 APP_NAME := "mp3web"
-APP_REPO := "https://github.com/tbaltrushaitis/mp3web.git"
-APP_ENV := "$(shell cat ./NODE_ENV)"
+
+# APP_REPO := "https://github.com/tbaltrushaitis/mp3web.git"
+APP_REPO := "${REPO_HOST}/${REPO_NAME}/${APP_NAME}.git"
+APP_ENV := "$(shell cat .NODE_ENV)"
 APP_BRANCH := "dev-1.0.2"
 
 WD := "$(shell pwd -P)"
@@ -31,7 +33,8 @@ state:
 	@echo "ENVIRONMENT VARS:";
 	@echo "\t DT \t = \t ${DT}";
 	@echo "\t WD \t = \t ${WD}";
-	@echo "\t NAME \t = \t ${NAME}";
+	@echo "\t REPO_HOST \t = \t ${REPO_HOST}";
+	@echo "\t REPO_NAME \t = \t ${REPO_NAME}";
 	@echo "\t APP_NAME \t = \t ${APP_NAME}";
 	@echo "\t APP_REPO \t = \t ${APP_REPO}";
 	@echo "\t APP_BRANCH \t = \t ${APP_BRANCH}";
@@ -58,11 +61,11 @@ clone:
 	&& git branch											  				\
 	&& find . -type f -exec chmod 664 {} \; 		\
 	&& find . -type d -exec chmod 775 {} \; 		\
-	&& find . -type f -name *.sh -exec chmod 755 {} \;
+	&& find . -type f -name "*.sh" -exec chmod 755 {} \;
 
 ##  ------------------------------------------------------------------------  ##
 
-clean: clean-repo clean-src clean-build clean-dist
+clean: clean-build clean-dist
 
 clean-repo:
 	@ rm -rf "${APP_NAME}"
@@ -77,16 +80,20 @@ clean-dist:
 	@ rm -rf "${APP_DIST}"
 
 ##  ------------------------------------------------------------------------  ##
+
+tree:
+	@ ./setup.sh tree
+
+##  ------------------------------------------------------------------------  ##
 #test:
 	# @ NODE_ENV=test $(MOCHA)
 
 dev:
-	@ ./setup.sh all
+	@ NODE_ENV=development ./setup.sh "all"
 	# @ NODE_ENV=development gulp
 
 prod:
-	git submodule init
-	npm install
+	@ NODE_ENV=production
 
 release:
 	git submodule update
@@ -96,7 +103,7 @@ release:
 
 ##  ------------------------------------------------------------------------  ##
 
-	all: help clean clone install setup update dev prod release
+	all: help clean clone install setup update tree dev prod release
 
 	#* means the word "all" doesn't represent a file name in this Makefile;
 	#* means the Makefile has nothing to do with a file called "all" in the same directory.
