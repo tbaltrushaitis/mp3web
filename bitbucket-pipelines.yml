@@ -18,12 +18,12 @@ pipelines:
     dev-1.0.2:
       - step:
           script:
-            - printf "[Step_1] This script runs only on commit to the [${BITBUCKET_BRANCH}] branch.\n"
+            - printf "[Step_1] This script runs only on commit to the [$BITBUCKET_BRANCH] branch.\n"
             - uname -a
             - pwd
       - step:
           script:
-            - printf "[Step_2] This script runs only on commit to the [${BITBUCKET_BRANCH}] branch.\n"
+            - printf "[Step_2] This script runs only on commit to the [$BITBUCKET_BRANCH] branch.\n"
             - apt-get update -y
             - apt -y install php5 php5-cli php5-common
             - php -v
@@ -35,6 +35,10 @@ pipelines:
             # - ./setup.sh deploy --env=production
       - step:
           script:
-            - printf "[Step_3] This script runs only on commit to the [${BITBUCKET_BRANCH}] branch.\n"
+            - printf "[Step_3] This script runs only on commit to the [$BITBUCKET_BRANCH] branch.\n"
+            - apt-get update -y
+            - apt -y install php5 php5-cli php5-common
+            - php -v
+            - make
             - make prod
             - printf "Everything is awesome!\n";
