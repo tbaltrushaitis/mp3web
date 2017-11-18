@@ -20,15 +20,15 @@
 [jQuery](http://jquery.com/) | 2.2.4 | JavaScript Library
 [Laravel](https://laravel.com/docs/5.2) | 5.2.31 | Framework
 [requirejs](https://github.com/jrburke/requirejs) | 2.3.3 | A file and module loader for JavaScript
-[Underscore.js](http://underscorejs.org) | 1.8.3 | JavaScript library that provides a whole mess of us
+[Underscore.js](http://underscorejs.org) | 1.8.3 | JavaScript library that provides a whole mess of useful functional programming helpers
 
 
-## Live Demo Site ##
+## Live Demo ##
 :point_right: [Premium Music Collection](http://mp3.gsm-center.com.ua)
 
 ## Getting started ##
 
-### Clone from github ###
+### Clone Repo ###
 ```bash
 $ git clone -b latest https://github.com/tbaltrushaitis/mp3web.git mp3web
 ```
@@ -96,11 +96,11 @@ Below is a list of gulp tasks and their possible params:
 | | sync:engine | laravel-*/ | build/ | Framework Original Sources
 | | sync:src | src/ | build/ | Application sources
 | | sync:assets | build/resources/assets/ | build/public/assets/ | Build Assets to public
-| | sync:assets:css | src/resources/assets/css/ | build/resources/assets/css/ | 
+| | sync:assets:css | src/resources/assets/css/ | build/resources/assets/css/ |
 | | sync:assets:media | build/resources/assets/img/ | build/public/assets/img/ | Build Images to public
-| | sync:assets:fonts | | | 
-| | sync:assets:js | | | 
-| | sync:views | | | 
+| | sync:assets:fonts | | |
+| | sync:assets:js | | |
+| | sync:views | | |
 | | sync:dist | build/ | dist/ | Create release directory from BUILD
 | | sync:web | build/ | webroot/ | Create/update public web directory
  :five: | **build** | | | Build package
