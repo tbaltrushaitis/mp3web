@@ -163,7 +163,7 @@ function depsChecks () {
 }
 
 
-function Build () {
+function Compile () {
   splash "$FUNCNAME Started with: (${@})";
 
   # mkdir -p ${BUILD} # && chmod 775 ${BUILD}
@@ -301,16 +301,15 @@ case "$1" in
     RETVAL=$?
   ;;
 
-  "build" | "b")
-    info "build()";
-    Build && Delay
+  "compile" | "build" | "b" | "c")
+    info "Compile()";
+    Compile && Delay
     RETVAL=$?
   ;;
 
-  "rebuild" | "rb")
-    info "REbuild()";
-    Build && Delay
-    Deploy && Delay
+  "release" | "d")
+    info "release()";
+    Release && Delay
     RETVAL=$?
   ;;
 
@@ -320,11 +319,19 @@ case "$1" in
     RETVAL=$?
   ;;
 
+  "recompile" | "rebuild" | "rb" | "rc")
+    info "Recompile()";
+    Compile && Delay
+    Release && Delay
+    RETVAL=$?
+  ;;
+
   "all" | "a")
     info "all()";
     preSetupChecks && Delay
     depsChecks && Delay
-    Build && Delay
+    Compile && Delay
+    Release && Delay
     Deploy && Delay
     RETVAL=$?
   ;;
