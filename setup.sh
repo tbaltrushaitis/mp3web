@@ -79,16 +79,10 @@ printf "${GIT_COMMIT}" > COMMIT
 
 SRC="${WD}/src"
 BUILD="${WD}/build"
-DIST="${WD}/dist"
+DIST="${WD}/dist-${CODE_VERSION}"
 
 DATE="$(date +"%Y%m%d%H%M%S")"
 DATETIME="$(date "+%Y-%m-%d")_$(date "+%H-%M-%S")"
-
-# for D in "${BUILD}" "${DIST}"
-#   do
-#     mkdir -p "${D}"
-#   done
-
 
 # printf "\n----------------------------  ${DATE}  ---------------------------\n";
 
@@ -211,6 +205,31 @@ function Build () {
 }
 
 
+function Release () {
+  splash "$FUNCNAME params: (${@})";
+
+  cd ${WD}
+  cp -prv ${BUILD}/* ${DIST}/ 2>/dev/null
+  cp -prv "${BUILD}/.env" "${DIST}/" 2>/dev/null
+  warn "Directory [${BUILD}/*] content DEPLOYED to [${DIST}/]";
+
+  # cd ${WD}
+  # cd "${WD}/${APP_DIR}/public/"
+  # ln -s ../storage/media/audio/ >&2 2>/dev/null               \
+  # && Delay;
+  #
+  # cd ${WD}
+  # sudo chown -R ${WEB_USER}:${WEB_USER} "${APP_DIR}"          \
+  # && Delay;
+  #
+  # node gulpfile.js artisan:clear --env=${APP_ENV} --verbose   \
+  # && Delay;
+
+  splash "$FUNCNAME Finished";
+  # exit 0;
+}
+
+
 function Deploy () {
   splash "$FUNCNAME params: (${@})";
 
@@ -223,7 +242,8 @@ function Deploy () {
 
   cd ${WD}
   cp -prv ${BUILD}/* ${DIST}/ 2>/dev/null
-  warn "Directory [${BUILD}/*] content COPIED to [${DIST}/]";
+  cp -prv "${BUILD}/.env" "${DIST}/" 2>/dev/null
+  warn "Directory [${BUILD}/*] content DEPLOYED to [${DIST}/]";
 
   # cd ${WD}
   # cd "${WD}/${APP_DIR}/public/"
