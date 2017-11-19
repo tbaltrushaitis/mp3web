@@ -90,7 +90,7 @@ tree:
 ##  ------------------------------------------------------------------------  ##
 
 compile:
-	@ ./setup.sh "build"
+	@ ./setup.sh "compile"
 
 release:
 	@ ./setup.sh "release"
