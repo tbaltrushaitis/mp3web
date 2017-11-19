@@ -28,17 +28,17 @@ function log () {
 
 
 function info () {
-  echo -ne "${BBlue}[$FUNCNAME][$(date +'%Y%m%d%H%M%S')]:\t" "${@}${NC}\n";
+  echo -ne "${BBlue}[$FUNCNAME][$(date +'%Y%m%d%H%M%S')]:" "${@}${NC}\n";
 }
 
 
 function warn () {
-  echo -ne "${BYellow}[$FUNCNAME][$(date +'%Y%m%d%H%M%S')]:\t" "${@}${NC}\n";
+  echo -ne "${BYellow}[$FUNCNAME][$(date +'%Y%m%d%H%M%S')]:" "${@}${NC}\n";
 }
 
 
 function error () {
-  echo -ne "${BRed}[$FUNCNAME][$(date +'%Y%m%d%H%M%S')]:\t" "${@}" "${NC}\n" 1>&2;
+  echo -ne "${BRed}[$FUNCNAME][$(date +'%Y%m%d%H%M%S')]:" "${@}" "${NC}\n" 1>&2;
 }
 
 
