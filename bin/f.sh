@@ -44,8 +44,8 @@ function error () {
 
 function fatal () {
   echo -e "\n${BRed}";
-  echo -ne "****************** $FUNCNAME *************************"
-  echo -ne "%s\n" "$@"
+  echo -ne "****************** $FUNCNAME *************************\n"
+  echo -ne "%s\n" "$@" "\n"
   echo -ne "****************** $FUNCNAME *************************${NC}\n"
 }
 
