@@ -18,6 +18,9 @@ APP_BUILD := "${WD}/build"
 APP_DIST := "${WD}/dist"
 
 DT = $(shell date +'%Y%m%d%H%M%S')
+
+# MEDIUM := "$(shell ./setup.sh)"
+
 ##  ------------------------------------------------------------------------  ##
 default: state help
 
@@ -85,25 +88,25 @@ tree:
 	@ ./setup.sh tree
 
 ##  ------------------------------------------------------------------------  ##
-#test:
-	# @ NODE_ENV=test $(MOCHA)
 
-dev:
-	@ NODE_ENV=development ./setup.sh "all"
-	# @ NODE_ENV=development gulp
-
-prod:
-	@ NODE_ENV=production ./setup.sh "all"
+compile:
+	@ ./setup.sh "build"
 
 release:
-	git submodule update
-	npm install
+	@ ./setup.sh "release"
+
+deploy:
+	@ ./setup.sh "deploy"
+
+# dev:
+# 	@ NODE_ENV=development ./setup.sh "all"
+# 	# @ NODE_ENV=development gulp
 
 ##  ------------------------------------------------------------------------  ##
 
 ##  ------------------------------------------------------------------------  ##
 
-	all: help clean clone install setup update tree dev prod release
+	all: help clean clone compile release install setup update tree dev prod
 
 	#* means the word "all" doesn't represent a file name in this Makefile;
 	#* means the Makefile has nothing to do with a file called "all" in the same directory.
