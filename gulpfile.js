@@ -23,31 +23,31 @@ const parseArgs      = require('minimist');
 const vinylPaths     = require('vinyl-paths');
 const dateFormat     = require('dateformat');
 const mainBowerFiles = require('main-bower-files');
-//const runSequence       =   require('run-sequence');
 
-const gulp          =   require('gulp');
-const gulpTasks     =   require('gulp-require-tasks');
-const gulpSequence  =   require('gulp-sequence').use(gulp);
-// const aglio         =   require('gulp-aglio');
-const changed       =   require('gulp-changed');
-const chmod         =   require('gulp-chmod');
-const chown         =   require('gulp-chown');
-const concat        =   require('gulp-concat');
-const cleanCSS      =   require('gulp-clean-css');
-const concatCSS     =   require('gulp-concat-css');
-const minifyCSS     =   require('gulp-minify-css');
-const dirSync       =   require('gulp-directory-sync');
-const exec          =   require('gulp-exec');
-const filter        =   require('gulp-filter');
-const gulpif        =   require('gulp-if');
-const headfoot      =   require('gulp-headerfooter');
-const jscs          =   require('gulp-jscs');
-const jshint        =   require('gulp-jshint');
-const stylish       =   require('jshint-stylish');
-const rename        =   require('gulp-rename');
-const template      =   require('gulp-template');
-const uglify        =   require('gulp-uglify');
+const gulp          = require('gulp');
+const gulpTasks     = require('gulp-require-tasks');
+const gulpSequence  = require('gulp-sequence').use(gulp);
+const changed       = require('gulp-changed');
+const chmod         = require('gulp-chmod');
+const chown         = require('gulp-chown');
+const concat        = require('gulp-concat');
+const cleanCSS      = require('gulp-clean-css');
+const concatCSS     = require('gulp-concat-css');
+const minifyCSS     = require('gulp-minify-css');
+const dirSync       = require('gulp-directory-sync');
+const exec          = require('gulp-exec');
+const filter        = require('gulp-filter');
+const gulpif        = require('gulp-if');
+const headfoot      = require('gulp-headerfooter');
+const jscs          = require('gulp-jscs');
+const jshint        = require('gulp-jshint');
+const stylish       = require('jshint-stylish');
+const rename        = require('gulp-rename');
+const template      = require('gulp-template');
+const uglify        = require('gulp-uglify');
 
+// const aglio      = require('gulp-aglio');
+//const runSequence = require('run-sequence');
 
 //---------------//
 // CONFIGURATION //
