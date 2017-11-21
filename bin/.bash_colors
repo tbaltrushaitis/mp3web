@@ -33,4 +33,4 @@ On_Cyan='\e[46m'            # Cyan
 On_White='\e[47m'           # White
 
 NC="\e[m"                   # Color Reset
-ALERT=${BWhite}${On_Red}    # Bold White on red background
+# ALERT=${BWhite}${On_Red}    # Bold White on red background
