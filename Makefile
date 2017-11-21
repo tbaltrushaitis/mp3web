@@ -29,10 +29,7 @@ APP_DIST := "${WD}/dist"
 
 DT = $(shell date +'%Y%m%d%H%M%S')
 
-# MEDIUM := "$(shell ./setup.sh)"
-
 RC_EXISTS := $(shell [ -e ./setup.rc ] && echo 1 || echo 0)
-# COLORS_EXISTS = $(shell [ -e ./bin/.bash_colors ] && echo 1 || echo 0)
 
 ifeq ($(RC_EXISTS), 1)
 $(info [${DT}] Source definitions file [setup.rc] EXISTS)

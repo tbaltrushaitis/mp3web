@@ -26,33 +26,30 @@
 ## Live Demo ##
 :point_right: [Premium Music Collection](http://mp3.gsm-center.com.ua)
 
-## Getting started ##
+## Usage ##
 
 ### Clone Repo ###
 ```bash
 $ git clone -b latest https://github.com/tbaltrushaitis/mp3web.git mp3web
 ```
 
-### Set file permissions ###
-```bash
-$ WEB_USER="$(whoami)"
-$ sudo chmod 775 mp3web
-$ cd mp3web
-$ sudo chown -R ${WEB_USER}:${WEB_USER} * && sudo chown -R ${WEB_USER}:${WEB_USER} .*
-$   sudo find . -type f -exec chmod 664 {} \; \
- && sudo find . -type d -exec chmod 775 {} \; \
- && sudo find . -type f -name *.sh -exec sudo chmod a+x {} \;
-```
 
 ### Configure ###
 Open file `setup.rc` in your favourite editor and change values of build variables in it (e.g. DB_HOST, APP_URL)
 
 ## Build and Deploy ##
 
+ - Makefile
+```
+$ make
+```
+
  - With NPM
+    not yet provided
 
  - Advanced users may want to use directly `setup.sh` script directives.
    In most cases running this script with **all** parameter will do all of the needed stuff to run instance of Web MP3 Player application
+
 ```bash
 $ ./setup.sh all
 ```
