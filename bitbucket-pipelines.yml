@@ -29,8 +29,7 @@ pipelines:
             - apt-get update -y
             - apt -y install php5 php5-cli php5-common
             - php -v
-            - make
-            - make dev
+            - make all
             # - ./setup.sh test --env=production
             # - ./setup.sh prepare --env=production
             # - ./setup.sh build --env=production
@@ -41,6 +40,5 @@ pipelines:
             - apt-get update -y
             - apt -y install php5 php5-cli php5-common
             - php -v
-            - make
-            - make prod
+            - make all
             - printf "Everything is awesome!\n";
