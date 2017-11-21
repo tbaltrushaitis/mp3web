@@ -16,7 +16,8 @@
 #   -   Deploy
 
 if [ -n "$APP_DEBUG" ]; then
-  set -x
+  # set -x
+  printf "DEBUG MODE ENABLED\n"
 fi
 
 set -e
@@ -70,21 +71,21 @@ OPTS=$@
 WD="$(pwd -P)"                          #   Current working directory
 APP_HOME="$(pwd -P)/"                   #   Current directory
 APP_PATH="${APP_HOME}${APP_DIR}"        #   Full path to target directory
-ENGINE_DIR="${ENGINE_NAME}-${ENGINE_VERSION}"
+DIR_ENGINE="${ENGINE_NAME}-${ENGINE_VERSION}"
 
 CODE_VERSION="$(cat ./VERSION)"
 GIT_COMMIT="$(git rev-list --remove-empty --remotes --max-count=1 --date-order --reverse)"
 
-printf "${GIT_COMMIT}" > COMMIT
+# printf "${GIT_COMMIT}" > COMMIT
 
 SRC="${WD}/src"
-BUILD="${WD}/build"
+BUILD="${WD}/build-${CODE_VERSION}"
 DIST="${WD}/dist-${CODE_VERSION}"
 
 DATE="$(date +"%Y%m%d%H%M%S")"
 DATETIME="$(date "+%Y-%m-%d")_$(date "+%H-%M-%S")"
 
-# printf "\n----------------------------  ${DATE}  ---------------------------\n";
+# printf "\n--------------------------  ${DATE}  ---------------------------\n";
 
 ##  ------------------------------------------------------------------------  ##
 ##                                 FUNCTIONS                                  ##
@@ -106,7 +107,7 @@ function logEnv () {
   info "SRC = \t\t ${SRC}";
   info "BUILD = \t ${BUILD}";
   info "DIST = \t ${DIST}";
-  info "ENGINE_DIR = \t ${ENGINE_DIR}";
+  info "DIR_ENGINE = \t ${DIR_ENGINE}";
   info "APP_PATH = \t ${APP_PATH}";
   info "WEB_USER = \t ${WEB_USER}";
   info "OPTS = \t ${OPTS}";
@@ -140,7 +141,7 @@ function preSetupChecks () {
 function depsChecks () {
   splash "$FUNCNAME Started with: (${@})";
 
-  createDirTree "${BUILD} ${DIST}"
+  createDirTree "${BUILD} ${DIST} ${DIR_WEB}"
   Delay
 
   composer_check
@@ -176,8 +177,8 @@ function Compile () {
 
 
   cd ${WD}
-  cp -prv ${ENGINE_DIR}/* ${BUILD}/ 2>/dev/null
-  warn "Engine directory [${ENGINE_DIR}] COPIED to [${BUILD}/]";
+  cp -pr ${DIR_ENGINE}/* ${BUILD}/ 2>/dev/null
+  warn "Engine directory [${DIR_ENGINE}] COPIED to [${BUILD}/]";
   # mv -p "${BUILD}/.env" "${BUILD}/.env.${DATE}" 2>/dev/null
   # cp -prv setup.rc "${BUILD}/.env"
   # info "COPIED setup.rc to [${BUILD}/.env]";
@@ -186,9 +187,9 @@ function Compile () {
   # cd "${BUILD}" && composer -vvv update && cd -
 
 
-  cp -prv ${SRC}/* ${BUILD}/ 2>/dev/null
-  cp -prv "${SRC}/.env" "${BUILD}/"
-  # cp -prv "${SRC}/composer.json" "${BUILD}/"
+  cp -pr ${SRC}/* ${BUILD}/ 2>/dev/null
+  cp -prv ${SRC}/.env ${BUILD}/
+  cp -prv ${SRC}/composer.json ${BUILD}/
   # cp -prv ${SRC}/.* ${BUILD}/ 2>/dev/null
   Delay
 
@@ -209,8 +210,8 @@ function Release () {
   splash "$FUNCNAME params: (${@})";
 
   cd ${WD}
-  cp -prv ${BUILD}/* ${DIST}/ 2>/dev/null
-  cp -prv "${BUILD}/.env" "${DIST}/" 2>/dev/null
+  cp -pr ${BUILD}/* ${DIST}/ 2>/dev/null
+  cp -prv ${BUILD}/.env ${DIST}/ 2>/dev/null
   warn "Directory [${BUILD}/*] content DEPLOYED to [${DIST}/]";
 
   # cd ${WD}
@@ -241,9 +242,12 @@ function Deploy () {
   # && Delay;
 
   cd ${WD}
-  cp -prv ${BUILD}/* ${DIST}/ 2>/dev/null
-  cp -prv "${BUILD}/.env" "${DIST}/" 2>/dev/null
-  warn "Directory [${BUILD}/*] content DEPLOYED to [${DIST}/]";
+  cp -pr ${DIST}/* ${DIR_WEB}/ 2>/dev/null
+  if [ ! -f ${DIR_WEB}/.env ]; then
+    cp -prv ${DIST}/.env ${DIR_WEB}/ 2>/dev/null
+    info "ENV FILE [${DIST}/.env] COPIED to [${DIR_WEB}/]";
+  fi
+  warn "Directory [${DIST}/*] content DEPLOYED to [${DIR_WEB}/]";
 
   # cd ${WD}
   # cd "${WD}/${APP_DIR}/public/"
