@@ -142,7 +142,7 @@ function createDirTree {
       mkdir -p "${D}" 2>&1 > /dev/null;
     done
 
-  printf "FINISHED CREATE PROJECT DIRS \n";
+  printf "\n---------------- FINISHED CREATE PROJECT DIRS ------------------\n";
   printf "\n================================================================\n";
 }
 
@@ -157,6 +157,6 @@ function set_permissions {
   sudo find . -type d -exec chmod 775 {} \;
   sudo find . -type f -exec chmod 664 {} \;
 
-  printf "PERMISSIONS CHANGED FOR: [${W_DIR}] \n";
+  printf "\n------------ PERMISSIONS CHANGED FOR: [${W_DIR}] ---------------\n";
   printf "\n================================================================\n";
 }
