@@ -39,17 +39,17 @@
     ]
   , "main":     "gulpfile.js"
   , "scripts": {
-        "start":    "./setup.sh"
+        "default":  "gulp --env=test"
+      , "dev":      "gulp --env=dev"
+      , "prod":     "gulp --env=production"
+      , "watch":    "gulp watch"
+      /* "start":   "./setup.sh"
       , "test":     "./setup.sh test"
       , "setup":    "./setup.sh prepare"
       , "build":    "./setup.sh build"
       , "deploy":   "./setup.sh deploy"
       , "rebuild":  "./setup.sh rebuild"
-      , "all":      "./setup.sh all"
-      , "default":  "gulp --env=test"
-      , "dev":      "gulp --env=dev"
-      , "prod":     "gulp --env=production"
-      , "watch":    "gulp watch"
+      , "all":      "./setup.sh all" */
     }
   , "repository": {
         "type": "git"
@@ -118,15 +118,17 @@
       , "mocha":                "^4.0.1"
       , "minimist":             "^1.2.0"
       , "nconf":                "^0.9.1"
+      , "read-config":          "^2.0.0"
       , "run-sequence":         "^2.2.0"
-      , "underscore":           "^1.8.3"
       , "versionn":             "^1.0.2"
       , "vinyl-paths":          "^2.1.0"
+      , "yargs":                "^10.0.3"
     }
   , "outdatedDependencies": {
       "gulp-aglio":   "^0.0.10"
     , "gulp-header":  "^1.8.8"
     , "jsdom":        "^10.1.0"
+    , "underscore":   "^1.8.3"
     }
   , "options": {
         "bower": {
@@ -203,6 +205,11 @@
             "ignoreInitial":    false
           , "verbose":          true
           , "readDelay":        500
+        }
+      , "iopts": {
+            "showHidden": false
+          , "depth":      4
+          , "colors":     true
         }
     }
   , "jshintConfig": {
