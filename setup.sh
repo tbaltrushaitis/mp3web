@@ -57,10 +57,16 @@ EOM
 }
 
 ##  root password for sudo operations
-echo "Please enter your sudo Password: "
+# echo "Please enter your sudo Password: "
 # read -s SUDO_PASS_INPUT
 # export SUDO_PW=${SUDO_PASS_INPUT}
 # sudo -v
+
+##  BANNER
+if [ -f ./BANNER ]; then
+  cat BANNER
+  echo -e "\n";
+fi
 
 ##  ------------------------------------------------------------------------  ##
 ##                                PREREQUISITES                               ##
@@ -99,18 +105,18 @@ source bin/f-php-composer.sh
 source bin/host-checks.sh
 
 function logEnv () {
-  splash "$FUNCNAME Started with: (${@})";
+  splash "${FUNCNAME}() Started with: (${@})";
 
-  info "CODE_VERSION =  ${CODE_VERSION}";
+  info "CODE_VERSION = \t ${CODE_VERSION}";
   info "GIT_COMMIT = \t ${GIT_COMMIT}";
   info "WD = \t\t ${WD}";
   info "SRC = \t\t ${SRC}";
   info "BUILD = \t ${BUILD}";
-  info "DIST = \t ${DIST}";
+  info "DIST = \t\t ${DIST}";
   info "DIR_ENGINE = \t ${DIR_ENGINE}";
   info "APP_PATH = \t ${APP_PATH}";
   info "WEB_USER = \t ${WEB_USER}";
-  info "OPTS = \t ${OPTS}";
+  info "OPTS = \t\t ${OPTS}";
 
   splash "$FUNCNAME Finished";
   return 0;
@@ -166,6 +172,9 @@ function depsChecks () {
 
 function Compile () {
   splash "$FUNCNAME Started with: (${@})";
+
+  local VERSION=$(versionn pre -e VERSION);
+  local BUILD="build-${VERSION}"
 
   # mkdir -p ${BUILD} # && chmod 775 ${BUILD}
   # mkdir -p ${BUILD}
@@ -269,7 +278,7 @@ function Deploy () {
 ##  ------------------------------------------------------------------------  ##
 ##                                  EXECUTION                                 ##
 ##  ------------------------------------------------------------------------  ##
-printf "\n-------------------------\t $0 $1 \t----------------------------\n";
+printf "\n--------------------------\t $0 $1 \t-----------------------------\n";
 
 logEnv
 
@@ -331,7 +340,7 @@ case "$1" in
   ;;
 
   "all" | "a")
-    info "all()";
+    info "All_Tasks()";
     preSetupChecks && Delay
     depsChecks && Delay
     Compile && Delay
