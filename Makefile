@@ -39,10 +39,9 @@ $(error [${DT}] Missing file [setup.rc])
 endif
 
 ##  ------------------------------------------------------------------------  ##
-DIR_ENGINE := ${ENGINE_NAME}-${ENGINE_VERSION}
+DIR_ENGINE := ${WD}/${ENGINE_NAME}-${ENGINE_VERSION}
 GIT_COMMIT := $(shell git rev-list --remove-empty --remotes --max-count=1 --date-order --reverse)
 
-# printf "${GIT_COMMIT}" > COMMIT
 $(file > COMMIT,${GIT_COMMIT})
 
 DIR_SRC := ${WD}/src
@@ -70,7 +69,7 @@ include ./bin/Makefile-utils.inc
 ##  ------------------------------------------------------------------------  ##
 
 .PHONY: default
-default: test state help
+default: banner test state help
 
 ##  ------------------------------------------------------------------------  ##
 
@@ -82,7 +81,7 @@ test: test_rc
 
 ## SOURCE VARIABLES
 test_rc: setup.rc
-	@ echo "[${DT}] TEST GOAL EXECUTED";
+	@ echo "\n[${DT}] TEST GOAL EXECUTED";
 
 help:
 	@ echo "\n";
@@ -106,6 +105,13 @@ clone:
 	&& find . -type f -exec chmod 664 {} \; 		\
 	&& find . -type d -exec chmod 775 {} \; 		\
 	&& find . -type f -name "*.sh" -exec chmod 755 {} \;
+
+##  ------------------------------------------------------------------------  ##
+
+.PHONY: banner
+
+banner:
+	@ cat BANNER
 
 ##  ------------------------------------------------------------------------  ##
 
@@ -136,7 +142,12 @@ clean-web:
 	@ rm -rf "${DIR_WEB}"
 
 clean-files:
-	@ rm -rf COMMIT bower_modules/ node_modules/ bitbucket-pipelines.yml
+	@ rm -rf COMMIT 						\
+	  bower_modules/						\
+		node_modules/ 						\
+		bitbucket-pipelines.yml		\
+		codeclimate-config.patch	\
+		_config.yml
 
 ##  ------------------------------------------------------------------------  ##
 
