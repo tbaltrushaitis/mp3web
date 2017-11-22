@@ -43,13 +43,6 @@
       , "dev":      "gulp --env=dev"
       , "prod":     "gulp --env=production"
       , "watch":    "gulp watch"
-      /* "start":   "./setup.sh"
-      , "test":     "./setup.sh test"
-      , "setup":    "./setup.sh prepare"
-      , "build":    "./setup.sh build"
-      , "deploy":   "./setup.sh deploy"
-      , "rebuild":  "./setup.sh rebuild"
-      , "all":      "./setup.sh all" */
     }
   , "repository": {
         "type": "git"
