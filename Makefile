@@ -65,10 +65,11 @@ endif
 ##                                  INCLUDES                                  ##
 ##  ------------------------------------------------------------------------  ##
 
-include Makefile-log.inc
+include ./bin/Makefile-utils.inc
 
 ##  ------------------------------------------------------------------------  ##
 
+.PHONY: default
 default: test state help
 
 ##  ------------------------------------------------------------------------  ##
@@ -84,14 +85,14 @@ test_rc: setup.rc
 	@ echo "[${DT}] TEST GOAL EXECUTED";
 
 help:
-	@echo "\n";
-	@echo "AVAILABLE COMMANDS:";
-	@echo "\t make clean \t - CLEAR directories and delete files";
-	@echo "\t make clone \t - CLONE project sources from provided repo";
-	@echo "\t make compile \t - BUILD sources";
-	@echo "\t make release \t - COMPILE project distro";
-	@echo "\t make deploy \t - DEPLOY compiled project to web directory";
-	@echo "\n";
+	@ echo "\n";
+	@ echo "AVAILABLE COMMANDS:";
+	@ echo "\t make clean \t - CLEAR directories and delete files";
+	@ echo "\t make clone \t - CLONE project sources from provided repo";
+	@ echo "\t make compile \t - BUILD sources";
+	@ echo "\t make release \t - COMPILE project distro";
+	@ echo "\t make deploy \t - DEPLOY compiled project to web directory";
+	@ echo "\n";
 
 ##  ------------------------------------------------------------------------  ##
 
@@ -107,6 +108,10 @@ clone:
 	&& find . -type f -name "*.sh" -exec chmod 755 {} \;
 
 ##  ------------------------------------------------------------------------  ##
+
+.PHONY: clean clean-all
+.PHONY: clean-repo clean-src
+.PHONY: clean-build clean-dist clean-engine clean-web clean-files
 
 clean-all: clean clean-web
 
@@ -131,7 +136,7 @@ clean-web:
 	@ rm -rf "${DIR_WEB}"
 
 clean-files:
-	@ rm -rf COMMIT bower_modules/ node_modules/
+	@ rm -rf COMMIT bower_modules/ node_modules/ bitbucket-pipelines.yml
 
 ##  ------------------------------------------------------------------------  ##
 
