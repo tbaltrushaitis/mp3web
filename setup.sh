@@ -295,13 +295,13 @@ case "$1" in
 
   "tree")
     log "tree()";
-    createDirTree "${BUILD} ${DIST}"
+    createDirTree "${BUILD} ${DIST} ${DIR_WEB}" && Delay
     RETVAL=$?
   ;;
 
   "prepare" | "prep" | "p")
     log "prepare()";
-    depsChecks
+    depsChecks && Delay
     RETVAL=$?
   ;;
 
