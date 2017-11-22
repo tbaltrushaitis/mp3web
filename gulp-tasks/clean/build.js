@@ -20,5 +20,5 @@ const vinylPaths = require('vinyl-paths');
 
 module.exports = function (gulp) {
   console.log('module.filename = ' + module.filename);
-  return  gulp.src([global.BUILD]).pipe(vinylPaths(del));
+  return  gulp.src([ME.BUILD]).pipe(vinylPaths(del));
 };

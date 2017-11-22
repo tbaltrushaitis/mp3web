@@ -3,6 +3,7 @@
  * Copyright(c) 2016-2017 Baltrushaitis Tomas
  * License:     MIT
  */
+// (function () {
 
 'use strict';
 
@@ -10,15 +11,17 @@
 // DEPENDENCIES //
 //--------------//
 
-const $ = require('jquery');
 const _ = require('lodash');
+const $ = require('jquery');
 
 const fs    = require('fs');
 const del   = require('del');
 const path  = require('path');
 const util  = require('util');
 const merge = require('merge-stream');
+const utin  = util.inspect;
 
+const argv           = require('yargs').argv;
 const parseArgs      = require('minimist');
 const vinylPaths     = require('vinyl-paths');
 const dateFormat     = require('dateformat');
@@ -47,21 +50,61 @@ const template      = require('gulp-template');
 const uglify        = require('gulp-uglify');
 
 // const aglio      = require('gulp-aglio');
-//const runSequence = require('run-sequence');
+// const runSequence = require('run-sequence');
 
 //---------------//
 // CONFIGURATION //
 //---------------//
 
-//const Config    =   require('nconf');
-const pkg     =   require('./package.json');
-const ENGINE  =   path.join('laravel-5.2.31');
-const BOWER   =   JSON.parse(fs.readFileSync('./.bowerrc')).directory;
+global.ME = {};
 
-global.Config =   require('nconf');
-//global.pkg  =   require('./package.json');
-global.ENGINE =   path.join('laravel-5.2.31');
-global.BOWER  =   JSON.parse(fs.readFileSync('./.bowerrc')).directory;
+const appPath  = __dirname;
+const modsPath = path.join(appPath, 'modules');
+const confPath = path.join(appPath, 'configs', 'config.json');
+
+console.log(`confPath (${typeof confPath}) = [${utin(confPath)}]`);
+
+const pkg    = require('./package.json');
+const Config = require('nconf');
+const config = require('read-config')(confPath);
+
+ME.Config = Config;
+ME.config = config;
+
+ME.NODE_ENV = 'not_set';
+ME.pkg      = _.extend({}, pkg);
+ME.version  = ME.pkg.version;
+ME.NODE_ENV = argv.env
+                ? argv.env
+                : fs.existsSync('./NODE_ENV')
+                  ? fs.readFileSync('NODE_ENV', {encoding: 'utf8'}).split('\n')[0]
+                  : ME.NODE_ENV;
+
+ME.VERSION = fs.readFileSync('./VERSION', pkg.options.file).trim();
+ME.COMMIT  = fs.readFileSync('./COMMIT',  pkg.options.file).trim();
+
+ME.DIR  = {};
+ME.WD   = path.join(__dirname, path.sep);
+ME.DOC  = path.join('docs', path.sep);
+
+ME.SRC    =   path.join('src',                    path.sep);
+ME.BUILD  =   path.join(`build-${ME.VERSION}`,    path.sep);
+ME.TMP    =   path.join('tmp',                    path.sep);
+ME.DIST   =   path.join(`dist-${ME.VERSION}`,     path.sep);
+ME.WEB    =   path.join(`webroot-${ME.VERSION}`,  path.sep);
+ME.CURDIR =   path.join(process.cwd(),            path.sep);
+
+utin.defaultOptions = _.extend({}, ME.pkg.options.iopts);
+
+console.log(`\n\n\n`);
+console.log(`ME.NODE_ENV (${typeof ME.NODE_ENV}) = [${utin(ME.NODE_ENV)}]`);
+console.log(`ME.version (${typeof ME.version}) = [${utin(ME.version)}]`);
+console.log(`ME.VERSION (${typeof ME.VERSION}) = [${utin(ME.VERSION)}]`);
+console.log(`\n\n\n`);
+
+
+ME.ENGINE  =   path.join('laravel-5.2.31');
+ME.BOWER   =   JSON.parse(fs.readFileSync('./.bowerrc')).directory;
 
 const SRC     =   path.join('src');
 const BUILD   =   path.join('build', path.sep);
@@ -70,66 +113,64 @@ const DIST    =   path.join('dist');
 const WEB     =   path.join('webroot', path.sep);
 const CURDIR  =   path.join(__dirname, path.sep);
 
-global.pkg    =   _.extend({}, pkg);
-global.SRC    =   path.join('src',            path.sep);
-global.BUILD  =   path.join('build',          path.sep);
-global.TMP    =   path.join('tmp',            path.sep);
-global.DIST   =   path.join('dist',           path.sep);
-global.WEB    =   path.join('webroot',        path.sep);
-global.CURDIR =   path.join(process.cwd(),    path.sep);
+// const bowerOptions  =   _.extend({}, pkg.options.bower);
+// const cleanOptions  =   _.extend({}, pkg.options.clean);
+// const execOptions   =   _.extend({}, pkg.options.exec);
+// const fileOptions   =   _.extend({}, pkg.options.file);
+// const minifyOptions =   _.extend({}, pkg.options.minify);
+// const reportOptions =   _.extend({}, pkg.options.reporting);
+// const syncOptions   =   _.extend({}, pkg.options.sync);
+// const uglifyOptions =   _.extend({}, pkg.options.uglify);
+// const watchOptions  =   _.extend({}, pkg.options.watch);
 
-const bowerOptions  =   _.extend({}, pkg.options.bower);
-const cleanOptions  =   _.extend({}, pkg.options.clean);
-const execOptions   =   _.extend({}, pkg.options.exec);
-const fileOptions   =   _.extend({}, pkg.options.file);
-const minifyOptions =   _.extend({}, pkg.options.minify);
-const reportOptions =   _.extend({}, pkg.options.reporting);
-const syncOptions   =   _.extend({}, pkg.options.sync);
-const uglifyOptions =   _.extend({}, pkg.options.uglify);
-const watchOptions  =   _.extend({}, pkg.options.watch);
+const VERSION = fs.readFileSync('./VERSION', pkg.options.file).trim();
+const COMMIT  = fs.readFileSync('./COMMIT',  pkg.options.file).trim();
 
-const VERSION = fs.readFileSync('./VERSION', fileOptions).trim();
-const COMMIT  = fs.readFileSync('./COMMIT',  fileOptions).trim();
-
-global.NODE_ENV = process.env.NODE_ENV || fs.readFileSync('./.NODE_ENV', fileOptions).trim();
+global.NODE_ENV = process.env.NODE_ENV || fs.readFileSync('./.NODE_ENV', pkg.options.file).trim();
+ME.NODE_ENV = process.env.NODE_ENV || fs.readFileSync('./.NODE_ENV', pkg.options.file).trim();
 
 var now = new Date();
 var headerTpl = _.template( '\n/*!\n'
-    + ' * Package:\t <%= pkg.name %>@<%= pkg.version %>' + '\n'
-    + ' * Name:\t\t <%= pkg.title %> \n'
-    + ' * Version:\t ' + VERSION + '\n'
-    + ' * Commit:\t ' + COMMIT + '\n'
-    + ' * Description:\t <%= pkg.description %>' + '\n'
-    + ' * Built:\t ' + dateFormat(now, 'yyyy-mm-dd HH:MM:ss') + '\n'
-    + ' * Copyright:\t ' + '2016 - ' + dateFormat(now, 'yyyy') + ' <%= pkg.author.name %>' + '\n'
-    + ' * Visit:\t <%= pkg.homepage %>' + '\n'
-    + '**/\n\n'
-  );
+  + ' * Package:\t <%= pkg.name %>@<%= pkg.version %>' + '\n'
+  + ' * Name:\t\t <%= pkg.title %> \n'
+  + ' * Purpose:\t ' + ME.NODE_ENV + '\n'
+  + ' * Version:\t ' + ME.VERSION + '\n'
+  + ' * Commit:\t ' + ME.COMMIT + '\n'
+  + ' * Description:\t <%= pkg.description %>' + '\n'
+  + ' * Built:\t ' + dateFormat(now, 'yyyy-mm-dd HH:MM:ss') + '\n'
+  + ' * Copyright:\t ' + '2016 - ' + dateFormat(now, 'yyyy') + ' <%= pkg.author.name %>' + '\n'
+  + ' * License:\t <%= pkg.license %>' + '\n'
+  + ' * Visit:\t <%= pkg.homepage %>' + '\n'
+  + '**/\n\n'
+);
 
 var footerTpl = _.template( '\n\n/*!\n'
-  + ' * Commit:\t ' + COMMIT + '\n'
+  + ' * Purpose:\t ' + ME.NODE_ENV + '\n'
+  + ' * Version:\t ' + ME.VERSION + '\n'
+  + ' * Commit:\t ' + ME.COMMIT + '\n'
   + ' * EOF:\t<%= pkg.name %>@<%= pkg.version %> - <%= pkg.title %>' + '\n'
   + ' */\n'
 );
 
 const Banner = {
-          header: headerTpl({pkg: pkg})
-        , footer: footerTpl({pkg: pkg})
-      };
+    header: headerTpl({pkg: ME.pkg})
+  , footer: footerTpl({pkg: ME.pkg})
+};
 
 var envConfig = {
     string:     'env'
-  , default:    {env: (process.env.NODE_ENV || global.NODE_ENV || 'test')}
+  , default:    {env: (process.env.NODE_ENV || ME.NODE_ENV || global.NODE_ENV || 'test')}
 };
 envConfig   =   parseArgs(process.argv.slice(2), envConfig);
 
 console.log('\n\n\n');
-console.log('envConfig = [',            util.inspect(envConfig), ']');
-//console.log('Config = [',               util.inspect(Config.get(global.NODE_ENV)), ']');
-console.log('NODE_ENV = [',             util.inspect(envConfig.env), ']');
-console.log('global.NODE_ENV = [',      util.inspect(global.NODE_ENV), ']');
-console.log('CODE_VERSION = [',         util.inspect(VERSION), ']');
-console.log('GIT_COMMIT = [',           util.inspect(COMMIT), ']');
+console.log('envConfig = [',            utin(envConfig), ']');
+//console.log('Config = [',               utin(Config.get(global.NODE_ENV)), ']');
+console.log('NODE_ENV = [',             utin(envConfig.env), ']');
+console.log('global.NODE_ENV = [',      utin(global.NODE_ENV), ']');
+console.log('ME.NODE_ENV = [',      utin(ME.NODE_ENV), ']');
+console.log('CODE_VERSION = [',         utin(ME.VERSION), ']');
+console.log('GIT_COMMIT = [',           utin(ME.COMMIT), ']');
 console.log('\n\n\n');
 
 
@@ -146,47 +187,52 @@ gulpTasks({
 //  ENV ROUTER
 gulp.task('default', function () {
 
-    //  DEFAULT Scenario Route
-    (function () {
-        switch (envConfig.env) {
-            case 'test': {
-                gulpSequence('lint')();
-                break;
-            }
-            case ('dev' || 'development'): {
-                //gulpSequence('clean:build', 'build:dev', 'deploy', 'watch')();
-                //gulpSequence('build:dev', 'watch')();
-                gulpSequence('build:dev', 'watch');
-                break;
-            }
-            case 'production': {
-                //gulpSequence('test', 'build', 'dist', 'deploy')();
-                //gulpSequence(['clean'], ['sync:engine'], ['sync:src'], ['sync:assets'], ['lint'], ['bower'], ['fixPermissions'])();
-                gulpSequence('build')();
-                break;
-            }
-            default: {
-                // gulpSequence('test', 'show:config', 'watch')();
-                gulpSequence('usage', 'watch')();
-                break;
-            }
-        }
-    })();
+  //  DEFAULT Scenario Route
+  (function () {
+    switch (envConfig.env) {
+      case 'test': {
+        // gulpSequence('lint')();
+        return ['test'];
+        break;
+      }
+      case ('dev' || 'development'): {
+        //gulpSequence('clean:build', 'build:dev', 'deploy', 'watch')();
+        //gulpSequence('build:dev', 'watch')();
+        // gulpSequence('build:dev', 'watch');
+        return ['dev'];
+        break;
+      }
+      case 'production': {
+        //gulpSequence('test', 'build', 'dist', 'deploy')();
+        //gulpSequence(['clean'], ['sync:engine'], ['sync:src'], ['sync:assets'], ['lint'], ['bower'], ['fixPermissions'])();
+        // gulpSequence('build')();
+        return ['build'];
+        break;
+      }
+      default: {
+        // gulpSequence('test', 'show:config', 'watch')();
+        gulpSequence('usage', 'watch')();
+        break;
+      }
+    }
+  })();
 
 });
 
-gulp.task('test',       gulpSequence(['jscs'], ['usage']));
-gulp.task('lint',       gulpSequence('jscs', 'jshint'));
+gulp.task('test',   ['lint', 'usage', 'show:config']);
+gulp.task('dev',   ['build:dev']);
+// gulp.task('test',       gulpSequence(['jscs'], ['usage']));
+gulp.task('lint',       ['jscs', 'jshint']);
 gulp.task('clean',      gulpSequence(['clean:build', 'clean:dist']));
 
 gulp.task('artisan',    gulpSequence('artisan:vendor:publish', 'artisan:migrate', 'artisan:clear'));
 
 gulp.task('build:dev',  gulpSequence(
-    'clean:build'
-  , 'sync:engine2build'
-  , 'sync:src2build'
-  , 'artisan:key:generate'
-  , 'bower'
+    // 'clean:build'
+  // , 'sync:engine2build'
+  // , 'sync:src2build'
+  // , 'artisan:key:generate'
+    'bower'
   , 'sync:bower:fonts'
   , 'sync:assets2public'
   , 'sync:assets'
@@ -194,11 +240,11 @@ gulp.task('build:dev',  gulpSequence(
 ));
 
 gulp.task('build', gulpSequence(
-    'clean:build'
-  , 'sync:engine2build'
-  , 'sync:src2build'
-  , 'artisan:key:generate'
-  , 'bower'
+  //   'clean:build'
+  // , 'sync:engine2build'
+  // , 'sync:src2build'
+  // , 'artisan:key:generate'
+    'bower'
   , 'sync:bower:fonts'
   , 'sync:assets2public'
   , 'sync:assets'
@@ -216,7 +262,7 @@ gulp.task('watch:src:views', function () {
   var wViews = gulp.watch([
       path.join(SRC, 'resources/views', '**/*.blade.php')
     ]
-    , watchOptions
+    , pkg.options.watch
     , function () {
       gulpSequence('sync:src2build', 'sync:build2web', 'artisan:clear')();
   });
@@ -229,7 +275,7 @@ gulp.task('watch:src:css', function () {
   var wCSS = gulp.watch([
       path.join(SRC, 'resources/assets/css', '**/*.css')
     ]
-  , watchOptions
+  , pkg.options.watch
   , function () {
     gulpSequence('sync:src2build', 'sync:assets2public', 'build:css', 'sync:build2web')();
   });
@@ -240,7 +286,7 @@ gulp.task('watch:src:css', function () {
 
 gulp.task('watch:src:js', function () {
   var wScripts = gulp.watch([path.join(SRC, 'resources/assets/js', '**/*.js')]
-  , watchOptions
+  , pkg.options.watch
   , function () {
     gulpSequence('sync:src2build', 'sync:assets2public', 'lint', 'build:js', 'sync:build2web')();
   });
@@ -253,20 +299,20 @@ gulp.task('watch:src:js', function () {
 //  BOWER
 gulp.task('bower', function () {
 
-  var mBower = mainBowerFiles(bowerOptions, {
-      base:   BOWER
+  let mBower = mainBowerFiles(ME.pkg.options.bower, {
+      base:   ME.BOWER
     , group:  ['front']
   });
 
   //var KEEP    =   path.join(BUILD, 'resources/bower');
-  var DEST    =   path.join(BUILD, 'public/assets');
-  var KEEP    =   path.join(BUILD, 'resources/assets');
-  var JS      =   path.join('js/lib');
-  var CSS     =   path.join('css');
-  var FONT    =   path.join('fonts');
-  var IMG     =   path.join('img');
+  let DEST    =   path.join(ME.BUILD, 'public/assets');
+  let KEEP    =   path.join(ME.BUILD, 'resources/assets');
+  let JS      =   path.join('js/lib');
+  let CSS     =   path.join('css');
+  let FONT    =   path.join('fonts');
+  let IMG     =   path.join('img');
 
-  var bowerJS = gulp.src(mBower)
+  let bowerJS = gulp.src(mBower)
     .pipe(filter([
         '**/*.js'
       //, '!**/require.js'
@@ -276,15 +322,15 @@ gulp.task('bower', function () {
     .pipe(changed(path.resolve(KEEP, JS)))
     .pipe(gulp.dest(path.resolve(KEEP, JS)))
     .pipe(gulp.dest(path.resolve(DEST, JS)))
-    .pipe(gulpif('production' === envConfig.env, uglify(uglifyOptions)))
+    .pipe(gulpif('production' === envConfig.env, uglify(ME.pkg.options.uglify)))
     .pipe(concat('bower-bundle.js'))
     //  Write banners
     .pipe(headfoot.header(Banner.header))
     .pipe(headfoot.footer(Banner.footer))
-    .pipe(rename({suffix: minifyOptions.suffix}))
+    .pipe(rename({suffix: ME.pkg.options.minify.suffix}))
     .pipe(gulp.dest(path.resolve(DEST, JS)));
 
-  var bowerCSS = gulp.src(mBower)
+  let bowerCSS = gulp.src(mBower)
     .pipe(filter([
         '**/*.css'
       , '!**/*.min.css'
@@ -294,7 +340,7 @@ gulp.task('bower', function () {
       , "!**/skin-*.css"
     ]))
     .pipe(changed(path.resolve(KEEP, CSS)))
-    .pipe(gulpif('production' === envConfig.env, cleanCSS(cleanOptions, function (d) {
+    .pipe(gulpif('production' === envConfig.env, cleanCSS(ME.pkg.options.clean, function (d) {
       console.info(d.name + ':\t' + d.stats.originalSize + '\t->\t' + d.stats.minifiedSize + '\t[' + d.stats.timeSpent + 'ms]\t[' + 100 * d.stats.efficiency.toFixed(2) + '%]');
     }), false))
     .pipe(gulp.dest(path.resolve(KEEP, CSS)))
@@ -305,10 +351,10 @@ gulp.task('bower', function () {
     .pipe(headfoot.header(Banner.header))
     .pipe(headfoot.footer(Banner.footer))
     // Write minified version.
-    .pipe(rename({suffix: minifyOptions.suffix}))
+    .pipe(rename({suffix: ME.pkg.options.minify.suffix}))
     .pipe(gulp.dest(path.resolve(DEST, CSS)));
 
-  var bowerFonts = gulp.src(mBower)
+  let bowerFonts = gulp.src(mBower)
     .pipe(filter(['**/fonts/**/*.*']))
     //.pipe(changed(path.resolve(DEST, FONT)))
     .pipe(gulp.dest(path.resolve(KEEP, FONT)))
@@ -318,7 +364,7 @@ gulp.task('bower', function () {
     }))
     .pipe(gulp.dest(path.resolve(DEST, FONT)));
 
-  var bowerImg = gulp.src(mBower)
+  let bowerImg = gulp.src(mBower)
     .pipe(filter([
         '**/img/*.*'
       , '**/image/*.*'
@@ -332,20 +378,20 @@ gulp.task('bower', function () {
     .pipe(changed(path.resolve(DEST, IMG)))
     .pipe(gulp.dest(path.resolve(DEST, IMG)));
 
-  return  merge(bowerJS, bowerCSS, bowerFonts, bowerImg);
+  return merge(bowerJS, bowerCSS, bowerFonts, bowerImg);
 });
 
 
 //  SYNC
 gulp.task('sync:bower:fonts', function () {
 
-  var DEST    = path.resolve(path.join(BUILD, 'resources/assets', 'fonts'));
+  var DEST    = path.resolve(path.join(ME.BUILD, 'resources/assets', 'fonts'));
   var fontSRC = ['lato-font'];
   var resLato = gulp.src('')
                   .pipe(dirSync(
-                      path.join(BOWER, 'lato-font', 'fonts')
+                      path.join(ME.BOWER, 'lato-font', 'fonts')
                     , DEST
-                    , syncOptions)
+                    , ME.pkg.options.sync)
                   )
                   .on('error', console.error.bind(console));
 
@@ -355,12 +401,12 @@ gulp.task('sync:bower:fonts', function () {
 
 //  BUNDLE CSS and JS
 gulp.task('build:css', function () {
-  var DEST = path.join(BUILD, 'public/assets/css');
-  var FROM = path.join(BUILD, 'resources/assets/css');
-  var frontCSS = gulp.src([
+  let DEST = path.join(ME.BUILD, 'public/assets/css');
+  let FROM = path.join(ME.BUILD, 'resources/assets/css');
+  let frontCSS = gulp.src([
       path.join(FROM, 'frontend', '*.css')
     ])
-    .pipe(gulpif('production' === envConfig.env, cleanCSS(cleanOptions, function (d) {
+    .pipe(gulpif('production' === ME.NODE_ENV, cleanCSS(ME.pkg.options.clean, function (d) {
       console.info(d.name + ': ' + d.stats.originalSize + ' -> ' + d.stats.minifiedSize + ' [' + d.stats.timeSpent + 'ms] [' + 100 * d.stats.efficiency.toFixed(2) + '%]');
     }), false))
     .pipe(concatCSS('frontend-bundle.css', {rebaseUrls: false}))
@@ -368,13 +414,13 @@ gulp.task('build:css', function () {
     //  Write banners
     .pipe(headfoot.header(Banner.header))
     .pipe(headfoot.footer(Banner.footer))
-    .pipe(rename({suffix: minifyOptions.suffix}))
+    .pipe(rename({suffix: ME.pkg.options.minify.suffix}))
     .pipe(gulp.dest(DEST));
 
-  var backCSS = gulp.src([
+  let backCSS = gulp.src([
       path.join(FROM, 'cabinet', '*.css')
     ])
-    .pipe(gulpif('production' === envConfig.env, cleanCSS(cleanOptions, function (d) {
+    .pipe(gulpif('production' === ME.NODE_ENV, cleanCSS(ME.pkg.options.clean, function (d) {
       console.info(d.name + ': ' + d.stats.originalSize + ' -> ' + d.stats.minifiedSize + ' [' + d.stats.timeSpent + 'ms] [' + 100 * d.stats.efficiency.toFixed(2) + '%]');
     }), false))
     .pipe(concatCSS('cabinet-bundle.css', {rebaseUrls: true}))
@@ -382,19 +428,19 @@ gulp.task('build:css', function () {
     //  Write banners
     .pipe(headfoot.header(Banner.header))
     .pipe(headfoot.footer(Banner.footer))
-    .pipe(rename({suffix: minifyOptions.suffix}))
+    .pipe(rename({suffix: ME.pkg.options.minify.suffix}))
     .pipe(gulp.dest(DEST));
 
   return merge(frontCSS, backCSS);
 });
 
 gulp.task('build:js', function () {
-  var DEST = path.join(BUILD, 'public/assets/js');
-  return  gulp.src(path.join(BUILD, 'resources/assets/js', '**/*.js'))
+  var DEST = path.join(ME.BUILD, 'public/assets/js');
+  return  gulp.src(path.join(ME.BUILD, 'resources/assets/js', '**/*.js'))
     //.pipe(jscs('.jscsrc'))
     //.pipe(jscs.reporter())
     .pipe(changed(DEST))
-    .pipe(gulpif('production' === envConfig.env, uglify(uglifyOptions), false))
+    .pipe(gulpif('production' === ME.NODE_ENV, uglify(ME.pkg.options.uglify), false))
     //  Write banners
     .pipe(headfoot.header(Banner.header))
     .pipe(headfoot.footer(Banner.footer))
@@ -406,19 +452,19 @@ gulp.task('build:js', function () {
 //  LINTERS
 gulp.task('jscs', function () {
   return  gulp.src([
-        path.join(SRC, 'resources/assets/js/', '*.js')
-      , path.join(SRC, 'resources/assets/js/app', '**/*.js')
+        path.join(ME.SRC, 'resources/assets/js/', '*.js')
+      , path.join(ME.SRC, 'resources/assets/js/app', '**/*.js')
     ])
     .pipe(jscs('.jscsrc'))
     .pipe(jscs.reporter());
 });
 gulp.task('jshint', function () {
   return  gulp.src([
-        path.join(SRC, 'resources/assets/js/', '*.js')
-      , path.join(SRC, 'resources/assets/js/app', '**/*.js')
+        path.join(ME.SRC, 'resources/assets/js/', '*.js')
+      , path.join(ME.SRC, 'resources/assets/js/app', '**/*.js')
     ])
     .pipe(jshint('.jshintrc'))
-    .pipe(gulpif('production' === envConfig.env
+    .pipe(gulpif('production' === ME.NODE_ENV
       , jshint.reporter('jshint-stylish',   {verbose: true})
       , jshint.reporter('default',          {verbose: true})
     ));
@@ -431,11 +477,11 @@ gulp.task('jshint', function () {
 //  Log file paths in the stream
 gulp.task('files:src', function () {
   return  gulp.src([
-      path.join(SRC, '**/*')
-    , path.join(SRC, '**/*.*')
-    , path.join(SRC, '**/.*')
+      path.join(ME.SRC, '**/*')
+    , path.join(ME.SRC, '**/*.*')
+    , path.join(ME.SRC, '**/.*')
   ])
-  .pipe(changed(BUILD))
+  .pipe(changed(ME.BUILD))
   .pipe(vinylPaths(function (paths) {
     console.info('Changed:', paths);
     return Promise.resolve();
@@ -445,7 +491,7 @@ gulp.task('files:src', function () {
 
 //  Print environment configuration
 gulp.task('show:config', function () {
-  console.warn('ENV Config: [', util.inspect(envConfig), ']');
+  console.warn('ENV Config: [', utin(envConfig), ']');
 });
 
 gulp.task('usage', function () {
@@ -463,5 +509,7 @@ gulp.task('usage', function () {
   console.log('\n' + (new Array(50).join('-')));
   console.warn('\n');
 });
+
+// });
 
 /*  EOF: ROOT/gulpfile.js  */

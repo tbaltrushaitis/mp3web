@@ -1,7 +1,7 @@
 /*!
- * ./gulp-tasks/sync/assets.js
- * Copyright(c) 2017 Baltrushaitis Tomas
- * MIT Licensed
+ * File:        ./gulp-tasks/sync/assets.js
+ * Copyright(c) 2016-2017 Baltrushaitis Tomas
+ * License:     MIT
  */
 
 'use strict';
@@ -10,23 +10,22 @@
 // DEPENDENCIES //
 //--------------//
 
-const path      =   require('path');
-const dirSync   =   require('gulp-directory-sync');
+const path    = require('path');
+const dirSync = require('gulp-directory-sync');
 
 
 //--------------//
 //  EXPORTS     //
 //--------------//
 
-module.exports  =   function (gulp) {
-    console.log('module.filename = ' + module.filename);
+module.exports = function (gulp) {
+  console.log('module.filename = ' + module.filename);
 
-    return  gulp.src('')
-                .pipe(dirSync(
-                    path.join(BUILD, 'resources/assets')
-                  , path.join(BUILD, 'public/assets')
-                  , global.pkg.options.sync
-                ))
-                .on('error', console.error.bind(console));
+  return  gulp.src('')
+            .pipe(dirSync(
+                path.join(ME.BUILD, 'resources/assets')
+              , path.join(ME.BUILD, 'public/assets')
+              , ME.pkg.options.sync
+            ))
+            .on('error', console.error.bind(console));
 };
-
