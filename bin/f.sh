@@ -23,22 +23,22 @@
 ##  ------------------------------------------------------------------------  ##
 
 function log () {
-  echo -ne "${White}[$FUNCNAME][$(date +'%Y%m%d%H%M%S')]:\t" "${@}" "${NC}\n";
+  echo -ne "[$(date +'%Y%m%d%H%M%S')]${White}[$FUNCNAME]:\t" "${@}" "${NC}\n";
 }
 
 
 function info () {
-  echo -ne "${BBlue}[$FUNCNAME][$(date +'%Y%m%d%H%M%S')]:" "${@}${NC}\n";
+  echo -ne "[$(date +'%Y%m%d%H%M%S')]${BBlue}[$FUNCNAME]:" "${@}${NC}\n";
 }
 
 
 function warn () {
-  echo -ne "${BYellow}[$FUNCNAME][$(date +'%Y%m%d%H%M%S')]:" "${@}${NC}\n";
+  echo -ne "[$(date +'%Y%m%d%H%M%S')]${BYellow}[$FUNCNAME]:" "${@}${NC}\n";
 }
 
 
 function error () {
-  echo -ne "${BRed}[$FUNCNAME][$(date +'%Y%m%d%H%M%S')]:" "${@}" "${NC}\n" 1>&2;
+  echo -ne "[$(date +'%Y%m%d%H%M%S')]${BRed}[$FUNCNAME]:" "${@}" "${NC}\n" 1>&2;
 }
 
 
@@ -46,15 +46,17 @@ function fatal () {
   echo -e "\n${BRed}";
   echo -ne "****************** $FUNCNAME *************************\n"
   echo -ne "%s\n" "$@" "\n"
-  echo -ne "****************** $FUNCNAME *************************${NC}\n"
+  echo -ne "****************** $FUNCNAME *************************\n"
+  echo -ne "${NC}\n"
 }
 
 
 function splash () {
   echo -ne "\n${BCyan}";
   echo -ne "****************** === *************************\n"
-  echo -ne "[$FUNCNAME][$(date +'%Y%m%d%H%M%S')]:\t" "${@}" "\n";
-  echo -ne "****************** === *************************${NC}\n"
+  echo -ne "[$(date +'%Y%m%d%H%M%S')][$FUNCNAME]:\t" "${@}" "\n";
+  echo -ne "****************** === *************************\n"
+  echo -ne "\n${NC}";
 }
 
 ##  ------------------------------------------------------------------------  ##
@@ -65,7 +67,7 @@ function Delay () {
   local T=1;
   printf "\nTimeout ${T} second(s) ... ";
   sleep ${T};
-  printf "DONE\n";
+  printf "${BGreen}[OK]\n${NC}";
 }
 
 ##  ------------------------------------------------------------------------  ##
