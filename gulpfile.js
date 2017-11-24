@@ -130,27 +130,47 @@ global.NODE_ENV = process.env.NODE_ENV || fs.readFileSync('./.NODE_ENV', pkg.opt
 ME.NODE_ENV = process.env.NODE_ENV || fs.readFileSync('./.NODE_ENV', pkg.options.file).trim();
 
 var now = new Date();
-var headerTpl = _.template( '\n/*!\n'
-  + ' * Package:\t <%= pkg.name %>@<%= pkg.version %>' + '\n'
-  + ' * Name:\t\t <%= pkg.title %> \n'
-  + ' * Purpose:\t ' + ME.NODE_ENV + '\n'
-  + ' * Version:\t ' + ME.VERSION + '\n'
-  + ' * Commit:\t ' + ME.COMMIT + '\n'
-  + ' * Description:\t <%= pkg.description %>' + '\n'
-  + ' * Built:\t ' + dateFormat(now, 'yyyy-mm-dd HH:MM:ss') + '\n'
-  + ' * Copyright:\t ' + '2016 - ' + dateFormat(now, 'yyyy') + ' <%= pkg.author.name %>' + '\n'
-  + ' * License:\t <%= pkg.license %>' + '\n'
-  + ' * Visit:\t <%= pkg.homepage %>' + '\n'
-  + '**/\n\n'
-);
+var headerTpl = _.template(`/*!
+ * Package:\t <%= pkg.name %>@<%= pkg.version %>
+ * Name:\t <%= pkg.title %>
+ * Purpose:\t ${ME.NODE_ENV}
+ * Version:\t ${ME.VERSION}
+ * Commit:\t ${ME.COMMIT}
+ * Description:\t <%= pkg.description %>
+ * Built:\t dateFormat(now, 'yyyy-mm-dd HH:MM:ss')
+ * Copyright:\t 2016 - ${dateFormat(now, 'yyyy')} <%= pkg.author.name %>
+ * License:\t <%= pkg.license %>
+ * Visit:\t <%= pkg.homepage %>
+**/`);
 
-var footerTpl = _.template( '\n\n/*!\n'
-  + ' * Purpose:\t ' + ME.NODE_ENV + '\n'
-  + ' * Version:\t ' + ME.VERSION + '\n'
-  + ' * Commit:\t ' + ME.COMMIT + '\n'
-  + ' * EOF:\t<%= pkg.name %>@<%= pkg.version %> - <%= pkg.title %>' + '\n'
-  + ' */\n'
-);
+// var headerTpl = _.template( '\n/*!\n'
+//   + ' * Package:\t <%= pkg.name %>@<%= pkg.version %>' + '\n'
+//   + ' * Name:\t <%= pkg.title %> \n'
+//   + ' * Purpose:\t ' + ME.NODE_ENV + '\n'
+//   + ' * Version:\t ' + ME.VERSION + '\n'
+//   + ' * Commit:\t ' + ME.COMMIT + '\n'
+//   + ' * Description:\t <%= pkg.description %>' + '\n'
+//   + ' * Built:\t ' + dateFormat(now, 'yyyy-mm-dd HH:MM:ss') + '\n'
+//   + ' * Copyright:\t ' + '2016 - ' + dateFormat(now, 'yyyy') + ' <%= pkg.author.name %>' + '\n'
+//   + ' * License:\t <%= pkg.license %>' + '\n'
+//   + ' * Visit:\t <%= pkg.homepage %>' + '\n'
+//   + '**/\n\n'
+// );
+
+// var footerTpl = _.template( '\n\n/*!\n'
+//   + ' * Purpose:\t ' + ME.NODE_ENV + '\n'
+//   + ' * Version:\t ' + ME.VERSION + '\n'
+//   + ' * Commit:\t ' + ME.COMMIT + '\n'
+//   + ' * EOF:\t<%= pkg.name %>@<%= pkg.version %> - <%= pkg.title %>' + '\n'
+//   + ' */\n'
+// );
+
+var footerTpl = _.template(`/*!
+ * Purpose:\t ME.NODE_ENV
+ * Version:\t ME.VERSION
+ * Commit:\t ME.COMMIT
+ * EOF:\t\t <%= pkg.name %>@<%= pkg.version %> - <%= pkg.title %>
+ */`);
 
 const Banner = {
     header: headerTpl({pkg: ME.pkg})
@@ -161,7 +181,7 @@ var envConfig = {
     string:     'env'
   , default:    {env: (process.env.NODE_ENV || ME.NODE_ENV || global.NODE_ENV || 'test')}
 };
-envConfig   =   parseArgs(process.argv.slice(2), envConfig);
+envConfig = parseArgs(process.argv.slice(2), envConfig);
 
 console.log('\n\n\n');
 console.log('envConfig = [',            utin(envConfig), ']');
@@ -211,7 +231,8 @@ gulp.task('default', function () {
       }
       default: {
         // gulpSequence('test', 'show:config', 'watch')();
-        gulpSequence('usage', 'watch')();
+        // gulpSequence('usage', 'watch')();
+        return ['usage'];
         break;
       }
     }
@@ -301,16 +322,16 @@ gulp.task('bower', function () {
 
   let mBower = mainBowerFiles(ME.pkg.options.bower, {
       base:   ME.BOWER
-    , group:  ['front']
+    , group:  ['front', 'fonts']
   });
 
-  //var KEEP    =   path.join(BUILD, 'resources/bower');
-  let DEST    =   path.join(ME.BUILD, 'public/assets');
-  let KEEP    =   path.join(ME.BUILD, 'resources/assets');
-  let JS      =   path.join('js/lib');
-  let CSS     =   path.join('css');
-  let FONT    =   path.join('fonts');
-  let IMG     =   path.join('img');
+  //var KEEP = path.join(BUILD, 'resources/bower');
+  let DEST = path.join(ME.BUILD, 'public/assets');
+  let KEEP = path.join(ME.BUILD, 'resources/assets');
+  let JS   = path.join('js/lib');
+  let CSS  = path.join('css');
+  let FONT = path.join('fonts');
+  let IMG  = path.join('img');
 
   let bowerJS = gulp.src(mBower)
     .pipe(filter([
@@ -321,13 +342,13 @@ gulp.task('bower', function () {
     ]))
     .pipe(changed(path.resolve(KEEP, JS)))
     .pipe(gulp.dest(path.resolve(KEEP, JS)))
-    .pipe(gulp.dest(path.resolve(DEST, JS)))
+    // .pipe(gulp.dest(path.resolve(DEST, JS)))
     .pipe(gulpif('production' === envConfig.env, uglify(ME.pkg.options.uglify)))
     .pipe(concat('bower-bundle.js'))
     //  Write banners
     .pipe(headfoot.header(Banner.header))
     .pipe(headfoot.footer(Banner.footer))
-    .pipe(rename({suffix: ME.pkg.options.minify.suffix}))
+    .pipe(gulpif('production' === envConfig.env, rename({suffix: ME.pkg.options.minify.suffix})))
     .pipe(gulp.dest(path.resolve(DEST, JS)));
 
   let bowerCSS = gulp.src(mBower)
@@ -344,19 +365,18 @@ gulp.task('bower', function () {
       console.info(d.name + ':\t' + d.stats.originalSize + '\t->\t' + d.stats.minifiedSize + '\t[' + d.stats.timeSpent + 'ms]\t[' + 100 * d.stats.efficiency.toFixed(2) + '%]');
     }), false))
     .pipe(gulp.dest(path.resolve(KEEP, CSS)))
-    //.pipe(concatCSS('bower-bundle.css', {rebaseUrls: true}))
     .pipe(concatCSS('bower-bundle.css', {rebaseUrls: false}))
-    .pipe(minifyCSS())
     //  Write banners
     .pipe(headfoot.header(Banner.header))
     .pipe(headfoot.footer(Banner.footer))
     // Write minified version.
-    .pipe(rename({suffix: ME.pkg.options.minify.suffix}))
+    .pipe(gulpif('production' === envConfig.env, minifyCSS()))
+    .pipe(gulpif('production' === envConfig.env, rename({suffix: ME.pkg.options.minify.suffix})))
     .pipe(gulp.dest(path.resolve(DEST, CSS)));
 
   let bowerFonts = gulp.src(mBower)
     .pipe(filter(['**/fonts/**/*.*']))
-    //.pipe(changed(path.resolve(DEST, FONT)))
+    .pipe(changed(path.resolve(KEEP, FONT)))
     .pipe(gulp.dest(path.resolve(KEEP, FONT)))
     .pipe(vinylPaths(function (paths) {
       console.info('FONT Paths:', paths);
@@ -375,8 +395,12 @@ gulp.task('bower', function () {
       , '**/*.gif'
       , '**/*.ico'
     ]))
-    .pipe(changed(path.resolve(DEST, IMG)))
-    .pipe(gulp.dest(path.resolve(DEST, IMG)));
+    .pipe(changed(path.join(KEEP, IMG)))
+    .pipe(gulp.dest(path.join(KEEP, IMG)))
+    .pipe(gulp.dest(path.join(DEST, IMG)));
+    // .pipe(changed(path.resolve(KEEP, IMG)))
+    // .pipe(gulp.dest(path.resolve(KEEP, IMG)))
+    // .pipe(gulp.dest(path.resolve(DEST, IMG)));
 
   return merge(bowerJS, bowerCSS, bowerFonts, bowerImg);
 });
