@@ -15,7 +15,6 @@ REPO_HOST := "https://bitbucket.org"
 REPO_USER := "tbaltrushaitis"
 REPO_URL := "$(shell git ls-remote --get-url)"
 
-# APP_REPO := "https://github.com/tbaltrushaitis/mp3web.git"
 APP_REPO := ${REPO_HOST}/${REPO_USER}/${APP_NAME}.git
 APP_ENV := $(shell cat .NODE_ENV)
 CODE_VERSION := $(shell cat ./VERSION)
@@ -35,6 +34,7 @@ ifeq ($(RC_EXISTS), 0)
 $(warning [${DT}] Missing file [./setup.rc])
 endif
 
+include ./bin/.bash_colors
 include ./setup.rc
 
 ##  ------------------------------------------------------------------------  ##
@@ -97,11 +97,11 @@ help:
 
 clone:
 	@  git clone -b ${APP_BRANCH} ${APP_REPO} 	\
-	&& cd ${APP_NAME} 													\
-	&& git pull																	\
-	&& git branch											  				\
-	&& find . -type f -exec chmod 664 {} \; 		\
-	&& find . -type d -exec chmod 775 {} \; 		\
+	&& cd ${APP_NAME} 	\
+	&& git pull 	\
+	&& git branch 	\
+	&& find . -type f -exec chmod 664 {} \; 	\
+	&& find . -type d -exec chmod 775 {} \; 	\
 	&& find . -type f -name "*.sh" -exec chmod 755 {} \;
 
 ##  ------------------------------------------------------------------------  ##
@@ -129,9 +129,9 @@ endif
 .PHONY: clean-repo clean-src
 .PHONY: clean-build clean-dist clean-engine clean-web clean-files
 
-clean-all: clean clean-web
+clean-all: clean clean-deps clean-web clean-engine
 
-clean: clean-build clean-dist clean-engine clean-files
+clean: clean-build clean-dist clean-files
 
 clean-repo:
 	@ rm -rf "${APP_NAME}"
@@ -151,14 +151,16 @@ clean-engine:
 clean-web:
 	@ rm -rf "${DIR_WEB}"
 
+clean-deps:
+	@ rm -rf bower_modules/ \
+		node_modules/ 		  	;
+
 clean-files:
-	@ rm -rf COMMIT 						\
-	  bower_modules/						\
-		node_modules/ 						\
+	@ rm -rf ${APP_DIRS}  			\
 		bitbucket-pipelines.yml		\
 		codeclimate-config.patch	\
 		_config.yml								\
-		${APP_DIRS};
+		COMMIT;
 
 ##  ------------------------------------------------------------------------  ##
 

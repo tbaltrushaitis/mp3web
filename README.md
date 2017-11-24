@@ -1,58 +1,73 @@
-# Web MP3 Player :headphones: and Media Library Manager
+# Web MP3 Player :headphones: and Media Library Manager #
 
 ![Web MP3 Player Logo](src/resources/assets/img/logo/Favicon.png)
 
-## Badges
+## Badges ##
 
 [![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](http://tbaltrushaitis.mit-license.org/)
 [![Code Climate](https://codeclimate.com/github/tbaltrushaitis/mp3web/badges/gpa.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3web)
 [![Test Coverage](https://codeclimate.com/github/tbaltrushaitis/mp3web/badges/coverage.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3web/coverage)
 
-## Credits ##
+-----
 
- Name | Version | Description
-:-----|:-------:|:------------
-[animate.css](http://daneden.github.io/animate.css/) | 3.5.2 | A cross-browser library of CSS animations
-[Bootstrap](http://getbootstrap.com) | 3.3.7 | HTML, CSS, and JS framework
-[Bootstrap Tagsinput](https://github.com/bootstrap-tagsinput/bootstrap-tagsinput) | 0.8.0 | jQuery tags input plugin based on Twitter Bootstrap
-[Composer](https://getcomposer.org/) | :trident: | Dependency Manager for PHP
-[Font-Awesome](http://fontawesome.io/) | 4.7.0 | The iconic font and CSS toolkit
-[jQuery](http://jquery.com/) | 2.2.4 | JavaScript Library
-[Laravel](https://laravel.com/docs/5.2) | 5.2.31 | Framework
-[requirejs](https://github.com/jrburke/requirejs) | 2.3.3 | A file and module loader for JavaScript
-[Underscore.js](http://underscorejs.org) | 1.8.3 | JavaScript library that provides a whole mess of useful functional programming helpers
+## Components ##
 
+ :trident: | Name | Version | Description
+:-----:|:-----|:-------:|:------------
+ Front | [animate.css](http://daneden.github.io/animate.css/) | 3.5.2 | A cross-browser library of CSS animations
+ Front | [Bootstrap](http://getbootstrap.com) | 3.3.7 | HTML, CSS, and JS framework
+ Front | [Bootstrap Tagsinput](https://github.com/bootstrap-tagsinput/bootstrap-tagsinput) | 0.8.0 | jQuery tags input plugin based on Twitter Bootstrap
+ Engine | [Composer](https://getcomposer.org/) | 1.5.2 | Dependency Manager for PHP
+ Front | [Font-Awesome](http://fontawesome.io/) | 4.7.0 | The iconic font and CSS toolkit
+ Front | [jQuery](http://jquery.com/) | 2.2.4 | JavaScript Library
+ Engine | [Laravel](https://laravel.com/docs/5.2) | 5.2.31 | PHP Framework
+ Front | [Lodash](https://laravel.com/docs/5.2) | 4.17.4 | A modern JavaScript utility library delivering modularity, performance & extras.
+ Front | [requirejs](https://github.com/jrburke/requirejs) | 2.3.3 | A file and module loader for JavaScript
+ DEPRECATED | [Underscore.js](http://underscorejs.org) | 1.8.3 | JavaScript library that provides a whole mess of useful functional programming helpers
+
+-----
 
 ## Live Demo ##
 :point_right: [Premium Music Collection](http://mp3.gsm-center.com.ua)
 
+-----
+
 ## Usage ##
 
-### Clone Repo ###
+### 1 - Download ###
 ```bash
 $ git clone -b latest https://github.com/tbaltrushaitis/mp3web.git mp3web
 ```
 
+### 2 - Configure ###
+Open file `setup.rc` in your favourite editor and change values of build
+variables in it (e.g. DB_HOST, APP_URL)
 
-### Configure ###
-Open file `setup.rc` in your favourite editor and change values of build variables in it (e.g. DB_HOST, APP_URL)
+## 3 - Build ##
 
-## Build and Deploy ##
+#### With `make` - GNU make utility to maintain groups of programs ####
 
- - Makefile
-```
+In fact you just need to type `make` in your terminal:
+```bash
 $ make
 ```
 
- - With NPM
-    not yet provided
-
- - Advanced users may want to use directly `setup.sh` script directives.
-   In most cases running this script with **all** parameter will do all of the needed stuff to run instance of Web MP3 Player application
-
+To get additional info and usage examples type `usage | help | h` command param:
 ```bash
-$ ./setup.sh all
+$ make help
+
+AVAILABLE COMMANDS:
+    make clean   - CLEAR directories and delete files
+    make clone   - CLONE project sources from provided repo
+    make compile - BUILD sources
+    make release - COMPILE project distro
+    make deploy  - DEPLOY compiled project to web directory
 ```
+
+## 4 - Deploy ##
+
+
+## 5 - Enjoy ##
 
 ### Actions in `setup.sh` script ###
 
