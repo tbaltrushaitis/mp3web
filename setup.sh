@@ -187,7 +187,7 @@ function Compile () {
 
 
   cd ${WD}
-  cp -pr ${DIR_ENGINE}/* ${BUILD} 2>/dev/null
+  cp -pr ${DIR_ENGINE} ${BUILD} 2>/dev/null
   warn "Engine directory [${DIR_ENGINE}] COPIED to [${BUILD}]";
   # cp -prv setup.rc "${BUILD}/.env"
   # info "COPIED setup.rc to [${BUILD}/.env]";
@@ -201,9 +201,9 @@ function Compile () {
   Delay
   cp -pr ${SRC}/* ${BUILD} 2>&1 >/dev/null
   Delay
-  cp -prv ${SRC}/.env ${BUILD}/
+  cp -prv ${SRC}/.env ${BUILD} 2>&1 >/dev/null
   Delay
-  cp -prv ${SRC}/composer.json ${BUILD}/
+  cp -prv ${SRC}/composer.json ${BUILD} 2>&1 >/dev/null
   Delay
 
   # cd ${WD}
@@ -228,15 +228,18 @@ function Release () {
   splash "$FUNCNAME params: (${@})";
 
   cd ${WD}
-  cp -pr ${BUILD}/* ${DIST}/ 2>/dev/null
-  cp -prv ${BUILD}/.env ${DIST}/ 2>/dev/null
-  warn "Directory [${BUILD}/*] content DEPLOYED to [${DIST}/]";
+  cp -pr ${BUILD}/* ${DIST} 2>/dev/null
+  cp -prv ${BUILD}/.env ${DIST} 2>/dev/null
+  warn "Directory [${BUILD}/*] content DEPLOYED to [${DIST}]";
 
   # cd ${WD}
-  # cd "${WD}/${APP_DIR}/public/"
-  # ln -s ../storage/media/audio/ >&2 2>/dev/null               \
-  # && Delay;
-  #
+  # cd "${DIR_WEB}/public"
+  # mkdir -p ../storage/media/audio >&2 2>/dev/null
+  # ln -s ../storage/media/audio >&2 2>/dev/null
+  # cd -
+  # Delay
+
+
   # cd ${WD}
   # sudo chown -R ${WEB_USER}:${WEB_USER} "${APP_DIR}"          \
   # && Delay;
@@ -271,13 +274,21 @@ function Deploy () {
   # cd "${WD}/${APP_DIR}/public/"
   # ln -s ../storage/media/audio/ >&2 2>/dev/null               \
   # && Delay;
-  #
+
+  cd ${WD}
+  cd "${DIR_WEB}/public"
+  mkdir -p ../storage/media/audio >&2 2>/dev/null
+  ln -s ../storage/media/audio >&2 2>/dev/null
+  cd -
+  Delay
+
   # cd ${WD}
   # sudo chown -R ${WEB_USER}:${WEB_USER} "${APP_DIR}"          \
   # && Delay;
   #
   # node gulpfile.js artisan:clear --env=${APP_ENV} --verbose   \
   # && Delay;
+  set_permissions ${DIR_WEB}
 
   splash "$FUNCNAME Finished";
   # exit 0;
