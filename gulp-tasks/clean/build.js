@@ -19,6 +19,6 @@ const vinylPaths = require('vinyl-paths');
 //--------------//
 
 module.exports = function (gulp) {
-  console.log('module.filename = ' + module.filename);
-  return  gulp.src([ME.BUILD]).pipe(vinylPaths(del));
+  console.log(`LOADED: [${module.filename}]`);
+  return gulp.src([ME.BUILD]).pipe(vinylPaths(del));
 };

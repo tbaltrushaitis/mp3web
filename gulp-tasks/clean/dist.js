@@ -1,7 +1,7 @@
 /*!
- * ./gulp-tasks/clean/build.js
+ * File:        ./gulp-tasks/clean/dist.js
  * Copyright(c) 2016-2017 Baltrushaitis Tomas
- * MIT Licensed
+ * License:     MIT
  */
 
 'use strict';
@@ -10,18 +10,15 @@
 // DEPENDENCIES //
 //--------------//
 
-const del           =   require('del');
-const vinylPaths    =   require('vinyl-paths');
+const del        = require('del');
+const vinylPaths = require('vinyl-paths');
 
 
 //--------------//
-//  EXPORTS     //
+//   EXPORTS    //
 //--------------//
 
-module.exports  =   function (gulp) {
-    console.log('module.filename = ' + module.filename);
-
-    return  gulp.src([global.DIST]).pipe(vinylPaths(del));
-
+module.exports = function (gulp) {
+  console.log(`LOADED: [${module.filename}]`);
+  return gulp.src([ME.DIST]).pipe(vinylPaths(del));
 };
-

@@ -21,25 +21,25 @@ const changed = require('gulp-changed');
 //--------------//
 
 module.exports = function (gulp) {
-  console.log('module.filename = ' + module.filename);
+  console.log(`LOADED: [${module.filename}]`);
 
   var DEST        = path.join(ME.BUILD, 'public');
   var DEST_ASSETS = path.join(DEST,     'assets');
 
   var resAssets = gulp.src([
-                      path.join(ME.BUILD, 'resources/assets', '*.*')
-                    ])
-                    .pipe(changed(DEST_ASSETS))
-                    .pipe(gulp.dest(DEST_ASSETS))
-                    .on('error', console.error.bind(console));
+                    path.join(ME.BUILD, 'resources/assets', '*.*')
+                  ])
+                  .pipe(changed(DEST_ASSETS))
+                  .pipe(gulp.dest(DEST_ASSETS))
+                  .on('error', console.error.bind(console));
 
   var resStuff  = gulp.src([
-                        path.join(ME.BUILD, 'resources', '*.*')
-                      , path.join(ME.BUILD, 'resources', '.*')
-                    ])
-                    .pipe(changed(DEST))
-                    .pipe(gulp.dest(DEST))
-                    .on('error', console.error.bind(console));
+                      path.join(ME.BUILD, 'resources', '*.*')
+                    , path.join(ME.BUILD, 'resources', '.*')
+                  ])
+                  .pipe(changed(DEST))
+                  .pipe(gulp.dest(DEST))
+                  .on('error', console.error.bind(console));
 
   return merge(resAssets, resStuff);
 };

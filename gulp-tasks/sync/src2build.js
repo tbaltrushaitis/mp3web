@@ -27,7 +27,7 @@ const modConfig = require('read-config')(modConfigFile);
 //  EXPORTS     //
 //--------------//
 
-module.exports  =   function (gulp) {
+module.exports = function (gulp) {
   console.log(`[${new Date().toISOString()}][${modPath}/${modName}] INSTANCE ACTIVATED with modConfig = [${utin(modConfig)}]`);
 
   return  gulp.src('')
