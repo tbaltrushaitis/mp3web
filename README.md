@@ -21,7 +21,7 @@
  Front | [Font-Awesome](http://fontawesome.io/) | 4.7.0 | The iconic font and CSS toolkit
  Front | [jQuery](http://jquery.com/) | 2.2.4 | JavaScript Library
  Engine | [Laravel](https://laravel.com/docs/5.2) | 5.2.31 | PHP Framework
- Front | [Lodash](https://laravel.com/docs/5.2) | 4.17.4 | A modern JavaScript utility library delivering modularity, performance & extras.
+ Front | [Lodash](https://lodash.com/docs/4.17.4) | 4.17.4 | A modern JavaScript utility library delivering modularity, performance & extras.
  Front | [requirejs](https://github.com/jrburke/requirejs) | 2.3.3 | A file and module loader for JavaScript
  DEPRECATED | [Underscore.js](http://underscorejs.org) | 1.8.3 | JavaScript library that provides a whole mess of useful functional programming helpers
 
