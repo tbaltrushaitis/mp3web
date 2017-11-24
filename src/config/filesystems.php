@@ -2,70 +2,70 @@
 
 return [
 
-    /*
-    |--------------------------------------------------------------------------
-    | Default Filesystem Disk
-    |--------------------------------------------------------------------------
-    */
+  /*
+  |--------------------------------------------------------------------------
+  | Default Filesystem Disk
+  |--------------------------------------------------------------------------
+  */
 
-    'default' => 'local'
+  'default' => 'local'
 
-    /*
-    |--------------------------------------------------------------------------
-    | Default Cloud Filesystem Disk
-    |--------------------------------------------------------------------------
-    */
+  /*
+  |--------------------------------------------------------------------------
+  | Default Cloud Filesystem Disk
+  |--------------------------------------------------------------------------
+  */
 
   , 'cloud' => 's3'
 
-    /*
-    |--------------------------------------------------------------------------
-    | Filesystem Disks
-    |--------------------------------------------------------------------------
-    */
+  /*
+  |--------------------------------------------------------------------------
+  | Filesystem Disks
+  |--------------------------------------------------------------------------
+  */
 
   , 'disks' => [
 
-        'local' => [
-            'driver' => 'local'
-          , 'root'   => storage_path('app')
-        ]
+      'local' => [
+          'driver' => 'local'
+        , 'root'   => storage_path('app')
+      ]
 
-      , 'public' => [
-            'driver'     => 'local'
-          , 'root'       => storage_path('app/public')
-          , 'visibility' => 'public'
-        ]
+    , 'public' => [
+          'driver'     => 'local'
+        , 'root'       => storage_path('app/public')
+        , 'visibility' => 'public'
+      ]
 
-        /*
-        |----------------------------------------------------------------------
-        | Media Storage
-        |----------------------------------------------------------------------
-        */
-      , 'media' => [
-            'driver'     => 'local'
-          , 'root'       => storage_path('media')
-          , 'visibility' => 'public'
-        ]
+    /*
+    |----------------------------------------------------------------------
+    | Media Storage
+    |----------------------------------------------------------------------
+    */
+    , 'media' => [
+          'driver'     => 'local'
+        , 'root'       => storage_path('media')
+        , 'visibility' => 'public'
+      ]
 
-      , 'audio' => [
-            'driver'     => 'local'
-          , 'root'       => storage_path('media/audio')
-          , 'visibility' => 'public'
-        ]
+    , 'audio' => [
+          'driver'     => 'local'
+        , 'root'       => storage_path('media/audio')
+        , 'visibility' => 'public'
+      ]
 
-      , 'video' => [
-            'driver'     => 'local'
-          , 'root'       => storage_path('media/video')
-          , 'visibility' => 'public'
-        ]
+    , 'video' => [
+          'driver'     => 'local'
+        , 'root'       => storage_path('media/video')
+        , 'visibility' => 'public'
+      ]
 
-      , 'meta' => [
-            'driver'     => 'local'
-          , 'root'       => storage_path('app/metadata')
-          , 'visibility' => 'public'
-        ]
+    , 'meta' => [
+          'driver'     => 'local'
+        , 'root'       => storage_path('app/metadata')
+        , 'visibility' => 'public'
+      ]
 
-    ]
+  ]
 
 ];
