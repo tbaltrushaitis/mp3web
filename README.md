@@ -12,7 +12,7 @@
 
 ## Components ##
 
- :trident: | Name | Version | Description
+ Scope | Name | Version | Description
 :-----:|:-----|:-------:|:------------
  Front | [animate.css](http://daneden.github.io/animate.css/) | 3.5.2 | A cross-browser library of CSS animations
  Front | [Bootstrap](http://getbootstrap.com) | 3.3.7 | HTML, CSS, and JS framework
@@ -23,9 +23,7 @@
  Engine | [Laravel](https://laravel.com/docs/5.2) | 5.2.31 | PHP Framework
  Front | [Lodash](https://lodash.com/docs/4.17.4) | 4.17.4 | A modern JavaScript utility library delivering modularity, performance & extras.
  Front | [requirejs](https://github.com/jrburke/requirejs) | 2.3.3 | A file and module loader for JavaScript
- DEPRECATED | [Underscore.js](http://underscorejs.org) | 1.8.3 | JavaScript library that provides a whole mess of useful functional programming helpers
-
------
+ DEPRECATED | [Underscore.js](http://underscorejs.org) | :x: | JavaScript library that provides a whole mess of useful functional programming helpers
 
 ## Live Demo ##
 :point_right: [Premium Music Collection](http://mp3.gsm-center.com.ua)
@@ -43,9 +41,9 @@ $ git clone -b latest https://github.com/tbaltrushaitis/mp3web.git mp3web
 Open file `setup.rc` in your favourite editor and change values of build
 variables in it (e.g. DB_HOST, APP_URL)
 
-## 3 - Build ##
+### 3 - Build ###
 
-#### With `make` - GNU make utility to maintain groups of programs ####
+With `make` - GNU make utility to maintain groups of programs
 
 In fact you just need to type `make` in your terminal:
 ```bash
@@ -64,19 +62,11 @@ AVAILABLE COMMANDS:
     make deploy  - DEPLOY compiled project to web directory
 ```
 
-## 4 - Deploy ##
+### 4 - Deploy ###
 
 
-## 5 - Enjoy ##
+### 5 - Enjoy ###
 
-### Actions in `setup.sh` script ###
-
-#### It will check if those packages are installed and available in PATH: ####
-- [x] Composer
-- [x] Node.js
-- [x] NPM
-- [x] Bower
-- [x] Gulp
 
 ## Gulp Tasks Overview ##
 
@@ -178,12 +168,7 @@ Below is a list of gulp tasks and their possible params:
 
 --------
 
-### Authors and Contributors ###
-
-##### DevTeam #####
-  + @tbaltrushaitis
-
-##### Contributors #####
+### Contributors ###
 
 [![Contributors List](https://img.shields.io/github/contributors/tbaltrushaitis/mp3web.svg)](https://github.com/tbaltrushaitis/mp3web/graphs/contributors)
 
