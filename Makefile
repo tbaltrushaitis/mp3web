@@ -19,24 +19,23 @@ REPO_URL := "$(shell git ls-remote --get-url)"
 APP_REPO := ${REPO_HOST}/${REPO_USER}/${APP_NAME}.git
 APP_ENV := $(shell cat .NODE_ENV)
 CODE_VERSION := $(shell cat ./VERSION)
+APP_BANNER := $(shell cat ./BANNER)
 APP_BRANCH := "dev-1.0.2"
 
 WD := $(shell pwd -P)
 APP_DIRS := $(addprefix ${WD}/,build-* dist-*)
-APP_SRC := "${WD}/src"
-APP_BUILD := "${WD}/build"
-APP_DIST := "${WD}/dist"
+APP_SRC := ${WD}/src
+APP_BUILD := ${WD}/build-${CODE_VERSION}
+APP_DIST := ${WD}/dist-${CODE_VERSION}
 
 DT = $(shell date +'%Y%m%d%H%M%S')
 
 RC_EXISTS := $(shell [ -e ./setup.rc ] && echo 1 || echo 0)
-
-ifeq ($(RC_EXISTS), 1)
-$(info [${DT}] Source definitions file [setup.rc] EXISTS)
-include setup.rc
-else
-$(error [${DT}] Missing file [setup.rc])
+ifeq ($(RC_EXISTS), 0)
+$(warning [${DT}] Missing file [./setup.rc])
 endif
+
+include ./setup.rc
 
 ##  ------------------------------------------------------------------------  ##
 DIR_ENGINE := ${WD}/${ENGINE_NAME}-${ENGINE_VERSION}
@@ -55,33 +54,32 @@ DIR_WEB := ${WD}/webroot
 
 ifeq ($(.DEFAULT_GOAL),)
 .DEFAULT_GOAL := default
-$(warning [${DT}] Default goal [1] is SET TO: [$(.DEFAULT_GOAL)])
-else
-$(info [${DT}] Default goal [2] is: [$(.DEFAULT_GOAL)])
+$(info [${DT}] Default goal [1] is SET TO: [$(.DEFAULT_GOAL)])
 endif
 
 ##  ------------------------------------------------------------------------  ##
 ##                                  INCLUDES                                  ##
 ##  ------------------------------------------------------------------------  ##
 
-include ./bin/Makefile-utils.inc
+include ./bin/Makefile.utils
 
 ##  ------------------------------------------------------------------------  ##
 
 .PHONY: default
-default: banner test state help
+default: test state help
 
 ##  ------------------------------------------------------------------------  ##
 
-$(info [${DT}] Default goal [3] is: [$(.DEFAULT_GOAL)])
+$(info [${DT}] Default goal [2] is: [$(.DEFAULT_GOAL)])
 
-.PHONY: test test_rc
+.PHONY: test test_rc help
 
 test: test_rc
 
 ## SOURCE VARIABLES
 test_rc: setup.rc
 	@ echo "\n[${DT}] TEST GOAL EXECUTED";
+	@ cat BANNER
 
 help:
 	@ echo "\n";
@@ -108,10 +106,22 @@ clone:
 
 ##  ------------------------------------------------------------------------  ##
 
+# .PHONY: banner
+#
+# banner:
+# OK_BANNER := $(shell [ -e ./BANNER ] && echo 1 || echo 0)
+# ifeq ($(OK_BANNER),1)
+# 	@ cat ./BANNER
+# 	@ echo -e "\n";
+# endif
+
 .PHONY: banner
 
 banner:
-	@ cat BANNER
+OK_BANNER := $(shell [ -e BANNER ] && echo 1 || echo 0)
+ifeq (${OK_BANNER}, 1)
+	# $(shell cat BANNER)
+endif
 
 ##  ------------------------------------------------------------------------  ##
 
@@ -147,7 +157,8 @@ clean-files:
 		node_modules/ 						\
 		bitbucket-pipelines.yml		\
 		codeclimate-config.patch	\
-		_config.yml
+		_config.yml								\
+		${APP_DIRS};
 
 ##  ------------------------------------------------------------------------  ##
 
@@ -174,13 +185,10 @@ deploy:
 
 ##  ------------------------------------------------------------------------  ##
 
-##  ------------------------------------------------------------------------  ##
-
-all: clean tree prep compile release deploy help
-
+.PHONY: all
 #* means the word "all" doesn't represent a file name in this Makefile;
 #* means the Makefile has nothing to do with a file called "all" in the same directory.
 
-.PHONY: all
+all: clean tree prep compile release deploy
 
 ##  ------------------------------------------------------------------------  ##
