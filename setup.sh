@@ -15,6 +15,12 @@
 #   -   Build
 #   -   Deploy
 
+##  BANNER
+if [ -f ./BANNER ]; then
+  cat BANNER
+  # echo -e "\n";
+fi
+
 if [ -n "$APP_DEBUG" ]; then
   # set -x
   printf "DEBUG MODE ENABLED\n"
@@ -62,12 +68,6 @@ EOM
 # export SUDO_PW=${SUDO_PASS_INPUT}
 # sudo -v
 
-##  BANNER
-if [ -f ./BANNER ]; then
-  cat BANNER
-  echo -e "\n";
-fi
-
 ##  ------------------------------------------------------------------------  ##
 ##                                PREREQUISITES                               ##
 ##  ------------------------------------------------------------------------  ##
@@ -90,8 +90,6 @@ DIST="${WD}/dist-${CODE_VERSION}"
 
 DATE="$(date +"%Y%m%d%H%M%S")"
 DATETIME="$(date "+%Y-%m-%d")_$(date "+%H-%M-%S")"
-
-# printf "\n--------------------------  ${DATE}  ---------------------------\n";
 
 ##  ------------------------------------------------------------------------  ##
 ##                                 FUNCTIONS                                  ##
@@ -119,7 +117,7 @@ function logEnv () {
   info "OPTS = \t\t ${OPTS}";
 
   splash "$FUNCNAME Finished";
-  return 0;
+  # return 0;
 }
 
 ##  ------------------------------------------------------------------------  ##
@@ -173,8 +171,11 @@ function depsChecks () {
 function Compile () {
   splash "$FUNCNAME Started with: (${@})";
 
-  local VERSION=$(versionn pre -e VERSION);
-  local BUILD="build-${VERSION}"
+  # local VERSION=$(versionn pre -e VERSION);
+  # local BUILD="build-${VERSION}"
+
+  createDirTree ${BUILD} ${DIST} ${DIR_WEB}
+  Delay
 
   # mkdir -p ${BUILD} # && chmod 775 ${BUILD}
   # mkdir -p ${BUILD}
@@ -186,9 +187,8 @@ function Compile () {
 
 
   cd ${WD}
-  cp -pr ${DIR_ENGINE}/* ${BUILD}/ 2>/dev/null
-  warn "Engine directory [${DIR_ENGINE}] COPIED to [${BUILD}/]";
-  # mv -p "${BUILD}/.env" "${BUILD}/.env.${DATE}" 2>/dev/null
+  cp -pr ${DIR_ENGINE}/* ${BUILD} 2>/dev/null
+  warn "Engine directory [${DIR_ENGINE}] COPIED to [${BUILD}]";
   # cp -prv setup.rc "${BUILD}/.env"
   # info "COPIED setup.rc to [${BUILD}/.env]";
   # cp -pr "${SRC}/composer.json" "${BUILD}/"
@@ -196,14 +196,23 @@ function Compile () {
   # cd "${BUILD}" && composer -vvv update && cd -
 
 
-  cp -pr ${SRC}/* ${BUILD}/ 2>/dev/null
-  cp -prv ${SRC}/.env ${BUILD}/
-  cp -prv ${SRC}/composer.json ${BUILD}/
-  # cp -prv ${SRC}/.* ${BUILD}/ 2>/dev/null
+  cd ${WD}
+  mv -v ${BUILD}/.env ${BUILD}/.env.${DATE} 2>&1 >/dev/null
   Delay
+  cp -pr ${SRC}/* ${BUILD} 2>&1 >/dev/null
+  Delay
+  cp -prv ${SRC}/.env ${BUILD}/
+  Delay
+  cp -prv ${SRC}/composer.json ${BUILD}/
+  Delay
+
+  # cd ${WD}
+  # cp -prv ${SRC}/.* ${BUILD}/ 2>/dev/null
+  # Delay
 
   cd ${BUILD}
   composer -v update
+  cd -
   Delay
 
   # cd ${WD}
