@@ -1,0 +1,16 @@
+##  ------------------------------------------------------------------------  ##
+##              			   		     Show help topic       	   	                  ##
+##  ------------------------------------------------------------------------  ##
+
+.PHONY: help
+
+help:
+	@ echo "\n";
+	@ echo "AVAILABLE COMMANDS:";
+	@ echo "\t make clean \t - CLEAR directories and delete files";
+	@ echo "\t make compile \t - BUILD sources";
+	@ echo "\t make release \t - COMPILE project distro";
+	@ echo "\t make deploy \t - DEPLOY compiled project to web directory";
+	@ echo "\n";
+
+##  ------------------------------------------------------------------------  ##
