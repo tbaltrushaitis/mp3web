@@ -71,71 +71,47 @@ const config = require('read-config')(confPath);
 ME.Config = Config;
 ME.config = config;
 
-ME.NODE_ENV = 'not_set';
+// ME.NODE_ENV = 'not_set';
 ME.pkg      = _.extend({}, pkg);
 ME.version  = ME.pkg.version;
 ME.NODE_ENV = argv.env
                 ? argv.env
-                : fs.existsSync('./NODE_ENV')
-                  ? fs.readFileSync('NODE_ENV', {encoding: 'utf8'}).split('\n')[0]
+                : fs.existsSync('./.NODE_ENV')
+                  ? fs.readFileSync('./.NODE_ENV', {encoding: 'utf8'}).split('\n')[0].trim()
                   : ME.NODE_ENV;
 
-ME.VERSION = fs.readFileSync('./VERSION', pkg.options.file).trim();
-ME.COMMIT  = fs.readFileSync('./COMMIT',  pkg.options.file).trim();
+ME.VERSION = fs.readFileSync('./VERSION', ME.pkg.options.file).trim();
+ME.COMMIT  = fs.readFileSync('./COMMIT',  ME.pkg.options.file).trim();
 
-ME.DIR  = {};
-ME.WD   = path.join(__dirname, path.sep);
-ME.DOC  = path.join('docs', path.sep);
+ME.DIR = {};
+ME.WD  = path.join(__dirname, path.sep);
+ME.DOC = path.join('docs',    path.sep);
 
-ME.SRC    =   path.join('src',                    path.sep);
-ME.BUILD  =   path.join(`build-${ME.VERSION}`,    path.sep);
-ME.TMP    =   path.join('tmp',                    path.sep);
-ME.DIST   =   path.join(`dist-${ME.VERSION}`,     path.sep);
-ME.WEB    =   path.join(`webroot-${ME.VERSION}`,  path.sep);
-ME.CURDIR =   path.join(process.cwd(),            path.sep);
+ME.SRC    = path.join('src',                    path.sep);
+ME.BUILD  = path.join(`build-${ME.VERSION}`,    path.sep);
+ME.TMP    = path.join('tmp',                    path.sep);
+ME.DIST   = path.join(`dist-${ME.VERSION}`,     path.sep);
+ME.WEB    = path.join(`webroot-${ME.VERSION}`,  path.sep);
+ME.CURDIR = path.join(process.cwd(),            path.sep);
 
 utin.defaultOptions = _.extend({}, ME.pkg.options.iopts);
 
-console.log(`\n\n\n`);
+console.log(`\n`);
 console.log(`ME.NODE_ENV (${typeof ME.NODE_ENV}) = [${utin(ME.NODE_ENV)}]`);
 console.log(`ME.version (${typeof ME.version}) = [${utin(ME.version)}]`);
 console.log(`ME.VERSION (${typeof ME.VERSION}) = [${utin(ME.VERSION)}]`);
-console.log(`\n\n\n`);
-
+console.log(`\n`);
 
 ME.ENGINE  =   path.join('laravel-5.2.31');
 ME.BOWER   =   JSON.parse(fs.readFileSync('./.bowerrc')).directory;
 
-const SRC     =   path.join('src');
-const BUILD   =   path.join('build', path.sep);
-const TMP     =   path.join('tmp');
-const DIST    =   path.join('dist');
-const WEB     =   path.join('webroot', path.sep);
-const CURDIR  =   path.join(__dirname, path.sep);
-
-// const bowerOptions  =   _.extend({}, pkg.options.bower);
-// const cleanOptions  =   _.extend({}, pkg.options.clean);
-// const execOptions   =   _.extend({}, pkg.options.exec);
-// const fileOptions   =   _.extend({}, pkg.options.file);
-// const minifyOptions =   _.extend({}, pkg.options.minify);
-// const reportOptions =   _.extend({}, pkg.options.reporting);
-// const syncOptions   =   _.extend({}, pkg.options.sync);
-// const uglifyOptions =   _.extend({}, pkg.options.uglify);
-// const watchOptions  =   _.extend({}, pkg.options.watch);
-
-const VERSION = fs.readFileSync('./VERSION', pkg.options.file).trim();
-const COMMIT  = fs.readFileSync('./COMMIT',  pkg.options.file).trim();
-
-global.NODE_ENV = process.env.NODE_ENV || fs.readFileSync('./.NODE_ENV', pkg.options.file).trim();
-ME.NODE_ENV = process.env.NODE_ENV || fs.readFileSync('./.NODE_ENV', pkg.options.file).trim();
-
-var now = new Date();
-var headerTpl = _.template(`/*!
+let now = new Date();
+let headerTpl = _.template(`/*!
  * Package:\t <%= pkg.name %>@<%= pkg.version %>
  * Name:\t <%= pkg.title %>
- * Purpose:\t ${ME.NODE_ENV}
- * Version:\t ${ME.VERSION}
- * Commit:\t ${ME.COMMIT}
+ * Purpose:\t <%= ME.NODE_ENV %>
+ * Version:\t <%= ME.VERSION %>
+ * Commit:\t <%= ME.COMMIT %>
  * Description:\t <%= pkg.description %>
  * Built:\t dateFormat(now, 'yyyy-mm-dd HH:MM:ss')
  * Copyright:\t 2016 - ${dateFormat(now, 'yyyy')} <%= pkg.author.name %>
@@ -143,55 +119,31 @@ var headerTpl = _.template(`/*!
  * Visit:\t <%= pkg.homepage %>
 **/`);
 
-// var headerTpl = _.template( '\n/*!\n'
-//   + ' * Package:\t <%= pkg.name %>@<%= pkg.version %>' + '\n'
-//   + ' * Name:\t <%= pkg.title %> \n'
-//   + ' * Purpose:\t ' + ME.NODE_ENV + '\n'
-//   + ' * Version:\t ' + ME.VERSION + '\n'
-//   + ' * Commit:\t ' + ME.COMMIT + '\n'
-//   + ' * Description:\t <%= pkg.description %>' + '\n'
-//   + ' * Built:\t ' + dateFormat(now, 'yyyy-mm-dd HH:MM:ss') + '\n'
-//   + ' * Copyright:\t ' + '2016 - ' + dateFormat(now, 'yyyy') + ' <%= pkg.author.name %>' + '\n'
-//   + ' * License:\t <%= pkg.license %>' + '\n'
-//   + ' * Visit:\t <%= pkg.homepage %>' + '\n'
-//   + '**/\n\n'
-// );
-
-// var footerTpl = _.template( '\n\n/*!\n'
-//   + ' * Purpose:\t ' + ME.NODE_ENV + '\n'
-//   + ' * Version:\t ' + ME.VERSION + '\n'
-//   + ' * Commit:\t ' + ME.COMMIT + '\n'
-//   + ' * EOF:\t<%= pkg.name %>@<%= pkg.version %> - <%= pkg.title %>' + '\n'
-//   + ' */\n'
-// );
-
-var footerTpl = _.template(`/*!
- * Purpose:\t ME.NODE_ENV
- * Version:\t ME.VERSION
- * Commit:\t ME.COMMIT
+let footerTpl = _.template(`/*!
+ * Purpose:\t <%= ME.NODE_ENV %>
+ * Version:\t <%= ME.VERSION %>
+ * Commit:\t <%= ME.COMMIT %>
  * EOF:\t\t <%= pkg.name %>@<%= pkg.version %> - <%= pkg.title %>
- */`);
+ */
+`);
 
 const Banner = {
-    header: headerTpl({pkg: ME.pkg})
-  , footer: footerTpl({pkg: ME.pkg})
+    header: headerTpl({pkg: ME.pkg, ME: ME})
+  , footer: footerTpl({pkg: ME.pkg, ME: ME})
 };
 
-var envConfig = {
-    string:     'env'
-  , default:    {env: (process.env.NODE_ENV || ME.NODE_ENV || global.NODE_ENV || 'test')}
+let envConfig = {
+    string:  'env'
+  , default: {env: (process.env.NODE_ENV || ME.NODE_ENV || global.NODE_ENV || 'test')}
 };
 envConfig = parseArgs(process.argv.slice(2), envConfig);
 
-console.log('\n\n\n');
-console.log('envConfig = [',            utin(envConfig), ']');
-//console.log('Config = [',               utin(Config.get(global.NODE_ENV)), ']');
-console.log('NODE_ENV = [',             utin(envConfig.env), ']');
-console.log('global.NODE_ENV = [',      utin(global.NODE_ENV), ']');
-console.log('ME.NODE_ENV = [',      utin(ME.NODE_ENV), ']');
-console.log('CODE_VERSION = [',         utin(ME.VERSION), ']');
-console.log('GIT_COMMIT = [',           utin(ME.COMMIT), ']');
-console.log('\n\n\n');
+console.log('\n');
+console.log(`envConfig =    [${utin(envConfig)}]`);
+console.log('ME.NODE_ENV =  [', utin(ME.NODE_ENV), ']');
+console.log('CODE_VERSION = [', utin(ME.VERSION), ']');
+console.log('GIT_COMMIT =   [', utin(ME.COMMIT), ']');
+console.log('\n');
 
 
 //-------//
@@ -209,7 +161,7 @@ gulp.task('default', function () {
 
   //  DEFAULT Scenario Route
   (function () {
-    switch (envConfig.env) {
+    switch (ME.NODE_ENV) {
       case 'test': {
         // gulpSequence('lint')();
         return ['test'];
@@ -255,8 +207,8 @@ gulp.task('build:dev',  gulpSequence(
   // , 'artisan:key:generate'
     'bower'
   , 'sync:bower:fonts'
-  , 'sync:assets2public'
-  , 'sync:assets'
+  // , 'sync:assets2public'
+  // , 'sync:assets'
   , ['build:css', 'build:js']
 ));
 
@@ -265,11 +217,13 @@ gulp.task('build', gulpSequence(
   // , 'sync:engine2build'
   // , 'sync:src2build'
   // , 'artisan:key:generate'
-    'bower'
+    'build:css'
+  , 'build:js'
+  , 'bower'
   , 'sync:bower:fonts'
-  , 'sync:assets2public'
   , 'sync:assets'
-  , ['build:css', 'build:js']
+  // , 'sync:assets2public'
+  // , ['build:css', 'build:js']
 ));
 gulp.task('dist',       gulpSequence(['clean:dist'], ['sync:build2dist']));
 // gulp.task('deploy',     gulpSequence('sync:build2web', 'artisan:clear'));
@@ -342,13 +296,17 @@ gulp.task('bower', function () {
     ]))
     .pipe(changed(path.resolve(KEEP, JS)))
     .pipe(gulp.dest(path.resolve(KEEP, JS)))
+    .pipe(vinylPaths(function (paths) {
+      console.info('JS: ', paths);
+      return Promise.resolve();
+    }))
     // .pipe(gulp.dest(path.resolve(DEST, JS)))
-    .pipe(gulpif('production' === envConfig.env, uglify(ME.pkg.options.uglify)))
+    .pipe(gulpif('production' === ME.NODE_ENV, uglify(ME.pkg.options.uglify)))
     .pipe(concat('bower-bundle.js'))
     //  Write banners
     .pipe(headfoot.header(Banner.header))
     .pipe(headfoot.footer(Banner.footer))
-    .pipe(gulpif('production' === envConfig.env, rename({suffix: ME.pkg.options.minify.suffix})))
+    .pipe(gulpif('production' === ME.NODE_ENV, rename({suffix: ME.pkg.options.minify.suffix})))
     .pipe(gulp.dest(path.resolve(DEST, JS)));
 
   let bowerCSS = gulp.src(mBower)
@@ -361,17 +319,21 @@ gulp.task('bower', function () {
       , "!**/skin-*.css"
     ]))
     .pipe(changed(path.resolve(KEEP, CSS)))
-    .pipe(gulpif('production' === envConfig.env, cleanCSS(ME.pkg.options.clean, function (d) {
+    .pipe(gulpif('production' === ME.NODE_ENV, cleanCSS(ME.pkg.options.clean, function (d) {
       console.info(d.name + ':\t' + d.stats.originalSize + '\t->\t' + d.stats.minifiedSize + '\t[' + d.stats.timeSpent + 'ms]\t[' + 100 * d.stats.efficiency.toFixed(2) + '%]');
     }), false))
     .pipe(gulp.dest(path.resolve(KEEP, CSS)))
+    .pipe(vinylPaths(function (paths) {
+      console.info('CSS:', paths);
+      return Promise.resolve();
+    }))
     .pipe(concatCSS('bower-bundle.css', {rebaseUrls: false}))
     //  Write banners
     .pipe(headfoot.header(Banner.header))
     .pipe(headfoot.footer(Banner.footer))
     // Write minified version.
-    .pipe(gulpif('production' === envConfig.env, minifyCSS()))
-    .pipe(gulpif('production' === envConfig.env, rename({suffix: ME.pkg.options.minify.suffix})))
+    // .pipe(gulpif('production' === ME.NODE_ENV, minifyCSS()))
+    .pipe(gulpif('production' === ME.NODE_ENV, rename({suffix: ME.pkg.options.minify.suffix})))
     .pipe(gulp.dest(path.resolve(DEST, CSS)));
 
   let bowerFonts = gulp.src(mBower)
@@ -379,7 +341,7 @@ gulp.task('bower', function () {
     .pipe(changed(path.resolve(KEEP, FONT)))
     .pipe(gulp.dest(path.resolve(KEEP, FONT)))
     .pipe(vinylPaths(function (paths) {
-      console.info('FONT Paths:', paths);
+      console.info('FNT:', paths);
       return Promise.resolve();
     }))
     .pipe(gulp.dest(path.resolve(DEST, FONT)));
@@ -397,6 +359,10 @@ gulp.task('bower', function () {
     ]))
     .pipe(changed(path.join(KEEP, IMG)))
     .pipe(gulp.dest(path.join(KEEP, IMG)))
+    .pipe(vinylPaths(function (paths) {
+      console.info('IMG:', paths);
+      return Promise.resolve();
+    }))
     .pipe(gulp.dest(path.join(DEST, IMG)));
     // .pipe(changed(path.resolve(KEEP, IMG)))
     // .pipe(gulp.dest(path.resolve(KEEP, IMG)))
@@ -409,7 +375,8 @@ gulp.task('bower', function () {
 //  SYNC
 gulp.task('sync:bower:fonts', function () {
 
-  var DEST    = path.resolve(path.join(ME.BUILD, 'resources/assets', 'fonts'));
+  // var DEST    = path.resolve(path.join(ME.BUILD, 'resources/assets', 'fonts'));
+  var DEST    = path.resolve(path.join(ME.BUILD, 'public/assets', 'fonts'));
   var fontSRC = ['lato-font'];
   var resLato = gulp.src('')
                   .pipe(dirSync(
@@ -433,12 +400,12 @@ gulp.task('build:css', function () {
     .pipe(gulpif('production' === ME.NODE_ENV, cleanCSS(ME.pkg.options.clean, function (d) {
       console.info(d.name + ': ' + d.stats.originalSize + ' -> ' + d.stats.minifiedSize + ' [' + d.stats.timeSpent + 'ms] [' + 100 * d.stats.efficiency.toFixed(2) + '%]');
     }), false))
-    .pipe(concatCSS('frontend-bundle.css', {rebaseUrls: false}))
+    .pipe(concatCSS('frontend-bundle.css', {rebaseUrls: true}))
     .pipe(minifyCSS())
     //  Write banners
     .pipe(headfoot.header(Banner.header))
     .pipe(headfoot.footer(Banner.footer))
-    .pipe(rename({suffix: ME.pkg.options.minify.suffix}))
+    .pipe(gulpif('production' === ME.NODE_ENV, rename({suffix: ME.pkg.options.minify.suffix})))
     .pipe(gulp.dest(DEST));
 
   let backCSS = gulp.src([
