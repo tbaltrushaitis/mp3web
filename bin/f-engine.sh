@@ -8,7 +8,7 @@
 ##  Provides:
 ##    engine_check()
 ##    engine_setup()
-##    fix_engine_permissions()
+##    engine_set_permissions()
 
 
 function engine_check {
@@ -16,7 +16,7 @@ function engine_check {
     error "Engine directory [${DIR_ENGINE}] not found!";
     warn "Starting engine setup ... \n";
     engine_setup
-    fix_engine_permissions
+    engine_set_permissions
     # exit 1
   fi
 }
@@ -34,12 +34,13 @@ function engine_setup {
 }
 
 
-function fix_engine_permissions {
+function engine_set_permissions {
   cd ${APP_HOME}
   # sudo chown -R ${WEB_USER}:${WEB_USER} ${DIR_ENGINE}
-  sudo chmod 775 ${DIR_ENGINE}
-  sudo chmod 775 ${DIR_ENGINE}/storage
-  sudo chmod 775 ${DIR_ENGINE}/bootstrap/cache
+  chmod 775 ${DIR_ENGINE}
+  chmod 775 ${DIR_ENGINE}/storage
+  chmod 775 ${DIR_ENGINE}/bootstrap/cache
+  chmod a+x ${DIR_ENGINE}/artisan
 }
 
 ##  -----------------------  EOF: f-engine.sh  -----------------------------  ##
