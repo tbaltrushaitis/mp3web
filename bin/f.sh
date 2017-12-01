@@ -54,7 +54,7 @@ function fatal () {
 function splash () {
   echo -ne "\n${BCyan}";
   echo -ne "****************** === *************************\n"
-  echo -ne "[$(date +'%Y%m%d%H%M%S')][$FUNCNAME]:\t" "${@}" "\n";
+  echo -ne "[$(date +'%Y%m%d%H%M%S')]:\t" "${@}" "\n";
   echo -ne "****************** === *************************\n"
   echo -ne "\n${NC}";
 }
@@ -65,7 +65,7 @@ function splash () {
 
 function Delay () {
   local T=1;
-  printf "\nTimeout ${T} second(s) ... ";
+  printf "\n${BCyan}Timeout ${T} second(s) ... ";
   sleep ${T};
   printf "${BGreen}[OK]\n${NC}";
 }
@@ -152,12 +152,13 @@ function set_permissions {
   printf "\n------------------------  SET PERMISSIONS  ---------------------\n";
   W_DIR="$1"
   info "W_DIR = ${W_DIR}"
-  sudo chown -R ${WEB_USER}:${WEB_USER} "${W_DIR}"
-  sudo chmod 775 "${W_DIR}"
+  chown -R ${WEB_USER}:${WEB_USER} ${W_DIR}
+  chmod 775 ${W_DIR}
 
-  cd "${W_DIR}"
-  sudo find . -type d -exec chmod 775 {} \;
-  sudo find . -type f -exec chmod 664 {} \;
+  cd ${W_DIR}
+  find . -type d -exec chmod 775 {} \;
+  find . -type f -exec chmod 664 {} \;
+  chmod a+x artisan
 
   printf "\n------------ PERMISSIONS CHANGED FOR: [${W_DIR}] ---------------\n";
   printf "\n================================================================\n";
