@@ -151,8 +151,7 @@ clean-files:
 	@ rm -rf ${APP_DIRS}  			\
 		bitbucket-pipelines.yml		\
 		codeclimate-config.patch	\
-		_config.yml								\
-		COMMIT;
+		_config.yml;
 
 ##  ------------------------------------------------------------------------  ##
 
