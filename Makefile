@@ -41,7 +41,11 @@ include ./setup.rc
 DIR_ENGINE := ${WD}/${ENGINE_NAME}-${ENGINE_VERSION}
 GIT_COMMIT := $(shell git rev-list --remove-empty --remotes --max-count=1 --date-order --reverse)
 
+COMMIT_EXISTS := $(shell [ -e COMMIT ] && echo 1 || echo 0)
+ifeq ($(COMMIT_EXISTS), 0)
 $(file > COMMIT,${GIT_COMMIT})
+$(warning [${DT}] Created file [COMMIT])
+endif
 
 DIR_SRC := ${WD}/src
 DIR_BUILD := ${WD}/build-${CODE_VERSION}
@@ -54,42 +58,35 @@ DIR_WEB := ${WD}/webroot
 
 ifeq ($(.DEFAULT_GOAL),)
 .DEFAULT_GOAL := default
-$(info [${DT}] Default goal [1] is SET TO: [$(.DEFAULT_GOAL)])
+# $(info [${DT}] Default goal [1] is SET TO: [$(.DEFAULT_GOAL)])
 endif
 
 ##  ------------------------------------------------------------------------  ##
 ##                                  INCLUDES                                  ##
 ##  ------------------------------------------------------------------------  ##
 
-include ./bin/Makefile.utils
+include ./bin/Makefile.*
 
 ##  ------------------------------------------------------------------------  ##
 
 .PHONY: default
 default: test state help
+# default: all;
 
 ##  ------------------------------------------------------------------------  ##
 
-$(info [${DT}] Default goal [2] is: [$(.DEFAULT_GOAL)])
+$(info [${DT}] Default goal is: [$(.DEFAULT_GOAL)])
 
-.PHONY: test test_rc help
+.PHONY: test test_rc
 
-test: test_rc
+test: test_rc;
 
 ## SOURCE VARIABLES
+#@ cat BANNER
+# test_rc: setup.rc banner
 test_rc: setup.rc
 	@ echo "\n[${DT}] TEST GOAL EXECUTED";
-	@ cat BANNER
-
-help:
-	@ echo "\n";
-	@ echo "AVAILABLE COMMANDS:";
-	@ echo "\t make clean \t - CLEAR directories and delete files";
-	@ echo "\t make clone \t - CLONE project sources from provided repo";
-	@ echo "\t make compile \t - BUILD sources";
-	@ echo "\t make release \t - COMPILE project distro";
-	@ echo "\t make deploy \t - DEPLOY compiled project to web directory";
-	@ echo "\n";
+	@ $(MAKE) banner
 
 ##  ------------------------------------------------------------------------  ##
 
@@ -106,22 +103,17 @@ clone:
 
 ##  ------------------------------------------------------------------------  ##
 
-# .PHONY: banner
-#
-# banner:
+.PHONY: banner
+
+banner:
+	@ cat BANNER
+
 # OK_BANNER := $(shell [ -e ./BANNER ] && echo 1 || echo 0)
 # ifeq ($(OK_BANNER),1)
 # 	@ cat ./BANNER
 # 	@ echo -e "\n";
+# 	# $(shell cat BANNER)
 # endif
-
-.PHONY: banner
-
-banner:
-OK_BANNER := $(shell [ -e BANNER ] && echo 1 || echo 0)
-ifeq (${OK_BANNER}, 1)
-	# $(shell cat BANNER)
-endif
 
 ##  ------------------------------------------------------------------------  ##
 
@@ -165,21 +157,31 @@ clean-files:
 ##  ------------------------------------------------------------------------  ##
 
 tree:
-	@ ./setup.sh "tree"
+	@ ./setup.sh tree
 
 ##  ------------------------------------------------------------------------  ##
 
-prep:
-	@ ./setup.sh "prepare"
+.PHONY: setup engine build build-engine build-assets release deploy
 
-compile:
-	@ ./setup.sh "compile"
+setup:
+	@ ./setup.sh setup
+
+engine:
+	@ ./setup.sh engine
+
+build: build-engine build-assets;
+
+build-engine:
+	@ ./setup.sh build
+
+build-assets:
+	@ gulp build
 
 release:
-	@ ./setup.sh "release"
+	@ ./setup.sh release
 
 deploy:
-	@ ./setup.sh "deploy"
+	@ ./setup.sh deploy
 
 # dev:
 # 	@ NODE_ENV=development ./setup.sh "all"
@@ -191,6 +193,6 @@ deploy:
 #* means the word "all" doesn't represent a file name in this Makefile;
 #* means the Makefile has nothing to do with a file called "all" in the same directory.
 
-all: clean tree prep compile release deploy
+all: clean setup engine build release deploy;
 
 ##  ------------------------------------------------------------------------  ##
