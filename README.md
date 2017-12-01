@@ -140,6 +140,7 @@ Below is a list of gulp tasks and their possible params:
 ## Change log ##
 
 ### v1.0.2 ###
+ - [x] Usage of Makefile to build and deploy project
 
 ### v1.0.1 ###
  - [x] Genre tags added as labels for track
