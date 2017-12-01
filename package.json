@@ -125,20 +125,21 @@
     }
   , "options": {
         "bower": {
-            "debugging":    false
+            "debugging": true
           , "paths": {
-                "bowerDirectory":   "bower_modules"
-              , "bowerrc":          ".bowerrc"
-              , "bowerJson":        "bower.json"
+                "bowerDirectory": "bower_modules"
+              , "bowerrc":        ".bowerrc"
+              , "bowerJson":      "bower.json"
             }
         }
       , "clean": {
-            "debug":            true
-          , "processImport":    true
+            "debug":         true
+          , "processImport": true
+          , "rebase":        false
         }
       , "exec": {
-            "continueOnError":  false
-          , "pipeStdout":       false
+            "continueOnError": false
+          , "pipeStdout":      false
         }
       , "file": {
             "encoding": "utf8"
@@ -158,46 +159,46 @@
         }
       , "uglify": {
             "compress": {
-                "sequences":        true
-              , "properties":       true
-              , "dead_code":        true
-              , "drop_debugger":    true
-              , "unsafe":           false
-              , "conditionals":     true
-              , "comparisons":      true
-              , "evaluate":         true
-              , "booleans":         true
-              , "loops":            true
-              , "unused":           true
-              , "hoist_funs":       true
-              , "hoist_vars":       false
-              , "if_return":        true
-              , "join_vars":        true
-              , "cascade":          true
-              , "side_effects":     true
-              , "warnings":         true
-              , "global_defs":      {}
+                "sequences":     true
+              , "properties":    true
+              , "dead_code":     true
+              , "drop_debugger": true
+              , "unsafe":        false
+              , "conditionals":  true
+              , "comparisons":   true
+              , "evaluate":      true
+              , "booleans":      true
+              , "loops":         true
+              , "unused":        true
+              , "hoist_funs":    true
+              , "hoist_vars":    false
+              , "if_return":     true
+              , "join_vars":     true
+              , "cascade":       true
+              , "side_effects":  true
+              , "warnings":      true
+              , "global_defs":   {}
             }
-          , "mangle":   false
+          , "mangle": false
           , "output": {
-                "indent_start":     0
-              , "indent_level":     4
-              , "quote_keys":       false
-              , "ascii_only":       false
-              , "inline_script":    false
-              , "width":            80
-              , "max_line_len":     32000
-              , "beautify":         false
-              , "source_map":       null
-              , "bracketize":       false
-              , "comments":         false
-              , "semicolons":       true
+                "indent_start":  0
+              , "indent_level":  4
+              , "quote_keys":    false
+              , "ascii_only":    false
+              , "inline_script": false
+              , "width":         80
+              , "max_line_len":  32000
+              , "beautify":      false
+              , "source_map":    null
+              , "bracketize":    false
+              , "comments":      false
+              , "semicolons":    true
             }
         }
       , "watch": {
-            "ignoreInitial":    false
-          , "verbose":          true
-          , "readDelay":        500
+            "ignoreInitial": false
+          , "verbose":       true
+          , "readDelay":     500
         }
       , "iopts": {
             "showHidden": false
