@@ -16,6 +16,7 @@
 #   -   Build
 #   -   Release
 #   -   Deploy
+#   -   Artisan
 
 ##  BANNER
 if [ -f ./BANNER ]; then
@@ -41,7 +42,7 @@ fi
 
 ## Source settings
 if [ ! -f ${F_RC} ]; then
-  printf "Missing file [${F_RC}]\n"
+  echo -e "${BRed}Missing file [${F_RC}]${NC}"
   exit 1
 fi
 source ${F_RC}
@@ -89,8 +90,8 @@ SRC="${WD}/src"
 BUILD="${WD}/build-${CODE_VERSION}"
 DIST="${WD}/dist-${CODE_VERSION}"
 
-DATE="$(date +"%Y%m%d%H%M%S")"
-DATETIME="$(date "+%Y-%m-%d")_$(date "+%H-%M-%S")"
+DATE=$(date +"%Y%m%d%H%M%S")
+DATETIME='$(date "+%Y-%m-%d")_$(date "+%H-%M-%S")'
 
 ##  ------------------------------------------------------------------------  ##
 ##                                 FUNCTIONS                                  ##
@@ -108,16 +109,21 @@ function logEnv () {
 
   info "CODE_VERSION = \t ${CODE_VERSION}";
   info "WD = \t\t ${WD}";
-  info "SRC = \t\t ${SRC}";
-  info "BUILD = \t ${BUILD}";
-  info "DIST = \t\t ${DIST}";
+  info "DIR_SRC = \t ${DIR_SRC}";
   info "DIR_ENGINE = \t ${DIR_ENGINE}";
-  info "APP_PATH = \t ${APP_PATH}";
+  info "DIR_BUILD = \t ${DIR_BUILD}";
+  info "DIR_DIST = \t ${DIR_DIST}";
+  info "DIR_WEB = \t ${DIR_WEB}";
   info "WEB_USER = \t ${WEB_USER}";
   info "OPTS = \t\t ${OPTS}";
 
+  # info "SRC = \t\t ${SRC}";
+  # info "BUILD = \t ${BUILD}";
+  # info "DIST = \t\t ${DIST}";
+  # info "APP_PATH = \t ${APP_PATH}";
+
   splash "$FUNCNAME Finished";
-  # return 0;
+  return 0;
 }
 
 ##  ------------------------------------------------------------------------  ##
@@ -171,8 +177,9 @@ function Build () {
   # local VERSION=$(versionn pre -e VERSION);
   # local BUILD="build-${VERSION}"
 
-  createDirTree ${BUILD}
-  Delay
+  # createDirTree ${DIR_BUILD} ${DIR_DIST}
+  createDirTree "${DIR_BUILD}";
+  Delay 2;
 
   # mkdir -p ${BUILD} # && chmod 775 ${BUILD}
   # mkdir -p ${BUILD}
@@ -184,9 +191,9 @@ function Build () {
 
 
   cd ${WD}
-  mkdir -p ${BUILD} 2>/dev/null
-  cp -prv ${DIR_ENGINE}/* ${BUILD} 2>/dev/null
-  warn "Engine directory [${DIR_ENGINE}] COPIED to [${BUILD}]";
+  mkdir -p ${DIR_BUILD} 2>/dev/null;
+  cp -pr "${DIR_ENGINE}/*" "${DIR_BUILD}/" 2>&1 >/dev/null;
+  warn "Engine directory [${DIR_ENGINE}/*] COPIED to [${DIR_BUILD}/]";
   # cp -prv setup.rc "${BUILD}/.env"
   # info "COPIED setup.rc to [${BUILD}/.env]";
   # cp -pr "${SRC}/composer.json" "${BUILD}/"
@@ -196,43 +203,44 @@ function Build () {
 
   cd ${WD}
 
-  if [ -f ${BUILD}/.env ]; then
-    mv -v ${BUILD}/.env ${BUILD}/.env.${DATE} 2>/dev/null
-    Delay
+  if [ -f "${DIR_BUILD}/.env" ]; then
+    mv -vf "${DIR_BUILD}/.env" "${DIR_BUILD}/.env.${DATE}" 2>/dev/null
   fi
 
-  cp -pr ${SRC}/* ${BUILD} 2>/dev/null
-  Delay
-  cp -prv ${SRC}/.env ${BUILD} 2>/dev/null
-  Delay
-  cp -prv ${SRC}/composer.json ${BUILD} 2>/dev/null
-  Delay
+  cp -pr "${DIR_SRC}/*" "${DIR_BUILD}/" 2>&1 >/dev/null && Delay 2
+  cp -pvf ${DIR_SRC}/.env ${DIR_BUILD}/ 2>&1 >/dev/null && Delay 2
+  cp -pvf ${DIR_SRC}/composer.json ${DIR_BUILD}/ 2>&1 >/dev/null && Delay 2
 
   # cd ${WD}
   # cp -prv ${SRC}/.* ${BUILD}/ 2>/dev/null
   # Delay
 
-  cd ${BUILD}
+  cd ${DIR_BUILD}
   composer -v update
-  cd -
-  Delay
+  cd ${WD} && Delay 2
+
+  Artisan "${DIR_BUILD}"
 
   # cd ${WD}
   # set_permissions ${BUILD}
   # Delay
 
   splash "$FUNCNAME Finished";
-  # exit 0;
 }
 
 
 function Release () {
   splash "$FUNCNAME params: (${@})";
 
+  createDirTree "${DIR_DIST}";
+  Delay 2;
+
   cd ${WD}
-  cp -pr ${BUILD} ${DIST} 2>/dev/null
-  cp -prv ${BUILD}/.env ${DIST} 2>/dev/null
-  warn "Directory [${BUILD}/*] content DEPLOYED to [${DIST}]";
+  cp -pr "${DIR_BUILD}/*" "${DIR_DIST}/" 2>/dev/null
+  cp -pvf "${DIR_BUILD}/.env" "${DIR_DIST}/" 2>/dev/null
+  warn "Directory [${DIR_BUILD}/*] content DEPLOYED to [${DIR_DIST}/]";
+
+  Artisan "${DIR_DIST}"
 
   # cd ${WD}
   # cd "${DIR_WEB}/public"
@@ -250,12 +258,14 @@ function Release () {
   # && Delay;
 
   splash "$FUNCNAME Finished";
-  # exit 0;
 }
 
 
 function Deploy () {
   splash "$FUNCNAME params: (${@})";
+
+  createDirTree "${DIR_WEB}";
+  Delay 2;
 
   # mkdir -p "${WD}/${APP_DIR}/public/";
   # set_permissions ${WD}/${APP_DIR};
@@ -265,24 +275,21 @@ function Deploy () {
   # && Delay;
 
   cd ${WD}
-  cp -pr ${DIST} ${DIR_WEB}/ 2>&1 >/dev/null
-  if [ ! -f ${DIR_WEB}/.env ]; then
-    cp -prv ${DIST}/.env ${DIR_WEB}/ 2>&1 > /dev/null
-    info "ENV FILE [${DIST}/.env] COPIED to [${DIR_WEB}]";
+  cp -pr "${DIR_DIST}/*" "${DIR_WEB}/" 2>&1 >/dev/null
+  if [ -f ${DIR_WEB}/.env ]; then
+    mv -pvf "${DIR_WEB}/.env" "${DIR_WEB}/.env.${DATE}.bak" 2>&1 >/dev/null;
+    cp -pvf "${DIR_DIST}/.env" "${DIR_WEB}/" 2>&1 >/dev/null;
+    info "ENV FILE [${DIR_DIST}/.env] COPIED to [${DIR_WEB}/.env]";
   fi
-  warn "Directory [${DIST}] content DEPLOYED to [${DIR_WEB}]";
-
-  # cd ${WD}
-  # cd "${WD}/${APP_DIR}/public/"
-  # ln -s ../storage/media/audio/ >&2 2>/dev/null               \
-  # && Delay;
+  warn "Directory [${DIR_DIST}/] content DEPLOYED to [${DIR_WEB}/]";
+  Delay 2
 
   cd ${WD}
-  cd ${DIR_WEB}/public
-  mkdir -p ../storage/media/audio >&2 2>/dev/null
-  ln -s ../storage/media/audio >&2 2>/dev/null
-  cd -
-  Delay
+  cd "${DIR_WEB}/public"
+  mkdir -p ../storage/media/audio 2>&1 >/dev/null
+  ln -s ../storage/media/audio 2>&1 >/dev/null
+  cd ${WD}
+  Delay 2
 
   # cd ${WD}
   # sudo chown -R ${WEB_USER}:${WEB_USER} "${APP_DIR}"          \
@@ -290,10 +297,50 @@ function Deploy () {
   #
   # node gulpfile.js artisan:clear --env=${APP_ENV} --verbose   \
   # && Delay;
-  set_permissions ${DIR_WEB}
+  Artisan "${DIR_WEB}"
+  set_permissions "${DIR_WEB}"
 
   splash "$FUNCNAME Finished";
-  # exit 0;
+}
+
+
+function Artisan () {
+  splash "$FUNCNAME Started with: (${@})";
+  local W_DIR="$1"
+  info "W_DIR = ${W_DIR}";
+
+  cd ${W_DIR};
+
+  # chmod a+x artisan
+  # ./artisan auth:clear-resets
+  # ./artisan clear-compiled
+
+  pwd
+  # php artisan route:clear;
+  # php artisan view:clear;
+
+  # ./artisan cache:clear
+
+  php artisan vendor:publish;
+  php artisan config:clear;
+  php artisan key:generate;
+  php artisan optimize
+
+  # ./artisan migrate:refresh
+  # php artisan route:cache;
+
+  php artisan down;
+  php artisan up;
+
+  php artisan route:list;
+  php artisan migrate:status;
+
+  # ./artisan config:cache
+
+  warn "$FUNCNAME COMPLETED FOR: [${W_DIR}]";
+  splash "$FUNCNAME Finished";
+  warn "======================================================================";
+  Delay 10;
 }
 
 
@@ -307,67 +354,77 @@ logEnv
 case "$1" in
 
   "")
-    info "without params";
+    info "Without params";
     usage
     RETVAL=0
   ;;
 
   "usage" | "h")
-    info "usage()";
+    info "Usage()";
     usage
     RETVAL=0
   ;;
 
   "setup" | "s")
-    info "setup()";
-    setupChecks && Delay
+    info "Setup()";
+    setupChecks && Delay;
     RETVAL=$?
   ;;
 
   "tree")
-    info "tree()";
-    createDirTree "${BUILD} ${DIST} ${DIR_WEB}" && Delay
+    info "Tree()";
+    createDirTree "${DIR_BUILD} ${DIR_DIST} ${DIR_WEB}" && Delay;
     RETVAL=$?
   ;;
 
   "engine" | "e")
-    info "engine()";
-    engineChecks && Delay
+    info "Engine()";
+    engineChecks && Delay;
     RETVAL=$?
   ;;
 
   "build" | "b")
     info "Build()";
-    Build && Delay
+    Build && Delay;
     RETVAL=$?
   ;;
 
   "release" | "r")
-    info "release()";
-    Release && Delay
+    info "Release()";
+    Release && Delay;
     RETVAL=$?
   ;;
 
   "deploy" | "d")
-    info "deploy()";
-    Deploy && Delay
+    info "Deploy()";
+    Deploy && Delay;
+# Artisan && Delay
     RETVAL=$?
   ;;
 
   "rebuild" | "rb")
-    info "Recompile()";
-    Compile && Delay
-    Release && Delay
+    info "ReBuild()";
+    Build && Delay;
+    Release && Delay;
+    RETVAL=$?
+  ;;
+
+  "redeploy" | "rd")
+    info "ReDeploy()";
+    Build && Delay 2;
+    Release && Delay 2;
+    Deploy && Delay 2;
     RETVAL=$?
   ;;
 
   "all" | "a")
     info "All_Tasks()";
-    preSetupChecks && Delay
-    depsChecks && Delay
-    Compile && Delay
-    Release && Delay
-    Deploy && Delay
+    setupChecks && Delay 2;
+    engineChecks && Delay 2;
+    Build && Delay 2;
+    Release && Delay 2;
+    Deploy && Delay 2;
+    # Artisan && Delay
     RETVAL=$?
   ;;
 
@@ -379,7 +436,7 @@ case "$1" in
 
 esac
 
-splash "ALL DONE!";
+splash "ALL DONE! Exiting now ...";
 
 exit ${RETVAL};
 
