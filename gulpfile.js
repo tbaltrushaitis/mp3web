@@ -112,13 +112,15 @@ let headerTpl = _.template(`/*!
  * Version:\t <%= ME.VERSION %>
  * Commit:\t <%= ME.COMMIT %>
  * Description:\t <%= pkg.description %>
- * Built:\t dateFormat(now, 'yyyy-mm-dd HH:MM:ss')
+ * Built:\t ${dateFormat(now, 'yyyy-mm-dd HH:MM:ss')}
  * Copyright:\t 2016 - ${dateFormat(now, 'yyyy')} <%= pkg.author.name %>
  * License:\t <%= pkg.license %>
  * Visit:\t <%= pkg.homepage %>
-**/`);
+ */
+`);
 
-let footerTpl = _.template(`/*!
+let footerTpl = _.template(`
+/*!
  * Purpose:\t <%= ME.NODE_ENV %>
  * Version:\t <%= ME.VERSION %>
  * Commit:\t <%= ME.COMMIT %>
