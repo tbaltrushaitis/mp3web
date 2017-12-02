@@ -3,7 +3,6 @@
  * Copyright(c) 2016-2017 Baltrushaitis Tomas
  * License:     MIT
  */
-// (function () {
 
 'use strict';
 
@@ -464,7 +463,6 @@ gulp.task('jshint', function () {
 
 
 
-
 //  Log file paths in the stream
 gulp.task('files:src', function () {
   return  gulp.src([
@@ -500,7 +498,5 @@ gulp.task('usage', function () {
   console.log('\n' + (new Array(50).join('-')));
   console.warn('\n');
 });
-
-// });
 
 /*  EOF: ROOT/gulpfile.js  */
