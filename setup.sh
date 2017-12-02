@@ -18,7 +18,6 @@
 ##  BANNER
 if [ -f ./BANNER ]; then
   cat BANNER
-  # echo -e "\n";
 fi
 
 if [ -n "$APP_DEBUG" ]; then
@@ -29,19 +28,22 @@ fi
 set -e
 trap 'echo >&2 Ctrl+C captured, exiting; exit 1' SIGINT
 
+F_COLORS="./bin/.bash_colors"
+F_RC="./setup.rc"
+
 ##  Colors
-if [ -f ./bin/.bash_colors ]; then
-  source ./bin/.bash_colors
-  echo -e "\t${BPurple}ENV:\t exported [./bin/.bash_colors]${NC}";
+if [ -f ${F_COLORS} ]; then
+  source ${F_COLORS}
+  echo -e "\t${BPurple}ENV:\t exported [${F_COLORS}]${NC}";
 fi
 
 ## Source settings
-if [ ! -f ./setup.rc ]; then
-  printf "Missing file [setup.rc]\n"
+if [ ! -f ${F_RC} ]; then
+  printf "Missing file [${F_RC}]\n"
   exit 1
 fi
-source ./setup.rc
-echo -e "\t${BYellow}ENV:\t exported [./setup.rc]${NC}";
+source ${F_RC}
+echo -e "\t${BYellow}ENV:\t exported [${F_RC}]${NC}";
 
 
 function usage () {
@@ -52,9 +54,10 @@ function usage () {
     $0 <command> [<params>]
 
     $0 <usage | help | h>   -   Show usage information
-    $0 <test | t>           -   Perform environment tests
-    $0 <prepare | prep | p> -   Install PHP, BOWER and NPM dependencies.
+    $0 <setup | s>          -   Install PHP, BOWER and NPM dependencies.
+    $0 <engine | e>         -   Download engine sources
     $0 <build | b>          -   Build project directory
+    $0 <release | r>        -   Create compiled distro
     $0 <deploy | d>         -   Sync sites public web directory (<webroot> by default)
     $0 <rebuild | rb>       -   Perform <build> and then <deploy> tasks
 
@@ -78,11 +81,7 @@ WD="$(pwd -P)"                          #   Current working directory
 APP_HOME="$(pwd -P)/"                   #   Current directory
 APP_PATH="${APP_HOME}${APP_DIR}"        #   Full path to target directory
 DIR_ENGINE="${ENGINE_NAME}-${ENGINE_VERSION}"
-
 CODE_VERSION="$(cat ./VERSION)"
-GIT_COMMIT="$(git rev-list --remove-empty --remotes --max-count=1 --date-order --reverse)"
-
-# printf "${GIT_COMMIT}" > COMMIT
 
 SRC="${WD}/src"
 BUILD="${WD}/build-${CODE_VERSION}"
@@ -106,7 +105,6 @@ function logEnv () {
   splash "${FUNCNAME}() Started with: (${@})";
 
   info "CODE_VERSION = \t ${CODE_VERSION}";
-  info "GIT_COMMIT = \t ${GIT_COMMIT}";
   info "WD = \t\t ${WD}";
   info "SRC = \t\t ${SRC}";
   info "BUILD = \t ${BUILD}";
@@ -125,7 +123,7 @@ function logEnv () {
 ##  ------------------------------------------------------------------------  ##
 
 
-function preSetupChecks () {
+function setupChecks () {
   splash "$FUNCNAME Started with: (${@})";
 
   okNode
@@ -142,11 +140,11 @@ function preSetupChecks () {
 ##                                 EXECUTION                                  ##
 ##  ------------------------------------------------------------------------  ##
 
-function depsChecks () {
+function engineChecks () {
   splash "$FUNCNAME Started with: (${@})";
 
-  createDirTree "${BUILD} ${DIST} ${DIR_WEB}"
-  Delay
+  # createDirTree "${BUILD} ${DIST} ${DIR_WEB}"
+  # Delay
 
   composer_check
   Delay
@@ -154,27 +152,24 @@ function depsChecks () {
   engine_check
   Delay
 
-  # fix_permissions
-  # Delay
+  engine_set_permissions
+  Delay
 
   deps_install
   Delay
-
-  # deps_outdated
-  # sleep 1;
 
   splash "$FUNCNAME Finished";
   # exit 0;
 }
 
 
-function Compile () {
+function Build () {
   splash "$FUNCNAME Started with: (${@})";
 
   # local VERSION=$(versionn pre -e VERSION);
   # local BUILD="build-${VERSION}"
 
-  createDirTree ${BUILD} ${DIST} ${DIR_WEB}
+  createDirTree ${BUILD}
   Delay
 
   # mkdir -p ${BUILD} # && chmod 775 ${BUILD}
@@ -187,7 +182,8 @@ function Compile () {
 
 
   cd ${WD}
-  cp -pr ${DIR_ENGINE} ${BUILD} 2>/dev/null
+  mkdir -p ${BUILD} 2>/dev/null
+  cp -prv ${DIR_ENGINE}/* ${BUILD} 2>/dev/null
   warn "Engine directory [${DIR_ENGINE}] COPIED to [${BUILD}]";
   # cp -prv setup.rc "${BUILD}/.env"
   # info "COPIED setup.rc to [${BUILD}/.env]";
@@ -197,13 +193,17 @@ function Compile () {
 
 
   cd ${WD}
-  mv -v ${BUILD}/.env ${BUILD}/.env.${DATE} 2>&1 >/dev/null
+
+  if [ -f ${BUILD}/.env ]; then
+    mv -v ${BUILD}/.env ${BUILD}/.env.${DATE} 2>/dev/null
+    Delay
+  fi
+
+  cp -pr ${SRC}/* ${BUILD} 2>/dev/null
   Delay
-  cp -pr ${SRC}/* ${BUILD} 2>&1 >/dev/null
+  cp -prv ${SRC}/.env ${BUILD} 2>/dev/null
   Delay
-  cp -prv ${SRC}/.env ${BUILD} 2>&1 >/dev/null
-  Delay
-  cp -prv ${SRC}/composer.json ${BUILD} 2>&1 >/dev/null
+  cp -prv ${SRC}/composer.json ${BUILD} 2>/dev/null
   Delay
 
   # cd ${WD}
@@ -228,7 +228,7 @@ function Release () {
   splash "$FUNCNAME params: (${@})";
 
   cd ${WD}
-  cp -pr ${BUILD}/* ${DIST} 2>/dev/null
+  cp -pr ${BUILD} ${DIST} 2>/dev/null
   cp -prv ${BUILD}/.env ${DIST} 2>/dev/null
   warn "Directory [${BUILD}/*] content DEPLOYED to [${DIST}]";
 
@@ -263,12 +263,12 @@ function Deploy () {
   # && Delay;
 
   cd ${WD}
-  cp -pr ${DIST}/* ${DIR_WEB}/ 2>/dev/null
+  cp -pr ${DIST} ${DIR_WEB}/ 2>&1 >/dev/null
   if [ ! -f ${DIR_WEB}/.env ]; then
-    cp -prv ${DIST}/.env ${DIR_WEB}/ 2>/dev/null
-    info "ENV FILE [${DIST}/.env] COPIED to [${DIR_WEB}/]";
+    cp -prv ${DIST}/.env ${DIR_WEB}/ 2>&1 > /dev/null
+    info "ENV FILE [${DIST}/.env] COPIED to [${DIR_WEB}]";
   fi
-  warn "Directory [${DIST}/*] content DEPLOYED to [${DIR_WEB}/]";
+  warn "Directory [${DIST}] content DEPLOYED to [${DIR_WEB}]";
 
   # cd ${WD}
   # cd "${WD}/${APP_DIR}/public/"
@@ -276,7 +276,7 @@ function Deploy () {
   # && Delay;
 
   cd ${WD}
-  cd "${DIR_WEB}/public"
+  cd ${DIR_WEB}/public
   mkdir -p ../storage/media/audio >&2 2>/dev/null
   ln -s ../storage/media/audio >&2 2>/dev/null
   cd -
@@ -305,38 +305,38 @@ logEnv
 case "$1" in
 
   "")
-    log "without params";
+    info "without params";
     usage
     RETVAL=0
   ;;
 
   "usage" | "h")
-    log "usage()";
+    info "usage()";
     usage
     RETVAL=0
   ;;
 
-  "test" | "t")
-    log "test()";
-    preSetupChecks
+  "setup" | "s")
+    info "setup()";
+    setupChecks && Delay
     RETVAL=$?
   ;;
 
   "tree")
-    log "tree()";
+    info "tree()";
     createDirTree "${BUILD} ${DIST} ${DIR_WEB}" && Delay
     RETVAL=$?
   ;;
 
-  "prepare" | "prep" | "p")
-    log "prepare()";
-    depsChecks && Delay
+  "engine" | "e")
+    info "engine()";
+    engineChecks && Delay
     RETVAL=$?
   ;;
 
-  "compile" | "build" | "b" | "c")
-    info "Compile()";
-    Compile && Delay
+  "build" | "b")
+    info "Build()";
+    Build && Delay
     RETVAL=$?
   ;;
 
