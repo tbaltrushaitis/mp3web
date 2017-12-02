@@ -49,21 +49,23 @@ variables in it (e.g. DB_HOST, APP_URL)
 
 With `make` - GNU make utility to maintain groups of programs
 
-In fact you just need to type `make` in your terminal:
+In fact you just need to type in your terminal:
 ```bash
 $ make
 ```
 
-To get additional info and usage examples type `usage | help | h` command param:
+To get additional info and usage examples type `make usage|help` command param:
 ```bash
 $ make help
 
 AVAILABLE COMMANDS:
-    make clean   - CLEAR directories and delete files
-    make clone   - CLONE project sources from provided repo
-    make compile - BUILD sources
-    make release - COMPILE project distro
-    make deploy  - DEPLOY compiled project to web directory
+  make clean   - CLEAR directories and delete files;
+  make setup   - check for php, nodejs and bower installations;
+  make engine  - cook engine sources;
+  make build   - BUILD project from sources;
+  make release - COMPILE project distro;
+  make deploy  - DEPLOY compiled project to web directory;
+  make all     - Run all operations in their preferred order;
 ```
 
 ### 4 - Deploy ###
