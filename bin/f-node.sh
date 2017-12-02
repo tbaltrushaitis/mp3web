@@ -14,7 +14,7 @@ function deps_install {
   npm i #--verbose
 
   info "\tInstalling Bower packages ... \n";
-  bower i --production #--verbose
+  bower i --production --allow-root #--verbose
 }
 
 function deps_outdated {
