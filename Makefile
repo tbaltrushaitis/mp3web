@@ -22,16 +22,17 @@ APP_BANNER := $(shell cat ./BANNER)
 APP_BRANCH := "dev-1.0.2"
 
 WD := $(shell pwd -P)
-APP_DIRS := $(addprefix ${WD}/,build-* dist-*)
+APP_DIRS := $(addprefix ${WD}/,build-* dist-* webroot)
 APP_SRC := ${WD}/src
 APP_BUILD := ${WD}/build-${CODE_VERSION}
 APP_DIST := ${WD}/dist-${CODE_VERSION}
 
 DT = $(shell date +'%Y%m%d%H%M%S')
 
-RC_EXISTS := $(shell [ -e ./setup.rc ] && echo 1 || echo 0)
+RC_FILE := setup.rc
+RC_EXISTS := $(shell [ -e ./${RC_FILE} ] && echo 1 || echo 0)
 ifeq ($(RC_EXISTS), 0)
-$(warning [${DT}] Missing file [./setup.rc])
+$(warning ${BRed}[${DT}] Missing file [./${RC_FILE}]${NC})
 endif
 
 include ./bin/.bash_colors
@@ -45,7 +46,7 @@ GIT_COMMIT := $(shell git rev-list --remove-empty --remotes --max-count=1 --date
 COMMIT_EXISTS := $(shell [ -e COMMIT ] && echo 1 || echo 0)
 ifeq ($(COMMIT_EXISTS), 0)
 $(file > COMMIT,${GIT_COMMIT})
-$(warning [${DT}] Created file [COMMIT])
+$(warning ${BYellow}[${DT}] Created file [COMMIT]${NC})
 endif
 
 DIR_SRC := ${WD}/src
@@ -148,18 +149,28 @@ clean-web:
 
 clean-deps:
 	@ rm -rf bower_modules/ \
-		node_modules/ 		  	;
+		node_modules/;
 
 clean-files:
 	@ rm -rf ${APP_DIRS}  			\
 		bitbucket-pipelines.yml		\
 		codeclimate-config.patch	\
+		package-lock.json 			  \
 		_config.yml;
 
 ##  ------------------------------------------------------------------------  ##
 
+.PHONY: tree
+
 tree:
-	@ ./setup.sh tree
+	@ ./setup.sh tree;
+
+##  ------------------------------------------------------------------------  ##
+
+.PHONY: rights
+
+rights:
+	@ sudo find . -type f -name "*.sh" -exec chmod a+x {} \;
 
 ##  ------------------------------------------------------------------------  ##
 
@@ -191,10 +202,12 @@ deploy:
 
 ##  ------------------------------------------------------------------------  ##
 
-.PHONY: all
+.PHONY: all full
 #* means the word "all" doesn't represent a file name in this Makefile;
 #* means the Makefile has nothing to do with a file called "all" in the same directory.
 
-all: clean setup engine build release deploy;
+all: clean rights tree setup engine build release deploy;
+
+full: clean-all rights tree setup engine build release deploy;
 
 ##  ------------------------------------------------------------------------  ##
