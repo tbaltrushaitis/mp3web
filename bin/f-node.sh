@@ -10,10 +10,10 @@
 ##  ------------------------------------------------------------------------  ##
 
 function deps_install {
-  info "\tInstalling NPM packages ... \n";
+  warn "\tInstalling NPM packages ... ";
   npm i #--verbose
 
-  info "\tInstalling Bower packages ... \n";
+  warn "\tInstalling Bower packages ... ";
   bower i --production --allow-root #--verbose
 }
 

@@ -24,40 +24,40 @@
 ##  ------------------------------------------------------------------------  ##
 
 function log () {
-  echo -ne "[$(date +'%Y%m%d%H%M%S')]${White}[$FUNCNAME]:\t" "${@}" "${NC}\n";
+  echo -ne "[$(date +'%Y%m%d%H%M%S')]${White}[$FUNCNAME]:\t" "${@}" "${NC}" "\n";
 }
 
 
 function info () {
-  echo -ne "[$(date +'%Y%m%d%H%M%S')]${BBlue}[$FUNCNAME]:" "${@}${NC}\n";
+  echo -ne "[$(date +'%Y%m%d%H%M%S')]${BBlue}[$FUNCNAME]:" "${@}" "${NC}" "\n";
 }
 
 
 function warn () {
-  echo -ne "[$(date +'%Y%m%d%H%M%S')]${BYellow}[$FUNCNAME]:" "${@}${NC}\n";
+  echo -ne "[$(date +'%Y%m%d%H%M%S')]${BYellow}[$FUNCNAME]:" "${@}" "${NC}" "\n";
 }
 
 
 function error () {
-  echo -ne "[$(date +'%Y%m%d%H%M%S')]${BRed}[$FUNCNAME]:" "${@}" "${NC}\n" 1>&2;
+  echo -ne "[$(date +'%Y%m%d%H%M%S')]${BRed}[$FUNCNAME]:" "${@}" "${NC}" "\n" 1>&2;
 }
 
 
 function fatal () {
-  echo -e "\n${BRed}";
-  echo -ne "****************** $FUNCNAME *************************\n"
-  echo -ne "%s\n" "$@" "\n"
-  echo -ne "****************** $FUNCNAME *************************\n"
-  echo -ne "${NC}\n"
+  echo -ne ${BRed};
+  echo -ne "---------------------------  $FUNCNAME -------------------------\n";
+  echo -ne "[$(date +'%Y%m%d%H%M%S')]: %s\n" "${@}" "\n";
+  echo -ne "---------------------------  $FUNCNAME -------------------------\n";
+  echo -ne ${NC};
 }
 
 
 function splash () {
-  echo -ne "\n${BCyan}";
-  echo -ne "****************** === *************************\n"
-  echo -ne "[$(date +'%Y%m%d%H%M%S')]:\t" "${@}" "\n";
-  echo -ne "****************** === *************************\n"
-  echo -ne "\n${NC}";
+  echo -ne ${BCyan};
+  echo -ne "------------------------------ ==== ----------------------------\n";
+  echo -ne "[$(date +'%Y%m%dT%H%M%S')]:" "${@}" "\n";
+  echo -ne "------------------------------ ==== ----------------------------\n";
+  echo -ne ${NC};
 }
 
 ##  ------------------------------------------------------------------------  ##
@@ -66,9 +66,9 @@ function splash () {
 
 function Delay () {
   local T=1;
-  printf "\n${BCyan}Timeout ${T} second(s) ... ";
+  echo -ne "${Green}Timeout ${T} second(s) ... ";
   sleep ${T};
-  printf "${BGreen}[OK]\n${NC}";
+  echo -e "${BGreen}[OK]${NC}";
 }
 
 ##  ------------------------------------------------------------------------  ##
@@ -135,32 +135,35 @@ function saveEnv () {
 ##  ------------------------------------------------------------------------  ##
 
 function createDirTree {
-  printf "\n--------------------  CREATE PROJECT DIRS  ---------------------\n";
+  warn "-----------------------  CREATE PROJECT DIRS  ------------------------";
   local TREE_LIST="$1";
   info "TREE_LIST = [${TREE_LIST}]";
 
   for D in ${TREE_LIST}
     do
       info "D = [${D}]";
-      mkdir -p "${D}" 2>&1 > /dev/null;
+      mkdir -p "${D}" 2>&1 >/dev/null;
     done
 
-  printf "\n---------------- FINISHED CREATE PROJECT DIRS ------------------\n";
-  printf "\n================================================================\n";
+  warn "-------------------- FINISHED CREATE PROJECT DIRS --------------------";
+  info "====================================================================\n";
 }
 
 function set_permissions {
-  printf "\n------------------------  SET PERMISSIONS  ---------------------\n";
+  warn "-----------------------  SET PERMISSIONS  ----------------------------";
   W_DIR="$1"
-  info "W_DIR = ${W_DIR}"
-  sudo chown -R ${WEB_USER}:${WEB_USER} ${W_DIR}
-  sudo chmod 775 ${W_DIR}
+  info "W_DIR = [${W_DIR}]";
+  sudo chmod 775 ${W_DIR};
+  sudo chown -R ${WEB_USER}:${WEB_GROUP} ${W_DIR}
 
   cd ${W_DIR}
   sudo find . -type d -exec chmod 775 {} \;
   sudo find . -type f -exec chmod 664 {} \;
-  sudo chmod a+x artisan
+  sudo find . -type f -name "*.sh" -exec chmod a+x {} \;
 
-  printf "\n------------ PERMISSIONS CHANGED FOR: [${W_DIR}] ---------------\n";
-  printf "\n================================================================\n";
+  cd ${W_DIR}
+  sudo find . -type f -name "artisan" -exec chmod a+x {} \;
+
+  warn "--------------- PERMISSIONS CHANGED FOR: [${W_DIR}] ------------------";
+  info "====================================================================\n";
 }

@@ -15,14 +15,14 @@ function composer_setup {
 
   if [ "$SIGNATURE_EXPECTED" = "$SIGNATURE_ACTUAL" ]
   then
-    printf "[OK]\tCorrect installer signature [$SIGNATURE_ACTUAL]\n"
+    info "[OK]\tCorrect installer signature [$SIGNATURE_ACTUAL]\n"
     sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
     RESULT=$?
     mv composer-setup.php composer-setup-DONE-$(date +"%s").php
-    printf "[LOG]\tCOMPOSER INSTALL FINISHED\n"
+    warning "\tFINISHED COMPOSER INSTALL"
     # exit $RESULT
   else
-    >&2 printf '[ERROR]\tInvalid installer signature\n'
+    >&2 fatal '[ERROR]\tInvalid installer signature'
     mv composer-setup.php composer-setup-INVALID-$(date +"%s").php
     exit 1
   fi
@@ -30,22 +30,22 @@ function composer_setup {
 
 
 function composer_selfupdate {
-  composer -vvv selfupdate
-  info "[LOG]\tCOMPOSER UPDATED to $(composer -V)\n"
+  composer -vv selfupdate
+  warn "\tFINISHED COMPOSER UPDATE to $(composer -V)"
 }
 
 
 function composer_check {
   _composer=`which composer 2>&1`;
   if [ $? -ne 0 ]; then
-    warn "Composer not found!";
-    info "Starting composer setup from [http://getcomposer.org/] ... \n";
+    error "Composer not found!";
+    warn "Starting composer setup from [http://getcomposer.org/] ... ";
     composer_setup
     composer_selfupdate
-    info "\t FINISHED composer setup. Please run $# again.\n";
+    warn "\t FINISHED composer setup. Please run $# again.";
     # exit 1
   fi
-  printf "[OK]\t$(composer -V) Installed\n";
+  warn "[OK]\t$(composer -V) Installed";
 }
 
 ##  --------------------  EOF: f-php-composer.sh  --------------------------  ##

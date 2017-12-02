@@ -15,14 +15,14 @@
 ##  ------------------------------------------------------------------------  ##
 
 function okNode () {
-  info "\n----------------->>> " $FUNCNAME "(" $1 ")" " <<<-----------------\n";
+  # info "------------------->>> " $FUNCNAME "(" $1 ")" " <<<-------------------";
   _node=`which node 2>&1`
   if [ $? -ne 0 ]; then
-    printf "[ERROR]\tPlease install Node.js\n";
-    printf "[INFO]\thttp://nodejs.org/\n";
+    fatal "[ERROR]\tPlease install Node.js";
+    error "[INFO]\thttp://nodejs.org/";
     exit 1
   fi
-  warn "[OK]\tNODEJS $(node -v) Installed\n";
+  warn "[OK]\tNODEJS $(node -v) Installed";
 }
 
 ##  ------------------------------------------------------------------------  ##
@@ -30,13 +30,13 @@ function okNode () {
 ##  ------------------------------------------------------------------------  ##
 
 function okNpm () {
-  info "\n----------------->>> " $FUNCNAME "(" $1 ")" " <<<-----------------\n";
+  # info "\n----------------->>> " $FUNCNAME "(" $1 ")" " <<<-----------------\n";
   _npm=`which npm 2>&1`
   if [ $? -ne 0 ]; then
-    printf "[ERROR]\tPlease install NPM\n";
+    fatal "[ERROR]\tPlease install NPM";
     exit 1
   fi
-  warn "[OK]\tNPM v$(npm -v) Installed\n";
+  warn "[OK]\tNPM v$(npm -v) Installed";
 }
 
 ##  ------------------------------------------------------------------------  ##
@@ -44,19 +44,19 @@ function okNpm () {
 ##  ------------------------------------------------------------------------  ##
 
 function okBower () {
-  info "\n----------------->>> " $FUNCNAME "(" $1 ")" " <<<-----------------\n";
+  # info "\n----------------->>> " $FUNCNAME "(" $1 ")" " <<<-----------------\n";
   _bower=`which bower 2>&1`
   if [ $? -ne 0 ]; then
-    printf "[WARN]\tBower NOT FOUND!\n";
-    printf "[INFO]\tInstalling Bower ... ";
+    fatal "[WARN]\tBower NOT FOUND!";
+    warn "[INFO]\tInstalling Bower ... ";
     npm i -g bower
     if [ $? -ne 0 ]; then
-      printf "FAILED\n";
+      fatal "FAILED";
       exit 1
     fi
     printf "SUCCESS\n";
   fi
-  warn "[OK]\tBOWER v$(bower -v --allow-root) Installed\n";
+  warn "[OK]\tBOWER v$(bower -v --allow-root) Installed";
 }
 
 ##  ------------------------------------------------------------------------  ##
@@ -64,19 +64,19 @@ function okBower () {
 ##  ------------------------------------------------------------------------  ##
 
 function okGulp () {
-  info "\n----------------->>> " $FUNCNAME "(" $1 ")" " <<<-----------------\n";
+  # info "\n----------------->>> " $FUNCNAME "(" $1 ")" " <<<-----------------\n";
   _gulp=`which gulp 2>&1`
   if [ $? -ne 0 ]; then
-    printf "[ERROR]\tGulp NOT FOUND!\n";
-    printf "[INFO]\tInstalling gulp ... ";
+    fatal "[ERROR] Gulp NOT FOUND!";
+    warn "[INFO] Installing gulp ... ";
     npm i -g gulp
     if [ $? -ne 0 ]; then
-      printf "FAILED\n";
+      fatal "FAILED";
       exit 1
     fi
-    printf "SUCCESS\n";
+    info "SUCCESS";
   fi
-  warn "[OK]\tGULP Installed:\n$(gulp -v) \n";
+  warn "[OK] GULP Installed: $(gulp -v)";
 }
 
 ##  ------------------------------------------------------------------------  ##
@@ -84,17 +84,17 @@ function okGulp () {
 ##  ------------------------------------------------------------------------  ##
 
 function okGrunt () {
-  info "\n----------------->>> " $FUNCNAME "(" $1 ")" " <<<-----------------\n";
+  # info "------------------->>> " $FUNCNAME "(" $1 ")" " <<<-------------------";
   _grunt=`which grunt 2>&1`
   if [ $? -ne 0 ]; then
-    printf "[ERROR]\tGrunt NOT FOUND!\n";
-    printf "[INFO]\tInstalling grunt ... ";
+    fatal "[ERROR]\tGrunt NOT FOUND!";
+    warn "[INFO]\tInstalling grunt ... ";
     npm i -g grunt-cli
     if [ $? -ne 0 ]; then
-      printf "FAILED\n";
+      fatal "FAILED";
       exit 1
     fi
-    printf "SUCCESS\n";
+    info "SUCCESS";
   fi
-  warn "[OK]\tGRUNT Installed:\n$(grunt -V) \n";
+  warn "[OK]\tGRUNT Installed:\n$(grunt -V)";
 }
