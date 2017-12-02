@@ -125,6 +125,7 @@ let footerTpl = _.template(`
  * Version:\t <%= ME.VERSION %>
  * Commit:\t <%= ME.COMMIT %>
  * EOF:\t\t <%= pkg.name %>@<%= pkg.version %> - <%= pkg.title %>
+ * =============================================================================
  */
 `);
 
@@ -201,7 +202,8 @@ gulp.task('clean',      gulpSequence(['clean:build', 'clean:dist']));
 
 gulp.task('artisan',    gulpSequence('artisan:vendor:publish', 'artisan:migrate', 'artisan:clear'));
 
-gulp.task('build:dev',  gulpSequence(
+// gulp.task('build:dev',  gulpSequence(
+gulp.task('build:dev',  [
     // 'clean:build'
   // , 'sync:engine2build'
   // , 'sync:src2build'
@@ -210,10 +212,13 @@ gulp.task('build:dev',  gulpSequence(
   , 'sync:bower:fonts'
   // , 'sync:assets2public'
   // , 'sync:assets'
-  , ['build:css', 'build:js']
-));
+  , 'build:css'
+], function () {
+  gulp.start('build:js');
+});
 
-gulp.task('build', gulpSequence(
+// gulp.task('build', gulpSequence(
+gulp.task('build', [
   //   'clean:build'
   // , 'sync:engine2build'
   // , 'sync:src2build'
@@ -222,10 +227,12 @@ gulp.task('build', gulpSequence(
   , 'build:js'
   , 'bower'
   , 'sync:bower:fonts'
-  , 'sync:assets'
-  // , 'sync:assets2public'
-  // , ['build:css', 'build:js']
-));
+] , function () {
+  gulp.start('sync:assets');
+});
+// , 'sync:assets2public'
+// , ['build:css', 'build:js']
+
 gulp.task('dist',       gulpSequence(['clean:dist'], ['sync:build2dist']));
 // gulp.task('deploy',     gulpSequence('sync:build2web', 'artisan:clear'));
 gulp.task('deploy',     ['sync:build2web', 'artisan:clear']);
