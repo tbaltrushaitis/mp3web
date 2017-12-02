@@ -38,6 +38,7 @@ include ./bin/.bash_colors
 include ./setup.rc
 
 ##  ------------------------------------------------------------------------  ##
+
 DIR_ENGINE := ${WD}/${ENGINE_NAME}-${ENGINE_VERSION}
 GIT_COMMIT := $(shell git rev-list --remove-empty --remotes --max-count=1 --date-order --reverse)
 
@@ -84,10 +85,12 @@ test: test_rc;
 ## SOURCE VARIABLES
 #@ cat BANNER
 # test_rc: setup.rc banner
-test_rc: setup.rc
-	@ echo "\n[${DT}] TEST GOAL EXECUTED";
-	@ $(MAKE) banner
+test_rc: setup.rc;
+	@ echo ${BYellow}[${DT}] TEST GOAL EXECUTED${NC};
+	@ cat BANNER;
 
+# @ $(MAKE) banner
+# @ printf "${BYellow}[${DT}] TEST GOAL EXECUTED${NC}";
 ##  ------------------------------------------------------------------------  ##
 
 .PHONY: clone
