@@ -2,6 +2,10 @@
 
 ![Web MP3 Player Logo](src/resources/assets/img/logo/Favicon.png)
 
+`mp3` `web` `player` `audio` `library` `manager`
+
+-----
+
 ## Badges ##
 
 [![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](http://tbaltrushaitis.mit-license.org/)
@@ -12,18 +16,18 @@
 
 ## Components ##
 
- Scope | Name | Version | Description
+ Scope | Role | Name | Version | Description
 :-----:|:-----|:-------:|:------------
- Front | [animate.css](http://daneden.github.io/animate.css/) | 3.5.2 | A cross-browser library of CSS animations
- Front | [Bootstrap](http://getbootstrap.com) | 3.3.7 | HTML, CSS, and JS framework
- Front | [Bootstrap Tagsinput](https://github.com/bootstrap-tagsinput/bootstrap-tagsinput) | 0.8.0 | jQuery tags input plugin based on Twitter Bootstrap
- Engine | [Composer](https://getcomposer.org/) | 1.5.2 | Dependency Manager for PHP
- Front | [Font-Awesome](http://fontawesome.io/) | 4.7.0 | The iconic font and CSS toolkit
- Front | [jQuery](http://jquery.com/) | 2.2.4 | JavaScript Library
- Engine | [Laravel](https://laravel.com/docs/5.2) | 5.2.31 | PHP Framework
- Front | [Lodash](https://lodash.com/docs/4.17.4) | 4.17.4 | A modern JavaScript utility library delivering modularity, performance & extras.
- Front | [requirejs](https://github.com/jrburke/requirejs) | 2.3.3 | A file and module loader for JavaScript
- DEPRECATED | [Underscore.js](http://underscorejs.org) | :x: | JavaScript library that provides a whole mess of useful functional programming helpers
+ Host | Engine | [Composer](https://getcomposer.org/) | 1.5.2 | Dependency Manager for PHP
+ Back | Engine | [Laravel](https://laravel.com/docs/5.2) | 5.2.31 | PHP Framework
+ Front | Framework | [Bootstrap](http://getbootstrap.com) | 3.3.7 | HTML, CSS, and JS framework
+ Front | Plugin | [Bootstrap Tagsinput](https://github.com/bootstrap-tagsinput/bootstrap-tagsinput) | 0.8.0 | jQuery tags input plugin based on Twitter Bootstrap
+ Front | Library | [requirejs](https://github.com/jrburke/requirejs) | 2.3.3 | A file and module loader for JavaScript
+ Front | Library | [Font-Awesome](http://fontawesome.io/) | 4.7.0 | The iconic font and CSS toolkit
+ Front | Library | [jQuery](http://jquery.com/) | 2.2.4 | JavaScript Library
+ Front | Library | [Lodash](https://lodash.com/docs/4.17.4) | 4.17.4 | A modern JavaScript utility library delivering modularity, performance & extras.
+ Front | Library | [animate.css](http://daneden.github.io/animate.css/) | 3.5.2 | A cross-browser library of CSS animations
+ Front | DEPRECATED | [Underscore.js](http://underscorejs.org) | :x: | JavaScript library that provides a whole mess of useful functional programming helpers
 
 ## Live Demo ##
 :point_right: [Premium Music Collection](http://mp3.gsm-center.com.ua)
