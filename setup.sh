@@ -8,11 +8,13 @@
 # - Install framework engine
 # - Update framework installation with project's source scripts.
 # - Deploy dist code into public web
-# - Consist of:
+# - Provides:
 #   -   usage
-#   -   preSetupChecks
-#   -   depsChecks
+#   -   logEnv
+#   -   setupChecks
+#   -   engineChecks
 #   -   Build
+#   -   Release
 #   -   Deploy
 
 ##  BANNER
@@ -340,7 +342,7 @@ case "$1" in
     RETVAL=$?
   ;;
 
-  "release" | "d")
+  "release" | "r")
     info "release()";
     Release && Delay
     RETVAL=$?
@@ -352,7 +354,7 @@ case "$1" in
     RETVAL=$?
   ;;
 
-  "recompile" | "rebuild" | "rb" | "rc")
+  "rebuild" | "rb")
     info "Recompile()";
     Compile && Delay
     Release && Delay
