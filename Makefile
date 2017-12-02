@@ -156,8 +156,8 @@ clean-files:
 	@ rm -rf ${APP_DIRS}  			\
 		bitbucket-pipelines.yml		\
 		codeclimate-config.patch	\
-		package-lock.json 			  \
 		_config.yml;
+		# package-lock.json 			  \
 
 ##  ------------------------------------------------------------------------  ##
 
@@ -172,6 +172,7 @@ tree:
 
 rights:
 	@ sudo find . -type f -name "*.sh" -exec chmod a+x {} \;
+	@ sudo find . -type f -name "artisan" -exec chmod a+x {} \;
 
 ##  ------------------------------------------------------------------------  ##
 
