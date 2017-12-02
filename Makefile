@@ -33,6 +33,7 @@ RC_FILE := setup.rc
 RC_EXISTS := $(shell [ -e ./${RC_FILE} ] && echo 1 || echo 0)
 ifeq ($(RC_EXISTS), 0)
 $(warning ${BRed}[${DT}] Missing file [./${RC_FILE}]${NC})
+exit 1
 endif
 
 include ./bin/.bash_colors
