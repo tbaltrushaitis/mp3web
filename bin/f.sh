@@ -152,13 +152,13 @@ function set_permissions {
   printf "\n------------------------  SET PERMISSIONS  ---------------------\n";
   W_DIR="$1"
   info "W_DIR = ${W_DIR}"
-  chown -R ${WEB_USER}:${WEB_USER} ${W_DIR}
-  chmod 775 ${W_DIR}
+  sudo chown -R ${WEB_USER}:${WEB_USER} ${W_DIR}
+  sudo chmod 775 ${W_DIR}
 
   cd ${W_DIR}
-  find . -type d -exec chmod 775 {} \;
-  find . -type f -exec chmod 664 {} \;
-  chmod a+x artisan
+  sudo find . -type d -exec chmod 775 {} \;
+  sudo find . -type f -exec chmod 664 {} \;
+  sudo chmod a+x artisan
 
   printf "\n------------ PERMISSIONS CHANGED FOR: [${W_DIR}] ---------------\n";
   printf "\n================================================================\n";
