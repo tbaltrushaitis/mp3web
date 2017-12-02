@@ -2,17 +2,20 @@
 ##              			   		     Show help topic       	   	                  ##
 ##  ------------------------------------------------------------------------  ##
 
+include ./bin/.bash_colors
+
 .PHONY: help
 
 help:
-	@ echo "--------------------------------------------------------------------";
-	@ echo "AVAILABLE COMMANDS:";
-	@ echo "\t make clean \t - CLEAR directories and delete files";
-	@ echo "\t make setup \t - check for php, node and bower installations";
-	@ echo "\t make engine \t - check for engine sources";
-	@ echo "\t make build \t - BUILD project from sources";
-	@ echo "\t make release \t - COMPILE project distro";
-	@ echo "\t make deploy \t - DEPLOY compiled project to web directory";
-	@ echo "--------------------------------------------------------------------";
+	@ echo ${BCyan}---------------------------------------------------------${NC};
+	@ echo ${BBlue}AVAILABLE COMMANDS:${NC};
+	@ echo "\t" make ${BPurple}clean${NC} "\t" - CLEAR directories and delete files;
+	@ echo "\t" make ${BPurple}setup${NC} "\t" - check for php, node and bower installations;
+	@ echo "\t" make ${BPurple}engine${NC} "\t" - check for engine sources;
+	@ echo "\t" make ${BPurple}build${NC} "\t" - BUILD project from sources;
+	@ echo "\t" make ${BPurple}release${NC} "\t" - COMPILE project distro;
+	@ echo "\t" make ${BPurple}deploy${NC} "\t" - DEPLOY compiled project to web directory;
+	@ echo "\t" make ${BCyan}all${NC} "\t" - Run all operations step-by-step;
+	@ echo ${BCyan}---------------------------------------------------------${NC};
 
 ##  ------------------------------------------------------------------------  ##
