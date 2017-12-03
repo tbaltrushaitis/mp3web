@@ -192,7 +192,7 @@ function Build () {
 
   cd ${WD}
   mkdir -p ${DIR_BUILD} 2>/dev/null;
-  cp -pr "${DIR_ENGINE}/*" "${DIR_BUILD}/" 2>&1 >/dev/null;
+  cp -pr ${DIR_ENGINE}/* ${DIR_BUILD}/ 2>&1 >/dev/null;
   warn "Engine directory [${DIR_ENGINE}/*] COPIED to [${DIR_BUILD}/]";
   # cp -prv setup.rc "${BUILD}/.env"
   # info "COPIED setup.rc to [${BUILD}/.env]";
@@ -203,11 +203,11 @@ function Build () {
 
   cd ${WD}
 
-  if [ -f "${DIR_BUILD}/.env" ]; then
-    mv -vf "${DIR_BUILD}/.env" "${DIR_BUILD}/.env.${DATE}" 2>/dev/null
+  if [ -f ${DIR_BUILD}/.env ]; then
+    mv -vf ${DIR_BUILD}/.env ${DIR_BUILD}/.env.${DATE} 2>/dev/null
   fi
 
-  cp -pr "${DIR_SRC}/*" "${DIR_BUILD}/" 2>&1 >/dev/null && Delay 2
+  cp -pr ${DIR_SRC}/* ${DIR_BUILD}/ 2>&1 >/dev/null && Delay 2
   cp -pvf ${DIR_SRC}/.env ${DIR_BUILD}/ 2>&1 >/dev/null && Delay 2
   cp -pvf ${DIR_SRC}/composer.json ${DIR_BUILD}/ 2>&1 >/dev/null && Delay 2
 
@@ -235,12 +235,12 @@ function Release () {
   createDirTree "${DIR_DIST}";
   Delay 2;
 
-  cd ${WD}
-  cp -pr "${DIR_BUILD}/*" "${DIR_DIST}/" 2>/dev/null
-  cp -pvf "${DIR_BUILD}/.env" "${DIR_DIST}/" 2>/dev/null
+  cd ${WD};
+  cp -prv ${DIR_BUILD}/* ${DIR_DIST}/ 2>/dev/null;
+  cp -pvf ${DIR_BUILD}/.env ${DIR_DIST}/ 2>/dev/null;
   warn "Directory [${DIR_BUILD}/*] content DEPLOYED to [${DIR_DIST}/]";
 
-  Artisan "${DIR_DIST}"
+  Artisan "${DIR_DIST}";
 
   # cd ${WD}
   # cd "${DIR_WEB}/public"
@@ -275,17 +275,17 @@ function Deploy () {
   # && Delay;
 
   cd ${WD}
-  cp -pr "${DIR_DIST}/*" "${DIR_WEB}/" 2>&1 >/dev/null
+  cp -pr ${DIR_DIST}/* ${DIR_WEB}/ 2>&1 >/dev/null
   if [ -f ${DIR_WEB}/.env ]; then
-    mv -pvf "${DIR_WEB}/.env" "${DIR_WEB}/.env.${DATE}.bak" 2>&1 >/dev/null;
-    cp -pvf "${DIR_DIST}/.env" "${DIR_WEB}/" 2>&1 >/dev/null;
-    info "ENV FILE [${DIR_DIST}/.env] COPIED to [${DIR_WEB}/.env]";
+    mv -pvf ${DIR_WEB}/.env ${DIR_WEB}/.env.${DATE}.bak 2>&1 >/dev/null;
   fi
+  cp -pvf ${DIR_DIST}/.env ${DIR_WEB}/ 2>&1 >/dev/null;
+  info "ENV FILE [${DIR_DIST}/.env] COPIED to [${DIR_WEB}/.env]";
   warn "Directory [${DIR_DIST}/] content DEPLOYED to [${DIR_WEB}/]";
   Delay 2
 
   cd ${WD}
-  cd "${DIR_WEB}/public"
+  cd ${DIR_WEB}/public
   mkdir -p ../storage/media/audio 2>&1 >/dev/null
   ln -s ../storage/media/audio 2>&1 >/dev/null
   cd ${WD}
@@ -297,8 +297,8 @@ function Deploy () {
   #
   # node gulpfile.js artisan:clear --env=${APP_ENV} --verbose   \
   # && Delay;
-  Artisan "${DIR_WEB}"
-  set_permissions "${DIR_WEB}"
+  Artisan ${DIR_WEB}
+  set_permissions ${DIR_WEB}
 
   splash "$FUNCNAME Finished";
 }
