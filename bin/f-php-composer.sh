@@ -19,7 +19,7 @@ function composer_setup {
     sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
     RESULT=$?
     mv composer-setup.php composer-setup-DONE-$(date +"%s").php
-    warn "\tFINISHED COMPOSER INSTALL"
+    warn "FINISHED COMPOSER INSTALL"
     # exit $RESULT
   else
     >&2 fatal '[ERROR] Invalid installer signature'
@@ -30,8 +30,8 @@ function composer_setup {
 
 
 function composer_selfupdate {
-  composer -v selfupdate
-  warn "\tFINISHED COMPOSER UPDATE to $(composer -V)"
+  composer -v selfupdate;
+  warn "FINISHED COMPOSER UPDATE to $(composer -V)";
 }
 
 
@@ -42,7 +42,7 @@ function composer_check {
     warn "Starting composer setup from [http://getcomposer.org/] ... ";
     composer_setup
     composer_selfupdate
-    warn "\t FINISHED composer setup. Please run $0 again.";
+    warn "FINISHED composer setup. Please run $0 again.";
     # exit 1
   fi
   warn "[OK] Installed PHP-Composer: $(composer -V)";

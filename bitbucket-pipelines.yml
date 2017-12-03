@@ -29,9 +29,11 @@ pipelines:
             - apt-get update -y
             - wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
             # - nvm install v8.9.0
-            - apt -y install php5 php5-cli php5-common php
+            - apt -y install php5 php5-cli php5-common php-db
             - php -v
+            - sleep 10
             - make all
+            - sleep 10
             - pwd && ls -als
             # - ./setup.sh test --env=production
             # - ./setup.sh prepare --env=production
