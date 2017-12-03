@@ -157,7 +157,8 @@ clean-files:
 		bitbucket-pipelines.yml		\
 		codeclimate-config.patch	\
 		_config.yml;
-		# package-lock.json 			  \
+
+# package-lock.json
 
 ##  ------------------------------------------------------------------------  ##
 
@@ -210,6 +211,6 @@ deploy:
 
 all: clean rights tree setup engine build release deploy;
 
-full: clean-all rights tree setup engine build release deploy;
+full: clean-all all;
 
 ##  ------------------------------------------------------------------------  ##

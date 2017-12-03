@@ -24,29 +24,29 @@
 ##  ------------------------------------------------------------------------  ##
 
 function log () {
-  echo -ne "[$(date +'%Y%m%d%H%M%S')]${White}[$FUNCNAME]:\t" "${@}" "${NC}" "\n";
+  echo -ne "[$(date +'%Y%m%d%H%M%S')]${White}[$FUNCNAME]:\t" "${@}" ${NC} "\n";
 }
 
 
 function info () {
-  echo -ne "[$(date +'%Y%m%d%H%M%S')]${BBlue}[$FUNCNAME]:" "${@}" "${NC}" "\n";
+  echo -ne "[$(date +'%Y%m%d%H%M%S')]${BBlue}[$FUNCNAME]:" "${@}" ${NC} "\n";
 }
 
 
 function warn () {
-  echo -ne "[$(date +'%Y%m%d%H%M%S')]${BYellow}[$FUNCNAME]:" "${@}" "${NC}" "\n";
+  echo -ne "[$(date +'%Y%m%d%H%M%S')]${BYellow}[$FUNCNAME]:" "${@}" ${NC} "\n";
 }
 
 
 function error () {
-  echo -ne "[$(date +'%Y%m%d%H%M%S')]${BRed}[$FUNCNAME]:" "${@}" "${NC}" "\n" 1>&2;
+  echo -ne "[$(date +'%Y%m%d%H%M%S')]${BRed}[$FUNCNAME]:" "${@}" ${NC} "\n" 1>&2;
 }
 
 
 function fatal () {
   echo -ne ${BRed};
   echo -ne "---------------------------  $FUNCNAME -------------------------\n";
-  echo -ne "[$(date +'%Y%m%d%H%M%S')]: %s\n" "${@}" "\n";
+  echo -ne "[$(date +'%Y%m%d%H%M%S')]: %s" "${@}" "\n";
   echo -ne "---------------------------  $FUNCNAME -------------------------\n";
   echo -ne ${NC};
 }
