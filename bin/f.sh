@@ -68,7 +68,7 @@ function Delay () {
   local T=1;
   echo -ne "${Green}Timeout ${T} second(s) ... ";
   sleep ${T};
-  echo -e "${BGreen}[OK]${NC}";
+  echo -ne ${BGreen}${On_White} [OK] ${NC};
 }
 
 ##  ------------------------------------------------------------------------  ##
@@ -154,14 +154,14 @@ function set_permissions {
   W_DIR="$1"
   info "W_DIR = [${W_DIR}]";
   sudo chmod 775 ${W_DIR};
-  sudo chown -R ${WEB_USER}:${WEB_GROUP} ${W_DIR}
+  sudo chown -R ${WEB_USER}:${WEB_GROUP} ${W_DIR};
 
-  cd ${W_DIR}
+  cd ${W_DIR};
   sudo find . -type d -exec chmod 775 {} \;
   sudo find . -type f -exec chmod 664 {} \;
   sudo find . -type f -name "*.sh" -exec chmod a+x {} \;
 
-  cd ${W_DIR}
+  cd ${W_DIR};
   sudo find . -type f -name "artisan" -exec chmod a+x {} \;
 
   warn "--------------- PERMISSIONS CHANGED FOR: [${W_DIR}] ------------------";

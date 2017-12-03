@@ -1,4 +1,4 @@
-# image: tbaltrushaitis/ubuntu-nodejs:v8.9.0
+image: tbaltrushaitis/ubuntu-nodejs:v8.9.0
 
 pipelines:
   default:
@@ -27,7 +27,9 @@ pipelines:
           script:
             - printf "[Step_2] This script runs only on commit to the $BITBUCKET_BRANCH branch.\n"
             - apt-get update -y
-            - apt -y install php5 php5-cli php5-common
+            - wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
+            # - nvm install v8.9.0
+            - apt -y install php5 php5-cli php5-common php
             - php -v
             - make all
             - pwd && ls -als
