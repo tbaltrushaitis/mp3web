@@ -2,12 +2,14 @@
 ##              			   		    Show usage tips       	   	                  ##
 ##  ------------------------------------------------------------------------  ##
 
+include ./bin/.bash_colors
+
 .PHONY: usage
 
 usage:
-	@ echo "--------------------------------------------------------------------";
-	@ echo "AVAILABLE HANDY-Commands:";
-	@ echo "\t make clone \t - CLONE project sources from provided repo";
-	@ echo "--------------------------------------------------------------------";
+	@ echo ${BCyan}---------------------------------------------------------${NC};
+	@ echo ${BBlue}AVAILABLE ${BYellow}HANDY-Commands:${NC};
+	@ echo "\t" make ${BCyan}clone${NC} "\t" - CLONE project sources;
+	@ echo ${BCyan}---------------------------------------------------------${NC};
 
 ##  ------------------------------------------------------------------------  ##

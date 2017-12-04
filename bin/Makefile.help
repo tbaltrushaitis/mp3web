@@ -6,16 +6,16 @@ include ./bin/.bash_colors
 
 .PHONY: help
 
-help:
+help: banner
 	@ echo ${BCyan}---------------------------------------------------------${NC};
-	@ echo ${BBlue}AVAILABLE COMMANDS:${NC};
+	@ echo ${BBlue}AVAILABLE ${BYellow}CLI-Commands:${NC};
 	@ echo "\t" make ${BPurple}clean${NC} "\t" - CLEAR directories and delete files;
 	@ echo "\t" make ${BPurple}setup${NC} "\t" - check for php, node and bower installations;
 	@ echo "\t" make ${BPurple}engine${NC} "\t" - check for engine sources;
 	@ echo "\t" make ${BPurple}build${NC} "\t" - BUILD project from sources;
 	@ echo "\t" make ${BPurple}release${NC} "\t" - COMPILE project distro;
-	@ echo "\t" make ${BPurple}deploy${NC} "\t" - DEPLOY compiled project to web directory;
-	@ echo "\t" make ${BCyan}all${NC} "\t" - Run all operations step-by-step;
+	@ echo "\t" make ${BPurple}deploy${NC} "\t" - DEPLOY compiled project to \"webroot\" directory;
+	@ echo "\t" make ${BRed}all${NC} "\t" -${BGreen}Run all operations for current stage from NODE_ENV file${NC};
 	@ echo ${BCyan}---------------------------------------------------------${NC};
 
 ##  ------------------------------------------------------------------------  ##

@@ -2,29 +2,33 @@
 ##                      Report Environment Variables                          ##
 ##  ------------------------------------------------------------------------  ##
 
-.PHONY: state;
+include ./bin/.bash_colors
+
+.PHONY: state
 
 state:
-	@ echo "--------------------------------------------------------------------";
-	@ echo "ENVIRONMENT VARS:";
-	@ echo "\t DT \t\t = \t ${DT}";
-	@ echo "\t APP_NAME \t = \t ${APP_NAME}";
-	@ echo "\t APP_ENV \t = \t ${APP_ENV}";
-	@ echo "\t APP_DEBUG \t = \t ${APP_DEBUG}";
-	@ echo "\t APP_DIRS \t = \t [${APP_DIRS}]";
-	@ echo "--------------------------------------------------------------------";
-	@ echo "\t APP_BRANCH \t = \t ${APP_BRANCH}";
-	@ echo "\t REPO_URL \t = \t ${REPO_URL}";
-	@ echo "\t GIT_REPO \t = \t ${GIT_REPO}";
-	@ echo "\t GIT_COMMIT \t = \t ${GIT_COMMIT}";
-	@ echo "--------------------------------------------------------------------";
-	@ echo "\t WD \t\t = \t ${WD}";
-	@ echo "\t DIR_SRC \t = \t ${DIR_SRC}";
-	@ echo "\t DIR_ENGINE \t = \t ${DIR_ENGINE}";
-	@ echo "\t DIR_BUILD \t = \t ${DIR_BUILD}";
-	@ echo "\t DIR_DIST \t = \t ${DIR_DIST}";
-	@ echo "\t DIR_WEB \t = \t ${DIR_WEB}";
-	@ echo "--------------------------------------------------------------------";
+	@ echo ${BCyan}---------------------------------------------------------${NC};
+	@ echo ${BYellow}ENVIRONMENT VARS:${NC};
+	@ echo ${BCyan}	APPLICATION:${NC};
+	@ echo "\t DT \t\t = ${DT}";
+	@ echo "\t APP_NAME \t = ${APP_NAME}";
+	@ echo "\t APP_ENV \t = ${APP_ENV}";
+	@ echo "\t APP_DEBUG \t = ${APP_DEBUG}";
+	@ echo "\t APP_DIRS \t = [${APP_DIRS}]";
+	@ echo ${BCyan}	REPOSITORY:${NC};
+	@ echo "\t APP_BRANCH \t = ${APP_BRANCH}";
+	@ echo "\t REPO_URL \t = ${REPO_URL}";
+	@ echo "\t GIT_REPO \t = ${GIT_REPO}";
+	@ echo "\t GIT_COMMIT \t = ${GIT_COMMIT}";
+	@ echo ${BCyan}	ENGINE:${NC};
+	@ echo "\t WD \t\t = ${WD}";
+	@ echo "\t DIR_SRC \t = ${DIR_SRC}";
+	@ echo "\t DIR_ENGINE \t = ${DIR_ENGINE}";
+	@ echo ${BCyan}	TARGETS:${NC};
+	@ echo "\t DIR_BUILD \t = ${DIR_BUILD}";
+	@ echo "\t DIR_DIST \t = ${DIR_DIST}";
+	@ echo "\t DIR_WEB \t = ${DIR_WEB}";
+	@ echo ${BCyan}${NC};
 
 # @ echo "\t REPO_HOST \t = \t ${REPO_HOST}";
 # @ echo "\t REPO_USER \t = \t ${REPO_USER}";

@@ -29,12 +29,12 @@ function log () {
 
 
 function info () {
-  echo -ne "[$(date +'%Y%m%d%H%M%S')]${BBlue}[$FUNCNAME]:" "${@}" ${NC} "\n";
+  echo -ne ["$(date +'%Y%m%d%H%M%S')"]${BBlue}[$FUNCNAME]: ${@} ${NC} "\n";
 }
 
 
 function warn () {
-  echo -ne "[$(date +'%Y%m%d%H%M%S')]${BYellow}[$FUNCNAME]:" "${@}" ${NC} "\n";
+  echo -ne ["$(date +'%Y%m%d%H%M%S')"]${BYellow}[$FUNCNAME]: ${@} ${NC} "\n";
 }
 
 
@@ -57,7 +57,7 @@ function splash () {
   echo -ne "------------------------------ ==== ----------------------------\n";
   echo -ne "[$(date +'%Y%m%dT%H%M%S')]:" "${@}" "\n";
   echo -ne "------------------------------ ==== ----------------------------\n";
-  echo -ne ${NC};
+  echo -ne "\n\n\n" ${NC};
 }
 
 ##  ------------------------------------------------------------------------  ##
@@ -68,7 +68,7 @@ function Delay () {
   local T=1;
   echo -ne "${Green}Timeout ${T} second(s) ... ";
   sleep ${T};
-  echo -ne ${BGreen}${On_White} [OK] ${NC};
+  echo -e ${BGreen} [OK] ${NC};
 }
 
 ##  ------------------------------------------------------------------------  ##
