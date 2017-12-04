@@ -1,6 +1,9 @@
+/**!
+ * ESLint configuration file
+ * Collected by Baltrushaitis Tomas
+ * http://eslint.org/docs/rules/
+ */
 {
-    // http://eslint.org/docs/rules/
-
     "ecmaFeatures": {
         "binaryLiterals":                   false,  // enable binary literals
         "blockBindings":                    false,  // enable let and const (aka block bindings)

@@ -1,0 +1,70 @@
+# image: tbaltrushaitis/ubuntu-nodejs:v8.9.0
+
+pipelines:
+  default:
+    - step:
+        script:
+          - echo "[Step_00] This script runs on all branches that don't have any specific pipeline assigned in 'branches'.\n"
+  branches:
+    master:
+      - step:
+          script:
+            - printf "[Step_00] This script runs only on commit to the MASTER branch.\n"
+            - uname -a
+            - free -m
+            - df -H
+            - netstat -apn
+            - docker info
+            - npm -v
+            - printf "Everything is awesome!\n";
+    dev-1.0.2:
+      - step:
+          script:
+            - printf "[Step_01] This script runs only on commit to the $BITBUCKET_BRANCH branch.\n"
+            - uname -a
+            - pwd
+      - step:
+          script:
+            - printf "[Step_02] This script runs only on commit to the $BITBUCKET_BRANCH branch.\n"
+            - source ./bin/.bash_colors
+            - apt-get update -y
+            # PHP setup
+            - apt -y install php5 php5-cli php5-common php-db
+            - php -v
+            # NPM install
+            - wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
+            - export NVM_DIR="$HOME/.nvm"
+            # This loads nvm
+            # - [ -s "$NVM_DIR/nvm.sh" ]
+            - . "$NVM_DIR/nvm.sh"
+            - echo -e "\t${BCyan}ENV:\t exported [$NVM_DIR/nvm.sh]"
+            # This loads nvm bash_completion
+            # - [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" && echo -e "\t${BCyan}ENV:\t exported [$NVM_DIR/bash_completion]"
+            - . "$NVM_DIR/bash_completion"
+            - nvm install v8.9.0
+            - sleep 10
+            # BUILD project
+            - make all
+            - sleep 10
+            - pwd && ls -als
+            # - ./setup.sh test --env=production
+            # - ./setup.sh prepare --env=production
+            # - ./setup.sh build --env=production
+            # - ./setup.sh deploy --env=production
+      - step:
+          script:
+            - echo "[Step_03] Script runs on commit to [${BITBUCKET_BRANCH}] branch."
+            - echo "[BITBUCKET_CLONE_DIR] = [${BITBUCKET_CLONE_DIR}]"
+            - echo "[BITBUCKET_COMMIT] = [${BITBUCKET_COMMIT}]"
+            - echo "[BITBUCKET_REPO_OWNER] = [${BITBUCKET_REPO_OWNER}]"
+            - echo "[BITBUCKET_REPO_SLUG] = [${BITBUCKET_REPO_SLUG}]"
+            - echo "[BITBUCKET_TAG] = [${BITBUCKET_TAG}]"
+            - echo "[BITBUCKET_BUILD_NUMBER] = [${BITBUCKET_BUILD_NUMBER}]"
+            - echo "[CI] = [${CI}]"
+            # - apt-get update -y
+            # - apt -y install php5 php5-cli php5-common
+            # - php -v
+            # - make all
+            # - pwd && ls -als
+            # - cat webroot/.env
+            - printf "Everything is awesome!\n";

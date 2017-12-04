@@ -204,12 +204,10 @@ section#content {
   padding: 2px 10px;
 }
 
-.list-group-item .track {
-  float: left;
+.list-group-item.track {
   font-size: 12px;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
   .list-group-item.active
@@ -240,12 +238,14 @@ section#content {
 .track.active i {
   color: #fff;
 }
-.list-group-item.track:hover {
+  .list-group-item.track:hover
+, .list-group-item.active:hover {
   background-color: #d8d8d8;
+  background-image: none;
 }
 .list-group-item.track:hover a {
   color: #006600;
-  font-weight: 500;
+  font-weight: 600;
   text-shadow: 2px 2px 8px #009900;
 }
 

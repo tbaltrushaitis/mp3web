@@ -1,7 +1,10 @@
+/**!
+ * JSHint configuration file
+ * Collected by Baltrushaitis Tomas
+ * NO License required
+ */
 {
     /**
-    * Source: https://github.com/airbnb/javascript
-    *
     * ENVIRONMENTS
     * =================
     */
@@ -10,7 +13,7 @@
     "browser":      true,
 
     // Define globals exposed by jQuery.
-    "jquery":       true,
+    "jquery":       false,
 
     // Define globals exposed by Node.js.
     "node":         true,
