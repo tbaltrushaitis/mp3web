@@ -4,9 +4,9 @@
   , "version":      "1.0.2"
   , "main":         "index.php"
   , "authors": [
-        "tbaltrushaitis@gmail.com"
+      "tbaltrushaitis@gmail.com"
     ]
-  , "private":  true
+  , "private":  false
   , "license":  "MIT"
   , "keywords": [
         "mp3"
@@ -20,7 +20,7 @@
       , "web"
     ]
   , "moduleType": [
-        "globals"
+      "globals"
     ]
   , "homepage": "https://tbaltrushaitis.github.io/mp3web/"
   , "ignore": [
@@ -58,59 +58,103 @@
   , "devDependencies": {
     }
   , "resolutions": {
-        "jquery": "~2.2.4"
+      "jquery": "~2.2.4"
     }
   , "outdatedDependencies": {
-        "bxslider-4":   "bx-slider.js#^4.2.12"
+      "bxslider-4":   "bx-slider.js#^4.2.12"
     }
   , "overrides": {
-        "admin-lte": {
-            "main": [
-                "dist/**/*.*"
-              , "!**/index2.html"
-              , "!**/*.less"
-            ]
-        }
-      , "bootstrap": {
-            "main": [
-                "dist/**/*.*"
-              , "!**/*.less"
-              , "!**/*.map"
-              , "!**/npm.js"
-              , "!**/*.min.js"
-              , "!*-theme.*"
-            ]
-        }
-      , "font-awesome": {
-            "main": [
-                "fonts/*"
-              , "css/*.css"
-              , "!css/*.min.css"
-            ]
-        }
-      , "jquery-tmpl": {
-            "main": [
-                "*.js"
-            ]
-        }
-      , "lato-font": {
-            "main": [
-                "fonts/**/*.*"
-              , "css/*.css"
-              , "!css/*.min.css"
-            ]
-        }
-      , "raty": {
-            "main": [
-                "lib/**/*.*"
-            ]
-        }
-      , "wdt-loading": {
-            "main": [
-                "wdtLoading.*"
-              , "wdtLoading.js"
-              , "wdtMarkup.html"
-            ]
-        }
+      "admin-lte": {
+        "main": [
+            "dist/**/*.*"
+          , "!**/index2.html"
+          , "!**/*.less"
+        ]
+      }
+    , "bootstrap": {
+        "main": [
+            "dist/**/*.*"
+          , "!**/*.less"
+          , "!**/*.map"
+          , "!**/npm.js"
+          , "!**/*.min.js"
+          , "!*-theme.*"
+        ]
+      }
+    , "font-awesome": {
+        "main": [
+            "fonts/*"
+          , "css/*.css"
+          , "!css/*.min.css"
+        ]
+      }
+    , "jquery-tmpl": {
+        "main": [
+          "*.js"
+        ]
+      }
+    , "lato-font": {
+        "main": [
+            "css/*.css"
+          , "!css/*.min.css"
+          , "!fonts/**"
+        ]
+      }
+    , "raty": {
+        "main": [
+          "lib/**/*.*"
+        ]
+      }
+    , "wdt-loading": {
+        "main": [
+            "wdtLoading.*"
+          , "wdtLoading.js"
+          , "wdtMarkup.html"
+        ]
+      }
+    }
+  , "overridesDisabled": {
+      "lato-font": {
+        "main": [
+            "fonts/**"
+          , "css/*.css"
+          , "!css/*.min.css"
+        ]
+      }
+    }
+  , "group": {
+      "front":    [
+          "animate.css"
+        , "bootstrap"
+        , "font-awesome"
+        , "html5shiv"
+        , "jquery"
+        , "lodash"
+        , "raty"
+        , "requirejs"
+        , "roboto-webfont-bower"
+      ]
+    , "fonts":    [
+          "bootstrap"
+        , "font-awesome"
+        , "lato-font"
+        , "raty"
+        , "roboto-webfont-bower"
+      ]
+    , "home": [
+          "admin-lte"
+        , "animate.css"
+        , "bootstrap"
+        , "bootstrap-tagsinput"
+        , "font-awesome"
+        , "html5shiv"
+        , "jquery"
+        , "jquery-tmpl"
+        , "lato-font"
+        , "lodash"
+        , "raty"
+        , "requirejs"
+      ]
+    , "admin":    ["BOWER-PACKAGE-1", "BOWER-PACKAGE-2", "BOWER-PACKAGE-3"]
     }
 }

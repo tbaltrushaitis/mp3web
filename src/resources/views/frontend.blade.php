@@ -28,13 +28,14 @@
                 <div class="raty pull-right" data-score="{{ ($track->get('likes') * 5) / max( $track->get('likes') + $track->get('dislikes'), 1) }}"></div>
 
                 <div class="labels-holder pull-right">
+                    @if ((time() - $track->get('added')) <= 60 * 60 * 24 * 14)
+                        <span class="label label-danger">New!</span>
+                    @endif
+
                     @if (is_array($track->get('genre')) && count($track->get('genre')) > 0)
                         @foreach ( $track->get('genre') as $idx => $Genre )
                             <span class="label label-primary tagholder" id="tag_genre_{{$idx}}">{{ $Genre }}</span>
                         @endforeach
-                    @endif
-                    @if ((time() - $track->get('added')) < 60 * 60 * 24 * 14)
-                        <span class="label label-danger">New!</span>
                     @endif
                 </div>
 

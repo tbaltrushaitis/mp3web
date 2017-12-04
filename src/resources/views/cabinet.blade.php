@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Cabinet</div>
                 <div class="panel-body">
-                    You are logged in!
+                    Cabinet Content
                 </div>
             </div>
         </div>

@@ -20,7 +20,7 @@
       , "laravel/framework":    "5.2.*"
     }
   , "require-disabled": {
-      , "wisembly/elephant.io": "~3.0"
+        "wisembly/elephant.io": "~3.0"
     }
   , "require-dev": {
     }
@@ -55,6 +55,7 @@
       , "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate"
           , "php artisan vendor:publish"
+          , "php artisan key:generate"
           , "php artisan optimize"
         ]
     }

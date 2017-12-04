@@ -8,45 +8,72 @@
 # - Install framework engine
 # - Update framework installation with project's source scripts.
 # - Deploy dist code into public web
-# - Consist of:
+# - Provides:
 #   -   usage
-#   -   preSetupChecks
-#   -   depsChecks
+#   -   logEnv
+#   -   setupChecks
+#   -   engineChecks
 #   -   Build
+#   -   Release
 #   -   Deploy
+#   -   Artisan
+
+##  BANNER
+function Banner () {
+  if [ -f ./BANNER ]; then
+    cat BANNER
+  fi
+}
+
+F_COLORS="./bin/.bash_colors"
+F_RC="./setup.rc"
+
+##  Colors
+if [ -f ${F_COLORS} ]; then
+  source ${F_COLORS}
+  # echo -e "\t${BPurple}ENV:\t exported [${F_COLORS}]${NC}";
+fi
+
+## Source settings
+if [ ! -f ${F_RC} ]; then
+  echo -e "${BRed}Missing file [${F_RC}]${NC}"
+  exit 1
+fi
+source ${F_RC}
+# echo -e "\t${BYellow}ENV: Exported [${F_RC}]${NC}";
 
 if [ -n "$APP_DEBUG" ]; then
-    set -x
+  # set -x
+  printf "DEBUG MODE ENABLED\n"
 fi
 
 set -e
 trap 'echo >&2 Ctrl+C captured, exiting; exit 1' SIGINT
 
-## Source settings
-if [ -f ./setup.rc ]; then
-    source setup.rc
-else
-    exit 1
-fi
-
-
 function usage () {
-    >&2 cat << EOM
-            ${BWhite}Build application${NC}
+  >&2 cat << EOM
+            Build project ecosystem
 
-Usage: $0 <command> [<params>]
+  Usage:
+    $0 <command> [<params>]
 
     $0 <usage | help | h>   -   Show usage information
-    $0 <test | t>           -   Perform environment tests
-    $0 <prepare | prep | p> -   Install PHP, BOWER and NPM dependencies.
+    $0 <setup | s>          -   Install PHP, BOWER and NPM dependencies.
+    $0 <engine | e>         -   Download engine sources
     $0 <build | b>          -   Build project directory
+    $0 <release | r>        -   Create compiled distro
     $0 <deploy | d>         -   Sync sites public web directory (<webroot> by default)
     $0 <rebuild | rb>       -   Perform <build> and then <deploy> tasks
 
 EOM
-    RETVAL=1
+  # RETVAL=1;
 }
 
+##  root password for sudo operations
+# echo "Please enter your sudo Password: "
+# read -s SUDO_PASS_INPUT
+# export SUDO_PW=${SUDO_PASS_INPUT}
+# sudo -v
 
 ##  ------------------------------------------------------------------------  ##
 ##                                PREREQUISITES                               ##
@@ -54,66 +81,67 @@ EOM
 
 OPTS=$@
 
-WD="$(cd $(dirname $0) && pwd -P)"      #   Current working directory
-APP_HOME="$(pwd)/"                      #   Current directory
-APP_PATH="${APP_HOME}${APP_DIR}"        #   Full path to target directory
-ENGINE_DIR="${ENGINE_NAME}-${ENGINE_VERSION}"
-
-CODE_VERSION="$(cat ./VERSION)"
-GIT_COMMIT="$(git rev-list --remove-empty --remotes --max-count=1 --date-order --reverse)"
-
-printf "${GIT_COMMIT}" > COMMIT
+WD="$(pwd -P)"                  #   Current working directory
+APP_HOME="$(pwd -P)/"           #   Current directory
+APP_PATH=${APP_HOME}${APP_DIR}  #   Full path to target directory
+DIR_ENGINE="${ENGINE_NAME}-${ENGINE_VERSION}"
+CODE_VERSION=$(cat ./VERSION)
 
 SRC="${WD}/src"
-BUILD="${WD}/build"
-DIST="${WD}/dist"
+BUILD="${WD}/build-${CODE_VERSION}"
+DIST="${WD}/dist-${CODE_VERSION}"
 
-DATE="$(date +"%Y%m%d%H%M%S")"
-DATETIME="$(date "+%Y-%m-%d")_$(date "+%H-%M-%S")"
-
-# printf "\n----------------------------  ${DATE}  ---------------------------\n";
+DATE=$(date +"%Y%m%d%H%M%S")
+DATETIME=$(date "+%Y-%m-%d")_$(date "+%H-%M-%S")
 
 ##  ------------------------------------------------------------------------  ##
 ##                                 FUNCTIONS                                  ##
 ##  ------------------------------------------------------------------------  ##
 
 source bin/f.sh
+source bin/f-database.sh
 source bin/f-engine.sh
 source bin/f-node.sh
 source bin/f-php-composer.sh
-source bin/host-checks.sh
+source bin/f-host.sh
 
 function logEnv () {
-    splash "$FUNCNAME Started with: (${@})";
+  splash "${FUNCNAME}() Started with: (${@})";
 
-    info "CODE_VERSION =  ${CODE_VERSION}";
-    info "GIT_COMMIT = \t ${GIT_COMMIT}";
-    info "WD = \t\t ${WD}";
-    info "SRC = \t\t ${SRC}";
-    info "BUILD = \t ${BUILD}";
-    info "ENGINE_DIR = \t ${ENGINE_DIR}";
-    info "APP_PATH = \t ${APP_PATH}";
-    info "WEB_USER = \t ${WEB_USER}";
-    info "OPTS = \t ${OPTS}";
+  info "CODE_VERSION = \t ${CODE_VERSION}";
+  info "WD = \t\t ${WD}";
+  info "DIR_SRC = \t ${DIR_SRC}";
+  info "DIR_ENGINE = \t ${DIR_ENGINE}";
+  info "DIR_BUILD = \t ${DIR_BUILD}";
+  info "DIR_DIST = \t ${DIR_DIST}";
+  info "DIR_WEB = \t ${DIR_WEB}";
+  info "WEB_USER = \t ${WEB_USER}";
+  info "OPTS = \t\t ${OPTS}";
 
-    info "$FUNCNAME Finished";
-    return 0;
+  # info "SRC = \t\t ${SRC}";
+  # info "BUILD = \t ${BUILD}";
+  # info "DIST = \t\t ${DIST}";
+  # info "APP_PATH = \t ${APP_PATH}";
+
+  splash "$FUNCNAME Finished";
+  return 0;
 }
 
 ##  ------------------------------------------------------------------------  ##
 ##                                PRE-CHECKS                                  ##
 ##  ------------------------------------------------------------------------  ##
 
-function preSetupChecks () {
-    splash "$FUNCNAME Started with: (${@})";
 
-    okNode
-    okNpm
-    okBower
-    okGulp
+function setupChecks () {
+  splash "$FUNCNAME Started with: (${@})";
 
-    info "$FUNCNAME Finished";
-    return 0;
+  okNode
+  okNpm
+  okBower
+  okGulp
+
+  splash "$FUNCNAME Finished";
+  return 0;
 }
 
 
@@ -121,153 +149,298 @@ function preSetupChecks () {
 ##                                 EXECUTION                                  ##
 ##  ------------------------------------------------------------------------  ##
 
-function depsChecks () {
-    splash "$FUNCNAME Started with: (${@})";
+function engineChecks () {
+  splash "$FUNCNAME Started with: (${@})";
 
-    check_composer
-    Delay
+  # createDirTree "${BUILD} ${DIST} ${DIR_WEB}"
+  # Delay
 
-    check_engine
-    Delay
+  composer_check
+  Delay
 
-    # fix_permissions
-    # sleep 1;
+  engine_check
+  Delay
 
-    deps_install
-    Delay
+  engine_set_permissions
+  Delay
 
-    # deps_outdated
-    # sleep 1;
+  deps_install
+  Delay
 
-    info "$FUNCNAME Finished";
-    exit 0;
+  splash "$FUNCNAME Finished";
+  # exit 0;
 }
 
 
 function Build () {
-    splash "$FUNCNAME Started with: (${@})";
+  splash "$FUNCNAME Started with: (${@})";
 
-    cd ${WD}
-    gulp --env=${APP_ENV} #--verbose
-    Delay
+  # local VERSION=$(versionn pre -e VERSION);
+  # local BUILD="build-${VERSION}"
 
-    cd ${WD}
-    mv -p "${BUILD}/.env" "${BUILD}/.env.${DATE}" 2>/dev/null
-    cp -pr ./setup.rc "${BUILD}/.env.setup"
-    cp -pr "${SRC}/composer.json" "${BUILD}/"
-    Delay
+  # createDirTree ${DIR_BUILD} ${DIR_DIST}
+  createDirTree "${DIR_BUILD}";
+  Delay 2;
 
-    cd ${BUILD}
-    composer -v update
-    Delay
+  # mkdir -p ${BUILD} # && chmod 775 ${BUILD}
+  # mkdir -p ${BUILD}
+  # set_permissions ${BUILD}
 
-    cd ${WD}
-    sudo chown -R ${WEB_USER}:${WEB_USER} "${BUILD}/"
-    Delay
+  # cd ${WD}
+  # node gulpfile.js --env=${APP_ENV} #--verbose
+  # Delay
 
-    info "$FUNCNAME Finished";
-    exit 0;
+
+  cd ${WD};
+  mkdir -p ${DIR_BUILD} 2>/dev/null;
+  cp -pr ${DIR_ENGINE}/* ${DIR_BUILD}/ 2>&1 >/dev/null;
+  warn "Engine directory [${DIR_ENGINE}/*] COPIED to [${DIR_BUILD}/]";
+  # cp -prv setup.rc "${BUILD}/.env"
+  # info "COPIED setup.rc to [${BUILD}/.env]";
+  # cp -pr "${SRC}/composer.json" "${BUILD}/"
+  # warn "COPIED [${SRC}/composer.json] to [${BUILD}/]";
+  # cd "${BUILD}" && composer -vvv update && cd -
+
+
+  cd ${WD};
+
+  if [ -f ${DIR_BUILD}/.env ]; then
+    mv -vf ${DIR_BUILD}/.env ${DIR_BUILD}/.env.${DATE} 2>/dev/null;
+    warn "MOVED file [${DIR_BUILD}/.env] to [${DIR_BUILD}/.env.${DATE}]";
+  fi
+
+  cp -pr ${DIR_SRC}/* ${DIR_BUILD}/ 2>&1 && Delay 2;
+  cp -punv ${DIR_SRC}/.env.rc ${DIR_BUILD}/.env 2>&1 && Delay 2;
+  cp -pvf ${DIR_SRC}/composer.json ${DIR_BUILD}/ 2>&1 && Delay 2;
+
+  # cd ${WD}
+  # cp -prv ${SRC}/.* ${BUILD}/ 2>/dev/null
+  # Delay
+
+  cd ${DIR_BUILD};
+  composer -v update;
+  cd ${WD} && Delay 2;
+
+  Artisan "${DIR_BUILD}";
+
+  # cd ${WD}
+  # set_permissions ${BUILD}
+  # Delay
+
+  splash "$FUNCNAME Finished";
+}
+
+
+function Release () {
+  splash "$FUNCNAME params: (${@})";
+
+  createDirTree "${DIR_DIST}";
+  Delay 2;
+
+  cd ${WD};
+  cp -prv ${DIR_BUILD}/* ${DIR_DIST}/ 2>/dev/null;
+  warn "Directory [${DIR_BUILD}/*] content DEPLOYED to [${DIR_DIST}/]";
+  cp -pvf ${DIR_BUILD}/.env ${DIR_DIST}/ 2>&1;
+  warn "Directory [${DIR_BUILD}/.env] COPIED to [${DIR_DIST}/]";
+
+  warn "Now RUN ARTISAN() with [${DIR_DIST}]";
+  Artisan "${DIR_DIST}";
+  warn "Now RETURNED from ARTISAN() with [${DIR_DIST}]";
+
+  # cd ${WD}
+  # cd "${DIR_WEB}/public"
+  # mkdir -p ../storage/media/audio >&2 2>/dev/null
+  # ln -s ../storage/media/audio >&2 2>/dev/null
+  # cd -
+  # Delay
+
+
+  # cd ${WD}
+  # sudo chown -R ${WEB_USER}:${WEB_USER} "${APP_DIR}"          \
+  # && Delay;
+  #
+  # node gulpfile.js artisan:clear --env=${APP_ENV} --verbose   \
+  # && Delay;
+
+  splash "$FUNCNAME Finished";
 }
 
 
 function Deploy () {
-    splash "$FUNCNAME params: (${@})";
+  splash "$FUNCNAME params: (${@})";
 
-    cd ${WD}
-    gulp sync:web --env=${APP_ENV} --verbose
-    Delay
+  createDirTree "${DIR_WEB}";
+  Delay 2;
 
-    cd ${WD}
-    cd "${WD}/${APP_DIR}/public/"
-    ln -s ../storage/media/audio/ >&2 2>/dev/null
-    Delay
+  # mkdir -p "${WD}/${APP_DIR}/public/";
+  # set_permissions ${WD}/${APP_DIR};
 
-    cd ${WD}
-    sudo chown -R ${WEB_USER}:${WEB_USER} "${APP_DIR}"
-    Delay
+  # cd ${WD}
+  # node gulpfile.js deploy --env=${APP_ENV} --verbose        \
+  # && Delay;
 
-    gulp artisan:clear --env=${APP_ENV} --verbose
-    Delay
+  cd ${WD}
+  cp -pr ${DIR_DIST}/* ${DIR_WEB}/ 2>&1 >/dev/null
+  if [ -f ${DIR_WEB}/.env ]; then
+    mv -vf ${DIR_WEB}/.env ${DIR_WEB}/.env.${DATE}.bak 2>&1 >/dev/null;
+  fi
+  cp -pvf ${DIR_DIST}/.env ${DIR_WEB}/ 2>&1 >/dev/null;
+  info "ENV FILE [${DIR_DIST}/.env] COPIED to [${DIR_WEB}/.env]";
+  warn "Directory [${DIR_DIST}/] content DEPLOYED to [${DIR_WEB}/]";
+  Delay 2
 
-    info "$FUNCNAME Finished";
-    exit 0;
+  cd ${WD}
+  cd ${DIR_WEB}/public
+  mkdir -p ../storage/media/audio 2>&1 >/dev/null
+  ln -s ../storage/media/audio 2>&1 >/dev/null
+  cd ${WD}
+  Delay 2
+
+  # cd ${WD}
+  # sudo chown -R ${WEB_USER}:${WEB_USER} "${APP_DIR}"          \
+  # && Delay;
+  #
+  # node gulpfile.js artisan:clear --env=${APP_ENV} --verbose   \
+  # && Delay;
+  Artisan ${DIR_WEB}
+  set_permissions ${DIR_WEB}
+
+  splash "$FUNCNAME Finished";
+}
+
+
+function Artisan () {
+
+  splash "$FUNCNAME Started with: (${@})";
+  local W_DIR="$1";
+  info "W_DIR = ${W_DIR}";
+
+  cd ${W_DIR} && pwd;
+
+  # chmod a+x artisan
+  # ./artisan auth:clear-resets
+  # ./artisan clear-compiled
+
+  # php artisan route:clear;
+  # php artisan view:clear;
+
+  # ./artisan cache:clear
+  cd ${W_DIR}
+  php artisan vendor:publish
+  php artisan config:clear
+  php artisan key:generate
+  # php artisan optimize
+
+  # ./artisan migrate:refresh
+  # php artisan route:cache;
+
+  php artisan down;
+  php artisan up;
+
+  php artisan route:list;
+  php artisan migrate:status;
+
+  # ./artisan config:cache
+
+  warn "$FUNCNAME COMPLETED FOR: [${W_DIR}]";
+  splash "$FUNCNAME Finished";
+  warn "======================================================================";
+  Delay 10;
 }
 
 
 ##  ------------------------------------------------------------------------  ##
 ##                                  EXECUTION                                 ##
 ##  ------------------------------------------------------------------------  ##
-printf "\n-------------------------\t $0 $1 \t----------------------------\n";
+printf "\n--------------------------\t $0 $1 \t-----------------------------\n";
 
-logEnv
+# logEnv
 
 case "$1" in
 
-    "")
-        log "without params";
-        usage
-        RETVAL=0
-    ;;
+  "")
+    info "Without params";
+    usage;
+    RETVAL=0
+  ;;
 
-    "usage" | "h")
-        log "usage()";
-        usage
-        RETVAL=0
-    ;;
+  "usage" | "h")
+    info "Usage()";
+    usage;
+    RETVAL=0
+  ;;
 
-    "test" | "t")
-        log "test()";
-        preSetupChecks
-        RETVAL=$?
-    ;;
+  "setup" | "s")
+    info "Setup()";
+    setupChecks && Delay;
+    RETVAL=$?
+  ;;
 
-    "prepare" | "prep" | "p")
-        log "prepare()";
-        depsChecks
-        RETVAL=$?
-    ;;
+  "tree")
+    info "Tree()";
+    createDirTree "${DIR_BUILD} ${DIR_DIST} ${DIR_WEB}" && Delay;
+    RETVAL=$?
+  ;;
 
-    "build" | "b")
-        info "build()";
-        Build
-        RETVAL=$?
-    ;;
+  "engine" | "e")
+    info "Engine()";
+    engineChecks && Delay;
+    RETVAL=$?
+  ;;
 
-    "rebuild" | "rb")
-        info "REbuild()";
-        Build
-        Delay
-        Deploy
-        RETVAL=$?
-    ;;
+  "build" | "b")
+    info "Build()";
+    Build && Delay;
+    RETVAL=$?
+  ;;
 
-    "deploy" | "d")
-        info "deploy()";
-        Deploy
-        RETVAL=$?
-    ;;
+  "release" | "r")
+    info "Release()";
+    Release && Delay;
+    RETVAL=$?
+  ;;
 
-    "all" | "a")
-        info "all()";
-        preSetupChecks
-        Delay
-        depsChecks
-        Delay
-        Build
-        Delay
-        Deploy
-        RETVAL=$?
-    ;;
+  "deploy" | "d")
+    info "Deploy()";
+    Deploy && Delay;
+    RETVAL=$?
+  ;;
 
-    *)
-        info "UNKNOWN command";
-        usage
-        RETVAL=1
-    ;;
+  "rebuild" | "rb")
+    info "ReBuild()";
+    Build && Delay;
+    Release && Delay;
+    RETVAL=$?
+  ;;
+
+  "redeploy" | "rd")
+    info "ReDeploy()";
+    Build && Delay 2;
+    Release && Delay 2;
+    Deploy && Delay 2;
+    RETVAL=$?
+  ;;
+
+  "all" | "a")
+    info "All_Tasks()";
+    setupChecks && Delay 2;
+    engineChecks && Delay 2;
+    Build && Delay 2;
+    Release && Delay 2;
+    Deploy && Delay 2;
+    # Artisan && Delay
+    RETVAL=$?
+  ;;
+
+  *)
+    fatal "UNKNOWN command: $1";
+    usage;
+    RETVAL=1
+  ;;
 
 esac
 
-splash "ALL DONE!";
+splash "ALL DONE! Exiting now ...";
 
 exit ${RETVAL};
 

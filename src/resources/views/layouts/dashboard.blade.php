@@ -21,7 +21,7 @@ desired effect
 |---------------------------------------------------------|
 /-->
 <body   id="layout-dashboard"
-        class="layout-dashboard skin-blue hold-transition fixed theme-default"
+        class="skin-blue hold-transition layout-boxed sidebar-collapse theme-default"
         data-id_page="layout-dashboard"
         data-rooturl="{{ Request::root() }}">
 
@@ -91,7 +91,7 @@ desired effect
     <header class="main-header">
 
         <!--/ Branding Image /-->
-        <a class="navbar-brand" href="{{ url('/dashboard') }}" target="_self">
+        <a class="navbar-brand" href="{{ url('/') }}" target="_self">
             <img class="logo-sm" alt="Premium MP3 Collection" src="{{ asset('assets/img/logo/logo-sm.png') }}" />
         </a>
 
