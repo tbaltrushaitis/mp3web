@@ -26,8 +26,8 @@ ENGINE_TAG=laravel
 ENGINE_VERSION=5.2.31
 
 # GIT_REPO=https://github.com/tbaltrushaitis/mp3web.git
-GIT_REPO="https://bitbucket.org/tbaltrushaitis/mp3web.git"
-GIT_BRANCH="latest"
+GIT_REPO=https://bitbucket.org/tbaltrushaitis/mp3web.git
+GIT_BRANCH=latest
 GIT_COMMIT=
 
 CACHE_DRIVER=file
