@@ -74,12 +74,10 @@ include ./bin/Makefile.*
 
 .PHONY: default
 default: banner test state help;
-# default: all;
 
 ##  ------------------------------------------------------------------------  ##
 
-$(@shell [ -s './BANNER' ] && cat BANNER;)
-$(info [${DT}]${BYellow} Default goal is: [$(.DEFAULT_GOAL)]${NC});
+# $(info [${DT}]${BYellow} Default goal is: [$(.DEFAULT_GOAL)]${NC});
 
 .PHONY: test test_rc
 
@@ -89,11 +87,9 @@ test: test_rc;
 #@ cat BANNER
 # test_rc: setup.rc banner
 test_rc: setup.rc;
-	@echo ${BYellow}[${DT}] TEST GOAL EXECUTED${NC};
-	@cat BANNER;
+	@ echo ${BYellow}[${DT}] TEST GOAL EXECUTED${NC};
+# @cat BANNER;
 
-# @ $(MAKE) banner
-# @ printf "${BYellow}[${DT}] TEST GOAL EXECUTED${NC}";
 ##  ------------------------------------------------------------------------  ##
 
 .PHONY: clone
@@ -114,13 +110,6 @@ clone:
 banner:
 	@ [ -s ./BANNER ] && cat BANNER;
 # @ cat BANNER
-
-# OK_BANNER := $(shell [ -e ./BANNER ] && echo 1 || echo 0)
-# ifeq ($(OK_BANNER),1)
-# 	@ cat ./BANNER
-# 	@ echo -e "\n";
-# 	# $(shell cat BANNER)
-# endif
 
 ##  ------------------------------------------------------------------------  ##
 

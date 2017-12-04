@@ -81,11 +81,11 @@ EOM
 
 OPTS=$@
 
-WD="$(pwd -P)"                          #   Current working directory
-APP_HOME="$(pwd -P)/"                   #   Current directory
-APP_PATH="${APP_HOME}${APP_DIR}"        #   Full path to target directory
+WD="$(pwd -P)"                  #   Current working directory
+APP_HOME="$(pwd -P)/"           #   Current directory
+APP_PATH=${APP_HOME}${APP_DIR}  #   Full path to target directory
 DIR_ENGINE="${ENGINE_NAME}-${ENGINE_VERSION}"
-CODE_VERSION="$(cat ./VERSION)"
+CODE_VERSION=$(cat ./VERSION)
 
 SRC="${WD}/src"
 BUILD="${WD}/build-${CODE_VERSION}"
@@ -403,7 +403,6 @@ case "$1" in
   "deploy" | "d")
     info "Deploy()";
     Deploy && Delay;
-# Artisan && Delay
     RETVAL=$?
   ;;
 

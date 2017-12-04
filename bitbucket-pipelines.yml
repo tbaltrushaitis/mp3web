@@ -53,7 +53,7 @@ pipelines:
             # - ./setup.sh deploy --env=production
       - step:
           script:
-            - echo "[Step_03] This script runs only on commit to the $BITBUCKET_BRANCH branch.\n"
+            - echo "[Step_03] Script runs on commit to [${BITBUCKET_BRANCH}] branch."
             - echo "[BITBUCKET_CLONE_DIR] = [${BITBUCKET_CLONE_DIR}]"
             - echo "[BITBUCKET_COMMIT] = [${BITBUCKET_COMMIT}]"
             - echo "[BITBUCKET_REPO_OWNER] = [${BITBUCKET_REPO_OWNER}]"

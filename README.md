@@ -69,7 +69,9 @@ AVAILABLE COMMANDS:
 ```
 
 ### 4 - Deploy ###
-
+```bash
+$ make all
+```
 
 ### 5 - Enjoy ###
 
@@ -87,57 +89,6 @@ $ gulp command:p1:..:pN --env_VAR=some_VALUE
 # gulp --env=dev
 ```
 
-Below is a list of gulp tasks and their possible params:
-
- :hash: | Task | Source | Target | Comment
-:------:|:-----|:------:|:------:|:--------
- :one: | **show** | | | Display information
-| | usage | | | Show help topic
-| | show:config | .env | | Environment configuration
-| | files:src | src/ | build/ | List of changed files
- :two: | **clean** | | | | Delete files and directories
-| | clean:build | | build/ | Reset build directory
-| | clean:dist | | dist/ | Reset release directory
- :three: | **bower** | | | Frontend modules manager
-| | bower:collect | bower_modules/ | resources/assets/ | Collect js, css, fonts and images from bower packages
- :four: | **sync** | | | Copy directories
-| | sync:engine | laravel-*/ | build/ | Framework Original Sources
-| | sync:src | src/ | build/ | Application sources
-| | sync:assets | build/resources/assets/ | build/public/assets/ | Build Assets to public
-| | sync:assets:css | src/resources/assets/css/ | build/resources/assets/css/ |
-| | sync:assets:media | build/resources/assets/img/ | build/public/assets/img/ | Build Images to public
-| | sync:assets:fonts | | |
-| | sync:assets:js | | |
-| | sync:views | | |
-| | sync:dist | build/ | dist/ | Create release directory from BUILD
-| | sync:web | build/ | webroot/ | Create/update public web directory
- :five: | **build** | | | Build package
-| | build | | dist/ | Production package
-| | build:dev | | build/ | Development stage test package
- :six: | **deploy** | | | Publish releases
- :seven: | **lint** | | | Checks JS and CSS files for mistakes
-| | jscs | | | Code style linter and formatter
-| | jshint | | | Static Code Analysis Tool
- :eight: | **watch** | | | Detect files changes
-| | watch:src:views | | | Templates
-| | watch:src:css | | | Styles
-| | watch:src:js | | | Scripts
- :nine: | **artisan** | | | Laravel console commands
- :unlock: | fixPermissions | | build/ | Set owner of files to webserver user
-
----------
-
-:bangbang: Below is a list of outdated gulp tasks:
-
- :hash: | Task | Source | Target | Comment
-:------:|:-----|:------:|:------:|:--------
- :x: | bower:fonts | | | Collect fonts
- :x: | bower:css:fonts | | | Collect, merge and minify fonts CSS files
- :x: | bower:css:plugins | | | CSS files for plugins
- :x: | bower:js | | | Plugins itself
- :x: | bower:plugins | | | Plugins directories
- :x: | sync:web:dev | | | Create/update development web directory
-
 ---------
 
 ## Todo List ##
@@ -146,7 +97,8 @@ Below is a list of gulp tasks and their possible params:
 ## Change log ##
 
 ### v1.0.2 ###
- - [x] Usage of Makefile to build and deploy project
+ - [x] Makefile scenario now used to build and deploy project
+ - [x] Frontend components collected by **bower** task in gulpfile
 
 ### v1.0.1 ###
  - [x] Genre tags added as labels for track
