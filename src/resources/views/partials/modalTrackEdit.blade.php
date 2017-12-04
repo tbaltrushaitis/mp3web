@@ -1,7 +1,7 @@
 <!--/ modalTrackEdit /-->
 <div class="modal fade" id="modalEditTrack" tabindex="-1" role="dialog" aria-labelledby="modalEditLabel">
     <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content panel-default">
+        <div class="modal-content panel-info">
 
             <div class="modal-header-- panel-heading">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -32,18 +32,6 @@
                         <label for="title" class="col-sm-1 control-label">Title:</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="title" placeholder="Track Title">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="name" class="col-sm-1 control-label">Name:</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="name" placeholder="Track Name">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="artist" class="col-sm-1 control-label">Artist:</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="artist" placeholder="Track Artist">
                         </div>
                     </div>
                     <div class="form-group">
@@ -81,7 +69,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="meta" class="col-sm-1 control-label">JSON:</label>
+                        <label for="meta" class="col-sm-1 control-label">META:</label>
                         <div class="col-sm-10">
                             <textarea class="form-control" rows="5" id="meta" readonly></textarea>
                         </div>
@@ -90,8 +78,8 @@
             </div>
 
             <div class="panel-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary btn-save" data-dismiss="modal">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close fa-fw"></i>&nbsp;Close</button>
+                <button type="button" class="btn btn-primary btn-save" data-dismiss="modal"><i class="fa fa-save fa-fw"></i>&nbsp;Save</button>
             </div>
 
         </div>

@@ -1,34 +1,60 @@
-{   "disallowEmptyBlocks":                  true
-  , "disallowSpacesInsideArrayBrackets":    true
-  , "disallowSpacesInsideParentheses":      true
-  , "disallowQuotedKeysInObjects":          true
-  , "disallowSpaceAfterObjectKeys":         true
+/**!
+ * JSCS configuration file
+ * Collected by Baltrushaitis Tomas
+ * NO License required
+ */
+{
+    "disallowSpacesInNamedFunctionExpression": {
+        "beforeOpeningRoundBrace":  true
+    }
+  , "disallowSpacesInFunctionExpression": {
+        "beforeOpeningRoundBrace":  true
+    }
+  , "disallowSpacesInAnonymousFunctionExpression": {
+        "beforeOpeningRoundBrace":  true
+    }
+  , "disallowSpacesInFunctionDeclaration": {
+        "beforeOpeningRoundBrace":  true
+    }
+  , "disallowEmptyBlocks":                      true
+  , "disallowSpacesInsideArrayBrackets":        true
+  , "disallowSpacesInsideParentheses":          true
+  , "disallowQuotedKeysInObjects":              true
+  , "disallowSpaceAfterObjectKeys":             true
   , "disallowSpaceAfterPrefixUnaryOperators":   true
   , "disallowSpaceBeforePostfixUnaryOperators": true
-  , "disallowSpaceBeforeBinaryOperators":   [","]
-  , "disallowMixedSpacesAndTabs":   true
-  , "disallowTrailingWhitespace":   true
-  , "disallowTrailingComma":        true
-  , "disallowYodaConditions":       true
-  , "disallowKeywords":             ["with"]
-  , "disallowMultipleLineBreaks":   true
-  , "disallowMultipleVarDecl":      false
-  , "requireSpaceBeforeBlockStatements":    true
-  , "requireParenthesesAroundIIFE":         true
-  , "requireSpacesInConditionalExpression": true
-  , "requireBlocksOnNewline":               1
-  , "requireCommaBeforeLineBreak":          false
-  , "requireSpaceBeforeBinaryOperators":    true
-  , "requireSpaceAfterBinaryOperators":     true
+  , "disallowSpaceBeforeBinaryOperators": [
+        ","
+    ]
+  , "disallowMixedSpacesAndTabs":               true
+  , "disallowTrailingWhitespace":               true
+  , "disallowTrailingComma":                    true
+  , "disallowYodaConditions":                   true
+  , "disallowKeywords": [
+        "with"
+    ]
+  , "disallowMultipleLineBreaks":               true
+  , "disallowMultipleVarDecl":                  false
+  , "requireBlocksOnNewline":                   1
   , "requireCamelCaseOrUpperCaseIdentifiers":   true
-  , "requireLineFeedAtFileEnd":         true
-  , "requireCapitalizedConstructors":   true
-  , "requireDotNotation":               true
-  , "requireSpacesInForStatement":      true
-  , "requireSpaceBetweenArguments":     true
-  , "requireCurlyBraces": ["do"]
+  , "requireCapitalizedConstructors":           true
+  , "requireCommaBeforeLineBreak":              false
+  , "requireCurlyBraces": [
+        "do"
+    ]
+  , "requireDotNotation":                       true
+  , "requireLineFeedAtFileEnd":                 true
+  , "requireParenthesesAroundIIFE":             true
+  , "requirePaddingNewLinesAfterBlocks":        true
+  , "requireSpaceBeforeBlockStatements":        true
+  , "requireSpacesInConditionalExpression":     true
+  , "requireSpaceBeforeBinaryOperators":        true
+  , "requireSpaceAfterBinaryOperators":         true
+  , "requireSpacesInForStatement":              true
+  , "requireSpaceBetweenArguments":             true
   , "requireSpaceAfterKeywords": [
         "if"
+      , "else"
       , "for"
       , "while"
       , "do"
@@ -40,11 +66,10 @@
       , "typeof"
     ]
   , "requirePaddingNewLinesBeforeLineComments": {
-        "allExcept":    "firstAfterCurly"
+        "allExcept":                "firstAfterCurly"
     }
-  , "requirePaddingNewLinesAfterBlocks":    true
-  , "safeContextKeyword":   "_this"
-  , "validateLineBreaks":   "LF"
-  , "validateQuoteMarks":   "'"
-  , "validateIndentation":  false
+  , "safeContextKeyword":                       "self"
+  , "validateLineBreaks":                       "LF"
+  , "validateQuoteMarks":                       "'"
+  , "validateIndentation":                      4
 }

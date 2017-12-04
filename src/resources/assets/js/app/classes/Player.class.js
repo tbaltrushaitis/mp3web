@@ -1,5 +1,11 @@
 ﻿/* ASSETS/JS/APP/CLASSES/Player.class.js */
 
+/*!
+ * ASSETS/JS/APP/CLASSES/Player.class.js
+ * Copyright(c) 2016-2017 Baltrushaitis Tomas
+ * MIT Licensed
+ */
+
 'use strict';
 
 define([
@@ -16,9 +22,9 @@ define([
 
     //  CONSTRUCTOR
     var Player  =   function () {
-            var self    =   this;
-            Abstract.call(self);
-        };
+        var self    =   this;
+        Abstract.call(self);
+    };
 
     //  PROTOTYPE
     Player.prototype                =   Object.create(Abstract.prototype);
@@ -102,7 +108,8 @@ define([
                         +   '/'
                         +   trackHash
                         +   '/'
-                        +   'meta'
+                        +   'play'
+//                        +   'meta'
           , oRequest    =   $.ajax({
                                 url:     requestUrl
                               , type:    'GET'

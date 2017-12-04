@@ -1,5 +1,14 @@
 /*  ASSETS/JS/APP/functions.js  */
 
+/*!
+ * ASSETS/JS/APP/functions.js
+ * Copyright(c) 2016-2017 Baltrushaitis Tomas
+ * MIT Licensed
+ */
+
+'use strict';
+
+
 //  Check if parameter ("intro", "silent", etc.) is Enabled in URL
 function checkMode (mode) {
     var aHashParams =   window.location.hash.split('#');
@@ -46,8 +55,8 @@ function sec2time (intParamSecs) {
 
 
 function genUUID () {
-    function s4() {
-        return  Math.floor( (1 + Math.random()) * 0x10000 )
+    function s4 () {
+        return  Math.floor((1 + Math.random()) * 0x10000)
                     .toString(16)
                     .substring(1);
     }
@@ -73,7 +82,6 @@ function genUUID () {
 |--------------------------------------------------------------------------
 */
 
-
 function requestAjax (loUrl, loData, loType) {
     var resp = $.ajax({
         async:      false
@@ -89,7 +97,7 @@ function requestAjax (loUrl, loData, loType) {
       , success:    function (data) {
             if (data.errorStatus) {
                 console.warn(data.errorMsg || 'An error has occurred');
-            }else{
+            } else {
                 return data;
             }
         }
@@ -101,7 +109,7 @@ function requestAjax (loUrl, loData, loType) {
     try {
         var retResult   =   JSON.parse(resp.responseText);
         return retResult;
-    }catch (err) {
+    } catch (err) {
         console.error('[ERROR] Cannot parse responseText = [', err, ']');
     }
 

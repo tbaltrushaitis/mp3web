@@ -1,26 +1,15 @@
 {   "name":         "mp3web"
   , "title":        "Web MP3 Player and Media Library Manager"
   , "description":  "Web MP3 Player and Media Library Manager based on Node.js, Laravel and HTML5 + lightweight JavaScript MVC modeling on FrontEnd"
-  , "version":      "1.0.3"
+  , "version":      "1.0.2"
+  , "type":         "project"
+  , "license":      "MIT"
+  , "homepage":     "https://tbaltrushaitis.github.io/mp3web/"
   , "author": {
         "name":  "Baltrushaitis Tomas"
       , "email": "tbaltrushaitis@gmail.com"
       , "url":   "https://github.com/tbaltrushaitis"
     }
-  , "keywords": [
-        "mp3"
-      , "audio"
-      , "player"
-      , "laravel"
-      , "media"
-      , "library"
-      , "storage"
-      , "manager"
-      , "web"
-    ]
-  , "license":          "MIT"
-  , "type":             "project"
-  , "homepage":         "https://github.com/tbaltrushaitis/mp3web"
   , "authors": [
         {   "name":     "Baltrushaitis Tomas"
           , "email":    "tbaltrushaitis@gmail.com"
@@ -29,9 +18,13 @@
   , "require": {
         "php":                  ">=5.5.9"
       , "laravel/framework":    "5.2.*"
-      , "wisembly/elephant.io": "~3.0"
+    }
+  , "require-disabled": {
+        "wisembly/elephant.io": "~3.0"
     }
   , "require-dev": {
+    }
+  , "require-dev-disabled": {
         "fzaninotto/faker":     "~1.4"
       , "mockery/mockery":      "0.9.*"
       , "phpunit/phpunit":      "~4.0"
@@ -49,21 +42,35 @@
     }
   , "scripts": {
         "post-root-package-install": [
-            "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+            "php -r \"file_exists('.env') || copy('.env.setup', '.env');\""
         ]
       , "post-create-project-cmd": [
             "php artisan key:generate"
         ]
       , "post-install-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall"
+          , "php artisan vendor:publish"
           , "php artisan optimize"
         ]
       , "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate"
+          , "php artisan vendor:publish"
+          , "php artisan key:generate"
           , "php artisan optimize"
         ]
     }
   , "config": {
         "preferred-install":    "dist"
     }
+  , "keywords": [
+        "mp3"
+      , "audio"
+      , "player"
+      , "laravel"
+      , "media"
+      , "library"
+      , "storage"
+      , "manager"
+      , "web"
+    ]
 }

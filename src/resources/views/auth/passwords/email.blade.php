@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
-<!-- Main Content -->
+<!--/ Main Content /-->
 @section('content')
 <div class="container">
     <div class="row">

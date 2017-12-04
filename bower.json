@@ -4,9 +4,9 @@
   , "version":      "1.0.2"
   , "main":         "index.php"
   , "authors": [
-        "tbaltrushaitis@gmail.com"
+      "tbaltrushaitis@gmail.com"
     ]
-  , "private":  true
+  , "private":  false
   , "license":  "MIT"
   , "keywords": [
         "mp3"
@@ -20,9 +20,9 @@
       , "web"
     ]
   , "moduleType": [
-        "globals"
+      "globals"
     ]
-  , "homepage": "https://github.com/tbaltrushaitis/mp3web#readme"
+  , "homepage": "https://tbaltrushaitis.github.io/mp3web/"
   , "ignore": [
         "**/.*"
       , "animation"
@@ -30,76 +30,131 @@
       , "bower_components"
       , "bower_modules"
       , "dist"
-      , "node_modules"
       , "docs"
+      , "laravel-*"
+      , "node_modules"
       , "test"
       , "tests"
-      , "laravel-*"
       , "webroot"
     ]
   , "dependencies": {
-        "animate.css":          "~3.5.2"
+        "admin-lte":            "~2.3.11"
+      , "animate.css":          "~3.5.2"
       , "bootstrap":            "~3.3.7"
       , "bootstrap-tagsinput":  "~0.8.0"
       , "font-awesome":         "~4.7.0"
       , "html5shiv":            "~3.7.3"
       , "jquery":               "~2.2.4"
       , "jquery-tmpl":          "#b504c8afba"
-      , "lodash":               "~4.17.2"
+      , "lato-font":            "~3.0.0"
+      , "lodash":               "~4.17.4"
       , "normalize.css":        "~4.2.0"
       , "raty":                 "~2.7.1"
       , "respond":              "~1.4.2"
       , "requirejs":            "~2.3.3"
+      , "roboto-webfont-bower": "roboto-webfont#~0.1.1"
       , "underscore":           "~1.8.3"
     }
   , "devDependencies": {
     }
   , "resolutions": {
-        "jquery": "~2.2.4"
+      "jquery": "~2.2.4"
     }
   , "outdatedDependencies": {
-        "bxslider-4":   "bx-slider.js#^4.2.12"
+      "bxslider-4":   "bx-slider.js#^4.2.12"
     }
   , "overrides": {
-        "admin-lte": {
-            "main": [
-                "dist/**/*.*"
-              , "!**/index2.html"
-              , "!**/*.less"
-            ]
-        }
-      , "bootstrap": {
-            "main": [
-                "dist/**/*.*"
-              , "!**/*.less"
-              , "!**/*.map"
-              , "!**/npm.js"
-              , "!**/*.min.js"
-            ]
-        }
-      , "font-awesome": {
-            "main": [
-                "fonts/*"
-              , "css/*.css"
-              , "!css/*.min.css"
-            ]
-        }
-      , "jquery-tmpl": {
-            "main": [
-                "*.js"
-            ]
-        }
-      , "raty": {
-            "main": [
-                "lib/**/*.*"
-            ]
-        }
-      , "wdt-loading": {
-            "main": [
-                "wdtLoading.*"
-              , "wdtLoading.js"
-              , "wdtMarkup.html"
-            ]
-        }
+      "admin-lte": {
+        "main": [
+            "dist/**/*.*"
+          , "!**/index2.html"
+          , "!**/*.less"
+        ]
+      }
+    , "bootstrap": {
+        "main": [
+            "dist/**/*.*"
+          , "!**/*.less"
+          , "!**/*.map"
+          , "!**/npm.js"
+          , "!**/*.min.js"
+          , "!*-theme.*"
+        ]
+      }
+    , "font-awesome": {
+        "main": [
+            "fonts/*"
+          , "css/*.css"
+          , "!css/*.min.css"
+        ]
+      }
+    , "jquery-tmpl": {
+        "main": [
+          "*.js"
+        ]
+      }
+    , "lato-font": {
+        "main": [
+            "css/*.css"
+          , "!css/*.min.css"
+          , "!fonts/**"
+        ]
+      }
+    , "raty": {
+        "main": [
+          "lib/**/*.*"
+        ]
+      }
+    , "wdt-loading": {
+        "main": [
+            "wdtLoading.*"
+          , "wdtLoading.js"
+          , "wdtMarkup.html"
+        ]
+      }
+    }
+  , "overridesDisabled": {
+      "lato-font": {
+        "main": [
+            "fonts/**"
+          , "css/*.css"
+          , "!css/*.min.css"
+        ]
+      }
+    }
+  , "group": {
+      "front":    [
+          "animate.css"
+        , "bootstrap"
+        , "font-awesome"
+        , "html5shiv"
+        , "jquery"
+        , "lodash"
+        , "raty"
+        , "requirejs"
+        , "roboto-webfont-bower"
+      ]
+    , "fonts":    [
+          "bootstrap"
+        , "font-awesome"
+        , "lato-font"
+        , "raty"
+        , "roboto-webfont-bower"
+      ]
+    , "home": [
+          "admin-lte"
+        , "animate.css"
+        , "bootstrap"
+        , "bootstrap-tagsinput"
+        , "font-awesome"
+        , "html5shiv"
+        , "jquery"
+        , "jquery-tmpl"
+        , "lato-font"
+        , "lodash"
+        , "raty"
+        , "requirejs"
+      ]
+    , "admin":    ["BOWER-PACKAGE-1", "BOWER-PACKAGE-2", "BOWER-PACKAGE-3"]
     }
 }

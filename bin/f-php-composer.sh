@@ -1,52 +1,51 @@
 #!/usr/bin/env bash
 ##  ------------------------------------------------------------------------  ##
-##  PHP COMPOSER
+##              f-php-composer.sh: PHP COMPOSER setup and update              ##
+##  ------------------------------------------------------------------------  ##
+##  Provides:
+##    composer_setup()
+##    composer_selfupdate()
+##    composer_check()
 ##  ------------------------------------------------------------------------  ##
 
-##  Consists of:
-##      composer_setup
-##      composer_selfupdate
-##      check_composer
-
 function composer_setup {
-    SIGNATURE_EXPECTED=$(wget http://composer.github.io/installer.sig -O - -q)
-    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-    SIGNATURE_ACTUAL=$(php -r "echo hash_file('SHA384', 'composer-setup.php');")
+  SIGNATURE_EXPECTED=$(wget http://composer.github.io/installer.sig -O - -q)
+  php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+  SIGNATURE_ACTUAL=$(php -r "echo hash_file('SHA384', 'composer-setup.php');")
 
-    if [ "$SIGNATURE_EXPECTED" = "$SIGNATURE_ACTUAL" ]
-    then
-        printf "[OK]\tCorrect installer signature [$SIGNATURE_ACTUAL]\n"
-        php composer-setup.php --install-dir=/bin --filename=composer
-        RESULT=$?
-        mv composer-setup.php composer-setup-DONE-$(date +"%s").php
-        printf "[LOG]\tCOMPOSER INSTALL FINISHED\n"
-        exit $RESULT
-    else
-        >&2 printf '[ERROR]\tInvalid installer signature\n'
-        mv composer-setup.php composer-setup-INVALID-$(date +"%s").php
-        exit 1
-    fi
+  if [ "$SIGNATURE_EXPECTED" = "$SIGNATURE_ACTUAL" ]
+  then
+    info "[OK] Correct installer signature [$SIGNATURE_ACTUAL]"
+    sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+    RESULT=$?
+    mv composer-setup.php composer-setup-DONE-$(date +"%s").php
+    warn "FINISHED COMPOSER INSTALL"
+    # exit $RESULT
+  else
+    >&2 fatal '[ERROR] Invalid installer signature'
+    mv composer-setup.php composer-setup-INVALID-$(date +"%s").php
+    exit 1
+  fi
 }
 
 
 function composer_selfupdate {
-    composer -vvv selfupdate
-    printf "[LOG]\tCOMPOSER UPDATED to $(composer -V)\n"
+  composer -v selfupdate;
+  warn "FINISHED COMPOSER UPDATE to $(composer -V)";
 }
 
 
-function check_composer {
-    _composer=`which composer 2>&1`
-    if [ $? -ne 0 ]; then
-        printf "[WARNING]\tComposer not found!\n";
-        printf "[INFO]\thttp://getcomposer.org/\n";
-        printf "[LOG]\tStarting composer setup ... \n";
-        composer_setup
-        composer_selfupdate
-        printf "[INFO]\tPlease run $# again.\n";
-        # exit 1
-    fi
-    printf "[OK]\t$(composer -V) Installed\n";
+function composer_check {
+  _composer=`which composer 2>&1`;
+  if [ $? -ne 0 ]; then
+    error "Composer not found!";
+    warn "Starting composer setup from [http://getcomposer.org/] ... ";
+    composer_setup
+    composer_selfupdate
+    warn "FINISHED composer setup. Please run $0 again.";
+    # exit 1
+  fi
+  warn "[OK] Installed PHP-Composer: $(composer -V)";
 }
 
-##  ----------  EOF: f-php-composer.sh  --------------------------------  ##
+##  --------------------  EOF: f-php-composer.sh  --------------------------  ##

@@ -7,10 +7,7 @@ define([
       , 'underscore'
       , 'functions'
     ]
-  , function (
-        $
-      , _
-  ) {
+  , function ($, _) {
 
     //  CONSTRUCTOR
     var Abstract    =   function () {
@@ -25,7 +22,7 @@ define([
         dfdPrototype =  self._init();
 
         // Wait while instance initialized
-        setTimeout ( function working() {
+        setTimeout (function working() {
             if ('pending' === dfdPrototype.state()) {
                 console.log( '\tLoading ' + self._entity + ' ... ', i++ );
                 if (i <= 20) {
@@ -34,16 +31,15 @@ define([
             }
         }, 1);
 
-        $.when( dfdPrototype )
-         .done( function (oClass) {
+        $.when(dfdPrototype)
+         .done(function (oClass) {
             console.timeStamp('Instance of ' + oClass._entity + ' created');
             console.log('Class ' + oClass._entity + ' Object:', oClass);
             dfdClass.resolve(oClass);
          })
-         .always( function (oResult) {
+         .always(function (oResult) {
             console.groupEnd('Abstract.class Constructor');
-         })
-        ;
+         });
 
         return dfdClass.promise();
     };
@@ -51,23 +47,23 @@ define([
     //  PROTOTYPE
     Abstract.prototype  =   {
 
-        '_defaults': {
-            '_entity':  'Abstract.class'
+        _defaults: {
+            _entity:    'Abstract.class'
         }
 
-      , '_config':  new Object()
-      , '_data':    new Object()
+      , _config:    new Object()
+      , _data:      new Object()
 
 
         //  INIT
-      , '_init': function () {
+      , _init:  function () {
             var self = this;
             return self.Init();
         }
 
 
         //  INITIALIZATION
-      , 'Init': function () {
+      , Init:   function () {
             var self    =   this
               , dfdInit =   $.Deferred()
               , i       =   0
@@ -84,11 +80,11 @@ define([
                 dfdInit.resolve(objSelf);
             });
 
-            setTimeout ( function workingInit () {
+            setTimeout (function workingInit () {
                 if ('pending' === loaded.state()) {
                     console.timeStamp('\tInit '  + self._entity + ' ... ', i++);
                     if (i <= 20) {
-                        setTimeout ( workingInit, 500);
+                        setTimeout (workingInit, 500);
                     }
                 }
             }, 1);
@@ -98,14 +94,14 @@ define([
 
 
         // Load Default Data and Modules
-      , 'Load': function () {
+      , Load:   function () {
             var self        =   this
               , dfdMethod   =   $.Deferred()
               , dfdModules  =   $.Deferred();
 
             dfdModules.resolve(self);
             dfdModules
-                .done( function (loSelf) {
+                .done(function (loSelf) {
                     var tStamp  =   {timestamp: (new Date()).getTime()}
                       , UUID    =   {UID: genUUID()}
                     ;

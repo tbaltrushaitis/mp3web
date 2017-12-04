@@ -28,8 +28,8 @@ class HomeController extends Controller {
      * @return void
      */
     public function __construct (MediaRepository $mediarepository) {
-        $this->mediaRepository  =   $mediarepository;
         $this->middleware('auth');
+        $this->mediaRepository  =   $mediarepository;
     }
 
     /**
