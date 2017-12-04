@@ -4,7 +4,7 @@ pipelines:
   default:
     - step:
         script:
-          - echo "This script runs on all branches that don't have any specific pipeline assigned in 'branches'.\n"
+          - echo "[Step_00] This script runs on all branches that don't have any specific pipeline assigned in 'branches'.\n"
   branches:
     master:
       - step:
