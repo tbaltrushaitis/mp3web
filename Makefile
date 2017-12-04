@@ -112,7 +112,7 @@ clone:
 .PHONY: banner
 
 banner:
-	@ [ -s "./BANNER" ] && cat BANNER;
+	@ [ -s ./BANNER ] && cat BANNER;
 # @ cat BANNER
 
 # OK_BANNER := $(shell [ -e ./BANNER ] && echo 1 || echo 0)
