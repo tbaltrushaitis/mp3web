@@ -9,7 +9,7 @@ pipelines:
     master:
       - step:
           script:
-            - printf "This script runs only on commit to the MASTER branch.\n"
+            - printf "[Step_00] This script runs only on commit to the MASTER branch.\n"
             - uname -a
             - free -m
             - df -H
@@ -20,18 +20,24 @@ pipelines:
     dev-1.0.2:
       - step:
           script:
-            - printf "[Step_1] This script runs only on commit to the $BITBUCKET_BRANCH branch.\n"
+            - printf "[Step_01] This script runs only on commit to the $BITBUCKET_BRANCH branch.\n"
             - uname -a
             - pwd
       - step:
           script:
-            - printf "[Step_2] This script runs only on commit to the $BITBUCKET_BRANCH branch.\n"
+            - printf "[Step_02] This script runs only on commit to the $BITBUCKET_BRANCH branch.\n"
             - apt-get update -y
-            - wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
-            # - nvm install v8.9.0
+            # PHP setup
             - apt -y install php5 php5-cli php5-common php-db
             - php -v
+            # NPM install
+            - wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
+            - export NVM_DIR="$HOME/.nvm"
+            - [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && echo -e "\t${BCyan}ENV:\t exported [$NVM_DIR/nvm.sh]";                            # This loads nvm
+            - [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" && echo -e "\t${BCyan}ENV:\t exported [$NVM_DIR/bash_completion]"; # This loads nvm bash_completion
+            - nvm install v8.9.0
             - sleep 10
+            # BUILD project
             - make all
             - sleep 10
             - pwd && ls -als
@@ -41,10 +47,11 @@ pipelines:
             # - ./setup.sh deploy --env=production
       - step:
           script:
-            - printf "[Step_3] This script runs only on commit to the $BITBUCKET_BRANCH branch.\n"
-            - apt-get update -y
-            - apt -y install php5 php5-cli php5-common
+            - printf "[Step_03] This script runs only on commit to the $BITBUCKET_BRANCH branch.\n"
+            # - apt-get update -y
+            # - apt -y install php5 php5-cli php5-common
             - php -v
-            - make all
+            # - make all
             - pwd && ls -als
+            - cat webroot/.env
             - printf "Everything is awesome!\n";
