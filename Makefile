@@ -11,15 +11,15 @@
 
 APP_NAME := mp3web
 
-REPO_HOST := "https://bitbucket.org"
-REPO_USER := "tbaltrushaitis"
-REPO_URL := "$(shell git ls-remote --get-url)"
+REPO_HOST := https://bitbucket.org
+REPO_USER := tbaltrushaitis
+REPO_URL := $(shell git ls-remote --get-url)
 
 APP_REPO := ${REPO_HOST}/${REPO_USER}/${APP_NAME}.git
 APP_ENV := $(shell cat .NODE_ENV)
 CODE_VERSION := $(shell cat ./VERSION)
 APP_BANNER := $(shell cat ./BANNER)
-APP_BRANCH := "dev-1.0.2"
+APP_BRANCH := dev-1.0.2
 
 WD := $(shell pwd -P)
 APP_DIRS := $(addprefix ${WD}/,build-* dist-* webroot)
@@ -73,12 +73,13 @@ include ./bin/Makefile.*
 ##  ------------------------------------------------------------------------  ##
 
 .PHONY: default
-default: test state help
+default: banner test state help;
 # default: all;
 
 ##  ------------------------------------------------------------------------  ##
 
-$(info [${DT}] Default goal is: [$(.DEFAULT_GOAL)])
+$(@shell [ -s './BANNER' ] && cat BANNER;)
+$(info [${DT}]${BYellow} Default goal is: [$(.DEFAULT_GOAL)]${NC});
 
 .PHONY: test test_rc
 
@@ -88,8 +89,8 @@ test: test_rc;
 #@ cat BANNER
 # test_rc: setup.rc banner
 test_rc: setup.rc;
-	@ echo ${BYellow}[${DT}] TEST GOAL EXECUTED${NC};
-	@ cat BANNER;
+	@echo ${BYellow}[${DT}] TEST GOAL EXECUTED${NC};
+	@cat BANNER;
 
 # @ $(MAKE) banner
 # @ printf "${BYellow}[${DT}] TEST GOAL EXECUTED${NC}";
@@ -111,7 +112,8 @@ clone:
 .PHONY: banner
 
 banner:
-	@ cat BANNER
+	@ [ -s "./BANNER" ] && cat BANNER;
+# @ cat BANNER
 
 # OK_BANNER := $(shell [ -e ./BANNER ] && echo 1 || echo 0)
 # ifeq ($(OK_BANNER),1)
@@ -123,30 +125,30 @@ banner:
 ##  ------------------------------------------------------------------------  ##
 
 .PHONY: clean clean-all
-.PHONY: clean-repo clean-src
+.PHONY: clean-repo clean-src clean-deps
 .PHONY: clean-build clean-dist clean-engine clean-web clean-files
 
-clean-all: clean clean-deps clean-web clean-engine
+clean-all: clean clean-deps clean-web clean-engine clean-files
 
-clean: clean-build clean-dist clean-files
+clean: clean-build clean-dist
 
 clean-repo:
-	@ rm -rf "${APP_NAME}"
+	@ rm -rf ${APP_NAME}
 
 clean-src:
-	@ rm -rf "${DIR_SRC}"
+	@ rm -rf ${DIR_SRC}
 
 clean-build:
-	@ rm -rf "${DIR_BUILD}"
+	@ rm -rf ${DIR_BUILD}
 
 clean-dist:
-	@ rm -rf "${DIR_DIST}"
+	@ rm -rf ${DIR_DIST}
 
 clean-engine:
-	@ rm -rf "${DIR_ENGINE}"
+	@ rm -rf ${DIR_ENGINE}
 
 clean-web:
-	@ rm -rf "${DIR_WEB}"
+	@ rm -rf ${DIR_WEB}
 
 clean-deps:
 	@ rm -rf bower_modules/ \
@@ -201,7 +203,7 @@ deploy:
 
 # dev:
 # 	@ NODE_ENV=development ./setup.sh "all"
-# 	# @ NODE_ENV=development gulp
+# 	@ NODE_ENV=development gulp
 
 ##  ------------------------------------------------------------------------  ##
 
