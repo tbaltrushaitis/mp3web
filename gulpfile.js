@@ -79,8 +79,8 @@ ME.NODE_ENV = argv.env
                   ? fs.readFileSync('./.NODE_ENV', {encoding: 'utf8'}).split('\n')[0].trim()
                   : ME.NODE_ENV;
 
-ME.VERSION = fs.readFileSync('./VERSION', ME.pkg.options.file).trim();
-ME.COMMIT  = fs.readFileSync('./COMMIT',  ME.pkg.options.file).trim();
+ME.VERSION = fs.existsSync('./VERSION') ? fs.readFileSync('./VERSION', ME.pkg.options.file).trim() : 'VERSION_UNKNOWN';
+ME.COMMIT  = fs.existsSync('./COMMIT') ? fs.readFileSync('./COMMIT',  ME.pkg.options.file).trim() : 'COMMIT_UNKNOWN';
 
 ME.DIR = {};
 ME.WD  = path.join(__dirname, path.sep);
