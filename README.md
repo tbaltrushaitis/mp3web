@@ -17,7 +17,7 @@
 ## Components ##
 
  Scope | Role | Name | Version | Description
-:-----:|:-----|:-------:|:------------
+:-----:|:----:|:----:|:-------:|:------------
  Host | Engine | [Composer](https://getcomposer.org/) | 1.5.2 | Dependency Manager for PHP
  Back | Engine | [Laravel](https://laravel.com/docs/5.2) | 5.2.31 | PHP Framework
  Front | Framework | [Bootstrap](http://getbootstrap.com) | 3.3.7 | HTML, CSS, and JS framework
