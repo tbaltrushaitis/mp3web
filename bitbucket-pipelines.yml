@@ -1,4 +1,4 @@
-image: tbaltrushaitis/ubuntu-nodejs:v8.9.0
+# image: tbaltrushaitis/ubuntu-nodejs:v8.9.0
 
 pipelines:
   default:
