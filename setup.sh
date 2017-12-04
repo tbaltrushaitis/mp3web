@@ -19,17 +19,11 @@
 #   -   Artisan
 
 ##  BANNER
-if [ -f ./BANNER ]; then
-  cat BANNER
-fi
-
-if [ -n "$APP_DEBUG" ]; then
-  # set -x
-  printf "DEBUG MODE ENABLED\n"
-fi
-
-set -e
-trap 'echo >&2 Ctrl+C captured, exiting; exit 1' SIGINT
+function Banner () {
+  if [ -f ./BANNER ]; then
+    cat BANNER
+  fi
+}
 
 F_COLORS="./bin/.bash_colors"
 F_RC="./setup.rc"
@@ -37,7 +31,7 @@ F_RC="./setup.rc"
 ##  Colors
 if [ -f ${F_COLORS} ]; then
   source ${F_COLORS}
-  echo -e "\t${BPurple}ENV:\t exported [${F_COLORS}]${NC}";
+  # echo -e "\t${BPurple}ENV:\t exported [${F_COLORS}]${NC}";
 fi
 
 ## Source settings
@@ -46,8 +40,15 @@ if [ ! -f ${F_RC} ]; then
   exit 1
 fi
 source ${F_RC}
-echo -e "\t${BYellow}ENV:\t exported [${F_RC}]${NC}";
+# echo -e "\t${BYellow}ENV: Exported [${F_RC}]${NC}";
 
+if [ -n "$APP_DEBUG" ]; then
+  # set -x
+  printf "DEBUG MODE ENABLED\n"
+fi
+
+set -e
+trap 'echo >&2 Ctrl+C captured, exiting; exit 1' SIGINT
 
 function usage () {
   >&2 cat << EOM
@@ -91,7 +92,7 @@ BUILD="${WD}/build-${CODE_VERSION}"
 DIST="${WD}/dist-${CODE_VERSION}"
 
 DATE=$(date +"%Y%m%d%H%M%S")
-DATETIME='$(date "+%Y-%m-%d")_$(date "+%H-%M-%S")'
+DATETIME=$(date "+%Y-%m-%d")_$(date "+%H-%M-%S")
 
 ##  ------------------------------------------------------------------------  ##
 ##                                 FUNCTIONS                                  ##
@@ -102,7 +103,7 @@ source bin/f-database.sh
 source bin/f-engine.sh
 source bin/f-node.sh
 source bin/f-php-composer.sh
-source bin/host-checks.sh
+source bin/f-host.sh
 
 function logEnv () {
   splash "${FUNCNAME}() Started with: (${@})";
@@ -190,7 +191,7 @@ function Build () {
   # Delay
 
 
-  cd ${WD}
+  cd ${WD};
   mkdir -p ${DIR_BUILD} 2>/dev/null;
   cp -pr ${DIR_ENGINE}/* ${DIR_BUILD}/ 2>&1 >/dev/null;
   warn "Engine directory [${DIR_ENGINE}/*] COPIED to [${DIR_BUILD}/]";
@@ -201,25 +202,26 @@ function Build () {
   # cd "${BUILD}" && composer -vvv update && cd -
 
 
-  cd ${WD}
+  cd ${WD};
 
   if [ -f ${DIR_BUILD}/.env ]; then
-    mv -vf ${DIR_BUILD}/.env ${DIR_BUILD}/.env.${DATE} 2>/dev/null
+    mv -vf ${DIR_BUILD}/.env ${DIR_BUILD}/.env.${DATE} 2>/dev/null;
+    warn "MOVED file [${DIR_BUILD}/.env] to [${DIR_BUILD}/.env.${DATE}]";
   fi
 
-  cp -pr ${DIR_SRC}/* ${DIR_BUILD}/ 2>&1 >/dev/null && Delay 2
-  cp -pvf ${DIR_SRC}/.env ${DIR_BUILD}/ 2>&1 >/dev/null && Delay 2
-  cp -pvf ${DIR_SRC}/composer.json ${DIR_BUILD}/ 2>&1 >/dev/null && Delay 2
+  cp -pr ${DIR_SRC}/* ${DIR_BUILD}/ 2>&1 && Delay 2;
+  cp -punv ${DIR_SRC}/.env.rc ${DIR_BUILD}/.env 2>&1 && Delay 2;
+  cp -pvf ${DIR_SRC}/composer.json ${DIR_BUILD}/ 2>&1 && Delay 2;
 
   # cd ${WD}
   # cp -prv ${SRC}/.* ${BUILD}/ 2>/dev/null
   # Delay
 
-  cd ${DIR_BUILD}
-  composer -v update
-  cd ${WD} && Delay 2
+  cd ${DIR_BUILD};
+  composer -v update;
+  cd ${WD} && Delay 2;
 
-  Artisan "${DIR_BUILD}"
+  Artisan "${DIR_BUILD}";
 
   # cd ${WD}
   # set_permissions ${BUILD}
@@ -237,10 +239,13 @@ function Release () {
 
   cd ${WD};
   cp -prv ${DIR_BUILD}/* ${DIR_DIST}/ 2>/dev/null;
-  cp -pvf ${DIR_BUILD}/.env ${DIR_DIST}/ 2>/dev/null;
   warn "Directory [${DIR_BUILD}/*] content DEPLOYED to [${DIR_DIST}/]";
+  cp -pvf ${DIR_BUILD}/.env ${DIR_DIST}/ 2>&1;
+  warn "Directory [${DIR_BUILD}/.env] COPIED to [${DIR_DIST}/]";
 
+  warn "Now RUN ARTISAN() with [${DIR_DIST}]";
   Artisan "${DIR_DIST}";
+  warn "Now RETURNED from ARTISAN() with [${DIR_DIST}]";
 
   # cd ${WD}
   # cd "${DIR_WEB}/public"
@@ -277,7 +282,7 @@ function Deploy () {
   cd ${WD}
   cp -pr ${DIR_DIST}/* ${DIR_WEB}/ 2>&1 >/dev/null
   if [ -f ${DIR_WEB}/.env ]; then
-    mv -pvf ${DIR_WEB}/.env ${DIR_WEB}/.env.${DATE}.bak 2>&1 >/dev/null;
+    mv -vf ${DIR_WEB}/.env ${DIR_WEB}/.env.${DATE}.bak 2>&1 >/dev/null;
   fi
   cp -pvf ${DIR_DIST}/.env ${DIR_WEB}/ 2>&1 >/dev/null;
   info "ENV FILE [${DIR_DIST}/.env] COPIED to [${DIR_WEB}/.env]";
@@ -305,26 +310,26 @@ function Deploy () {
 
 
 function Artisan () {
+
   splash "$FUNCNAME Started with: (${@})";
-  local W_DIR="$1"
+  local W_DIR="$1";
   info "W_DIR = ${W_DIR}";
 
-  cd ${W_DIR};
+  cd ${W_DIR} && pwd;
 
   # chmod a+x artisan
   # ./artisan auth:clear-resets
   # ./artisan clear-compiled
 
-  pwd
   # php artisan route:clear;
   # php artisan view:clear;
 
   # ./artisan cache:clear
-
-  php artisan vendor:publish;
-  php artisan config:clear;
-  php artisan key:generate;
-  php artisan optimize
+  cd ${W_DIR}
+  php artisan vendor:publish
+  php artisan config:clear
+  php artisan key:generate
+  # php artisan optimize
 
   # ./artisan migrate:refresh
   # php artisan route:cache;
@@ -349,19 +354,19 @@ function Artisan () {
 ##  ------------------------------------------------------------------------  ##
 printf "\n--------------------------\t $0 $1 \t-----------------------------\n";
 
-logEnv
+# logEnv
 
 case "$1" in
 
   "")
     info "Without params";
-    usage
+    usage;
     RETVAL=0
   ;;
 
   "usage" | "h")
     info "Usage()";
-    usage
+    usage;
     RETVAL=0
   ;;
 
@@ -430,7 +435,7 @@ case "$1" in
 
   *)
     fatal "UNKNOWN command: $1";
-    usage
+    usage;
     RETVAL=1
   ;;
 
