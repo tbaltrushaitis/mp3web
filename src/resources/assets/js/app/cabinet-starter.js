@@ -10,40 +10,43 @@
 
 require([
     'jquery'
-  , 'underscore'
+  , 'lodash'
   , 'cabinetController'
   , 'bootstrapTags'
   , 'functions'
-  , 'LTEapp'
+  // , 'LTEapp'
 ]
-  , function ($, _, cc, bsTags, F, LTE) {
-        console.timeStamp('CABINET MODULES READY');
+  // , function ($, _, cc, bsTags, F, LTE) {
+  , function ($, _, cc, bsTags, F) {
+    console.timeStamp('CABINET MODULES READY');
 });
 
 //define([
 require([
     'require'
   , 'jquery'
-  , 'underscore'
+  , 'lodash'
   , 'functions'
   , 'cabinetController'
   , 'bootstrapTags'
-  , 'LTEapp'
+  // , 'LTEapp'
   ]
 
-  , function (require, $, _, LTE) {
+  // , function (require, $, _, LTE) {
+  , function (require, $, _) {
 
-    var ControllerCabinet   =   new require('cabinetController');
-    var libTags             =   new require('bootstrapTags');
+    var ControllerCabinet = new require('cabinetController');
+    var libTags           = new require('bootstrapTags');
 
-    $.when(ControllerCabinet, libTags, LTE)
+    // $.when(ControllerCabinet, libTags, LTE)
+    $.when(ControllerCabinet, libTags)
      .then(function (loCabinet) {
-        var pageId  =   $('body').attr('data-id_page');
-        console.group(pageId);
-        console.timeStamp(pageId + ':CHECK-IN');
-        console.info('Starting CabinetController');
-        console.groupEnd(pageId);
-        loCabinet.start();
+      var pageId = $('body').attr('data-id_page');
+      console.group(pageId);
+      console.timeStamp(pageId + ':CHECK-IN');
+      console.info('Starting CabinetController');
+      console.groupEnd(pageId);
+      loCabinet.start();
     });
 
 });
