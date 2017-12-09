@@ -7,15 +7,15 @@ include ./bin/.bash_colors
 .PHONY: help
 
 help: banner
-	@ echo ${BCyan}---------------------------------------------------------${NC};
-	@ echo ${BBlue}AVAILABLE ${BYellow}CLI-Commands:${NC};
-	@ echo "\t" make ${BPurple}clean${NC} "\t" - CLEAR directories and delete files;
-	@ echo "\t" make ${BPurple}setup${NC} "\t" - check for php, node and bower installations;
-	@ echo "\t" make ${BPurple}engine${NC} "\t" - check for engine sources;
-	@ echo "\t" make ${BPurple}build${NC} "\t" - BUILD project from sources;
-	@ echo "\t" make ${BPurple}release${NC} "\t" - COMPILE project distro;
-	@ echo "\t" make ${BPurple}deploy${NC} "\t" - DEPLOY compiled project to \"webroot\" directory;
-	@ echo "\t" make ${BRed}all${NC} "\t" -${BGreen}Run all operations for current stage from NODE_ENV file${NC};
-	@ echo ${BCyan}---------------------------------------------------------${NC};
+	@ echo -e ${BCyan}------------------------------------------------------${NC};
+	@ echo -e ${BBlue}AVAILABLE ${BYellow}CLI-Commands:${NC};
+	@ echo -e "\t" make ${BPurple}clean${NC} "\t" - CLEAR directories and delete files;
+	@ echo -e "\t" make ${BPurple}setup${NC} "\t" - check for php, node and bower installations;
+	@ echo -e "\t" make ${BPurple}engine${NC} "\t" - check for engine sources;
+	@ echo -e "\t" make ${BPurple}build${NC} "\t" - BUILD project from sources;
+	@ echo -e "\t" make ${BPurple}release${NC} "\t" - COMPILE project distro;
+	@ echo -e "\t" make ${BPurple}deploy${NC} "\t" - DEPLOY compiled project to \"webroot\" directory;
+	@ echo -e "\t" make ${BRed}all${NC} "\t" -${BGreen}Run all operations for current stage from NODE_ENV file${NC};
+	@ echo -e ${BCyan}------------------------------------------------------${NC};
 
 ##  ------------------------------------------------------------------------  ##
