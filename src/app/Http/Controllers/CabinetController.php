@@ -14,23 +14,23 @@ use App\Repositories\MediaRepository;
 
 class CabinetController extends Controller {
 
-    /**
-     * The MediaRepository
-     *
-     * @var MediaRepository
-     */
-    protected   $mediaRepository;
+  /**
+   * The MediaRepository
+   *
+   * @var MediaRepository
+   */
+  protected   $mediaRepository;
 
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct (MediaRepository $mediarepository) {
-        $this->middleware('auth');
-        $this->mediaRepository  =   $mediarepository;
-    }
+  /**
+   * Create a new controller instance.
+   *
+   * @return void
+   */
+  public function __construct (MediaRepository $mediarepository) {
+    $this->middleware('auth');
+    $this->mediaRepository = $mediarepository;
+  }
 
     /**
      * Show the cabinet dashboard.
@@ -38,7 +38,8 @@ class CabinetController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index () {
-        return view('tracks.audio', [
+        // return view('tracks.audio', [
+        return view('cabinet.audio', [
             'tracks' =>  $this->mediaRepository->getTracksAudio()
         ]);
     }
