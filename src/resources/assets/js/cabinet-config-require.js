@@ -1,7 +1,7 @@
 /*!
- * File:        ASSETS/JS/cabinet-config-require.js
- * License:     MIT
- * Copyright (c) 2016-2017 Baltrushaitis Tomas
+ * File:          ASSETS/JS/cabinet-config-require.js
+ * License:       MIT
+ * Copyright (c)  2016-2017 Baltrushaitis Tomas
  */
 
 'use strict';
@@ -77,13 +77,13 @@
             , Tmpl:               ['jquery']
             , raty:               ['jquery']
             , LTEapp:             ['jquery', 'bootstrap']
-            , Abstract:           ['jquery', 'lodash']
-            , cabinetController:  ['jquery', 'lodash']
-            , functions:          ['jquery', 'lodash']
+            , Abstract:           ['jquery', 'underscore']
+            , cabinetController:  ['jquery', 'underscore']
+            , functions:          ['jquery', 'underscore']
           }
         , deps: [
               'jquery'
-            , 'lodash'
+            , 'underscore'
           ]
       };
 
@@ -113,7 +113,7 @@
         console.groupEnd(pageId);
       }, function (err) {
         var failedId = err.requireModules && err.requireModules[0];
-        console.warn('[requirejs] Errors in ' + failedId + ':', err.requireModules[0]);
+        console.warn('[requirejs] Errors in [' + failedId + ']:', err.requireModules[0]);
       });
     })();
 

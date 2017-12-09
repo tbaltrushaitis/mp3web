@@ -1,50 +1,49 @@
-/*  BOF: assets/js/app/cabinet-starter.js  */
-
 /*!
- * ASSETS/JS/APP/cabinet-starter.js
- * Copyright(c) 2016-2017 Baltrushaitis Tomas
- * MIT Licensed
+ * File:          ASSETS/JS/APP/cabinet-starter.js
+ * License:       MIT
+ * Copyright (c)  2016-2017 Baltrushaitis Tomas
  */
 
 'use strict';
 
 require([
     'jquery'
-  , 'lodash'
+  , 'underscore'
   , 'cabinetController'
   , 'bootstrapTags'
   , 'functions'
   // , 'LTEapp'
 ]
   // , function ($, _, cc, bsTags, F, LTE) {
-  , function ($, _, cc, bsTags, F) {
-    console.timeStamp('CABINET MODULES READY');
+  , function ($, _, cc, bsTags) {
+    console.info('CABINET STARTER MODULES READY');
 });
 
-//define([
+// define([
 require([
-    'require'
-  , 'jquery'
-  , 'lodash'
-  , 'functions'
-  , 'cabinetController'
+    // 'require'
+    'jquery'
+  , 'underscore'
   , 'bootstrapTags'
+  , 'cabinetController'
+  , 'functions'
   // , 'LTEapp'
   ]
 
   // , function (require, $, _, LTE) {
-  , function (require, $, _) {
+  , function (require, $, _, libTags, ControllerCabinet) {
 
-    var ControllerCabinet = new require('cabinetController');
-    var libTags           = new require('bootstrapTags');
+    // var ControllerCabinet = new require('cabinetController');
+    // var libTags           = new require('bootstrapTags');
 
     // $.when(ControllerCabinet, libTags, LTE)
     $.when(ControllerCabinet, libTags)
      .then(function (loCabinet) {
       var pageId = $('body').attr('data-id_page');
       console.group(pageId);
-      console.timeStamp(pageId + ':CHECK-IN');
+      console.info(pageId + ':CHECK-IN');
       console.info('Starting CabinetController');
+      console.log('loCabinet (', typeof loCabinet, ') =', loCabinet);
       console.groupEnd(pageId);
       loCabinet.start();
     });
