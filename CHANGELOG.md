@@ -1,6 +1,12 @@
 # Web MP3 Player :headphones: and Media Library Manager
 
-![Web MP3 Player Logo](src/resources/assets/img/logo/Favicon.png)
+<p align="center">
+  <img src="src/resources/assets/img/logo/Favicon.png" alt="Web MP3 Player Logo">
+</p>
+
+`mp3` `web` `player` `audio` `library` `manager`
+
+-----
 
 ## Badges
 
@@ -14,6 +20,8 @@
 ## Change log ##
 
 ### v1.0.2 ###
+ - [x] **Makefile** scenario now used to build and deploy project
+ - [x] Frontend components collected by **bower** task in gulpfile
 
 ### v1.0.1 ###
  - [x] Genre tags added as labels for track

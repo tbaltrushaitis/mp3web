@@ -1,6 +1,8 @@
 # Web MP3 Player :headphones: and Media Library Manager #
 
-![Web MP3 Player Logo](src/resources/assets/img/logo/Favicon.png)
+<p align="center">
+  <img src="src/resources/assets/img/logo/Favicon.png" alt="Web MP3 Player Logo">
+</p>
 
 `mp3` `web` `player` `audio` `library` `manager`
 
@@ -17,7 +19,7 @@
 ## Components ##
 
  Scope | Role | Name | Version | Description
-:-----:|:----:|:----:|:-------:|:------------
+:-----:|:----:|:-----|:-------:|:------------
  Host | Engine | [Composer](https://getcomposer.org/) | 1.5.2 | Dependency Manager for PHP
  Back | Engine | [Laravel](https://laravel.com/docs/5.2) | 5.2.31 | PHP Framework
  Front | Framework | [Bootstrap](http://getbootstrap.com) | 3.3.7 | HTML, CSS, and JS framework
