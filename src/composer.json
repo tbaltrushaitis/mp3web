@@ -11,16 +11,16 @@
       , "url":   "https://github.com/tbaltrushaitis"
     }
   , "authors": [
-        {   "name":     "Baltrushaitis Tomas"
-          , "email":    "tbaltrushaitis@gmail.com"
-        }
+      {   "name":   "Baltrushaitis Tomas"
+        , "email":  "tbaltrushaitis@gmail.com"
+      }
     ]
   , "require": {
-        "php":                  ">=5.5.9"
-      , "laravel/framework":    "5.2.*"
+        "php":                ">=5.5.9"
+      , "laravel/framework":  "5.2.*"
     }
   , "require-disabled": {
-        "wisembly/elephant.io": "~3.0"
+      "wisembly/elephant.io": "~3.0"
     }
   , "require-dev": {
     }
@@ -32,35 +32,36 @@
       , "symfony/dom-crawler":  "2.8.*|3.0.*"
     }
   , "autoload": {
-        "classmap":     []
-      , "psr-4": {
-            "App\\":    "app/"
-        }
+      "classmap": []
+    , "psr-4": {
+        "App\\":  "app/"
+      }
     }
   , "autoload-dev": {
-        "classmap": []
+      "classmap": []
     }
   , "scripts": {
-        "post-root-package-install": [
-            "php -r \"file_exists('.env') || copy('.env.setup', '.env');\""
-        ]
-      , "post-create-project-cmd": [
-            "php artisan key:generate"
-        ]
-      , "post-install-cmd": [
-            "Illuminate\\Foundation\\ComposerScripts::postInstall"
-          , "php artisan vendor:publish"
-          , "php artisan optimize"
-        ]
-      , "post-update-cmd": [
-            "Illuminate\\Foundation\\ComposerScripts::postUpdate"
-          , "php artisan vendor:publish"
-          , "php artisan key:generate"
-          , "php artisan optimize"
-        ]
+      "post-root-package-install": [
+        "php -r \"file_exists('.env') || copy('.env.setup', '.env');\""
+      ]
+    , "post-create-project-cmd": [
+        "php artisan key:generate"
+      ]
+    , "post-install-cmd": [
+          "Illuminate\\Foundation\\ComposerScripts::postInstall"
+        , "php artisan vendor:publish"
+        , "php artisan optimize"
+      ]
+    , "post-update-cmd": [
+          "Illuminate\\Foundation\\ComposerScripts::postUpdate"
+        , "php artisan vendor:publish"
+        , "php artisan config:clear"
+        , "php artisan key:generate"
+        , "php artisan optimize"
+      ]
     }
   , "config": {
-        "preferred-install":    "dist"
+      "preferred-install":    "dist"
     }
   , "keywords": [
         "mp3"
