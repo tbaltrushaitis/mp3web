@@ -75,8 +75,8 @@ ME.pkg      = _.extend({}, pkg);
 ME.version  = ME.pkg.version;
 ME.NODE_ENV = argv.env
                 ? argv.env
-                : fs.existsSync('./.NODE_ENV')
-                  ? fs.readFileSync('./.NODE_ENV', {encoding: 'utf8'}).split('\n')[0].trim()
+                : fs.existsSync('./NODE_ENV')
+                  ? fs.readFileSync('./NODE_ENV', {encoding: 'utf8'}).split('\n')[0].trim()
                   : ME.NODE_ENV;
 
 ME.VERSION = fs.existsSync('./VERSION') ? fs.readFileSync('./VERSION', ME.pkg.options.file).trim() : 'VERSION_UNKNOWN';
@@ -92,40 +92,43 @@ ME.TMP    = path.join('tmp',                    path.sep);
 ME.DIST   = path.join(`dist-${ME.VERSION}`,     path.sep);
 ME.WEB    = path.join(`webroot-${ME.VERSION}`,  path.sep);
 ME.CURDIR = path.join(process.cwd(),            path.sep);
+ME.ENGINE = path.join('laravel-5.2.31');
+ME.BOWER  = JSON.parse(fs.existsSync('./.bowerrc') ? fs.readFileSync('./.bowerrc') : {directory: "bower_modules"}).directory;
 
 utin.defaultOptions = _.extend({}, ME.pkg.options.iopts);
 
 console.log(`\n`);
-console.log(`ME.NODE_ENV (${typeof ME.NODE_ENV}) = [${utin(ME.NODE_ENV)}]`);
-console.log(`ME.version (${typeof ME.version}) = [${utin(ME.version)}]`);
-console.log(`ME.VERSION (${typeof ME.VERSION}) = [${utin(ME.VERSION)}]`);
+// console.log(`ME.NODE_ENV (${typeof ME.NODE_ENV}) = [${utin(ME.NODE_ENV)}]`);
+// console.log(`ME.version (${typeof ME.version}) = [${utin(ME.version)}]`);
+// console.log(`ME.VERSION (${typeof ME.VERSION}) = [${utin(ME.VERSION)}]`);
+// console.log(`ME.COMMIT (${typeof ME.COMMIT}) = [${utin(ME.COMMIT)}]`);
+// console.log(`ME.config (${typeof ME.config}) = [${utin(ME.config)}]`);
+console.log(`ME (${typeof ME}) = [${utin(ME)}]`);
 console.log(`\n`);
 
-ME.ENGINE  =   path.join('laravel-5.2.31');
-ME.BOWER   =   JSON.parse(fs.readFileSync('./.bowerrc')).directory;
 
 let now = new Date();
 let headerTpl = _.template(`/*!
- * Package:\t <%= pkg.name %>@<%= pkg.version %>
- * Name:\t <%= pkg.title %>
- * Purpose:\t <%= ME.NODE_ENV %>
- * Version:\t <%= ME.VERSION %>
- * Commit:\t <%= ME.COMMIT %>
+ * Package:\t\t <%= pkg.name %>@<%= pkg.version %>
+ * Name:\t\t <%= pkg.title %>
+ * Purpose:\t\t <%= ME.NODE_ENV.toUpperCase() %>
+ * Version:\t\t <%= ME.VERSION %>
+ * Commit:\t\t <%= ME.COMMIT %>
  * Description:\t <%= pkg.description %>
- * Built:\t ${dateFormat(now, 'yyyy-mm-dd HH:MM:ss')}
- * Copyright:\t 2016 - ${dateFormat(now, 'yyyy')} <%= pkg.author.name %>
- * License:\t <%= pkg.license %>
- * Visit:\t <%= pkg.homepage %>
+ * Built:\t\t ${dateFormat(now, 'yyyy-mm-dd')}T${dateFormat(now, 'HH:MM:ss')}
+ * Created:\t 2016 - ${dateFormat(now, 'yyyy')} <%= pkg.author.email %>
+ * License:\t\t <%= pkg.license %>
+ * Visit:\t\t <%= pkg.homepage %>
  */
 `);
 
 let footerTpl = _.template(`
 /*!
- * Purpose:\t <%= ME.NODE_ENV %>
+ * Purpose:\t <%= ME.NODE_ENV.toUpperCase() %>
  * Version:\t <%= ME.VERSION %>
  * Commit:\t <%= ME.COMMIT %>
  * EOF:\t\t <%= pkg.name %>@<%= pkg.version %> - <%= pkg.title %>
- * =============================================================================
+ * =========================================================================== *
  */
 `);
 
@@ -141,10 +144,7 @@ let envConfig = {
 envConfig = parseArgs(process.argv.slice(2), envConfig);
 
 console.log('\n');
-console.log(`envConfig =    [${utin(envConfig)}]`);
-console.log('ME.NODE_ENV =  [', utin(ME.NODE_ENV), ']');
-console.log('CODE_VERSION = [', utin(ME.VERSION), ']');
-console.log('GIT_COMMIT =   [', utin(ME.COMMIT), ']');
+console.log(`envConfig = [${utin(envConfig)}]`);
 console.log('\n');
 
 
@@ -284,7 +284,7 @@ gulp.task('bower', function () {
 
   let mBower = mainBowerFiles(ME.pkg.options.bower, {
       base:   ME.BOWER
-    , group:  ['front', 'fonts']
+    , group:  ['front', 'cabinet', 'dashboard']
   });
 
   //var KEEP = path.join(BUILD, 'resources/bower');
@@ -402,6 +402,7 @@ gulp.task('sync:bower:fonts', function () {
 gulp.task('build:css', function () {
   let DEST = path.join(ME.BUILD, 'public/assets/css');
   let FROM = path.join(ME.BUILD, 'resources/assets/css');
+
   let frontCSS = gulp.src([
       path.join(FROM, 'frontend', '*.css')
     ])
@@ -416,7 +417,21 @@ gulp.task('build:css', function () {
     .pipe(gulpif('production' === ME.NODE_ENV, rename({suffix: ME.pkg.options.minify.suffix})))
     .pipe(gulp.dest(DEST));
 
-  let backCSS = gulp.src([
+  let dashboardCSS = gulp.src([
+      path.join(FROM, 'dashboard', '*.css')
+    ])
+    .pipe(gulpif('production' === ME.NODE_ENV, cleanCSS(ME.pkg.options.clean, function (d) {
+      console.info(d.name + ': ' + d.stats.originalSize + ' -> ' + d.stats.minifiedSize + ' [' + d.stats.timeSpent + 'ms] [' + 100 * d.stats.efficiency.toFixed(2) + '%]');
+    }), false))
+    .pipe(concatCSS('dashboard-bundle.css', {rebaseUrls: true}))
+    .pipe(minifyCSS())
+    //  Write banners
+    .pipe(headfoot.header(Banner.header))
+    .pipe(headfoot.footer(Banner.footer))
+    .pipe(rename({suffix: ME.pkg.options.minify.suffix}))
+    .pipe(gulp.dest(DEST));
+
+  let cabinetCSS = gulp.src([
       path.join(FROM, 'cabinet', '*.css')
     ])
     .pipe(gulpif('production' === ME.NODE_ENV, cleanCSS(ME.pkg.options.clean, function (d) {
@@ -430,11 +445,11 @@ gulp.task('build:css', function () {
     .pipe(rename({suffix: ME.pkg.options.minify.suffix}))
     .pipe(gulp.dest(DEST));
 
-  return merge(frontCSS, backCSS);
+  return merge(frontCSS, dashboardCSS, cabinetCSS);
 });
 
 gulp.task('build:js', function () {
-  var DEST = path.join(ME.BUILD, 'public/assets/js');
+  let DEST = path.join(ME.BUILD, 'public/assets/js');
   return  gulp.src(path.join(ME.BUILD, 'resources/assets/js', '**/*.js'))
     //.pipe(jscs('.jscsrc'))
     //.pipe(jscs.reporter())
