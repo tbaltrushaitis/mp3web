@@ -3,7 +3,7 @@
 ##  ------------------------------------------------------------------------  ##
 
 APP_ENV=production
-APP_DEBUG=false
+APP_DEBUG=true
 #APP_DEBUG=`if [ "development" eq "${APP_ENV}" ]; then echo true; else echo false; fi`
 
 APP_KEY=base64:/this_is-example/key+M=
@@ -23,9 +23,9 @@ DB_PASSWORD=ysmsJ0kT7MCaRw2DFYnMJ8Ls
 
 ENGINE_NAME=laravel
 ENGINE_TAG=laravel
-ENGINE_VERSION=5.2.31
+ENGINE_VERSION=5.2
 
-# GIT_REPO=https://github.com/tbaltrushaitis/mp3web.git
+#GIT_REPO=https://github.com/tbaltrushaitis/mp3web.git
 GIT_REPO=https://bitbucket.org/tbaltrushaitis/mp3web.git
 GIT_BRANCH=latest
 GIT_COMMIT=
