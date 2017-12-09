@@ -16,9 +16,9 @@ REPO_USER := tbaltrushaitis
 REPO_URL := $(shell git ls-remote --get-url)
 
 APP_REPO := ${REPO_HOST}/${REPO_USER}/${APP_NAME}.git
-APP_ENV := $(shell cat .NODE_ENV)
+APP_ENV := $(shell cat NODE_ENV)
 CODE_VERSION := $(shell cat ./VERSION)
-APP_BANNER := $(shell cat ./BANNER)
+APP_BANNER := $(shell cat ./bin/BANNER)
 APP_BRANCH := dev-1.0.2
 
 WD := $(shell pwd -P)
@@ -84,11 +84,8 @@ default: banner test state help;
 test: test_rc;
 
 ## SOURCE VARIABLES
-#@ cat BANNER
-# test_rc: setup.rc banner
 test_rc: setup.rc;
 	@ echo ${BYellow}[${DT}] TEST GOAL EXECUTED${NC};
-# @cat BANNER;
 
 ##  ------------------------------------------------------------------------  ##
 
@@ -108,8 +105,7 @@ clone:
 .PHONY: banner
 
 banner:
-	@ [ -s ./BANNER ] && cat BANNER;
-# @ cat BANNER
+	@ [ -s ./bin/BANNER ] && cat ./bin/BANNER;
 
 ##  ------------------------------------------------------------------------  ##
 
@@ -156,7 +152,7 @@ clean-files:
 .PHONY: tree
 
 tree:
-	@ ./setup.sh tree;
+	@ ./setup.sh tree
 
 ##  ------------------------------------------------------------------------  ##
 
