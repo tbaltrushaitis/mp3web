@@ -9,13 +9,13 @@
 require([
     'jquery'
   , 'underscore'
-  , 'cabinetController'
   , 'bootstrapTags'
   , 'functions'
+  , 'cabinetController'
   // , 'LTEapp'
 ]
   // , function ($, _, cc, bsTags, F, LTE) {
-  , function ($, _, cc, bsTags) {
+  , function ($, _, bsTags, F, cc) {
     console.info('CABINET STARTER MODULES READY');
 });
 
@@ -26,19 +26,19 @@ require([
   , 'underscore'
   , 'bootstrapTags'
   , 'functions'
-  // , 'cabinetController'
+  , 'cabinetController'
   // , 'LTEapp'
   ]
 
   // , function (require, $, _, LTE) {
   // , function ($, _, libTags, cabinetController) {
-  , function ($, _, libTags) {
+  , function ($, _, bsTags, F, cc) {
 
     var ControllerCabinet = new require('cabinetController');
     // var libTags           = new require('bootstrapTags');
 
     // $.when(ControllerCabinet, libTags, LTE)
-    $.when(ControllerCabinet, libTags)
+    $.when(ControllerCabinet, bsTags)
      .then(function (loCabinet) {
       var pageId = $('body').attr('data-id_page');
       console.group(pageId);
