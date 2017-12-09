@@ -34,7 +34,6 @@ if [ ! -f ${F_RC} ]; then
   echo -e "${BRed}Missing file [${F_RC}]${NC}"
   exit 1
 fi
-
 source ${F_RC}
 
 if [ -n "$APP_DEBUG" ]; then
@@ -173,14 +172,14 @@ function engineChecks () {
 
 
 function Build () {
-  splash "[$FUNCNAME] Started with: (${@})";
+  splash "[$FUNCNAME] Started with: (${@})"
 
   # local VERSION=$(versionn pre -e VERSION);
-  # local BUILD="build-${VERSION}"
+  # local DIR_BUILD="build-${VERSION}"
 
   # createDirTree ${DIR_BUILD} ${DIR_DIST}
-  createDirTree "${DIR_BUILD}";
-  Delay 2;
+  createDirTree "${DIR_BUILD}"
+  Delay 2
 
   # mkdir -p ${BUILD} # && chmod 775 ${BUILD}
   # mkdir -p ${BUILD}
@@ -191,43 +190,42 @@ function Build () {
   # Delay
 
 
-  cd ${WD};
-  mkdir -p ${DIR_BUILD} 2>/dev/null;
-  cp -pr ${DIR_ENGINE}/* ${DIR_BUILD}/ 2>&1 >/dev/null;
-  warn "[$FUNCNAME] Engine directory [${DIR_ENGINE}] COPIED to [${DIR_BUILD}]";
+  cd ${WD}
+  mkdir -p ${DIR_BUILD} 2>/dev/null
+  cp -pr ${DIR_ENGINE}/* ${DIR_BUILD}/ 2>&1 >/dev/null
+  warn "[$FUNCNAME] Engine directory [${DIR_ENGINE}] COPIED to [${DIR_BUILD}]"
   # cp -prv setup.rc "${BUILD}/.env"
   # info "COPIED setup.rc to [${BUILD}/.env]";
   # cp -pr "${SRC}/composer.json" "${BUILD}/"
   # warn "COPIED [${SRC}/composer.json] to [${BUILD}/]";
   # cd "${BUILD}" && composer -vvv update && cd -
 
-
-  cd ${WD};
+  cd ${WD}
 
   if [ -f ${DIR_BUILD}/.env ]; then
-    mv -vf ${DIR_BUILD}/.env ${DIR_BUILD}/.env.${DATE} 2>/dev/null;
-    warn "[$FUNCNAME] MOVED file [${DIR_BUILD}/.env] to [${DIR_BUILD}/.env.${DATE}]";
+    mv -vf ${DIR_BUILD}/.env ${DIR_BUILD}/.env.${DATE} 2>&1 >/dev/null
+    warn "[$FUNCNAME] MOVED file [${DIR_BUILD}/.env] to [${DIR_BUILD}/.env.${DATE}]"
   fi
 
-  cp -pr ${DIR_SRC}/* ${DIR_BUILD}/ 2>&1 && Delay 2;
-  cp -pvu ${DIR_SRC}/.env.rc ${DIR_BUILD}/.env 2>&1 && Delay 2;
-  cp -pvf ${DIR_SRC}/composer.json ${DIR_BUILD}/ 2>&1 && Delay 2;
+  cp -pr ${DIR_SRC}/* ${DIR_BUILD}/ 2>&1 >/dev/null && Delay 2
+  cp -pvu ${DIR_SRC}/.env.rc ${DIR_BUILD}/.env 2>&1 && Delay 2
+  cp -pvf ${DIR_SRC}/composer.json ${DIR_BUILD}/ 2>&1 && Delay 2
 
   # cd ${WD}
   # cp -prv ${SRC}/.* ${BUILD}/ 2>/dev/null
   # Delay
 
-  cd ${DIR_BUILD};
-  composer -v update;
-  cd ${WD} && Delay 2;
+  cd ${DIR_BUILD}
+  composer -v update
+  cd ${WD} && Delay 2
 
-  Artisan "${DIR_BUILD}";
+  Artisan "${DIR_BUILD}"
 
   # cd ${WD}
   # set_permissions ${BUILD}
   # Delay
 
-  splash "[$FUNCNAME] Finished";
+  splash "[$FUNCNAME] Finished"
 }
 
 
@@ -238,7 +236,7 @@ function Release () {
   Delay 2;
 
   cd ${WD};
-  cp -prv ${DIR_BUILD}/* ${DIR_DIST}/ 2>/dev/null;
+  cp -prv ${DIR_BUILD}/* ${DIR_DIST}/ 2>&1 >/dev/null;
   warn "[$FUNCNAME] Directory [${DIR_BUILD}] content DEPLOYED to [${DIR_DIST}]";
   cp -pvf ${DIR_BUILD}/.env ${DIR_DIST}/ 2>&1;
   warn "[$FUNCNAME] Directory [${DIR_BUILD}/.env] COPIED to [${DIR_DIST}/]";
@@ -351,7 +349,7 @@ function Artisan () {
 ##  ------------------------------------------------------------------------  ##
 ##                                  EXECUTION                                 ##
 ##  ------------------------------------------------------------------------  ##
-echo -ne "\n{BBlue}-------------------\t $0 $1 \t-----------------------\n{NC}";
+echo -ne "\n${BBlue}------------------\t $0 $1 \t----------------------\n${NC}";
 
 # logEnv
 

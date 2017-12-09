@@ -192,6 +192,14 @@ deploy:
 
 ##  ------------------------------------------------------------------------  ##
 
+.PHONY: rebuild redeploy
+
+rebuild: build release deploy;
+
+redeploy: release deploy;
+
+##  ------------------------------------------------------------------------  ##
+
 .PHONY: all full
 #* means the word "all" doesn't represent a file name in this Makefile;
 #* means the Makefile has nothing to do with a file called "all" in the same directory.
