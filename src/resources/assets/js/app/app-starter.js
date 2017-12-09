@@ -15,17 +15,11 @@ require([
     , 'functions'
     , 'bootstrap'
   ]
-  , function (
-        $
-      , _
-      , raty
-      , PlayerClass
-      , bsTags
-    ) {
+  , function ($, _, raty, PlayerClass, bsTags, F) {
 
     var Player  =   new PlayerClass ();
-    var silent  =   checkMode ('silent');
-    var intro   =   checkMode ('intro');
+    var silent  =   F.checkMode ('silent');
+    var intro   =   F.checkMode ('intro');
 
     Player.Populate();
 

@@ -20,8 +20,8 @@ require([
     console.info('CABINET CONTROLLER MODULES READY');
 });
 
-// define([
-require([
+define([
+// require([
     'jquery'
   , 'underscore'
   , 'Tmpl'
@@ -30,7 +30,7 @@ require([
   , 'functions'
   ]
 
-  , function ($, _, tmpl, bs, bsTags) {
+  , function ($, _, tmpl, bs, bsTags, F) {
 
     /*
     |--------------------------------------------------------------------------
@@ -39,6 +39,7 @@ require([
     */
 
     function start () {
+      console.info('CALLED: start()');
       bindEvents();
     }
 
@@ -50,7 +51,7 @@ require([
     */
     function loadTrackData (Id) {
       var Modal = $('#modalEditTrack');
-      var oMeta = requestAjax('/' + Id + '/meta');
+      var oMeta = F.requestAjax('/' + Id + '/meta');
 
       $.when(oMeta)
        .then(function (lo) {
@@ -110,7 +111,7 @@ require([
           , tags:   Modal.find('#track-tags').val()
         };
 
-      var saveResult = requestAjax('/' + Id + '/meta', oMeta, 'POST');
+      var saveResult = F.requestAjax('/' + Id + '/meta', oMeta, 'POST');
     }
 
 
@@ -150,7 +151,8 @@ require([
 
       //  EDIT Track in Modal Window
       $('body').delegate('.btn-edit', 'click', function (e) {
-        var trackId = $(e.target).data('id');
+        var trackId = $(e.currentTarget).data('id');
+        // console.log('trackId =', trackId);
         loadTrackData(trackId);
       });
 

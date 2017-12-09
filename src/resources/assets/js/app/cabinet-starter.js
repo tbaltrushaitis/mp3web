@@ -25,15 +25,16 @@ require([
     'jquery'
   , 'underscore'
   , 'bootstrapTags'
-  , 'cabinetController'
   , 'functions'
+  // , 'cabinetController'
   // , 'LTEapp'
   ]
 
   // , function (require, $, _, LTE) {
-  , function (require, $, _, libTags, ControllerCabinet) {
+  // , function ($, _, libTags, cabinetController) {
+  , function ($, _, libTags) {
 
-    // var ControllerCabinet = new require('cabinetController');
+    var ControllerCabinet = new require('cabinetController');
     // var libTags           = new require('bootstrapTags');
 
     // $.when(ControllerCabinet, libTags, LTE)
