@@ -107,7 +107,7 @@ clone:
 deps: deps-init deps-update
 
 deps-init:
-	@ git submodule add -b ${ENGINE_VERSION} --name engine/laravel -- https://github.com/laravel/laravel.git engine/${DIR_ENGINE}
+	@ git submodule add -b ${ENGINE_VERSION} --name engine/laravel --force -- https://github.com/laravel/laravel.git engine/${DIR_ENGINE}
 	@ git submodule init
 
 deps-update:

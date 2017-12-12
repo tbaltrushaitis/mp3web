@@ -133,7 +133,7 @@ function logEnv () {
 
 
 function setupChecks () {
-  splash "[$FUNCNAME] Started with: (${@})";
+  splash "[$FUNCNAME] Started with: (${@})"
 
   okNode
   okNpm
@@ -142,8 +142,14 @@ function setupChecks () {
 
   deps_install
 
-  splash "[$FUNCNAME] Finished";
-  return 0;
+  ## Environment
+  if [ ! -f ./NODE_ENV ]; then
+    cp -pvf rc.d/.NODE_ENV ./NODE_ENV 2>&1 >/dev/null
+    warn "[$FUNCNAME] File [rc.d/.NODE_ENV] COPIED to [./NODE_ENV]"
+  fi
+
+  splash "[$FUNCNAME] Finished"
+  return 0
 }
 
 
@@ -226,20 +232,20 @@ function Build () {
 
 
 function Release () {
-  splash "[$FUNCNAME] params: (${@})";
+  splash "[$FUNCNAME] params: (${@})"
 
-  createDirTree "${DIR_DIST}";
-  Delay 2;
+  createDirTree "${DIR_DIST}"
+  Delay 2
 
-  cd ${WD};
-  cp -pr ${DIR_BUILD}/* ${DIR_DIST}/ 2>&1 >/dev/null;
-  warn "[$FUNCNAME] Directory [${DIR_BUILD}] content DEPLOYED to [${DIR_DIST}]";
-  cp -pvf ${DIR_BUILD}/.env ${DIR_DIST}/ 2>&1;
-  warn "[$FUNCNAME] Directory [${DIR_BUILD}/.env] COPIED to [${DIR_DIST}/]";
+  cd ${WD}
+  cp -pr ${DIR_BUILD}/* ${DIR_DIST}/ 2>&1 >/dev/null
+  warn "[$FUNCNAME] Directory [${DIR_BUILD}] content DEPLOYED to [${DIR_DIST}]"
+  cp -pvf ${DIR_BUILD}/.env ${DIR_DIST}/ 2>&1
+  warn "[$FUNCNAME] Directory [${DIR_BUILD}/.env] COPIED to [${DIR_DIST}/]"
 
-  warn "[$FUNCNAME] Now RUN ARTISAN() with [${DIR_DIST}]";
-  Artisan "${DIR_DIST}";
-  warn "[$FUNCNAME] Now RETURNED from ARTISAN() with [${DIR_DIST}]";
+  warn "[$FUNCNAME] Now RUN ARTISAN() with [${DIR_DIST}]"
+  Artisan "${DIR_DIST}"
+  warn "[$FUNCNAME] Now RETURNED from ARTISAN() with [${DIR_DIST}]"
 
   # cd ${WD}
   # sudo chown -R ${WEB_USER}:${WEB_USER} "${APP_DIR}"          \
@@ -248,7 +254,7 @@ function Release () {
   # node gulpfile.js artisan:clear --env=${APP_ENV} --verbose   \
   # && Delay;
 
-  splash "[$FUNCNAME] Finished";
+  splash "[$FUNCNAME] Finished"
 }
 
 
@@ -337,7 +343,7 @@ function Artisan () {
 ##  ------------------------------------------------------------------------  ##
 ##                                  EXECUTION                                 ##
 ##  ------------------------------------------------------------------------  ##
-echo -ne "\n${Yellow}------------------\t ${BRed} $0 ${NC} ${BYellow} $* ${NC} \t${Yellow}----------------------\n${NC}";
+echo -ne "\n${Yellow}------------------\t ${BRed} $0 ${NC} ${BYellow} $* ${NC} \t${Yellow}----------------------\n${NC}"
 
 logEnv
 
