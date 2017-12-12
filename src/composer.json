@@ -16,8 +16,8 @@
       }
     ]
   , "require": {
-        "php":                ">=5.5.9"
-      , "laravel/framework":  "5.2.*"
+        "php":                ">=5.5.38"
+      , "laravel/framework":  ">=5.2.45"
     }
   , "require-disabled": {
       "wisembly/elephant.io": "~3.0"
@@ -42,10 +42,11 @@
     }
   , "scripts": {
       "post-root-package-install": [
-        "php -r \"file_exists('.env') || copy('.env.setup', '.env');\""
+        "php -r \"file_exists('.env') || copy('../src/.env.rc', '.env');\""
       ]
     , "post-create-project-cmd": [
-        "php artisan key:generate"
+        "php artisan config:clear"
+      , "php artisan key:generate"
       ]
     , "post-install-cmd": [
           "Illuminate\\Foundation\\ComposerScripts::postInstall"
