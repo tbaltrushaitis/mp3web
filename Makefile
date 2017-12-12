@@ -143,7 +143,7 @@ clean-dist:
 	@ rm -rf ${DIR_DIST}
 
 clean-engine:
-	@ rm -rf ${DIR_ENGINE}
+	@ rm -rf engine/${DIR_ENGINE}
 
 clean-web:
 	@ rm -rf ${DIR_WEB}
@@ -151,7 +151,7 @@ clean-web:
 clean-deps:
 	@ rm -rf bower_modules/ \
 		node_modules/;
-	@ git reset HEAD .gitmodules engine/laravel-5.2
+	@ git reset HEAD .gitmodules engine/${DIR_ENGINE}
 
 clean-files:
 	@ rm -rf ${APP_DIRS}  			\

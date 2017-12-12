@@ -339,6 +339,8 @@ function Artisan () {
 ##  ------------------------------------------------------------------------  ##
 echo -ne "\n${Yellow}------------------\t ${BRed} $0 ${NC} ${BYellow} $* ${NC} \t${Yellow}----------------------\n${NC}";
 
+logEnv
+
 case "$1" in
 
   "")
@@ -385,7 +387,7 @@ case "$1" in
 
   "deploy" | "d")
     info "[$FUNCNAME] Deploy()"
-    Deploy
+    Deploy && Delay 2
     RETVAL=$?
   ;;
 
@@ -400,7 +402,7 @@ case "$1" in
     info "[$FUNCNAME] ReDeploy()"
     Build && Delay 2
     Release && Delay 2
-    Deploy
+    Deploy && Delay 2
     RETVAL=$?
   ;;
 
@@ -410,7 +412,7 @@ case "$1" in
     engineChecks && Delay 2
     Build && Delay 2
     Release && Delay 2
-    Deploy
+    Deploy && Delay 2
     # Artisan && Delay
     RETVAL=$?
   ;;
