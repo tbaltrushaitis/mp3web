@@ -13,10 +13,10 @@ return [
   |
   */
 
-    'env'       =>  env('APP_ENV',  'production')
-  , 'debug'     =>  env('APP_DEBUG', false)
-  , 'url'       =>  env('APP_URL',  'http://localhost')
-  , 'timezone'  =>  'UTC'
+    'env'      => env('APP_ENV',  'production')
+  , 'debug'    => env('APP_DEBUG', false)
+  , 'url'      => env('APP_URL',  'http://localhost')
+  , 'timezone' => 'UTC'
 
   /*
   |--------------------------------------------------------------------------
@@ -29,8 +29,8 @@ return [
   |
   */
 
-  , 'locale'            =>  'en'
-  , 'fallback_locale'   =>  'en'
+  , 'locale'          => 'en'
+  , 'fallback_locale' => 'en'
 
   /*
   |--------------------------------------------------------------------------
@@ -43,8 +43,8 @@ return [
   |
   */
 
-  , 'key'       =>  env('APP_KEY')
-  , 'cipher'    =>  'AES-256-CBC'
+  , 'key'    => env('APP_KEY')
+  , 'cipher' => 'AES-256-CBC'
 
   /*
   |--------------------------------------------------------------------------
@@ -59,7 +59,7 @@ return [
   |
   */
 
-  , 'log'   =>  env('APP_LOG', 'single')
+  , 'log' => env('APP_LOG', 'single')
 
   /*
   |--------------------------------------------------------------------------
@@ -73,9 +73,9 @@ return [
   */
 
   , 'providers' => [
-      /*
-       * Laravel Framework Service Providers...
-       */
+    /*
+     * Laravel Framework Service Providers...
+     */
       Illuminate\Auth\AuthServiceProvider::class
     , Illuminate\Broadcasting\BroadcastServiceProvider::class
     , Illuminate\Bus\BusServiceProvider::class
@@ -98,9 +98,9 @@ return [
     , Illuminate\Validation\ValidationServiceProvider::class
     , Illuminate\View\ViewServiceProvider::class
 
-      /*
-       * Application Service Providers...
-       */
+    /*
+     * Application Service Providers...
+     */
     , App\Providers\AppServiceProvider::class
     , App\Providers\AuthServiceProvider::class
     , App\Providers\EventServiceProvider::class

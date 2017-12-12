@@ -57,15 +57,15 @@ const uglify        = require('gulp-uglify');
 
 global.ME = {};
 
-const appPath  = __dirname;
-const modsPath = path.join(appPath, 'modules');
-const confPath = path.join(appPath, 'configs', 'config.json');
-
-console.log(`confPath (${typeof confPath}) = [${utin(confPath)}]`);
-
 const pkg    = require('./package.json');
 const Config = require('nconf');
-const config = require('read-config')(confPath);
+const config = require('read-config');
+
+const appPath  = __dirname;
+const modsPath = path.join(appPath, 'modules');
+// const confPath = path.join(appPath, 'config', 'config.json');
+// const config = require('read-config')(confPath);
+// console.log(`confPath (${typeof confPath}) = [${utin(confPath)}]`);
 
 ME.Config = Config;
 ME.config = config;
@@ -92,7 +92,7 @@ ME.TMP    = path.join('tmp',                    path.sep);
 ME.DIST   = path.join(`dist-${ME.VERSION}`,     path.sep);
 ME.WEB    = path.join(`webroot-${ME.VERSION}`,  path.sep);
 ME.CURDIR = path.join(process.cwd(),            path.sep);
-ME.ENGINE = path.join('laravel-5.2.31');
+ME.ENGINE = path.join('engine/laravel-5.2');
 ME.BOWER  = JSON.parse(fs.existsSync('./.bowerrc') ? fs.readFileSync('./.bowerrc') : {directory: "bower_modules"}).directory;
 
 utin.defaultOptions = _.extend({}, ME.pkg.options.iopts);
@@ -102,8 +102,8 @@ console.log(`\n`);
 // console.log(`ME.version (${typeof ME.version}) = [${utin(ME.version)}]`);
 // console.log(`ME.VERSION (${typeof ME.VERSION}) = [${utin(ME.VERSION)}]`);
 // console.log(`ME.COMMIT (${typeof ME.COMMIT}) = [${utin(ME.COMMIT)}]`);
-// console.log(`ME.config (${typeof ME.config}) = [${utin(ME.config)}]`);
 console.log(`ME (${typeof ME}) = [${utin(ME)}]`);
+console.log(`ME.config (${typeof ME.config}) = [${utin(ME.config)}]`);
 console.log(`\n`);
 
 
@@ -111,12 +111,8 @@ let now = new Date();
 let headerTpl = _.template(`/*!
  * Package:\t\t <%= pkg.name %>@<%= pkg.version %>
  * Name:\t\t <%= pkg.title %>
- * Purpose:\t\t <%= ME.NODE_ENV.toUpperCase() %>
- * Version:\t\t <%= ME.VERSION %>
- * Commit:\t\t <%= ME.COMMIT %>
  * Description:\t <%= pkg.description %>
- * Built:\t\t ${dateFormat(now, 'yyyy-mm-dd')}T${dateFormat(now, 'HH:MM:ss')}
- * Created:\t 2016 - ${dateFormat(now, 'yyyy')} <%= pkg.author.email %>
+ * Created:\t ${dateFormat(now, 'yyyy')} <%= pkg.author.email %>
  * License:\t\t <%= pkg.license %>
  * Visit:\t\t <%= pkg.homepage %>
  */
@@ -124,9 +120,11 @@ let headerTpl = _.template(`/*!
 
 let footerTpl = _.template(`
 /*!
+ * =========================================================================== *
  * Purpose:\t <%= ME.NODE_ENV.toUpperCase() %>
  * Version:\t <%= ME.VERSION %>
  * Commit:\t <%= ME.COMMIT %>
+ * Built:\t\t ${dateFormat(now, 'yyyy-mm-dd')}T${dateFormat(now, 'HH:MM:ss')}
  * EOF:\t\t <%= pkg.name %>@<%= pkg.version %> - <%= pkg.title %>
  * =========================================================================== *
  */
@@ -165,14 +163,12 @@ gulp.task('default', function () {
   (function () {
     switch (ME.NODE_ENV) {
       case 'test': {
-        // gulpSequence('lint')();
+        // ['lint'];
         return ['test'];
         break;
       }
       case ('dev' || 'development'): {
-        //gulpSequence('clean:build', 'build:dev', 'deploy', 'watch')();
-        //gulpSequence('build:dev', 'watch')();
-        // gulpSequence('build:dev', 'watch');
+        // ['clean:build', 'build:dev', 'deploy', 'watch'];
         return ['dev'];
         break;
       }

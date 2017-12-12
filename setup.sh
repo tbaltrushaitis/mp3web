@@ -31,7 +31,7 @@ if [ -f ${F_FUNCS} ]; then source ${F_FUNCS}; fi    ## Functions
 
 ## Source settings
 if [ ! -f ${F_RC} ]; then
-  echo -e "${BRed}Missing file [${F_RC}]${NC}"
+  echo -e ${BRed}Missing file [${F_RC}]${NC}
   exit 1
 fi
 source ${F_RC}
@@ -84,12 +84,12 @@ OPTS=$@
 WD=$(pwd -P)                     #   Current working directory
 APP_HOME=$(pwd -P)               #   Current directory
 # APP_PATH=${APP_HOME}/${APP_DIR}  #   Full path to target directory
-DIR_ENGINE="${ENGINE_NAME}-${ENGINE_VERSION}"
-CODE_VERSION=$(cat ./VERSION)
+# DIR_ENGINE="${ENGINE_NAME}-${ENGINE_VERSION}"
+# CODE_VERSION=$(cat ./VERSION)
 
-SRC="${WD}/src"
-BUILD="${WD}/build-${CODE_VERSION}"
-DIST="${WD}/dist-${CODE_VERSION}"
+# SRC="${WD}/src"
+# BUILD="${WD}/build-${CODE_VERSION}"
+# DIST="${WD}/dist-${CODE_VERSION}"
 
 DATE=$(date +"%Y%m%d%H%M%S")
 DATETIME=$(date "+%Y-%m-%d")_$(date "+%H-%M-%S")
@@ -181,10 +181,6 @@ function Build () {
   createDirTree "${DIR_BUILD}"
   Delay 2
 
-  # mkdir -p ${BUILD} # && chmod 775 ${BUILD}
-  # mkdir -p ${BUILD}
-  # set_permissions ${BUILD}
-
   # cd ${WD}
   # node gulpfile.js --env=${APP_ENV} #--verbose
   # Delay
@@ -192,8 +188,8 @@ function Build () {
 
   cd ${WD}
   mkdir -p ${DIR_BUILD} 2>/dev/null
-  cp -pr ${DIR_ENGINE}/* ${DIR_BUILD}/ 2>&1 >/dev/null
-  warn "[$FUNCNAME] Engine directory [${DIR_ENGINE}] COPIED to [${DIR_BUILD}]"
+  cp -pr engine/${DIR_ENGINE}/* ${DIR_BUILD}/ 2>&1 >/dev/null
+  warn "[$FUNCNAME] Engine directory [engine/${DIR_ENGINE}] COPIED to [${DIR_BUILD}]"
   # cp -prv setup.rc "${BUILD}/.env"
   # info "COPIED setup.rc to [${BUILD}/.env]";
   # cp -pr "${SRC}/composer.json" "${BUILD}/"
@@ -236,7 +232,7 @@ function Release () {
   Delay 2;
 
   cd ${WD};
-  cp -prv ${DIR_BUILD}/* ${DIR_DIST}/ 2>&1 >/dev/null;
+  cp -pr ${DIR_BUILD}/* ${DIR_DIST}/ 2>&1 >/dev/null;
   warn "[$FUNCNAME] Directory [${DIR_BUILD}] content DEPLOYED to [${DIR_DIST}]";
   cp -pvf ${DIR_BUILD}/.env ${DIR_DIST}/ 2>&1;
   warn "[$FUNCNAME] Directory [${DIR_BUILD}/.env] COPIED to [${DIR_DIST}/]";
@@ -244,14 +240,6 @@ function Release () {
   warn "[$FUNCNAME] Now RUN ARTISAN() with [${DIR_DIST}]";
   Artisan "${DIR_DIST}";
   warn "[$FUNCNAME] Now RETURNED from ARTISAN() with [${DIR_DIST}]";
-
-  # cd ${WD}
-  # cd "${DIR_WEB}/public"
-  # mkdir -p ../storage/media/audio >&2 2>/dev/null
-  # ln -s ../storage/media/audio >&2 2>/dev/null
-  # cd -
-  # Delay
-
 
   # cd ${WD}
   # sudo chown -R ${WEB_USER}:${WEB_USER} "${APP_DIR}"          \
@@ -279,12 +267,12 @@ function Deploy () {
 
   cd ${WD}
   cp -pr ${DIR_DIST}/* ${DIR_WEB}/ 2>&1 >/dev/null
-  warn "Directory [${DIR_DIST}/] content DEPLOYED to [${DIR_WEB}/]";
+  warn "Directory [${DIR_DIST}/] content DEPLOYED to [${DIR_WEB}/]"
   if [ -f ${DIR_WEB}/.env ]; then
-    mv -vf ${DIR_WEB}/.env ${DIR_WEB}/.env.${DATE}.bak 2>&1 >/dev/null;
+    mv -vf ${DIR_WEB}/.env ${DIR_WEB}/.env.${DATE}.bak 2>&1 >/dev/null
   fi
-  cp -pvf ${DIR_DIST}/.env ${DIR_WEB}/ 2>&1 >/dev/null;
-  warn "File [${DIR_DIST}/.env] COPIED to [${DIR_WEB}/.env]";
+  cp -pvf ${DIR_DIST}/.env ${DIR_WEB}/ 2>&1 >/dev/null
+  warn "File [${DIR_DIST}/.env] COPIED to [${DIR_WEB}/.env]"
   Delay 2
 
   cd ${WD}
@@ -308,12 +296,12 @@ function Deploy () {
 
 
 function Artisan () {
-  splash "[$FUNCNAME] Started with: (${@})";
-  local W_DIR="$1";
-  info "[$FUNCNAME] W_DIR = ${W_DIR}";
+  splash "[$FUNCNAME] Started with: (${@})"
+  local W_DIR="$1"
+  info "[$FUNCNAME] W_DIR = ${W_DIR}"
 
   cd ${W_DIR}
-  info "[$FUNCNAME] PWD = $(pwd -P)";
+  info "[$FUNCNAME] PWD = $(pwd -P)"
 
   # chmod a+x artisan
   # ./artisan auth:clear-resets
@@ -341,105 +329,103 @@ function Artisan () {
 
   # ./artisan config:cache
 
-  splash "[$FUNCNAME] COMPLETED FOR: [${W_DIR}]";
-  Delay 10;
+  splash "[$FUNCNAME] COMPLETED FOR: [${W_DIR}]"
+  Delay 3
 }
 
 
 ##  ------------------------------------------------------------------------  ##
 ##                                  EXECUTION                                 ##
 ##  ------------------------------------------------------------------------  ##
-echo -ne "\n${BYellow}------------------\t ${BRed} $0 ${NC} ${BPurple} $1 ${NC} \t${BYellow}----------------------\n${NC}";
-
-# logEnv
+echo -ne "\n${Yellow}------------------\t ${BRed} $0 ${NC} ${BYellow} $* ${NC} \t${Yellow}----------------------\n${NC}";
 
 case "$1" in
 
   "")
-    info "[$FUNCNAME] Without params";
-    usage;
+    info "[$FUNCNAME] Without params"
+    usage
     RETVAL=0
   ;;
 
   "usage" | "h")
-    info "[$FUNCNAME] Usage()";
-    usage;
+    info "[$FUNCNAME] Usage()"
+    usage
     RETVAL=0
   ;;
 
   "setup" | "s")
-    info "[$FUNCNAME] Setup()";
-    setupChecks && Delay;
+    info "[$FUNCNAME] Setup()"
+    setupChecks
     RETVAL=$?
   ;;
 
   "tree")
-    info "[$FUNCNAME] Tree()";
-    createDirTree "${DIR_BUILD} ${DIR_DIST} ${DIR_WEB}" && Delay;
+    info "[$FUNCNAME] Tree()"
+    createDirTree "${DIR_BUILD} ${DIR_DIST} ${DIR_WEB}"
     RETVAL=$?
   ;;
 
   "engine" | "e")
-    info "[$FUNCNAME] Engine()";
-    engineChecks && Delay;
+    info "[$FUNCNAME] Engine()"
+    engineChecks
     RETVAL=$?
   ;;
 
   "build" | "b")
-    info "[$FUNCNAME] Build()";
-    Build && Delay;
+    info "[$FUNCNAME] Build()"
+    Build
     RETVAL=$?
   ;;
 
   "release" | "r")
-    info "[$FUNCNAME] Release()";
-    Release && Delay;
+    info "[$FUNCNAME] Release()"
+    Release
     RETVAL=$?
   ;;
 
   "deploy" | "d")
-    info "[$FUNCNAME] Deploy()";
-    Deploy && Delay;
+    info "[$FUNCNAME] Deploy()"
+    Deploy
     RETVAL=$?
   ;;
 
   "rebuild" | "rb")
-    info "[$FUNCNAME] ReBuild()";
-    Build && Delay;
-    Release && Delay;
+    info "[$FUNCNAME] ReBuild()"
+    Build && Delay
+    Release
     RETVAL=$?
   ;;
 
   "redeploy" | "rd")
-    info "[$FUNCNAME] ReDeploy()";
-    Build && Delay 2;
-    Release && Delay 2;
-    Deploy && Delay 2;
+    info "[$FUNCNAME] ReDeploy()"
+    Build && Delay 2
+    Release && Delay 2
+    Deploy
     RETVAL=$?
   ;;
 
   "all" | "a")
-    info "[$FUNCNAME] All_Tasks()";
-    setupChecks && Delay 2;
-    engineChecks && Delay 2;
-    Build && Delay 2;
-    Release && Delay 2;
-    Deploy && Delay 2;
+    info "[$FUNCNAME] All_Tasks()"
+    setupChecks && Delay 2
+    engineChecks && Delay 2
+    Build && Delay 2
+    Release && Delay 2
+    Deploy
     # Artisan && Delay
     RETVAL=$?
   ;;
 
   *)
-    fatal "[$FUNCNAME] UNKNOWN command: $1";
-    usage;
+    fatal "[$FUNCNAME] UNKNOWN command: $1"
+    usage
     RETVAL=1
   ;;
 
 esac
 
-splash "ALL DONE! Exiting now ...";
+splash "ALL DONE! Exiting now ..."
 
-exit ${RETVAL};
+exit ${RETVAL}
 
 ##  ------------------------------------------------------------------------  ##
 ##                                 SCENARIO                                   ##
