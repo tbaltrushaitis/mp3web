@@ -16,7 +16,7 @@ require([
   // , 'LTEapp'
 ]
   // , function ($, _, cc, bsTags, F, LTE) {
-  , function ($, _, tmpl, bs, bsTags) {
+  , function ($, _, tmpl, bs, bsTags, F) {
     console.info('CABINET CONTROLLER MODULES READY');
 });
 
@@ -66,8 +66,10 @@ define([
           Modal.find('#year').val(lo.year);
 
           var elGenres   = Modal.find('#track-genre');
+          var elTags     = Modal.find('#track-tags');
           var listGenres = lo.genre;
-          console.log('listGenres = [', listGenres, ']');
+          var listTags   = lo.tags;
+          // console.log('listGenres = [', listGenres, ']');
 
           elGenres.tagsinput('removeAll');
           elGenres.tagsinput({
@@ -77,15 +79,27 @@ define([
             , allowDuplicates:  false
           });
 
+          elTags.tagsinput('removeAll');
+          elTags.tagsinput({
+              maxTags:          5
+            , maxChars:         15
+            , trimValue:        true
+            , allowDuplicates:  false
+          });
+
           _.each(listGenres, function (tagGenre) {
-            console.info('tagGenre = ', tagGenre);
+            // console.info('tagGenre = ', tagGenre);
             elGenres.tagsinput('add', tagGenre);
           });
-          // .prop({'data-role': 'tagsinput'});
 
-          Modal.find('#track-tags')
-            .val(lo.tags)
-            .prop({'data-role': 'tagsinput'});
+          _.each(listTags, function (tag) {
+            elTags.tagsinput('add', tag);
+          });
+
+          // Modal.find('#track-tags')
+          //   .val(lo.tags)
+          //   .prop({'data-role': 'tagsinput'});
+
           Modal.find('#meta').text( JSON.stringify(lo) );
       });
     }

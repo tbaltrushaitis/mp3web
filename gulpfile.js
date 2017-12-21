@@ -121,7 +121,7 @@ let headerTpl = _.template(`/*!
 let footerTpl = _.template(`
 /*!
  * =========================================================================== *
- * Purpose:\t <%= ME.NODE_ENV.toUpperCase() %>
+ * Purpose:\t <%= ME.NODE_ENV %>
  * Version:\t <%= ME.VERSION %>
  * Commit:\t <%= ME.COMMIT %>
  * Built:\t\t ${dateFormat(now, 'yyyy-mm-dd')}T${dateFormat(now, 'HH:MM:ss')}
@@ -163,25 +163,18 @@ gulp.task('default', function () {
   (function () {
     switch (ME.NODE_ENV) {
       case 'test': {
-        // ['lint'];
         return ['test'];
         break;
       }
       case ('dev' || 'development'): {
-        // ['clean:build', 'build:dev', 'deploy', 'watch'];
         return ['dev'];
         break;
       }
       case 'production': {
-        //gulpSequence('test', 'build', 'dist', 'deploy')();
-        //gulpSequence(['clean'], ['sync:engine'], ['sync:src'], ['sync:assets'], ['lint'], ['bower'], ['fixPermissions'])();
-        // gulpSequence('build')();
         return ['build'];
         break;
       }
       default: {
-        // gulpSequence('test', 'show:config', 'watch')();
-        // gulpSequence('usage', 'watch')();
         return ['usage'];
         break;
       }
@@ -192,15 +185,11 @@ gulp.task('default', function () {
 
 gulp.task('test',   ['lint', 'usage', 'show:config']);
 gulp.task('dev',   ['build:dev']);
-// gulp.task('test',       gulpSequence(['jscs'], ['usage']));
 gulp.task('lint',       ['jscs', 'jshint']);
-gulp.task('clean',      gulpSequence(['clean:build', 'clean:dist']));
-
+// gulp.task('clean',      gulpSequence(['clean:build', 'clean:dist']));
 gulp.task('artisan',    gulpSequence('artisan:vendor:publish', 'artisan:migrate', 'artisan:clear'));
 
-// gulp.task('build:dev',  gulpSequence(
 gulp.task('build:dev',  [
-    // 'clean:build'
   // , 'sync:engine2build'
   // , 'sync:src2build'
   // , 'artisan:key:generate'
@@ -213,9 +202,7 @@ gulp.task('build:dev',  [
   gulp.start('build:js');
 });
 
-// gulp.task('build', gulpSequence(
 gulp.task('build', [
-  //   'clean:build'
   // , 'sync:engine2build'
   // , 'sync:src2build'
   // , 'artisan:key:generate'

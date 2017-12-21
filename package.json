@@ -120,6 +120,7 @@
     , "read-config":          "^2.0.0"
     , "run-sequence":         "^2.2.0"
     , "versionn":             "^1.0.2"
+    , "vinyl-buffer":         "^1.0.0"
     , "vinyl-paths":          "^2.1.0"
     , "yargs":                "^10.0.3"
     }
