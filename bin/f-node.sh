@@ -3,23 +3,23 @@
 ##  NPM and BOWER DEPENDENCIES
 ##  ------------------------------------------------------------------------  ##
 
-##  Consists of:
-##      deps_install
-##      deps_outdated
+##  Provides:
+##    deps_install()
+##    deps_outdated()
 
 ##  ------------------------------------------------------------------------  ##
 
 function deps_install {
-    printf "[LOG]\tInstalling NPM packages ... \n";
-    npm i #--verbose
+  warn "\tInstalling NPM packages ... ";
+  npm i #--verbose
 
-    printf "[LOG]\tInstalling Bower packages ... \n";
-    bower i --production #--verbose 
+  warn "\tInstalling Bower packages ... ";
+  bower i --production --allow-root #--verbose
 }
 
 function deps_outdated {
-    bower list
-    npm outdated
+  bower list
+  npm outdated
 }
 
 ##  ------------------------------------------------------------------------  ##

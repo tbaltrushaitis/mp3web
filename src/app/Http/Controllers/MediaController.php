@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 use Auth;
 use Input;
@@ -16,39 +16,39 @@ use App\Video;
 
 class MediaController extends Controller {
 
-    /**
-     * The MediaRepository
-     *
-     * @var MediaRepository
-     */
-    protected   $mediaRepository;
+  /**
+   * The MediaRepository
+   *
+   * @var MediaRepository
+   */
+  protected $mediaRepository;
 
 
-    /**
-     * Create a new controller instance.
-     *
-     * @param  MediaRepository  $mediarepository
-     * @return void
-     */
-    public function __construct (MediaRepository $mediarepository) {
-        // $this->middleware('auth');
-        $this->mediaRepository  =   $mediarepository;
-    }
+  /**
+   * Create a new controller instance.
+   *
+   * @param  MediaRepository  $mediarepository
+   * @return void
+   */
+  public function __construct (MediaRepository $mediarepository) {
+    // $this->middleware('auth');
+    $this->mediaRepository = $mediarepository;
+  }
 
 
-    /**
-     * Display a list of all audiotracks
-     * @param  none
-     * @return View
-     */
-    public function listAudio () {
-        $arrTracks  =   $this->mediaRepository->getTracksAudio();
-        return  view('welcome', [
-                    'tracks'    =>  array_sort($arrTracks, function ($track) {
-                                        return -1 * $track->get('plays', 0);
-                                    })
-                ]);
-    }
+  /**
+   * Display a list of all audiotracks
+   * @param  none
+   * @return View
+   */
+  public function listAudio () {
+    $arrTracks = $this->mediaRepository->getTracksAudio();
+    return  view('welcome', [
+              'tracks' => array_sort($arrTracks, function ($track) {
+                            return -1 * $track->get('plays', 0);
+                          })
+            ]);
+  }
 
 
     /**
@@ -91,7 +91,7 @@ class MediaController extends Controller {
         $actionResult =   $this->mediaRepository->dropTrack($id);
         $actionResult->put('action', 'DROP');
         // return response()->json($actionResult);
-        return redirect()->action('HomeController@index')->with('status', 'Track Metadata removed!');
+        return redirect()->action('CabinetController@index')->with('status', 'Track Metadata removed!');
     }
 
 }
