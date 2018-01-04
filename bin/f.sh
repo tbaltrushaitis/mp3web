@@ -48,7 +48,7 @@ function fatal () {
   echo -ne "---------------------------  $FUNCNAME -------------------------\n";
   echo -ne "[$(date +'%Y%m%d%H%M%S')]: %s" "${@}" "\n";
   echo -ne "---------------------------  $FUNCNAME -------------------------\n";
-  echo -ne ${NC};
+  echo -ne "\n" ${NC};
 }
 
 
@@ -57,7 +57,7 @@ function splash () {
   echo -ne "------------------------------ ==== ----------------------------\n";
   echo -ne "[$(date +'%Y%m%dT%H%M%S')]:" "${@}" "\n";
   echo -ne "------------------------------ ==== ----------------------------\n";
-  echo -ne "\n\n\n" ${NC};
+  echo -ne "\n" ${NC};
 }
 
 ##  ------------------------------------------------------------------------  ##
@@ -65,8 +65,9 @@ function splash () {
 ##  ------------------------------------------------------------------------  ##
 
 function Delay () {
-  local T=1;
-  echo -ne "${Green}Timeout ${T} second(s) ... ";
+  local T=$1;
+  if [ -z ${T} ]; then T=1; fi
+  echo -ne "${White}Timeout ${T} second(s) ... ";
   sleep ${T};
   echo -e ${BGreen} [OK] ${NC};
 }
@@ -135,24 +136,24 @@ function saveEnv () {
 ##  ------------------------------------------------------------------------  ##
 
 function createDirTree {
-  warn "-----------------------  CREATE PROJECT DIRS  ------------------------";
+  warn "[$FUNCNAME] -----------------  CREATE PROJECT DIRS  ------------------";
   local TREE_LIST="$1";
-  info "TREE_LIST = [${TREE_LIST}]";
+  info "[$FUNCNAME] TREE_LIST = [${TREE_LIST}]";
 
   for D in ${TREE_LIST}
     do
-      info "D = [${D}]";
+      info "[$FUNCNAME] D = [${D}]";
       mkdir -p "${D}" 2>&1 >/dev/null;
     done
 
-  warn "-------------------- FINISHED CREATE PROJECT DIRS --------------------";
-  info "====================================================================\n";
+  warn "[$FUNCNAME] ------------- FINISHED CREATE PROJECT DIRS ---------------";
 }
 
+
 function set_permissions {
-  warn "-----------------------  SET PERMISSIONS  ----------------------------";
-  W_DIR="$1"
-  info "W_DIR = [${W_DIR}]";
+  warn "[$FUNCNAME] ------------------  SET PERMISSIONS  ---------------------";
+  local W_DIR="$1"
+  info "[$FUNCNAME] W_DIR = [${W_DIR}]";
   sudo chmod 775 ${W_DIR};
   sudo chown -R ${WEB_USER}:${WEB_GROUP} ${W_DIR};
 
@@ -164,6 +165,5 @@ function set_permissions {
   cd ${W_DIR};
   sudo find . -type f -name "artisan" -exec chmod a+x {} \;
 
-  warn "--------------- PERMISSIONS CHANGED FOR: [${W_DIR}] ------------------";
-  info "====================================================================\n";
+  warn "[$FUNCNAME] ---------- PERMISSIONS CHANGED FOR: [${W_DIR}] -----------";
 }

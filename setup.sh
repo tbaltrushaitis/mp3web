@@ -9,30 +9,25 @@
 # - Update framework installation with project's source scripts.
 # - Deploy dist code into public web
 # - Provides:
-#   -   usage
-#   -   logEnv
-#   -   setupChecks
-#   -   engineChecks
-#   -   Build
-#   -   Release
-#   -   Deploy
-#   -   Artisan
+#   - showBanner
+#   - usage
+#   - logEnv
+#   - setupChecks
+#   - engineChecks
+#   - Build
+#   - Release
+#   - Deploy
+#   - Artisan
 
-##  BANNER
-function Banner () {
-  if [ -f ./BANNER ]; then
-    cat BANNER
-  fi
-}
+BD=./bin
 
-F_COLORS="./bin/.bash_colors"
-F_RC="./setup.rc"
+## SOURCES
+F_COLORS=${BD}/.bash_colors
+F_FUNCS=${BD}/f.sh
+F_RC=./setup.rc
 
-##  Colors
-if [ -f ${F_COLORS} ]; then
-  source ${F_COLORS}
-  # echo -e "\t${BPurple}ENV:\t exported [${F_COLORS}]${NC}";
-fi
+if [ -f ${F_COLORS} ]; then source ${F_COLORS}; fi  ## Colors
+if [ -f ${F_FUNCS} ]; then source ${F_FUNCS}; fi    ## Functions
 
 ## Source settings
 if [ ! -f ${F_RC} ]; then
@@ -40,15 +35,20 @@ if [ ! -f ${F_RC} ]; then
   exit 1
 fi
 source ${F_RC}
-# echo -e "\t${BYellow}ENV: Exported [${F_RC}]${NC}";
 
 if [ -n "$APP_DEBUG" ]; then
   # set -x
-  printf "DEBUG MODE ENABLED\n"
+  echo -e "${BPurple}[ENV] ${BYellow}DEBUG${NC} MODE ${BGreen}ENABLED${NC}"
 fi
 
 set -e
 trap 'echo >&2 Ctrl+C captured, exiting; exit 1' SIGINT
+
+##  BANNER
+function showBanner () {
+  local BANNER=${BD}/BANNER
+  if [ -f ${BANNER} ]; then cat ${BANNER}; fi
+}
 
 function usage () {
   >&2 cat << EOM
@@ -81,9 +81,9 @@ EOM
 
 OPTS=$@
 
-WD="$(pwd -P)"                  #   Current working directory
-APP_HOME="$(pwd -P)/"           #   Current directory
-APP_PATH=${APP_HOME}${APP_DIR}  #   Full path to target directory
+WD=$(pwd -P)                     #   Current working directory
+APP_HOME=$(pwd -P)               #   Current directory
+# APP_PATH=${APP_HOME}/${APP_DIR}  #   Full path to target directory
 DIR_ENGINE="${ENGINE_NAME}-${ENGINE_VERSION}"
 CODE_VERSION=$(cat ./VERSION)
 
@@ -98,32 +98,32 @@ DATETIME=$(date "+%Y-%m-%d")_$(date "+%H-%M-%S")
 ##                                 FUNCTIONS                                  ##
 ##  ------------------------------------------------------------------------  ##
 
-source bin/f.sh
-source bin/f-database.sh
-source bin/f-engine.sh
-source bin/f-node.sh
-source bin/f-php-composer.sh
-source bin/f-host.sh
+# source ${BD}/f.sh
+source ${BD}/f-database.sh
+source ${BD}/f-engine.sh
+source ${BD}/f-node.sh
+source ${BD}/f-php-composer.sh
+source ${BD}/f-host.sh
 
 function logEnv () {
-  splash "${FUNCNAME}() Started with: (${@})";
+  splash "[$FUNCNAME] Started with: (${@})";
 
-  info "CODE_VERSION = \t ${CODE_VERSION}";
-  info "WD = \t\t ${WD}";
-  info "DIR_SRC = \t ${DIR_SRC}";
-  info "DIR_ENGINE = \t ${DIR_ENGINE}";
-  info "DIR_BUILD = \t ${DIR_BUILD}";
-  info "DIR_DIST = \t ${DIR_DIST}";
-  info "DIR_WEB = \t ${DIR_WEB}";
-  info "WEB_USER = \t ${WEB_USER}";
-  info "OPTS = \t\t ${OPTS}";
+  info "[$FUNCNAME] CODE_VERSION = \t ${CODE_VERSION}";
+  info "[$FUNCNAME] WD = \t\t ${WD}";
+  info "[$FUNCNAME] DIR_SRC = \t ${DIR_SRC}";
+  info "[$FUNCNAME] DIR_ENGINE = \t ${DIR_ENGINE}";
+  info "[$FUNCNAME] DIR_BUILD = \t ${DIR_BUILD}";
+  info "[$FUNCNAME] DIR_DIST = \t ${DIR_DIST}";
+  info "[$FUNCNAME] DIR_WEB = \t ${DIR_WEB}";
+  info "[$FUNCNAME] WEB_USER = \t ${WEB_USER}";
+  info "[$FUNCNAME] OPTS = \t\t ${OPTS}";
 
   # info "SRC = \t\t ${SRC}";
   # info "BUILD = \t ${BUILD}";
   # info "DIST = \t\t ${DIST}";
   # info "APP_PATH = \t ${APP_PATH}";
 
-  splash "$FUNCNAME Finished";
+  splash "[$FUNCNAME] Finished";
   return 0;
 }
 
@@ -133,14 +133,16 @@ function logEnv () {
 
 
 function setupChecks () {
-  splash "$FUNCNAME Started with: (${@})";
+  splash "[$FUNCNAME] Started with: (${@})";
 
   okNode
   okNpm
   okBower
   okGulp
 
-  splash "$FUNCNAME Finished";
+  deps_install
+
+  splash "[$FUNCNAME] Finished";
   return 0;
 }
 
@@ -150,7 +152,7 @@ function setupChecks () {
 ##  ------------------------------------------------------------------------  ##
 
 function engineChecks () {
-  splash "$FUNCNAME Started with: (${@})";
+  splash "[$FUNCNAME] Started with: (${@})";
 
   # createDirTree "${BUILD} ${DIST} ${DIR_WEB}"
   # Delay
@@ -164,23 +166,20 @@ function engineChecks () {
   engine_set_permissions
   Delay
 
-  deps_install
-  Delay
-
-  splash "$FUNCNAME Finished";
+  splash "[$FUNCNAME] Finished";
   # exit 0;
 }
 
 
 function Build () {
-  splash "$FUNCNAME Started with: (${@})";
+  splash "[$FUNCNAME] Started with: (${@})"
 
   # local VERSION=$(versionn pre -e VERSION);
-  # local BUILD="build-${VERSION}"
+  # local DIR_BUILD="build-${VERSION}"
 
   # createDirTree ${DIR_BUILD} ${DIR_DIST}
-  createDirTree "${DIR_BUILD}";
-  Delay 2;
+  createDirTree "${DIR_BUILD}"
+  Delay 2
 
   # mkdir -p ${BUILD} # && chmod 775 ${BUILD}
   # mkdir -p ${BUILD}
@@ -191,61 +190,60 @@ function Build () {
   # Delay
 
 
-  cd ${WD};
-  mkdir -p ${DIR_BUILD} 2>/dev/null;
-  cp -pr ${DIR_ENGINE}/* ${DIR_BUILD}/ 2>&1 >/dev/null;
-  warn "Engine directory [${DIR_ENGINE}/*] COPIED to [${DIR_BUILD}/]";
+  cd ${WD}
+  mkdir -p ${DIR_BUILD} 2>/dev/null
+  cp -pr ${DIR_ENGINE}/* ${DIR_BUILD}/ 2>&1 >/dev/null
+  warn "[$FUNCNAME] Engine directory [${DIR_ENGINE}] COPIED to [${DIR_BUILD}]"
   # cp -prv setup.rc "${BUILD}/.env"
   # info "COPIED setup.rc to [${BUILD}/.env]";
   # cp -pr "${SRC}/composer.json" "${BUILD}/"
   # warn "COPIED [${SRC}/composer.json] to [${BUILD}/]";
   # cd "${BUILD}" && composer -vvv update && cd -
 
-
-  cd ${WD};
+  cd ${WD}
 
   if [ -f ${DIR_BUILD}/.env ]; then
-    mv -vf ${DIR_BUILD}/.env ${DIR_BUILD}/.env.${DATE} 2>/dev/null;
-    warn "MOVED file [${DIR_BUILD}/.env] to [${DIR_BUILD}/.env.${DATE}]";
+    mv -vf ${DIR_BUILD}/.env ${DIR_BUILD}/.env.${DATE} 2>&1 >/dev/null
+    warn "[$FUNCNAME] MOVED file [${DIR_BUILD}/.env] to [${DIR_BUILD}/.env.${DATE}]"
   fi
 
-  cp -pr ${DIR_SRC}/* ${DIR_BUILD}/ 2>&1 && Delay 2;
-  cp -punv ${DIR_SRC}/.env.rc ${DIR_BUILD}/.env 2>&1 && Delay 2;
-  cp -pvf ${DIR_SRC}/composer.json ${DIR_BUILD}/ 2>&1 && Delay 2;
+  cp -pr ${DIR_SRC}/* ${DIR_BUILD}/ 2>&1 >/dev/null && Delay 2
+  cp -pvu ${DIR_SRC}/.env.rc ${DIR_BUILD}/.env 2>&1 && Delay 2
+  cp -pvf ${DIR_SRC}/composer.json ${DIR_BUILD}/ 2>&1 && Delay 2
 
   # cd ${WD}
   # cp -prv ${SRC}/.* ${BUILD}/ 2>/dev/null
   # Delay
 
-  cd ${DIR_BUILD};
-  composer -v update;
-  cd ${WD} && Delay 2;
+  cd ${DIR_BUILD}
+  composer -v update
+  cd ${WD} && Delay 2
 
-  Artisan "${DIR_BUILD}";
+  Artisan "${DIR_BUILD}"
 
   # cd ${WD}
   # set_permissions ${BUILD}
   # Delay
 
-  splash "$FUNCNAME Finished";
+  splash "[$FUNCNAME] Finished"
 }
 
 
 function Release () {
-  splash "$FUNCNAME params: (${@})";
+  splash "[$FUNCNAME] params: (${@})";
 
   createDirTree "${DIR_DIST}";
   Delay 2;
 
   cd ${WD};
-  cp -prv ${DIR_BUILD}/* ${DIR_DIST}/ 2>/dev/null;
-  warn "Directory [${DIR_BUILD}/*] content DEPLOYED to [${DIR_DIST}/]";
+  cp -prv ${DIR_BUILD}/* ${DIR_DIST}/ 2>&1 >/dev/null;
+  warn "[$FUNCNAME] Directory [${DIR_BUILD}] content DEPLOYED to [${DIR_DIST}]";
   cp -pvf ${DIR_BUILD}/.env ${DIR_DIST}/ 2>&1;
-  warn "Directory [${DIR_BUILD}/.env] COPIED to [${DIR_DIST}/]";
+  warn "[$FUNCNAME] Directory [${DIR_BUILD}/.env] COPIED to [${DIR_DIST}/]";
 
-  warn "Now RUN ARTISAN() with [${DIR_DIST}]";
+  warn "[$FUNCNAME] Now RUN ARTISAN() with [${DIR_DIST}]";
   Artisan "${DIR_DIST}";
-  warn "Now RETURNED from ARTISAN() with [${DIR_DIST}]";
+  warn "[$FUNCNAME] Now RETURNED from ARTISAN() with [${DIR_DIST}]";
 
   # cd ${WD}
   # cd "${DIR_WEB}/public"
@@ -262,7 +260,7 @@ function Release () {
   # node gulpfile.js artisan:clear --env=${APP_ENV} --verbose   \
   # && Delay;
 
-  splash "$FUNCNAME Finished";
+  splash "[$FUNCNAME] Finished";
 }
 
 
@@ -281,12 +279,12 @@ function Deploy () {
 
   cd ${WD}
   cp -pr ${DIR_DIST}/* ${DIR_WEB}/ 2>&1 >/dev/null
+  warn "Directory [${DIR_DIST}/] content DEPLOYED to [${DIR_WEB}/]";
   if [ -f ${DIR_WEB}/.env ]; then
     mv -vf ${DIR_WEB}/.env ${DIR_WEB}/.env.${DATE}.bak 2>&1 >/dev/null;
   fi
   cp -pvf ${DIR_DIST}/.env ${DIR_WEB}/ 2>&1 >/dev/null;
-  info "ENV FILE [${DIR_DIST}/.env] COPIED to [${DIR_WEB}/.env]";
-  warn "Directory [${DIR_DIST}/] content DEPLOYED to [${DIR_WEB}/]";
+  warn "File [${DIR_DIST}/.env] COPIED to [${DIR_WEB}/.env]";
   Delay 2
 
   cd ${WD}
@@ -310,12 +308,12 @@ function Deploy () {
 
 
 function Artisan () {
-
-  splash "$FUNCNAME Started with: (${@})";
+  splash "[$FUNCNAME] Started with: (${@})";
   local W_DIR="$1";
-  info "W_DIR = ${W_DIR}";
+  info "[$FUNCNAME] W_DIR = ${W_DIR}";
 
-  cd ${W_DIR} && pwd;
+  cd ${W_DIR}
+  info "[$FUNCNAME] PWD = $(pwd -P)";
 
   # chmod a+x artisan
   # ./artisan auth:clear-resets
@@ -326,6 +324,7 @@ function Artisan () {
 
   # ./artisan cache:clear
   cd ${W_DIR}
+  php artisan -V > VERSION
   php artisan vendor:publish
   php artisan config:clear
   php artisan key:generate
@@ -334,17 +333,15 @@ function Artisan () {
   # ./artisan migrate:refresh
   # php artisan route:cache;
 
-  php artisan down;
-  php artisan up;
+  php artisan down
+  php artisan up
 
-  php artisan route:list;
-  php artisan migrate:status;
+  # php artisan route:list
+  # php artisan migrate:status
 
   # ./artisan config:cache
 
-  warn "$FUNCNAME COMPLETED FOR: [${W_DIR}]";
-  splash "$FUNCNAME Finished";
-  warn "======================================================================";
+  splash "[$FUNCNAME] COMPLETED FOR: [${W_DIR}]";
   Delay 10;
 }
 
@@ -352,69 +349,69 @@ function Artisan () {
 ##  ------------------------------------------------------------------------  ##
 ##                                  EXECUTION                                 ##
 ##  ------------------------------------------------------------------------  ##
-printf "\n--------------------------\t $0 $1 \t-----------------------------\n";
+echo -ne "\n${BYellow}------------------\t ${BRed} $0 ${NC} ${BPurple} $1 ${NC} \t${BYellow}----------------------\n${NC}";
 
 # logEnv
 
 case "$1" in
 
   "")
-    info "Without params";
+    info "[$FUNCNAME] Without params";
     usage;
     RETVAL=0
   ;;
 
   "usage" | "h")
-    info "Usage()";
+    info "[$FUNCNAME] Usage()";
     usage;
     RETVAL=0
   ;;
 
   "setup" | "s")
-    info "Setup()";
+    info "[$FUNCNAME] Setup()";
     setupChecks && Delay;
     RETVAL=$?
   ;;
 
   "tree")
-    info "Tree()";
+    info "[$FUNCNAME] Tree()";
     createDirTree "${DIR_BUILD} ${DIR_DIST} ${DIR_WEB}" && Delay;
     RETVAL=$?
   ;;
 
   "engine" | "e")
-    info "Engine()";
+    info "[$FUNCNAME] Engine()";
     engineChecks && Delay;
     RETVAL=$?
   ;;
 
   "build" | "b")
-    info "Build()";
+    info "[$FUNCNAME] Build()";
     Build && Delay;
     RETVAL=$?
   ;;
 
   "release" | "r")
-    info "Release()";
+    info "[$FUNCNAME] Release()";
     Release && Delay;
     RETVAL=$?
   ;;
 
   "deploy" | "d")
-    info "Deploy()";
+    info "[$FUNCNAME] Deploy()";
     Deploy && Delay;
     RETVAL=$?
   ;;
 
   "rebuild" | "rb")
-    info "ReBuild()";
+    info "[$FUNCNAME] ReBuild()";
     Build && Delay;
     Release && Delay;
     RETVAL=$?
   ;;
 
   "redeploy" | "rd")
-    info "ReDeploy()";
+    info "[$FUNCNAME] ReDeploy()";
     Build && Delay 2;
     Release && Delay 2;
     Deploy && Delay 2;
@@ -422,7 +419,7 @@ case "$1" in
   ;;
 
   "all" | "a")
-    info "All_Tasks()";
+    info "[$FUNCNAME] All_Tasks()";
     setupChecks && Delay 2;
     engineChecks && Delay 2;
     Build && Delay 2;
@@ -433,7 +430,7 @@ case "$1" in
   ;;
 
   *)
-    fatal "UNKNOWN command: $1";
+    fatal "[$FUNCNAME] UNKNOWN command: $1";
     usage;
     RETVAL=1
   ;;
