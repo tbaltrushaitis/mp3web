@@ -20,7 +20,7 @@ const utin = util.inspect;
 const modName = path.basename(module.filename, '.js');
 const modPath = path.relative(global.ME.WD, path.dirname(module.filename));
 
-const modConfigFile = `configs/${path.join(modPath, modName)}.json`;
+const modConfigFile = `config/${path.join(modPath, modName)}.json`;
 const modConfig = require('read-config')(modConfigFile);
 
 //--------------//

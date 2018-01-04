@@ -3,7 +3,7 @@
 <!--[if IE 9 ]><html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" class="ie9"> <![endif]-->
 <!--[if IE 10 ]><html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" class="ie10"> <![endif]-->
 <!--[if IE 11 ]><html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" class="ie11"> <![endif]-->
-<!--[if (gt IE 11)|!(IE)]><!--><html lang="{{ config('app.locale') }}" xml:lang="{{ config('app.locale') }}" xmlns="http://www.w3.org/1999/xhtml" class="noie"> <!--<![endif]-->
+<!--[if (gt IE 11)|!(IE)]><!--><html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" class="noie"> <!--<![endif]-->
 <head>
     <!--/ Basic Page Needs
     ================================================== /-->
@@ -11,7 +11,7 @@
     <meta http-equiv="X-UA-Compatible"  content="IE=edge, chrome=1" />
     <meta http-equiv="Content-Type"     content="text/html; charset=utf-8" />
 
-    <title>Premium Music Collection :: Original Tracks and Best DJ's Remixes</title>
+    <title>Premium Music Collection :: Dashboard</title>
 
     <!--/ Metas
     ================================================== /-->
@@ -19,7 +19,7 @@
     <meta name="description"    content="Web MP3 Player and Media Library management. Backend based on Laravel framework, client-side - mostly JavaScript" />
     <meta name="keywords"       content="mp3, audio, mix, hit, remix, original, original mix, dj, track, theme, party, music, web, player, media, content, library, laravel" />
     <meta name="author"         content="tbaltrushaitis@gmail.com" />
-    <meta name="language"       content="{{ config('app.locale') }}" />
+    <meta name="language"       content="en" />
     <meta name="robots"         content="index, nofollow, noarchive" />
     <meta name="revisit-after"  content="15 days" />
 
@@ -43,14 +43,13 @@
 
     <!--/ Fonts
     ================================================== /-->
-    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" /> -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" />
 
     <!--/ Styles
     ================================================== /-->
     <!--/ Custom /-->
     <link rel="stylesheet" href="{{ asset('assets/css/bower-bundle.min.css') }}" id="css-bower" />
-    <link rel="stylesheet" href="{{ asset('assets/css/frontend-bundle.min.css') }}" id="css-frontend" />
-    <!--/ <link rel="stylesheet" href="{{ asset('assets/css/frontend/50-mp3.css') }}" id="css-custom" /> /-->
+    <link rel="stylesheet" href="{{ asset('assets/css/dashboard-bundle.min.css') }}" id="css-dashboard" />
 
     <!--/ Favicon
     ================================================== /-->
@@ -59,7 +58,8 @@
 
     <!--/ HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries /-->
     <!--[if lt IE 9]>
-        <script src="{{ asset('/assets/js/lib/html5shiv.min.js') }}"></script>
-        <script src="{{ asset('/assets/js/lib/respond.min.js') }}"></script>
+        <script src="{{ asset('assets/js/lib/html5shiv.min.js') }}"></script>
+        <script src="{{ asset('assets/js/lib/respond.min.js') }}"></script>
     <![endif]-->
+
 </head>

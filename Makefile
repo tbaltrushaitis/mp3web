@@ -16,16 +16,16 @@ REPO_USER := tbaltrushaitis
 REPO_URL := $(shell git ls-remote --get-url)
 
 APP_REPO := ${REPO_HOST}/${REPO_USER}/${APP_NAME}.git
-APP_ENV := $(shell cat .NODE_ENV)
+APP_ENV := $(shell cat NODE_ENV)
 CODE_VERSION := $(shell cat ./VERSION)
-APP_BANNER := $(shell cat ./BANNER)
+APP_BANNER := $(shell cat ./bin/BANNER)
 APP_BRANCH := dev-1.0.2
 
 WD := $(shell pwd -P)
 APP_DIRS := $(addprefix ${WD}/,build-* dist-* webroot)
-APP_SRC := ${WD}/src
-APP_BUILD := ${WD}/build-${CODE_VERSION}
-APP_DIST := ${WD}/dist-${CODE_VERSION}
+# APP_SRC := ${WD}/src
+# APP_BUILD := ${WD}/build-${CODE_VERSION}
+# APP_DIST := ${WD}/dist-${CODE_VERSION}
 
 DT = $(shell date +'%Y%m%d%H%M%S')
 
@@ -41,7 +41,7 @@ include ./setup.rc
 
 ##  ------------------------------------------------------------------------  ##
 
-DIR_ENGINE := ${WD}/${ENGINE_NAME}-${ENGINE_VERSION}
+DIR_ENGINE := ${ENGINE_NAME}-${ENGINE_VERSION}
 GIT_COMMIT := $(shell git rev-list --remove-empty --remotes --max-count=1 --date-order --reverse)
 
 COMMIT_EXISTS := $(shell [ -e COMMIT ] && echo 1 || echo 0)
@@ -84,11 +84,8 @@ default: banner test state help;
 test: test_rc;
 
 ## SOURCE VARIABLES
-#@ cat BANNER
-# test_rc: setup.rc banner
 test_rc: setup.rc;
 	@ echo ${BYellow}[${DT}] TEST GOAL EXECUTED${NC};
-# @cat BANNER;
 
 ##  ------------------------------------------------------------------------  ##
 
@@ -105,11 +102,23 @@ clone:
 
 ##  ------------------------------------------------------------------------  ##
 
+.PHONY: deps deps-init deps-update
+
+deps: deps-init deps-update
+
+deps-init:
+	@ git submodule add -b ${ENGINE_VERSION} --name engine/laravel --force -- https://github.com/laravel/laravel.git engine/${DIR_ENGINE}
+	@ git submodule init
+
+deps-update:
+	@ git submodule update --init --recursive
+
+##  ------------------------------------------------------------------------  ##
+
 .PHONY: banner
 
 banner:
-	@ [ -s ./BANNER ] && cat BANNER;
-# @ cat BANNER
+	@ [ -s ./bin/BANNER ] && cat ./bin/BANNER;
 
 ##  ------------------------------------------------------------------------  ##
 
@@ -134,7 +143,7 @@ clean-dist:
 	@ rm -rf ${DIR_DIST}
 
 clean-engine:
-	@ rm -rf ${DIR_ENGINE}
+	@ rm -rf engine/${DIR_ENGINE}
 
 clean-web:
 	@ rm -rf ${DIR_WEB}
@@ -142,6 +151,7 @@ clean-web:
 clean-deps:
 	@ rm -rf bower_modules/ \
 		node_modules/;
+	@ git reset HEAD .gitmodules engine/${DIR_ENGINE}
 
 clean-files:
 	@ rm -rf ${APP_DIRS}  			\
@@ -156,7 +166,7 @@ clean-files:
 .PHONY: tree
 
 tree:
-	@ ./setup.sh tree;
+	@ ./setup.sh tree
 
 ##  ------------------------------------------------------------------------  ##
 
@@ -196,11 +206,20 @@ deploy:
 
 ##  ------------------------------------------------------------------------  ##
 
+.PHONY: rebuild redeploy
+
+rebuild: build release deploy;
+
+redeploy: release deploy;
+
+##  ------------------------------------------------------------------------  ##
+
 .PHONY: all full
 #* means the word "all" doesn't represent a file name in this Makefile;
 #* means the Makefile has nothing to do with a file called "all" in the same directory.
 
-all: clean rights tree setup engine build release deploy;
+# all: clean rights tree setup engine build release deploy;
+all: clean rights tree setup deps build release deploy;
 
 full: clean-all all;
 

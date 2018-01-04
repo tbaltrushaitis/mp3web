@@ -123,38 +123,32 @@
       }
     }
   , "group": {
-      "front":    [
+      "effects":    [
           "animate.css"
-        , "bootstrap"
-        , "font-awesome"
-        , "html5shiv"
-        , "jquery"
-        , "lodash"
-        , "raty"
-        , "requirejs"
-        , "roboto-webfont-bower"
+        , "normalize.css"
       ]
     , "fonts":    [
-          "bootstrap"
-        , "font-awesome"
+          "font-awesome"
         , "lato-font"
-        , "raty"
         , "roboto-webfont-bower"
       ]
-    , "home": [
-          "admin-lte"
-        , "animate.css"
+    , "libs": [
+          "jquery"
         , "bootstrap"
-        , "bootstrap-tagsinput"
-        , "font-awesome"
-        , "html5shiv"
-        , "jquery"
-        , "jquery-tmpl"
-        , "lato-font"
         , "lodash"
-        , "raty"
         , "requirejs"
       ]
-    , "admin":    ["BOWER-PACKAGE-1", "BOWER-PACKAGE-2", "BOWER-PACKAGE-3"]
+    , "plugins": [
+          "bootstrap-tagsinput"
+        , "html5shiv"
+        , "jquery-tmpl"
+        , "raty"
+      ]
+    , "themes": [
+        "admin-lte"
+      ]
+    , "front":      ["effects", "fonts", "libs", "plugins"]
+    , "cabinet":    ["effects", "fonts", "libs", "plugins"]
+    , "dashboard":  ["effects", "fonts", "libs", "plugins", "themes"]
     }
 }

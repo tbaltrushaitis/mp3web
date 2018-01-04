@@ -14,30 +14,36 @@
   , "readmeFilename":   "README.md"
   , "engines": {
         "node": ">=6.11.0"
+      , "npm": ">=5.0.1"
       , "php":  ">=5.5.38"
-      , "laravel/framework": ">=5.2.31"
+      , "laravel/framework": ">=5.2.45"
     }
-  , "files":    [
+  , "files": [
         "./bin/"
-      , "./gulp-tasks/"
       , "./src/"
+      , "./rc.d/"
+      , "./gulp-tasks/"
+      , "bower.json"
       , ".bowerrc"
+      , "CHANGELOG.md"
       , ".eslintrc"
+      , "gulpfile.js"
       , ".gitattributes"
       , ".gitconfig"
       , ".gitignore"
       , ".jscsrc"
       , ".jshintrc"
+      , "Makefile"
+      , "NODE_ENV"
       , ".npmrc"
+      , "package.json"
       , "bitbucket-pipelines.yml"
-      , "bower.json"
-      , "gulpfile.js"
       , "README.md"
-      , "setup.sh"
       , "setup.rc"
+      , "setup.sh"
       , "VERSION"
     ]
-  , "main":     "gulpfile.js"
+  , "main":   "gulpfile.js"
   , "scripts": {
         "default":  "gulp --env=test"
       , "dev":      "gulp --env=dev"
@@ -60,151 +66,150 @@
       , "web"
     ]
   , "bugs": {
-        "url": "https://github.com/tbaltrushaitis/mp3web/issues"
+      "url": "https://github.com/tbaltrushaitis/mp3web/issues"
     }
   , "dependencies": {
     }
   , "devDependencies": {
-        "bower":                "^1.8.2"
-      , "dateformat":           "^3.0.2"
-      , "del":                  "^3.0.0"
-      , "gulp":                 "^3.9.1"
-      , "gulp-add-src":         "^0.2.0"
-      , "gulp-changed":         "^3.1.1"
-      , "gulp-chmod":           "^2.0.0"
-      , "gulp-chown":           "^1.1.0"
-      , "gulp-clean-css":       "^3.9.0"
-      , "gulp-compass":         "^2.1.0"
-      , "gulp-concat":          "^2.6.0"
-      , "gulp-concat-css":      "^2.3.0"
-      , "gulp-data":            "^1.2.1"
-      , "gulp-directory-sync":  "^1.2.3"
-      , "gulp-exec":            "^2.1.2"
-      , "gulp-file-include":    "^1.2.0"
-      , "gulp-filter":          "^5.0.1"
-      , "gulp-gzip":            "^1.4.0"
-      , "gulp-headerfooter":    "^1.0.3"
-      , "gulp-if":              "^2.0.1"
-      , "gulp-inject":          "^4.3.0"
-      , "gulp-jscs":            "^4.0.0"
-      , "gulp-jshint":          "^2.0.1"
-      , "gulp-json-editor":     "^2.2.1"
-      , "gulp-livereload":      "^3.8.1"
-      , "gulp-minify-css":      "^1.2.4"
-      , "gulp-newer":           "^1.2.0"
-      , "gulp-rename":          "^1.2.2"
-      , "gulp-replace":         "^0.6.1"
-      , "gulp-require-tasks":   "^1.2.1"
-      , "gulp-sequence":        "^0.4.6"
-      , "gulp-tar":             "^2.0.0"
-      , "gulp-template":        "^4.0.0"
-      , "gulp-uglify":          "^3.0.0"
-      , "gulp-util":            "^3.0.8"
-      , "gulp-watch":           "^4.3.9"
-      , "handybower":           "^1.2.5"
-      , "jquery":               "^2.2.4"
-      , "jshint":               "^2.9.5"
-      , "jshint-stylish":       "^2.2.1"
-      , "lodash":               "^4.17.4"
-      , "main-bower-files":     "^2.13.1"
-      , "merge-stream":         "^1.0.0"
-      , "mocha":                "^4.0.1"
-      , "minimist":             "^1.2.0"
-      , "nconf":                "^0.9.1"
-      , "read-config":          "^2.0.0"
-      , "run-sequence":         "^2.2.0"
-      , "versionn":             "^1.0.2"
-      , "vinyl-paths":          "^2.1.0"
-      , "yargs":                "^10.0.3"
+      "bower":                "^1.8.2"
+    , "dateformat":           "^3.0.2"
+    , "del":                  "^3.0.0"
+    , "gulp":                 "^3.9.1"
+    , "gulp-add-src":         "^0.2.0"
+    , "gulp-changed":         "^3.1.1"
+    , "gulp-chmod":           "^2.0.0"
+    , "gulp-chown":           "^1.1.0"
+    , "gulp-clean-css":       "^3.9.0"
+    , "gulp-compass":         "^2.1.0"
+    , "gulp-concat":          "^2.6.0"
+    , "gulp-concat-css":      "^2.3.0"
+    , "gulp-data":            "^1.2.1"
+    , "gulp-directory-sync":  "^1.2.3"
+    , "gulp-exec":            "^2.1.2"
+    , "gulp-file-include":    "^1.2.0"
+    , "gulp-filter":          "^5.0.1"
+    , "gulp-gzip":            "^1.4.0"
+    , "gulp-headerfooter":    "^1.0.3"
+    , "gulp-if":              "^2.0.1"
+    , "gulp-inject":          "^4.3.0"
+    , "gulp-jscs":            "^4.0.0"
+    , "gulp-jshint":          "^2.0.1"
+    , "gulp-json-editor":     "^2.2.1"
+    , "gulp-livereload":      "^3.8.1"
+    , "gulp-minify-css":      "^1.2.4"
+    , "gulp-newer":           "^1.2.0"
+    , "gulp-rename":          "^1.2.2"
+    , "gulp-replace":         "^0.6.1"
+    , "gulp-require-tasks":   "^1.2.1"
+    , "gulp-sequence":        "^0.4.6"
+    , "gulp-tar":             "^2.0.0"
+    , "gulp-template":        "^4.0.0"
+    , "gulp-uglify":          "^3.0.0"
+    , "gulp-util":            "^3.0.8"
+    , "gulp-watch":           "^4.3.9"
+    , "handybower":           "^1.2.5"
+    , "jquery":               "^2.2.4"
+    , "jshint":               "^2.9.5"
+    , "jshint-stylish":       "^2.2.1"
+    , "lodash":               "^4.17.4"
+    , "main-bower-files":     "^2.13.1"
+    , "merge-stream":         "^1.0.0"
+    , "mocha":                "^4.0.1"
+    , "minimist":             "^1.2.0"
+    , "nconf":                "^0.9.1"
+    , "read-config":          "^2.0.0"
+    , "run-sequence":         "^2.2.0"
+    , "versionn":             "^1.0.2"
+    , "vinyl-buffer":         "^1.0.0"
+    , "vinyl-paths":          "^2.1.0"
+    , "yargs":                "^10.0.3"
     }
   , "outdatedDependencies": {
       "gulp-aglio":   "^0.0.10"
     , "gulp-header":  "^1.8.8"
-    , "jsdom":        "^10.1.0"
-    , "underscore":   "^1.8.3"
     }
   , "options": {
-        "bower": {
-            "debugging": true
-          , "paths": {
-                "bowerDirectory": "bower_modules"
-              , "bowerrc":        ".bowerrc"
-              , "bowerJson":      "bower.json"
-            }
+      "bower": {
+        "debugging": true
+      , "paths": {
+            "bowerDirectory": "bower_modules"
+          , "bowerrc":        ".bowerrc"
+          , "bowerJson":      "bower.json"
         }
-      , "clean": {
-            "debug":         true
-          , "processImport": true
-          , "rebase":        false
+      }
+    , "clean": {
+        "debug":         true
+      , "processImport": true
+      , "rebase":        false
+      }
+    , "exec": {
+        "continueOnError": false
+      , "pipeStdout":      false
+      }
+    , "file": {
+        "encoding": "utf8"
+      , "flag":     "r"
+      }
+    , "minify": {
+        "suffix": ".min"
+      }
+    , "reporting": {
+        "err":    true
+      , "stderr": true
+      , "stdout": true
+      }
+    , "sync": {
+        "printSummary": true
+      , "nodelete":     true
+      }
+    , "uglify": {
+        "compress": {
+            "sequences":     true
+          , "properties":    true
+          , "dead_code":     true
+          , "drop_debugger": true
+          , "unsafe":        false
+          , "conditionals":  true
+          , "comparisons":   true
+          , "evaluate":      true
+          , "booleans":      true
+          , "loops":         true
+          , "unused":        true
+          , "hoist_funs":    true
+          , "hoist_vars":    false
+          , "if_return":     true
+          , "join_vars":     true
+          , "cascade":       true
+          , "side_effects":  true
+          , "warnings":      true
+          , "global_defs":   {}
         }
-      , "exec": {
-            "continueOnError": false
-          , "pipeStdout":      false
+      , "mangle": false
+      , "output": {
+            "indent_start":  0
+          , "indent_level":  4
+          , "quote_keys":    false
+          , "ascii_only":    false
+          , "inline_script": false
+          , "width":         80
+          , "max_line_len":  32000
+          , "beautify":      false
+          , "source_map":    null
+          , "bracketize":    false
+          , "comments":      false
+          , "semicolons":    true
         }
-      , "file": {
-            "encoding": "utf8"
-          , "flag":     "r"
-        }
-      , "minify": {
-            "suffix": ".min"
-        }
-      , "reporting": {
-            "err":    true
-          , "stderr": true
-          , "stdout": true
-        }
-      , "sync": {
-            "printSummary": true
-          , "nodelete":     true
-        }
-      , "uglify": {
-            "compress": {
-                "sequences":     true
-              , "properties":    true
-              , "dead_code":     true
-              , "drop_debugger": true
-              , "unsafe":        false
-              , "conditionals":  true
-              , "comparisons":   true
-              , "evaluate":      true
-              , "booleans":      true
-              , "loops":         true
-              , "unused":        true
-              , "hoist_funs":    true
-              , "hoist_vars":    false
-              , "if_return":     true
-              , "join_vars":     true
-              , "cascade":       true
-              , "side_effects":  true
-              , "warnings":      true
-              , "global_defs":   {}
-            }
-          , "mangle": false
-          , "output": {
-                "indent_start":  0
-              , "indent_level":  4
-              , "quote_keys":    false
-              , "ascii_only":    false
-              , "inline_script": false
-              , "width":         80
-              , "max_line_len":  32000
-              , "beautify":      false
-              , "source_map":    null
-              , "bracketize":    false
-              , "comments":      false
-              , "semicolons":    true
-            }
-        }
-      , "watch": {
-            "ignoreInitial": false
-          , "verbose":       true
-          , "readDelay":     500
-        }
-      , "iopts": {
-            "showHidden": false
-          , "depth":      4
-          , "colors":     true
-        }
+      }
+    , "watch": {
+          "ignoreInitial": false
+        , "verbose":       true
+        , "readDelay":     500
+      }
+    , "iopts": {
+          "showHidden": false
+        , "depth":      4
+        , "colors":     true
+      }
     }
   , "jshintConfig": {
     }

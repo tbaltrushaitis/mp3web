@@ -1,0 +1,30 @@
+{ "btr_url":  "https://horo.com/track",
+  "btr_get":  "https://horo.com/dist/",
+  "btr_load": "https://horo.com/dist/btr-loader.js",
+  "xhr_tmo":  5000,
+  "btr_domain":   "btr.horo.com",
+  "btr_prefix":   "btr_",
+  "btr_cookie":   "btr_",
+  "activity_types": {
+      "event": 1
+    , "action": 2
+    , "tbd": 3
+    , "na": 4
+  },
+  "fb_user_props": [
+    "id",
+    "cover",
+    "name",
+    "first_name",
+    "last_name",
+    "age_range",
+    "link",
+    "gender",
+    "locale",
+    "picture",
+    "timezone",
+    "updated_time",
+    "verified",
+    "email"
+  ]
+}

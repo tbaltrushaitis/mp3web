@@ -1,10 +1,9 @@
-@include('cabinet.head')
+@include('dashboard.head')
 
 <!--/
 BODY TAG OPTIONS:
 =================
-Apply one or more of the following classes to get the
-desired effect
+Apply one or more of the following classes to get the desired effect
 |---------------------------------------------------------|
 | SKINS         | skin-blue                               |
 |               | skin-black                              |
@@ -20,263 +19,264 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 /-->
-<body   id="layout-dashboard"
-        class="skin-blue hold-transition layout-boxed sidebar-collapse theme-default"
-        data-id_page="layout-dashboard"
-        data-rooturl="{{ Request::root() }}">
+<body id="layout-dashboard"
+      class="skin-blue hold-transition layout-boxed sidebar-collapse theme-default"
+      data-id_page="layout-dashboard"
+      data-rooturl="{{ Request::root() }}">
 
 <div class="wrapper">
 
-    <!--/ START: NavBar-Top /-->
-    <header class="header hide" id="header">
+  <!--/ START: NavBar-Top /-->
+  <header class="header hide" id="header">
 
-        <!--/  Header Navbar  /-->
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
+      <!--/  Header Navbar  /-->
+      <nav class="navbar navbar-default navbar-static-top">
+          <div class="container">
 
-                <div class="navbar-header">
+              <div class="navbar-header">
 
-                    <!--/ Branding Image /-->
-                    <a class="navbar-brand" href="{{ url('/dashboard') }}" target="_self">
-                        <img class="logo-sm" alt="Premium MP3 Collection" src="{{ asset('assets/img/logo/logo-sm.png') }}" />
-                    </a>
+                  <!--/ Branding Image /-->
+                  <a class="navbar-brand" href="{{ url('/dashboard') }}" target="_self">
+                      <img class="logo-sm" alt="Premium MP3 Collection" src="{{ asset('assets/img/logo/logo-sm.png') }}" />
+                  </a>
 
-                    <!--/ Collapsed Hamburger /-->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
+                  <!--/ Collapsed Hamburger /-->
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
+                      <span class="sr-only">Toggle Navigation</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                  </button>
 
-                </div>
+              </div>
 
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!--/ Left Side Of Navbar /-->
-                    <ul class="nav navbar-nav">
-                        <li><a href="{{ url('/') }}" target="blank">Site Front</a></li>
-                        <li><a href="{{ url('/cabinet') }}" target="_self">Cabinet</a></li>
-                    </ul>
+              <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                  <!--/ Left Side Of Navbar /-->
+                  <ul class="nav navbar-nav">
+                      <li><a href="{{ url('/') }}" target="blank">Site Front</a></li>
+                      <li><a href="{{ url('/cabinet') }}" target="_self">Cabinet</a></li>
+                  </ul>
 
-                    <!--/ Right Side Of Navbar /-->
-                    <ul class="nav navbar-nav navbar-right">
-                        <!--/ Authentication Links /-->
-                        @if (Auth::guest())
-                            <li><a href="{{ url('/login') }}" target="blank">Login</a></li>
-                            <li><a href="{{ url('/register') }}" target="blank">Register</a></li>
-                        @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
+                  <!--/ Right Side Of Navbar /-->
+                  <ul class="nav navbar-nav navbar-right">
+                      <!--/ Authentication Links /-->
+                      @if (Auth::guest())
+                          <li><a href="{{ url('/login') }}" target="blank">Login</a></li>
+                          <li><a href="{{ url('/register') }}" target="blank">Register</a></li>
+                      @else
+                          <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                  {{ Auth::user()->name }} <span class="caret"></span>
+                              </a>
 
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="{{ url('/profile') }}"><i class="fa fa-btn fa-user"></i>Profile</a></li>
-                                    <li><a href="{{ url('/history') }}"><i class="fa fa-btn fa-history"></i>History</a></li>
-                                    <li><a href="{{ url('/playlists') }}"><i class="fa fa-btn fa-list-alt"></i>Playlists</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
-                                </ul>
-                            </li>
-                        @endif
-                    </ul>
-                </div>
-
-            </div>
-        </nav>
-
-    </header><!--/  END: NavBar-Top  /-->
-
-    <!--/ Main Header /-->
-    <header class="main-header">
-
-        <!--/ Branding Image /-->
-        <a class="navbar-brand" href="{{ url('/') }}" target="_self">
-            <img class="logo-sm" alt="Premium MP3 Collection" src="{{ asset('assets/img/logo/logo-sm.png') }}" />
-        </a>
-
-        <!--/ Logo /-->
-<!--/         <a href="{{ url('/dashboard') }}" class="logo"> /-->
-            <!--/ mini logo for sidebar mini 50x50 pixels /-->
-<!--/             <span class="logo-mini"><b>MP</b>3</span> /-->
-            <!--/ logo for regular state and mobile devices /-->
-<!--/             <span class="logo-lg"><b>MP3</b>WEB</span> /-->
-<!--/         </a> /-->
-
-        <!--/ Header Navbar /-->
-        <nav class="navbar navbar-static-top" role="navigation">
-
-            <!--/ Sidebar toggle button /-->
-            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                <span class="sr-only">Toggle navigation</span>
-            </a>
-
-            <!--/ Navbar Right Menu /-->
-            <div class="navbar-custom-menu">
-
-                <ul class="nav navbar-nav">
-
-                    <!--/ Messages: style can be found in dropdown.less /-->
-                    <li class="dropdown messages-menu">
-
-                        <!--/ Menu toggle button /-->
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-envelope-o"></i>
-                            <span class="label label-success">4</span>
-                        </a>
-
-                        <ul class="dropdown-menu">
-                            <li class="header">You have 4 messages</li>
-                            <li>
-                                <!--/ inner menu: contains the messages /-->
-                                <ul class="menu">
-                                    <li><!-- start message -->
-                                        <a href="#">
-                                            <div class="pull-left">
-                                                <!--/ User Image /-->
-                                                <img src="{{ asset('assets/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
-                                            </div>
-                                            <!--/ Message title and timestamp /-->
-                                            <h4>
-                                                Support Team
-                                                <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                                            </h4>
-                                            <!--/ The message /-->
-                                            <p>Why not buy a new awesome theme?</p>
-                                        </a>
-                                    </li>
-                                    <!--/ end message /-->
-                                </ul>
-                                <!--/ /.menu /-->
-                            </li>
-                            <li class="footer"><a href="#">See All Messages</a></li>
-                        </ul>
-                    </li>
-                    <!--/ /.messages-menu /-->
-
-                    <!--/ Notifications Menu /-->
-                    <li class="dropdown notifications-menu">
-                        <!--/ Menu toggle button /-->
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-bell-o"></i>
-                            <span class="label label-warning">10</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="header">You have 10 notifications</li>
-                            <li>
-                                <!--/ Inner Menu: contains the notifications /-->
-                                <ul class="menu">
-                                    <li><!--/ start notification /-->
-                                        <a href="#">
-                                            <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                                        </a>
-                                    </li>
-                                    <!--/ end notification /-->
-                                </ul>
-                            </li>
-                            <li class="footer"><a href="#">View all</a></li>
-                        </ul>
-                    </li>
-
-                    <!--/ Tasks Menu /-->
-                    <li class="dropdown tasks-menu">
-                    <!-- Menu Toggle Button -->
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                      <i class="fa fa-flag-o"></i>
-                      <span class="label label-danger">9</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li class="header">You have 9 tasks</li>
-                      <li>
-                        <!-- Inner menu: contains the tasks -->
-                        <ul class="menu">
-                          <li><!-- Task item -->
-                            <a href="#">
-                              <!-- Task title and progress text -->
-                              <h3>
-                                Design some buttons
-                                <small class="pull-right">20%</small>
-                              </h3>
-                              <!-- The progress bar -->
-                              <div class="progress xs">
-                                <!-- Change the css width attribute to simulate progress -->
-                                <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                  <span class="sr-only">20% Complete</span>
-                                </div>
-                              </div>
-                            </a>
+                              <ul class="dropdown-menu" role="menu">
+                                  <li><a href="{{ url('/profile') }}"><i class="fa fa-btn fa-user"></i>Profile</a></li>
+                                  <li><a href="{{ url('/history') }}"><i class="fa fa-btn fa-history"></i>History</a></li>
+                                  <li><a href="{{ url('/playlists') }}"><i class="fa fa-btn fa-list-alt"></i>Playlists</a></li>
+                                  <li role="separator" class="divider"></li>
+                                  <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                              </ul>
                           </li>
-                          <!-- end task item -->
-                        </ul>
+                      @endif
+                  </ul>
+              </div>
+
+          </div>
+      </nav>
+
+  </header><!--/  END: NavBar-Top  /-->
+
+  <!--/ Main Header /-->
+  <header class="main-header">
+
+    <!--/ Branding Image /-->
+    <a class="navbar-brand" href="{{ url('/') }}" target="_self">
+      <img class="logo-sm" alt="Premium MP3 Collection" src="{{ asset('assets/img/logo/logo-sm.png') }}" />
+    </a>
+
+    <!--/ Logo /-->
+  <!--/   <a href="{{ url('/dashboard') }}" class="logo"> /-->
+  <!--/ mini logo for sidebar mini 50x50 pixels /-->
+  <!--/   <span class="logo-mini"><b>MP</b>3</span> /-->
+  <!--/ logo for regular state and mobile devices /-->
+  <!--/  <span class="logo-lg"><b>MP3</b>WEB</span> /-->
+  <!--/  </a> /-->
+
+    <!--/ Header Navbar /-->
+    <nav class="navbar navbar-static-top" role="navigation">
+
+      <!--/ Sidebar toggle button /-->
+      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+          <span class="sr-only">Toggle navigation</span>
+      </a>
+
+      <!--/ Navbar Right Menu /-->
+      <div class="navbar-custom-menu">
+
+          <ul class="nav navbar-nav">
+
+              <!--/ Messages: style can be found in dropdown.less /-->
+              <li class="dropdown messages-menu">
+
+                  <!--/ Menu toggle button /-->
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      <i class="fa fa-envelope-o"></i>
+                      <span class="label label-success">4</span>
+                  </a>
+
+                  <ul class="dropdown-menu">
+                      <li class="header">You have 4 messages</li>
+                      <li>
+                          <!--/ inner menu: contains the messages /-->
+                          <ul class="menu">
+                              <li><!-- start message -->
+                                  <a href="#">
+                                      <div class="pull-left">
+                                          <!--/ User Image /-->
+                                          <img src="{{ asset('assets/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+                                      </div>
+                                      <!--/ Message title and timestamp /-->
+                                      <h4>
+                                          Support Team
+                                          <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                      </h4>
+                                      <!--/ The message /-->
+                                      <p>Why not buy a new awesome theme?</p>
+                                  </a>
+                              </li>
+                              <!--/ end message /-->
+                          </ul>
+                          <!--/ /.menu /-->
                       </li>
-                      <li class="footer">
-                        <a href="#">View all tasks</a>
+                      <li class="footer"><a href="#">See All Messages</a></li>
+                  </ul>
+              </li>
+              <!--/ /.messages-menu /-->
+
+              <!--/ Notifications Menu /-->
+              <li class="dropdown notifications-menu">
+                  <!--/ Menu toggle button /-->
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      <i class="fa fa-bell-o"></i>
+                      <span class="label label-warning">10</span>
+                  </a>
+                  <ul class="dropdown-menu">
+                      <li class="header">You have 10 notifications</li>
+                      <li>
+                          <!--/ Inner Menu: contains the notifications /-->
+                          <ul class="menu">
+                              <li><!--/ start notification /-->
+                                  <a href="#">
+                                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                                  </a>
+                              </li>
+                              <!--/ end notification /-->
+                          </ul>
                       </li>
-                    </ul>
-                  </li>
+                      <li class="footer"><a href="#">View all</a></li>
+                  </ul>
+              </li>
 
-                    <!--/ User Account Menu /-->
-                    <li class="dropdown user user-menu">
-                        <!--/ Menu Toggle Button /-->
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <!--/ The user image in the navbar-->
-                            <img src="{{ asset('assets/img/user2-160x160.jpg') }}" class="user-image" alt="User Image" />
-                            <!--/ hidden-xs hides the username on small devices so only the image appears. /-->
-                            <span class="hidden-xs">{{ Auth::user()->name }}</span>
-                        </a>
-
-                        <ul class="dropdown-menu">
-
-                            <!--/ The user image in the menu /-->
-                            <li class="user-header">
-                                <img src="{{ asset('assets/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image" />
-
-                                <p>
-                                    {{ Auth::user()->name }} - Web Developer
-                                    <small>Member since Nov. 2012</small>
-                                </p>
-                            </li>
-
-                            <!--/ Menu Body /-->
-                            <li class="user-body">
-                                <div class="row">
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Followers</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Sales</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Friends</a>
-                                    </div>
-                                </div>
-                                <!-- /.row -->
-                            </li>
-
-                            <!--/ Menu Footer /-->
-                            <li class="user-footer">
-                                <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                </div>
-                                <div class="pull-right">
-                                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
-                                </div>
-                            </li>
-
-                        </ul>
-
+              <!--/ Tasks Menu /-->
+              <li class="dropdown tasks-menu">
+              <!-- Menu Toggle Button -->
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-flag-o"></i>
+                <span class="label label-danger">9</span>
+              </a>
+              <ul class="dropdown-menu">
+                <li class="header">You have 9 tasks</li>
+                <li>
+                  <!-- Inner menu: contains the tasks -->
+                  <ul class="menu">
+                    <li><!-- Task item -->
+                      <a href="#">
+                        <!-- Task title and progress text -->
+                        <h3>
+                          Design some buttons
+                          <small class="pull-right">20%</small>
+                        </h3>
+                        <!-- The progress bar -->
+                        <div class="progress xs">
+                          <!-- Change the css width attribute to simulate progress -->
+                          <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                            <span class="sr-only">20% Complete</span>
+                          </div>
+                        </div>
+                      </a>
                     </li>
+                    <!-- end task item -->
+                  </ul>
+                </li>
+                <li class="footer">
+                  <a href="#">View all tasks</a>
+                </li>
+              </ul>
+            </li>
 
-                    <!--/ Control Sidebar Toggle Button /-->
-                    <li>
-                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                    </li>
+              <!--/ User Account Menu /-->
+              <li class="dropdown user user-menu">
+                  <!--/ Menu Toggle Button /-->
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      <!--/ The user image in the navbar-->
+                      <img src="{{ asset('assets/img/user2-160x160.jpg') }}" class="user-image" alt="User Image" />
+                      <!--/ hidden-xs hides the username on small devices so only the image appears. /-->
+                      <span class="hidden-xs">{{ Auth::user()->name }}</span>
+                  </a>
 
-                </ul>
-            </div>
+                  <ul class="dropdown-menu">
 
-        </nav>
-    </header>
+                      <!--/ The user image in the menu /-->
+                      <li class="user-header">
+                          <img src="{{ asset('assets/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image" />
+
+                          <p>
+                              {{ Auth::user()->name }} - Web Developer
+                              <small>Member since Nov. 2012</small>
+                          </p>
+                      </li>
+
+                      <!--/ Menu Body /-->
+                      <li class="user-body">
+                          <div class="row">
+                              <div class="col-xs-4 text-center">
+                                  <a href="#">Followers</a>
+                              </div>
+                              <div class="col-xs-4 text-center">
+                                  <a href="#">Sales</a>
+                              </div>
+                              <div class="col-xs-4 text-center">
+                                  <a href="#">Friends</a>
+                              </div>
+                          </div>
+                          <!-- /.row -->
+                      </li>
+
+                      <!--/ Menu Footer /-->
+                      <li class="user-footer">
+                          <div class="pull-left">
+                              <a href="#" class="btn btn-default btn-flat">Profile</a>
+                          </div>
+                          <div class="pull-right">
+                              <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                          </div>
+                      </li>
+
+                  </ul>
+
+              </li>
+
+              <!--/ Control Sidebar Toggle Button /-->
+              <li>
+                  <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+              </li>
+
+          </ul>
+      </div>
+
+    </nav>
+
+  </header>
 
     <!--/ Left side column. contains the logo and sidebar /-->
     <aside class="main-sidebar">
@@ -418,7 +418,7 @@ desired effect
             <!--/ Stats tab content /-->
             <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
             <!-- /.tab-pane -->
-            
+
             <!--/ Settings tab content /-->
             <div class="tab-pane" id="control-sidebar-settings-tab">
                 <form method="post">

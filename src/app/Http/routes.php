@@ -22,8 +22,8 @@ Route::get('/{hash}/play',          ['as' => 'Media:Play',  'uses' => 'MediaCont
 
 Route::post('rate/{hash}/{rate}',   ['as' => 'Media:Rate',  'uses' => 'MediaController@mediaRate'])
     ->where([
-        'hash'  =>  '[0-9a-f]+'
-      , 'rate'  =>  '(dis)?like'
+        'hash' => '[0-9a-f]+'
+      , 'rate' => '(dis)?like'
     ]);
 
 Route::delete('/{hash}',            ['as' => 'Media:Delete', 'uses' => 'MediaController@mediaDrop'])
@@ -72,4 +72,3 @@ Route::post('/{hash}/meta',     ['as' => 'Meta:update', 'uses' => 'AjaxControlle
 
 Route::delete('/{hash}/meta',   ['as' => 'Meta:delete', 'uses' => 'AjaxController@destroy'])
     ->where(['hash' => '[0-9a-f]+']);
-
