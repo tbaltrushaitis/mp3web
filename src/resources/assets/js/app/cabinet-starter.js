@@ -1,9 +1,7 @@
-/*  BOF: assets/js/app/cabinet-starter.js  */
-
 /*!
- * ASSETS/JS/APP/cabinet-starter.js
- * Copyright(c) 2016-2017 Baltrushaitis Tomas
- * MIT Licensed
+ * File:          ASSETS/JS/APP/cabinet-starter.js
+ * License:       MIT
+ * Copyright (c)  2016-2017 Baltrushaitis Tomas
  */
 
 'use strict';
@@ -11,39 +9,44 @@
 require([
     'jquery'
   , 'underscore'
-  , 'cabinetController'
   , 'bootstrapTags'
   , 'functions'
-  , 'LTEapp'
+  , 'cabinetController'
+  // , 'LTEapp'
 ]
-  , function ($, _, cc, bsTags, F, LTE) {
-        console.timeStamp('CABINET MODULES READY');
+  // , function ($, _, cc, bsTags, F, LTE) {
+  , function ($, _, bsTags, F, cc) {
+    console.info('CABINET STARTER MODULES READY');
 });
 
-//define([
+// define([
 require([
-    'require'
-  , 'jquery'
+    // 'require'
+    'jquery'
   , 'underscore'
+  , 'bootstrapTags'
   , 'functions'
   , 'cabinetController'
-  , 'bootstrapTags'
-  , 'LTEapp'
+  // , 'LTEapp'
   ]
 
-  , function (require, $, _, LTE) {
+  // , function (require, $, _, LTE) {
+  // , function ($, _, libTags, cabinetController) {
+  , function ($, _, bsTags, F, cc) {
 
-    var ControllerCabinet   =   new require('cabinetController');
-    var libTags             =   new require('bootstrapTags');
+    var ControllerCabinet = new require('cabinetController');
+    // var libTags           = new require('bootstrapTags');
 
-    $.when(ControllerCabinet, libTags, LTE)
+    // $.when(ControllerCabinet, libTags, LTE)
+    $.when(ControllerCabinet, bsTags)
      .then(function (loCabinet) {
-        var pageId  =   $('body').attr('data-id_page');
-        console.group(pageId);
-        console.timeStamp(pageId + ':CHECK-IN');
-        console.info('Starting CabinetController');
-        console.groupEnd(pageId);
-        loCabinet.start();
+      var pageId = $('body').attr('data-id_page');
+      console.group(pageId);
+      console.info(pageId + ':CHECK-IN');
+      console.info('Starting CabinetController');
+      console.log('loCabinet (', typeof loCabinet, ') =', loCabinet);
+      console.groupEnd(pageId);
+      loCabinet.start();
     });
 
 });

@@ -14,8 +14,9 @@ pipelines:
             - free -m
             - df -H
             - netstat -apn
-            - docker info
             - npm -v
+            - ls -als
+            - pwd
             - printf "Everything is awesome!\n";
     dev-1.0.2:
       - step:
