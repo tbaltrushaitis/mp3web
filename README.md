@@ -1,46 +1,44 @@
 # Web MP3 Player :headphones: and Media Library Manager #
 
+[![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](http://tbaltrushaitis.mit-license.org/)
+[![Contributors List](https://img.shields.io/github/contributors/tbaltrushaitis/mp3web.svg)](https://github.com/tbaltrushaitis/mp3web/graphs/contributors)
+[![Code Climate](https://codeclimate.com/github/tbaltrushaitis/mp3web/badges/gpa.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3web)
+[![Test Coverage](https://codeclimate.com/github/tbaltrushaitis/mp3web/badges/coverage.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3web/coverage)
+
 <p align="center">
-  <img src="src/resources/assets/img/logo/Favicon.png" alt="Web MP3 Player Logo">
+  <img src="src/resources/assets/img/logo/Favicon.png" alt="Web MP3 Player Logo" />
 </p>
 
 `mp3` `web` `player` `audio` `library` `manager`
 
------
-
-## Badges ##
-
-[![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](http://tbaltrushaitis.mit-license.org/)
-[![Code Climate](https://codeclimate.com/github/tbaltrushaitis/mp3web/badges/gpa.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3web)
-[![Test Coverage](https://codeclimate.com/github/tbaltrushaitis/mp3web/badges/coverage.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3web/coverage)
-
------
-
-## Components ##
-
- Scope | Role | Name | Version | Description
-:-----:|:----:|:-----|:-------:|:------------
- Host | Engine | [Composer](https://getcomposer.org/) | 1.5.2 | Dependency Manager for PHP
- Back | Engine | [Laravel](https://laravel.com/docs/5.2) | 5.2.31 | PHP Framework
- Front | Framework | [Bootstrap](http://getbootstrap.com) | 3.3.7 | HTML, CSS, and JS framework
- Front | Plugin | [Bootstrap Tagsinput](https://github.com/bootstrap-tagsinput/bootstrap-tagsinput) | 0.8.0 | jQuery tags input plugin based on Twitter Bootstrap
- Front | Library | [requirejs](https://github.com/jrburke/requirejs) | 2.3.3 | A file and module loader for JavaScript
- Front | Library | [Font-Awesome](http://fontawesome.io/) | 4.7.0 | The iconic font and CSS toolkit
- Front | Library | [jQuery](http://jquery.com/) | 2.2.4 | JavaScript Library
- Front | Library | [Lodash](https://lodash.com/docs/4.17.4) | 4.17.4 | A modern JavaScript utility library delivering modularity, performance & extras.
- Front | Library | [animate.css](http://daneden.github.io/animate.css/) | 3.5.2 | A cross-browser library of CSS animations
- Front | DEPRECATED | [Underscore.js](http://underscorejs.org) | :x: | JavaScript library that provides a whole mess of useful functional programming helpers
+---
 
 ## Live Demo ##
-:point_right: [Premium Music Collection](http://mp3.gsm-center.com.ua)
+:point_right: [Premium Music Collection](http://bit.ly/mp3web)
 
------
+---
+
+## :octocat: Credits ##
+
+| Scope | Role | Name | Version | Description
+|:-----:|:----:|:-----|:-------:|:------------
+| Host | Installer | [Composer](https://getcomposer.org/) | 1.5.2 | Dependency Manager for PHP
+| Back | Engine | [Laravel](https://laravel.com/docs/5.2) | 5.2.31 | PHP Framework
+| Front | Framework | [Bootstrap](http://getbootstrap.com) | 3.3.7 | HTML, CSS, and JS framework
+| Front | Plugin | [Bootstrap&nbsp;Tagsinput](https://github.com/bootstrap-tagsinput/bootstrap-tagsinput) | 0.8.0 | jQuery tags input plugin based on Twitter Bootstrap
+| Front | Library | [require.js](https://github.com/jrburke/requirejs) | 2.3.3 | A file and module loader for JavaScript
+| Front | Library | [Font-Awesome](http://fontawesome.io/) | 4.7.0 | The iconic font and CSS toolkit
+| Front | Library | [jQuery](http://jquery.com/) | 3.3.1 | JavaScript Library
+| Front | Library | [Lodash](https://lodash.com/docs/4.17.4) | 4.17.4 | A modern JavaScript utility library delivering modularity, performance & extras.
+| Front | Library | [animate.css](http://daneden.github.io/animate.css/) | 3.5.2 | A cross-browser library of CSS animations
+
+---
 
 ## Usage ##
 
 ### 1 - Download ###
-```bash
-$ git clone -b latest https://github.com/tbaltrushaitis/mp3web.git mp3web
+```shell
+$ git clone -b latest https://github.com/tbaltrushaitis/mp3web.git && cd mp3web
 ```
 
 ### 2 - Configure ###
@@ -52,12 +50,12 @@ variables in it (e.g. DB_HOST, APP_URL)
 With `make` - GNU make utility to maintain groups of programs
 
 In fact you just need to type in your terminal:
-```bash
+```shell
 $ make
 ```
 
 To get additional info and usage examples type `make usage|help` command param:
-```bash
+```shell
 $ make help
 
 AVAILABLE COMMANDS:
@@ -71,32 +69,18 @@ AVAILABLE COMMANDS:
 ```
 
 ### 4 - Deploy ###
-```bash
+```shell
 $ make all
 ```
 
 ### 5 - Enjoy ###
 
-
-## Gulp Tasks Overview ##
-
-In common case gulp command should look like
-```bash
-$ gulp command:p1:..:pN --env_VAR=some_VALUE
-
-# e.g.
-# gulp bower --env=production
-# gulp build --env=production
-# or
-# gulp --env=dev
-```
-
----------
+---
 
 ## Todo List ##
  - [ ] Implement search throw items.
 
-## Change log ##
+## Changelog ##
 
 ### v1.0.2 ###
  - [x] Makefile scenario now used to build and deploy project
@@ -127,15 +111,9 @@ $ gulp command:p1:..:pN --env_VAR=some_VALUE
 ### v0.0.0 ###
  - [x] Initial release
 
---------
+---
 
-### Contributors ###
-
-[![Contributors List](https://img.shields.io/github/contributors/tbaltrushaitis/mp3web.svg)](https://github.com/tbaltrushaitis/mp3web/graphs/contributors)
-
---------
-
-### Useful Info ###
+### :link: More Info ###
 
  - [GitHub / Basic writing and formatting syntax](https://help.github.com/articles/basic-writing-and-formatting-syntax/)
  - [BitBucket Markdown Howto](https://bitbucket.org/tutorials/markdowndemo)
@@ -143,4 +121,6 @@ $ gulp command:p1:..:pN --env_VAR=some_VALUE
  - [Linking containers](https://docs.docker.com/engine/userguide/networking/default_network/dockerlinks.md)
  - [Cross-host linking containers](https://docs.docker.com/engine/admin/ambassador_pattern_linking.md)
 
---------
+---
+
+:scorpius:

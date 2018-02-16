@@ -51,47 +51,47 @@ class MediaController extends Controller {
   }
 
 
-    /**
-     * Play - provide track's metadata as JSON
-     * @param  String $id
-     * @return Response JSON
-     */
-    public function mediaPlay ($id) {
-        $meta   =   $this->mediaRepository->getTrackMeta($id);
-        $plays  =   $meta->get('plays', 0);
-        $meta->put('plays', ++$plays);
-        $this->mediaRepository->setTrackMeta($meta);
-        return response()->json($meta);
-    }
+  /**
+   * Play - provide track's metadata as JSON
+   * @param  String $id
+   * @return Response JSON
+   */
+  public function mediaPlay ($id) {
+    $meta  = $this->mediaRepository->getTrackMeta($id);
+    $plays = $meta->get('plays', 0);
+    $meta->put('plays', ++$plays);
+    $this->mediaRepository->setTrackMeta($meta);
+    return response()->json($meta);
+  }
 
 
-    /**
-     * Rate - add like/dislike vote
-     * @param  $id, $vote
-     * @return Response JSON
-     */
-    public function mediaRate ($id, $vote) {
-        $meta       =   $this->mediaRepository->getTrackMeta($id);
-        $rateKey    =   $vote . 's';
-        $rateCur    =   $meta->get($rateKey, 0);
-        $meta->put($rateKey, ++$rateCur);
-        $saveResult =   $this->mediaRepository->setTrackMeta($meta);
-        $saveResult->put('action', $vote);
-        return response()->json($saveResult);
-    }
+  /**
+   * Rate - add like/dislike vote
+   * @param  $id, $vote
+   * @return Response JSON
+   */
+  public function mediaRate ($id, $vote) {
+    $meta    = $this->mediaRepository->getTrackMeta($id);
+    $rateKey = $vote . 's';
+    $rateCur = $meta->get($rateKey, 0);
+    $meta->put($rateKey, ++$rateCur);
+    $saveResult =   $this->mediaRepository->setTrackMeta($meta);
+    $saveResult->put('action', $vote);
+    return response()->json($saveResult);
+  }
 
 
-    /**
-     * Drop - delete track's metadata
-     * @param  $id
-     * @return Response JSON
-     */
-    public function mediaDrop ($id) {
-        // $this->middleware('auth');
-        $actionResult =   $this->mediaRepository->dropTrack($id);
-        $actionResult->put('action', 'DROP');
-        // return response()->json($actionResult);
-        return redirect()->action('CabinetController@index')->with('status', 'Track Metadata removed!');
-    }
+  /**
+   * Drop - delete track's metadata
+   * @param  $id
+   * @return Response JSON
+   */
+  public function mediaDrop ($id) {
+    // $this->middleware('auth');
+    $actionResult = $this->mediaRepository->dropTrack($id);
+    $actionResult->put('action', 'DROP');
+    // return response()->json($actionResult);
+    return redirect()->action('CabinetController@index')->with('status', 'Track Metadata removed!');
+  }
 
 }

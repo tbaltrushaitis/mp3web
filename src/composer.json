@@ -1,23 +1,23 @@
-{   "name":         "mp3web"
-  , "title":        "Web MP3 Player and Media Library Manager"
-  , "description":  "Web MP3 Player and Media Library Manager based on Node.js, Laravel and HTML5 + lightweight JavaScript MVC modeling on FrontEnd"
-  , "version":      "1.0.2"
-  , "type":         "project"
-  , "license":      "MIT"
-  , "homepage":     "https://tbaltrushaitis.github.io/mp3web/"
+{   "name":        "mp3web"
+  , "title":       "Web MP3 Player and Media Library Manager"
+  , "description": "Web MP3 Player and Media Library Manager based on Node.js, Laravel and HTML5 + lightweight JavaScript MVC modeling on FrontEnd"
+  , "version":     "1.0.3"
+  , "type":        "project"
+  , "license":     "MIT"
+  , "homepage":    "https://tbaltrushaitis.github.io/mp3web/"
   , "author": {
         "name":  "Baltrushaitis Tomas"
       , "email": "tbaltrushaitis@gmail.com"
       , "url":   "https://github.com/tbaltrushaitis"
     }
   , "authors": [
-      {   "name":   "Baltrushaitis Tomas"
-        , "email":  "tbaltrushaitis@gmail.com"
+      {   "name":  "Baltrushaitis Tomas"
+        , "email": "tbaltrushaitis@gmail.com"
       }
     ]
   , "require": {
-        "php":                ">=5.5.38"
-      , "laravel/framework":  ">=5.2.45"
+        "php":               ">=5.5.38"
+      , "laravel/framework": ">=5.2.45"
     }
   , "require-disabled": {
       "wisembly/elephant.io": "~3.0"
@@ -34,7 +34,7 @@
   , "autoload": {
       "classmap": []
     , "psr-4": {
-        "App\\":  "app/"
+        "App\\": "app/"
       }
     }
   , "autoload-dev": {
@@ -62,7 +62,7 @@
       ]
     }
   , "config": {
-      "preferred-install":    "dist"
+      "preferred-install": "dist"
     }
   , "keywords": [
         "mp3"
@@ -75,4 +75,9 @@
       , "manager"
       , "web"
     ]
+  , "extra": {
+      "laravel": {
+        "dont-discover": []
+      }
+    }
 }

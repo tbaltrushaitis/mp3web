@@ -3,13 +3,16 @@
 ##  ------------------------------------------------------------------------  ##
 
 # .SILENT:
-
 .EXPORT_ALL_VARIABLES:
-
-# .IGNORE:
+.IGNORE:
+.ONESHELL:
 ##  ------------------------------------------------------------------------  ##
 
 APP_NAME := mp3web
+APP_LOGO := ./assets/BANNER
+
+APP_REPO := $(shell git ls-remote --get-url)
+GIT_COMMIT := $(shell git rev-list --remove-empty --remotes --max-count=1 --date-order --reverse)
 
 REPO_HOST := https://bitbucket.org
 REPO_USER := tbaltrushaitis
@@ -29,7 +32,7 @@ APP_DIRS := $(addprefix ${WD}/,build-* dist-* webroot)
 
 DT = $(shell date +'%Y%m%d%H%M%S')
 
-RC_FILE := setup.rc
+RC_FILE := ./setup.rc
 RC_EXISTS := $(shell [ -e ./${RC_FILE} ] && echo 1 || echo 0)
 ifeq ($(RC_EXISTS), 0)
 $(warning ${BRed}[${DT}] Missing file [./${RC_FILE}]${NC})
@@ -37,7 +40,7 @@ exit 1
 endif
 
 include ./bin/.bash_colors
-include ./setup.rc
+include ${RC_FILE}
 
 ##  ------------------------------------------------------------------------  ##
 
@@ -92,12 +95,11 @@ test_rc: setup.rc;
 .PHONY: clone
 
 clone:
-	@  git clone -b ${APP_BRANCH} ${APP_REPO} 	\
-	&& cd ${APP_NAME} 	\
-	&& git pull 	\
-	&& git branch 	\
-	&& find . -type f -exec chmod 664 {} \; 	\
-	&& find . -type d -exec chmod 775 {} \; 	\
+	@  git clone -b ${APP_BRANCH} ${APP_REPO} ${APP_NAME} \
+	&& cd ${APP_NAME} \
+	&& git pull \
+	&& find . -type f -exec chmod 664 {} \; \
+	&& find . -type d -exec chmod 775 {} \; \
 	&& find . -type f -name "*.sh" -exec chmod 755 {} \;
 
 ##  ------------------------------------------------------------------------  ##

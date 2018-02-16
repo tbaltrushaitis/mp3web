@@ -109,12 +109,12 @@ console.log(`\n`);
 
 let now = new Date();
 let headerTpl = _.template(`/*!
- * Package:\t\t <%= pkg.name %>@<%= pkg.version %>
- * Name:\t\t <%= pkg.title %>
+ * Package:\t <%= pkg.name %>@<%= pkg.version %>
+ * Name:\t <%= pkg.title %>
  * Description:\t <%= pkg.description %>
  * Created:\t ${dateFormat(now, 'yyyy')} <%= pkg.author.email %>
- * License:\t\t <%= pkg.license %>
- * Visit:\t\t <%= pkg.homepage %>
+ * License:\t <%= pkg.license %>
+ * Visit:\t <%= pkg.homepage %>
  */
 `);
 
@@ -124,7 +124,7 @@ let footerTpl = _.template(`
  * Purpose:\t <%= ME.NODE_ENV %>
  * Version:\t <%= ME.VERSION %>
  * Commit:\t <%= ME.COMMIT %>
- * Built:\t\t ${dateFormat(now, 'yyyy-mm-dd')}T${dateFormat(now, 'HH:MM:ss')}
+ * Built:\t ${dateFormat(now, 'yyyy-mm-dd')}T${dateFormat(now, 'HH:MM:ss')}
  * EOF:\t\t <%= pkg.name %>@<%= pkg.version %> - <%= pkg.title %>
  * =========================================================================== *
  */

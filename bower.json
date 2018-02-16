@@ -1,7 +1,7 @@
 {   "name":         "mp3web"
   , "title":        "Web MP3 Player and Media Library Manager"
   , "description":  "Web MP3 Player and Media Library Manager based on Node.js, Laravel and HTML5 + lightweight JavaScript MVC modeling on FrontEnd"
-  , "version":      "1.0.2"
+  , "version":      "1.0.3"
   , "main":         "index.php"
   , "authors": [
       "tbaltrushaitis@gmail.com"
@@ -47,7 +47,7 @@
       , "jquery":               "~3.3.1"
       , "jquery-tmpl":          "#b504c8afba"
       , "lato-font":            "~3.0.0"
-      , "lodash":               "~4.17.4"
+      , "lodash":               "~4.17.5"
       , "normalize.css":        "~7.0.0"
       , "raty":                 "~2.8.0"
       , "respond":              "~1.4.2"
@@ -58,7 +58,6 @@
   , "devDependencies": {
     }
   , "resolutions": {
-      "jquery": "~2.2.4"
     }
   , "outdatedDependencies": {
       "bxslider-4":   "bx-slider.js#^4.2.12"

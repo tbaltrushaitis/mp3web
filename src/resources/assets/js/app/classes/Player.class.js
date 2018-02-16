@@ -11,8 +11,8 @@ define([
   , 'underscore'
   , 'Abstract'
   , 'functions'
-    ]
-  , function ($, _, Abstract, F) {
+]
+, function ($, _, Abstract, F) {
 
   //  CONSTRUCTOR
   var Player = function () {
@@ -24,7 +24,7 @@ define([
   Player.prototype             = Object.create(Abstract.prototype);
   Player.prototype.constructor = Player;
 
-  Player.prototype._defaults  =   {
+  Player.prototype._defaults = {
       _entity: 'Audio_Player'
     , _config: {
         selector: 'audio#player'
@@ -68,8 +68,8 @@ define([
   Player.prototype.Populate = function () {
     var self = this;
 
-    self._data.instance         =   $(self._config.selector)[0];
-    self._data.instance.volume  =   self._config.volume;
+    self._data.instance        = $(self._config.selector)[0];
+    self._data.instance.volume = self._config.volume;
 
     $(self._config.tracks.container)
       .find(self._config.tracks.selector)
@@ -78,12 +78,12 @@ define([
       });
     $('#files-count').text(self._data.tracks.list.length);
 
-    self._data.instance.addEventListener('play',    self.setButtonPlay.bind(this),  false);
-    self._data.instance.addEventListener('pause',   self.setButtonPause.bind(this), false);
-    self._data.instance.addEventListener('ended',   self.stepForward.bind(this),    false);
+    self._data.instance.addEventListener('play',  self.setButtonPlay.bind(this),  false);
+    self._data.instance.addEventListener('pause', self.setButtonPause.bind(this), false);
+    self._data.instance.addEventListener('ended', self.stepForward.bind(this),    false);
 
-    self._data.instance.addEventListener('canplay',     self.initCounters,  false);
-    self._data.instance.addEventListener('timeupdate',  self.checkTimeLeft, false);
+    self._data.instance.addEventListener('canplay',    self.initCounters,  false);
+    self._data.instance.addEventListener('timeupdate', self.checkTimeLeft, false);
 
     return self;
   };
@@ -96,51 +96,51 @@ define([
       , trackDom  = link.parent()
     ;
 
-    var requestUrl  =   window.location.protocol
-                    +   '//'
-                    +   window.location.host
-                    +   '/'
-                    +   trackHash
-                    +   '/'
-                    +   'play'
+    var requestUrl  = window.location.protocol
+                    + '//'
+                    + window.location.host
+                    + '/'
+                    + trackHash
+                    + '/'
+                    + 'play'
 //                        +   'meta'
-      , oRequest    =   $.ajax({
-                            url:     requestUrl
-                          , type:    'GET'
-                          , timeout: 5000
-                        });
+      , oRequest = $.ajax({
+                        url:     requestUrl
+                      , type:    'GET'
+                      , timeout: 5000
+                    });
 
     oRequest
       .done( function (loResponse) {
-          // console.log('Play Response:\t', loResponse);
+        // console.log('Play Response:\t', loResponse);
 
-          Instance.src  =   loResponse.url;
-          Instance.load();
-          Instance.play();
+        Instance.src = loResponse.url;
+        Instance.load();
+        Instance.play();
 
-          self._data.tracks.current   =   trackDom.index();
-          $('#data-current-src').text(trackName);
-          $('#info-rank-like').text(loResponse.likes || 0);
-          $('#info-rank-dislike').text(loResponse.dislikes || 0);
-          $('#info-plays').text(loResponse.plays || 0);
+        self._data.tracks.current   =   trackDom.index();
+        $('#data-current-src').text(trackName);
+        $('#info-rank-like').text(loResponse.likes || 0);
+        $('#info-rank-dislike').text(loResponse.dislikes || 0);
+        $('#info-plays').text(loResponse.plays || 0);
 
-          trackDom
-              .find('i')
-              .addClass('fa-spinner fa-pulse')
-              .end()
-              .addClass('active')
-              .siblings()
-              .removeClass('active')
-              .find('i')
-              .removeClass('fa-spinner')
-              .removeClass('fa-pulse')
-              .addClass('fa-volume-off');
+        trackDom
+            .find('i')
+            .addClass('fa-spinner fa-pulse')
+            .end()
+            .addClass('active')
+            .siblings()
+            .removeClass('active')
+            .find('i')
+            .removeClass('fa-spinner')
+            .removeClass('fa-pulse')
+            .addClass('fa-volume-off');
 
-          //  Move Track To Top of List
-          var domParent   =   trackDom.parent()
-            , trackClone  =   trackDom.clone();
-          trackDom.addClass('animated slideOutUp').delay(1500).remove();
-          domParent.prepend(trackClone.addClass('animated slideInUp'));
+        //  Move Track To Top of List
+        var domParent   =   trackDom.parent()
+          , trackClone  =   trackDom.clone();
+        trackDom.addClass('animated slideOutUp').delay(1500).remove();
+        domParent.prepend(trackClone.addClass('animated slideInUp'));
       })
       .fail( function (loError) {
         console.warn('Error loading media:\t', loError);
@@ -169,9 +169,9 @@ define([
   };
 
   Player.prototype.stepForward = function () {
-    var self    =   this
-      , current =   self._data.tracks.current
-      , len     =   self._data.tracks.list.length;
+    var self    = this
+      , current = self._data.tracks.current
+      , len     = self._data.tracks.list.length;
 
     self._config.random = $('#btn-option-random').hasClass('is-enabled');
     self._config.repeat = $('#btn-option-repeat').hasClass('is-enabled');
@@ -203,16 +203,16 @@ define([
     ;
     $('#data-time-remain').text(strTime);
     $('#data-current-progress').attr({
-        'aria-valuenow':  this.currentTime
-      , 'style':          'width: ' + percDone + '%'
+        'aria-valuenow': this.currentTime
+      , 'style':         'width: ' + percDone + '%'
     });
     return strTime;
   };
 
   Player.prototype.resetToolbar = function () {
-    var self        =   this
-      , btnPlay     =   $('#btn-control-play')
-      , domProgress =   $('#data-current-progress').parent()
+    var self        = this
+      , btnPlay     = $('#btn-control-play')
+      , domProgress = $('#data-current-progress').parent()
     ;
     // Clean Properties
     for (var state in self._config.states) {
@@ -224,19 +224,19 @@ define([
     return self;
   };
 
-  Player.prototype.setButtonPlay  =   function () {
+  Player.prototype.setButtonPlay = function () {
     var self = this;
     self.setButtonState('playing');
     return self;
   };
 
-  Player.prototype.setButtonPause =   function () {
+  Player.prototype.setButtonPause = function () {
     var self = this;
     self.setButtonState('paused');
     return self;
   };
 
-  Player.prototype.setButtonState =   function (pState) {
+  Player.prototype.setButtonState = function (pState) {
     var self        = this
       , btnPlay     =  $('#btn-control-play')
       , domProgress = $('#data-current-progress');
@@ -251,10 +251,11 @@ define([
       })
       .addClass(pState)
       .children('i')
-        .addClass(self._config.states[pState]['icon']);
+      .addClass(self._config.states[pState]['icon']);
     domProgress
       .parent()
       .addClass(self._config.states[pState]['progress']);
+
     return self;
   };
 
@@ -273,12 +274,12 @@ define([
   };
 
   Player.prototype.Rate = function (Rank) {
-    var self        =   this
-      , Instance    =   self._data.instance
-      , Hash        =   self._data.tracks.list[self._data.tracks.current]
-      , rankHolder  =   $('#info-rank-' + Rank)
-      , rankCount   =   parseInt(rankHolder.text(), 10)
-      , actionUrl   =   'rate/' + Hash + '/' + Rank
+    var self       = this
+      , Instance   = self._data.instance
+      , Hash       = self._data.tracks.list[self._data.tracks.current]
+      , rankHolder = $('#info-rank-' + Rank)
+      , rankCount  = parseInt(rankHolder.text(), 10)
+      , actionUrl  = 'rate/' + Hash + '/' + Rank
     ;
 
     var requestUrl  = window.location.protocol
@@ -286,19 +287,19 @@ define([
                     + window.location.host
                     + '/'
                     + actionUrl
-      , oRequest    = $.ajax({
-                          url:    requestUrl
-                        , type:   'POST'
-                        , data: {
-                              hash:   Hash
-                            , action: Rank
-                            , _token: $('meta[name="csrf-token"]').attr('content')
-                          }
-                        , timeout:    5000
-                        , beforeSend: function () {
-                            rankHolder.addClass('animated rotateIn rotateOut');
-                          }
-                      });
+      , oRequest  = $.ajax({
+                        url:  requestUrl
+                      , type: 'POST'
+                      , data: {
+                            hash:   Hash
+                          , action: Rank
+                          , _token: $('meta[name="csrf-token"]').attr('content')
+                        }
+                      , timeout: 5000
+                      , beforeSend: function () {
+                          rankHolder.addClass('animated rotateIn rotateOut');
+                        }
+                    });
 
     oRequest
       .done( function (loResponse) {

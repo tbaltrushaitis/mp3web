@@ -11,51 +11,51 @@ use App\Video;
 
 class MediaRepository {
 
-    /**
-     * Get all of the audio tracks
-     *
-     * @param  none
-     * @return Collection
-     */
-    public function getTracksAudio () {
-        $tracks =   [];
-        $files  =   Storage::disk('audio')->allFiles();
-        $sDir   =   storage_path('media/audio') . DIRECTORY_SEPARATOR;
-        foreach ($files as $file) {
-            $fileName   =   rawurldecode($file);
-            $hash       =   md5(dirname($fileName) . md5_file($sDir . $fileName));
-            if (Storage::disk('meta')->exists($hash)) {
-                $meta   =   collect(json_decode(Storage::disk('meta')->get($hash), TRUE));
-            }else{
-                $meta   =   collect([
-                    'id'        =>  $hash
-                  , 'filename'  =>  $fileName
-                  , 'path'      =>  dirname($fileName)
-                  , 'title'     =>  basename($fileName)
-                  , 'name'      =>  $fileName
-                  , 'size'      =>  Storage::disk('audio')->size($file)
-                  , 'url'       =>  'audio/' . $fileName
-                  , 'added'     =>  time()
-                ]);
-                Storage::disk('meta')->put($hash, $meta->toJson());
-                chmod(storage_path('app/metadata/' . $hash), 0664);
-            }
-            $tracks[] = $meta;
-        }
-        return $tracks;
+  /**
+   * Get all of the audio tracks
+   *
+   * @param  none
+   * @return Collection
+   */
+  public function getTracksAudio () {
+    $tracks = [];
+    $files  = Storage::disk('audio')->allFiles();
+    $sDir   = storage_path('media/audio') . DIRECTORY_SEPARATOR;
+    foreach ($files as $file) {
+      $fileName = rawurldecode($file);
+      $hash     = md5(dirname($fileName) . md5_file($sDir . $fileName));
+      if (Storage::disk('meta')->exists($hash)) {
+        $meta = collect(json_decode(Storage::disk('meta')->get($hash), TRUE));
+      }else{
+        $meta = collect([
+            'id'       => $hash
+          , 'filename' => $fileName
+          , 'path'     => dirname($fileName)
+          , 'title'    => basename($fileName)
+          , 'name'     => $fileName
+          , 'size'     => Storage::disk('audio')->size($file)
+          , 'url'      => 'audio/' . $fileName
+          , 'added'    => time()
+        ]);
+        Storage::disk('meta')->put($hash, $meta->toJson());
+        chmod(storage_path('app/metadata/' . $hash), 0664);
+      }
+      $tracks[] = $meta;
     }
+    return $tracks;
+  }
 
 
-    /**
-     * Get all of the video tracks
-     *
-     * @param  none
-     * @return Collection
-     */
-    public function getTracksVideo () {
-        $tracks = collect(Storage::disk('video')->allFiles());
-        return $tracks->all();
-    }
+  /**
+   * Get all of the video tracks
+   *
+   * @param  none
+   * @return Collection
+   */
+  public function getTracksVideo () {
+    $tracks = collect(Storage::disk('video')->allFiles());
+    return $tracks->all();
+  }
 
 
   /**
@@ -109,12 +109,12 @@ class MediaRepository {
       'id' => $hash
     ]);
     $meta_result = collect([
-      'action'        =>  'DELETE_META'
-    , 'action_result' =>  NULL
+      'action'        => 'DELETE_META'
+    , 'action_result' => NULL
     ]);
     $file_result = collect([
-      'action'        =>  'DELETE_FILE'
-    , 'action_result' =>  NULL
+      'action'        => 'DELETE_FILE'
+    , 'action_result' => NULL
     ]);
     $file_name = NULL;
 
