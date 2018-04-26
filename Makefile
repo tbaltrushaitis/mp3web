@@ -6,6 +6,7 @@
 .EXPORT_ALL_VARIABLES:
 .IGNORE:
 .ONESHELL:
+
 ##  ------------------------------------------------------------------------  ##
 
 APP_NAME := mp3web
@@ -89,6 +90,13 @@ test: test_rc;
 ## SOURCE VARIABLES
 test_rc: setup.rc;
 	@ echo ${BYellow}[${DT}] TEST GOAL EXECUTED${NC};
+
+##  ------------------------------------------------------------------------  ##
+# Lists all targets defined in this makefile.
+
+.PHONY: list
+list:
+	@$(MAKE) -pRrn : -f $(MAKEFILE_LIST) 2>/dev/null | awk -v RS= -F: '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | egrep -v -e '^[^[:alnum:]]' -e '^$@$$' | sort
 
 ##  ------------------------------------------------------------------------  ##
 

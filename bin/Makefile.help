@@ -1,5 +1,5 @@
 ##  ------------------------------------------------------------------------  ##
-##              			   		     Show help topic       	   	                  ##
+##                              Show help topic                               ##
 ##  ------------------------------------------------------------------------  ##
 
 include ./bin/.bash_colors
@@ -9,6 +9,7 @@ include ./bin/.bash_colors
 help: banner
 	@ echo -e ${BCyan}------------------------------------------------------${NC};
 	@ echo -e ${BBlue}AVAILABLE ${BWhite}CLI-Commands:${NC};
+	@ echo -e "\t" make ${BPurple}list${NC} "\t" - LIST all targets defined in this makefile;
 	@ echo -e "\t" make ${BPurple}clean${NC} "\t" - CLEAR directories and delete files;
 	@ echo -e "\t" make ${BPurple}setup${NC} "\t" - check for php, node and bower installations;
 	@ echo -e "\t" make ${BPurple}engine${NC} "\t" - check for engine sources;

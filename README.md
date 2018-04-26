@@ -29,7 +29,7 @@
 | Front | Library | [require.js](https://github.com/jrburke/requirejs) | 2.3.3 | A file and module loader for JavaScript
 | Front | Library | [Font-Awesome](http://fontawesome.io/) | 4.7.0 | The iconic font and CSS toolkit
 | Front | Library | [jQuery](http://jquery.com/) | 3.3.1 | JavaScript Library
-| Front | Library | [Lodash](https://lodash.com/docs/4.17.4) | 4.17.4 | A modern JavaScript utility library delivering modularity, performance & extras.
+| Front | Library | [Lodash](https://lodash.com/docs/4.17.5) | 4.17.5 | A modern JavaScript utility library delivering modularity, performance & extras.
 | Front | Library | [animate.css](http://daneden.github.io/animate.css/) | 3.5.2 | A cross-browser library of CSS animations
 
 ---
@@ -54,13 +54,14 @@ In fact you just need to type in your terminal:
 $ make
 ```
 
-To get additional info and usage examples type `make usage|help` command param:
+To get additional info and usage examples type `make usage|help` command:
 ```shell
 $ make help
 
 AVAILABLE COMMANDS:
+  make list    - Show all targets;
   make clean   - CLEAR directories and delete files;
-  make setup   - check for php, nodejs and bower installations;
+  make setup   - check for php, node.js and bower installations;
   make engine  - cook engine sources;
   make build   - BUILD project from sources;
   make release - COMPILE project distro;
@@ -77,10 +78,10 @@ $ make all
 
 ---
 
-## Todo List ##
- - [ ] Implement search throw items.
+## TODO List ##
+ - [ ] Implement search through items.
 
-## Changelog ##
+## CHANGELOG ##
 
 ### v1.0.2 ###
  - [x] Makefile scenario now used to build and deploy project
