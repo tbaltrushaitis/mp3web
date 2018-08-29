@@ -18,7 +18,7 @@ pipelines:
             - ls -als
             - pwd
             - printf "Everything is awesome!\n";
-    dev-1.0.2:
+    dev-1.0.3:
       - step:
           script:
             - printf "[Step_01] This script runs only on commit to the $BITBUCKET_BRANCH branch.\n"
