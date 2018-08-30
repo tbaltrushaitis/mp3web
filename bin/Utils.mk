@@ -58,3 +58,13 @@ banner:
 	@ if [ -f ${APP_LOGO} ]; then cat ${APP_LOGO}; fi
 
 ##  ------------------------------------------------------------------------  ##
+
+.PHONY: rights
+
+rights:
+	@ sudo find . -type f -exec chmod 664 {} 2>/dev/null \;
+	@ sudo find . -type d -exec chmod 775 {} 2>/dev/null \;
+	@ sudo find . -type f -name "*.sh" -exec chmod a+x {} 2>/dev/null \;
+	@ sudo find . -type f -name "artisan" -exec chmod a+x {} 2>/dev/null \;
+
+##  ------------------------------------------------------------------------  ##

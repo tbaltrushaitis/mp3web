@@ -1,4 +1,4 @@
-# image: tbaltrushaitis/ubuntu-nodejs:v8.9.0
+image: tbaltrushaitis/ubuntu-nodejs:v8.0.0
 
 pipelines:
   default:
@@ -21,12 +21,17 @@ pipelines:
     dev-1.0.3:
       - step:
           script:
-            - printf "[Step_01] This script runs only on commit to the $BITBUCKET_BRANCH branch.\n"
+            - printf "[Step_01] This script runs only on commit to the [${BITBUCKET_BRANCH}] branch.\n"
             - uname -a
             - pwd
+            - printf "[Step_01] ==================================================================== [FINISHED]\n"
       - step:
+          caches:
+            - apt
+            - bower
+            - node
           script:
-            - printf "[Step_02] This script runs only on commit to the $BITBUCKET_BRANCH branch.\n"
+            - printf "[Step_02] This script run for the [${BITBUCKET_BRANCH}] branch.\n"
             - source ./bin/.bash_colors
             - apt-get update -y
             # PHP setup
@@ -42,11 +47,11 @@ pipelines:
             # This loads nvm bash_completion
             # - [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" && echo -e "\t${BCyan}ENV:\t exported [$NVM_DIR/bash_completion]"
             - . "$NVM_DIR/bash_completion"
-            - nvm install v8.9.0
-            - sleep 10
+            - nvm install v8.0.0
+            - sleep 1
             # BUILD project
             - make all
-            - sleep 10
+            - sleep 1
             - pwd && ls -als
             # - ./setup.sh test --env=production
             # - ./setup.sh prepare --env=production
@@ -54,7 +59,8 @@ pipelines:
             # - ./setup.sh deploy --env=production
       - step:
           script:
-            - echo "[Step_03] Script runs on commit to [${BITBUCKET_BRANCH}] branch."
+            - echo "[Step_03] Script runs on the [${BITBUCKET_BRANCH}] branch."
+            - pwd
             - echo "[BITBUCKET_CLONE_DIR] = [${BITBUCKET_CLONE_DIR}]"
             - echo "[BITBUCKET_COMMIT] = [${BITBUCKET_COMMIT}]"
             - echo "[BITBUCKET_REPO_OWNER] = [${BITBUCKET_REPO_OWNER}]"
@@ -69,3 +75,8 @@ pipelines:
             # - pwd && ls -als
             # - cat webroot/.env
             - printf "Everything is awesome!\n";
+
+definitions:
+  caches:
+    bower: ./bower_modules/
+    apt: /var/cache/apt/
