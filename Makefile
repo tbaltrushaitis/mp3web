@@ -2,77 +2,82 @@
 ##                                Build Project                               ##
 ##  ------------------------------------------------------------------------  ##
 
-# .SILENT:
+.SILENT:
 .EXPORT_ALL_VARIABLES:
 .IGNORE:
 .ONESHELL:
 
+SHELL = /bin/sh
+
 ##  ------------------------------------------------------------------------  ##
 
-APP_NAME := mp3web
+# APP_NAME := mp3web
+APP_SLOG := MP3WEB
 APP_LOGO := ./assets/BANNER
 
-APP_REPO := $(shell git ls-remote --get-url)
+APP_ENV := $(shell cat ./NODE_ENV)
+APP_BANNER := $(shell cat ${APP_LOGO})
+
+CODE_VERSION := $(shell cat ./VERSION)
 GIT_COMMIT := $(shell git rev-list --remove-empty --remotes --max-count=1 --date-order --reverse)
 
-REPO_HOST := https://bitbucket.org
-REPO_USER := tbaltrushaitis
-REPO_URL := $(shell git ls-remote --get-url)
-
-APP_REPO := ${REPO_HOST}/${REPO_USER}/${APP_NAME}.git
-APP_ENV := $(shell cat NODE_ENV)
-CODE_VERSION := $(shell cat ./VERSION)
-APP_BANNER := $(shell cat ./bin/BANNER)
-APP_BRANCH := dev-1.0.2
-
 WD := $(shell pwd -P)
-APP_DIRS := $(addprefix ${WD}/,build-* dist-* webroot)
-# APP_SRC := ${WD}/src
-# APP_BUILD := ${WD}/build-${CODE_VERSION}
-# APP_DIST := ${WD}/dist-${CODE_VERSION}
+DT = $(shell date +'%Y-%m-%dT%H:%M:%S %Z')
 
-DT = $(shell date +'%Y%m%d%H%M%S')
-
-RC_FILE := ./setup.rc
-RC_EXISTS := $(shell [ -e ./${RC_FILE} ] && echo 1 || echo 0)
-ifeq ($(RC_EXISTS), 0)
-$(warning ${BRed}[${DT}] Missing file [./${RC_FILE}]${NC})
-exit 1
-endif
-
-include ./bin/.bash_colors
-include ${RC_FILE}
+include ./bin/Colors.mk
 
 ##  ------------------------------------------------------------------------  ##
 
-DIR_ENGINE := ${ENGINE_NAME}-${ENGINE_VERSION}
-GIT_COMMIT := $(shell git rev-list --remove-empty --remotes --max-count=1 --date-order --reverse)
+# REPO_HOST := https://bitbucket.org
+# REPO_USER := tbaltrushaitis
+REPO_URL := $(shell git ls-remote --get-url)
+
+# APP_REPO := $(shell git ls-remote --get-url)
+# APP_REPO := ${REPO_HOST}/${REPO_USER}/${APP_NAME}.git
+# APP_BRANCH := dev-1.0.2
+# DIR_COMMIT := ${GIT_COMMIT}
+
+##  ------------------------------------------------------------------------  ##
 
 COMMIT_EXISTS := $(shell [ -e COMMIT ] && echo 1 || echo 0)
 ifeq ($(COMMIT_EXISTS), 0)
 $(file > COMMIT,${GIT_COMMIT})
-$(warning ${BYellow}[${DT}] Created file [COMMIT]${NC})
+$(warning [${Cyan}${DT}${NC}] Created file [${BYellow}COMMIT${NC}:${BPurple}${GIT_COMMIT}${NC}])
 endif
+
+RC_FILE := ./src/.env.rc
+RC_EXISTS := $(shell [ -e ${RC_FILE} ] && echo 1 || echo 0)
+ifeq ($(RC_EXISTS), 0)
+$(warning [${Cyan}${DT}${NC}]${BRed} Missing file: [${BYellow}${RC_FILE}${NC}])
+exit 1
+endif
+
+include ${RC_FILE}
+
+##  ------------------------------------------------------------------------  ##
+
+DIR_ENGINE := engine/${ENGINE_NAME}-${ENGINE_VERSION}
 
 DIR_SRC := ${WD}/src
 DIR_BUILD := ${WD}/build-${CODE_VERSION}
 DIR_DIST := ${WD}/dist-${CODE_VERSION}
-DIR_COMMIT := ${GIT_COMMIT}
 DIR_WEB := ${WD}/webroot
+
+APP_DIRS := $(addprefix ${WD}/,build-* dist-* webroot)
 
 ##  ------------------------------------------------------------------------  ##
 # Query the default goal.
 
 ifeq ($(.DEFAULT_GOAL),)
 .DEFAULT_GOAL := default
-# $(info [${DT}] Default goal [1] is SET TO: [$(.DEFAULT_GOAL)])
+$(info [${Cyan}${DT}${NC}] ${BYellow}.DEFAULT_GOAL${NC} [1] is SET TO: [${BPurple}$(.DEFAULT_GOAL)${NC}])
 endif
 
 ##  ------------------------------------------------------------------------  ##
 ##                                  INCLUDES                                  ##
 ##  ------------------------------------------------------------------------  ##
 
-include ./bin/Makefile.*
+include ./bin/*.mk
 
 ##  ------------------------------------------------------------------------  ##
 
@@ -81,29 +86,23 @@ default: banner test state help;
 
 ##  ------------------------------------------------------------------------  ##
 
-# $(info [${DT}]${BYellow} Default goal is: [$(.DEFAULT_GOAL)]${NC});
+# $(info [${Cyan}${DT}${NC}] ${BYellow}Default goal is: [${BPurple}$(.DEFAULT_GOAL)${NC}]);
 
 .PHONY: test test_rc
 
 test: test_rc;
 
 ## SOURCE VARIABLES
-test_rc: setup.rc;
-	@ echo ${BYellow}[${DT}] TEST GOAL EXECUTED${NC};
-
-##  ------------------------------------------------------------------------  ##
-# Lists all targets defined in this makefile.
-
-.PHONY: list
-list:
-	@$(MAKE) -pRrn : -f $(MAKEFILE_LIST) 2>/dev/null | awk -v RS= -F: '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | egrep -v -e '^[^[:alnum:]]' -e '^$@$$' | sort
+test_rc: ${DIR_SRC}/.env.rc ;
+	@ echo [${Cyan}${DT}${NC}] ${BYellow}EXECUTING TEST GOAL${NC}
 
 ##  ------------------------------------------------------------------------  ##
 
 .PHONY: clone
 
 clone:
-	@  git clone -b ${APP_BRANCH} ${APP_REPO} ${APP_NAME} \
+	# @  git clone -b ${APP_BRANCH} ${APP_REPO} ${APP_NAME} \
+	@  git clone ${APP_REPO} ${APP_NAME} \
 	&& cd ${APP_NAME} \
 	&& git pull \
 	&& find . -type f -exec chmod 664 {} \; \
@@ -117,59 +116,11 @@ clone:
 deps: deps-init deps-update
 
 deps-init:
-	@ git submodule add -b ${ENGINE_VERSION} --name engine/laravel --force -- https://github.com/laravel/laravel.git engine/${DIR_ENGINE}
+	@ git submodule add -b ${ENGINE_VERSION} --name engine/laravel --force -- https://github.com/laravel/laravel.git engine/
 	@ git submodule init
 
 deps-update:
 	@ git submodule update --init --recursive
-
-##  ------------------------------------------------------------------------  ##
-
-.PHONY: banner
-
-banner:
-	@ [ -s ./bin/BANNER ] && cat ./bin/BANNER;
-
-##  ------------------------------------------------------------------------  ##
-
-.PHONY: clean clean-all
-.PHONY: clean-repo clean-src clean-deps
-.PHONY: clean-build clean-dist clean-engine clean-web clean-files
-
-clean-all: clean clean-deps clean-web clean-engine clean-files
-
-clean: clean-build clean-dist
-
-clean-repo:
-	@ rm -rf ${APP_NAME}
-
-clean-src:
-	@ rm -rf ${DIR_SRC}
-
-clean-build:
-	@ rm -rf ${DIR_BUILD}
-
-clean-dist:
-	@ rm -rf ${DIR_DIST}
-
-clean-engine:
-	@ rm -rf engine/${DIR_ENGINE}
-
-clean-web:
-	@ rm -rf ${DIR_WEB}
-
-clean-deps:
-	@ rm -rf bower_modules/ \
-		node_modules/;
-	@ git reset HEAD .gitmodules engine/${DIR_ENGINE}
-
-clean-files:
-	@ rm -rf ${APP_DIRS}  			\
-		bitbucket-pipelines.yml		\
-		codeclimate-config.patch	\
-		_config.yml;
-
-# package-lock.json
 
 ##  ------------------------------------------------------------------------  ##
 
@@ -183,8 +134,11 @@ tree:
 .PHONY: rights
 
 rights:
-	@ sudo find . -type f -name "*.sh" -exec chmod a+x {} \;
-	@ sudo find . -type f -name "artisan" -exec chmod a+x {} \;
+	@ sudo find . -type f -exec chmod 664 {} 2>/dev/null \;
+	@ sudo find . -type d -exec chmod 775 {} 2>/dev/null \;
+	@ sudo find . -type f -name "*.sh" -exec chmod a+x {} 2>/dev/null \;
+	@ sudo find . -type f -name "artisan" -exec chmod a+x {} 2>/dev/null \;
+
 
 ##  ------------------------------------------------------------------------  ##
 
@@ -193,8 +147,8 @@ rights:
 setup:
 	@ ./setup.sh setup
 
-engine:
-	@ ./setup.sh engine
+engine: engine_check ;
+	# @ ./setup.sh engine
 
 build: build-engine build-assets;
 
@@ -210,8 +164,8 @@ release:
 deploy:
 	@ ./setup.sh deploy
 
-# dev:
-# 	@ NODE_ENV=development ./setup.sh "all"
+dev:
+	@ NODE_ENV=development ./setup.sh "all"
 # 	@ NODE_ENV=development gulp
 
 ##  ------------------------------------------------------------------------  ##
