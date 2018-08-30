@@ -136,12 +136,12 @@ tree:
 setup:
 	@ ./setup.sh setup
 
-engine: engine_check ;
+# engine: engine_check ;
 	# @ ./setup.sh engine
 
 build: build-engine build-assets;
 
-build-engine:
+build-engine: engine_check ;
 	@ ./setup.sh build
 
 build-assets:
