@@ -3,8 +3,9 @@ image: tbaltrushaitis/ubuntu-nodejs:v8.0.0
 pipelines:
   default:
     - step:
+        name: Default Step
         script:
-          - echo "[Step_00] This script runs on all branches that don't have any specific pipeline assigned in 'branches'.\n"
+          - echo "This script runs on all branches that don't have any specific pipeline assigned in 'branches'.\n"
   branches:
     master:
       - step:
@@ -35,7 +36,8 @@ pipelines:
           script:
             - printf "Update system \n"
             - source ./bin/.bash_colors
-            - apt-get -y update
+            - apt-get -y update && apt-get -y upgrade
+            - printf "System Updated!\n"
       - step:
           name: Install system packages
           caches:
@@ -49,7 +51,7 @@ pipelines:
           script:
             - printf "PHP setup \n"
             # PHP setup
-            - apt-get -y install php7.0/xenial-updates php7.0-cli/xenial-updates php7.0-common/xenial-updates php7.0-dba/xenial-updates
+            - apt-get -y install php php-cli php-common php-dba
             - php -v
       - step:
           name: NPM install
