@@ -1,5 +1,5 @@
 # image: tbaltrushaitis/ubuntu-nodejs:v8.0.0
-image: docker-library/php:7.1.22-fpm-jessie
+image: php:7.1.22-fpm-jessie
 
 pipelines:
   default:
