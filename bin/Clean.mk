@@ -12,16 +12,14 @@
 
 clean-all: clean clean-deps clean-web clean-engine clean-files
 
-clean-dev: clean clean-web clean-engine clean-files
+clean-dev: clean-dist clean-files
 
-clean: clean-build clean-dist
+clean: clean-build clean-dist clean-files
 
 clean-repo:
-	# @ rm -rf ${APP_NAME} 2>/dev/null
 	-rm -rf ${APP_NAME}
 
 clean-src:
-	# @ rm -rf ${DIR_SRC}
 	-rm -rf ${DIR_SRC}
 
 clean-build:
@@ -31,22 +29,24 @@ clean-dist:
 	-rm -rf ${DIR_DIST}
 
 clean-engine:
-	# @ rm -rf engine/${DIR_ENGINE}
-	-rm -rf engine/
+	-rm -rf ${DIR_ENGINE}
 
 clean-web:
 	-rm -rf ${DIR_WEB}
 
 clean-deps:
 	@ rm -rf bower_modules/ \
-		node_modules/;
-	# @ git reset HEAD .gitmodules ${DIR_ENGINE}
+		node_modules/ ;
+# @ git reset HEAD .gitmodules ${DIR_ENGINE}
 
 clean-files:
-	@ rm -rf ${APP_DIRS}  			\
-		bitbucket-pipelines.yml		\
-		codeclimate-config.patch	\
-		_config.yml;
-# package-lock.json
+	@ rm -rf bitbucket-pipelines.yml \
+		codeclimate-config.patch \
+		_config.yml \
+		package-lock.json \
+		COMMIT \
+		*.md ;
+
+	# @ rm -rf ${APP_DIRS} \
 
 ##  ------------------------------------------------------------------------  ##

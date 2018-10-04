@@ -8,7 +8,7 @@ include ./bin/.bash_colors
 
 .PHONY: usage
 
-usage:
+usage: banner
 	@ echo ${BCyan}---------------------------------------------------------${NC};
 	@ echo ${BBlue}AVAILABLE ${BYellow}HANDY-Commands:${NC};
 	@ echo "\t" make ${BCyan}clone${NC} "\t" - CLONE project sources;

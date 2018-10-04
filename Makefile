@@ -8,10 +8,10 @@
 .ONESHELL:
 
 SHELL = /bin/sh
+THIS_FILE := $(lastword $(MAKEFILE_LIST))
 
 ##  ------------------------------------------------------------------------  ##
 
-# APP_NAME := mp3web
 APP_SLOG := MP3WEB
 APP_LOGO := ./assets/BANNER
 
@@ -23,39 +23,45 @@ GIT_COMMIT := $(shell git rev-list --remove-empty --remotes --max-count=1 --date
 
 WD := $(shell pwd -P)
 DT = $(shell date +'%Y-%m-%dT%H:%M:%S %Z')
+DATE = $(shell date +'%Y%m%d%H%M%S')
 
 include ./bin/Colors.mk
 
 ##  ------------------------------------------------------------------------  ##
 
-# REPO_HOST := https://bitbucket.org
-# REPO_USER := tbaltrushaitis
-REPO_URL := $(shell git ls-remote --get-url)
+RC_FILE := src/.env.rc.local
 
-# APP_REPO := $(shell git ls-remote --get-url)
-# APP_REPO := ${REPO_HOST}/${REPO_USER}/${APP_NAME}.git
-# APP_BRANCH := dev-1.0.2
-# DIR_COMMIT := ${GIT_COMMIT}
+ifeq ($(shell [ -f ${RC_FILE} ] && echo 1 || echo 0),0)
+RC_FILE := $(subst local,${APP_ENV},${RC_FILE})
+endif
+$(info [${Cyan}${DT}${NC}] ${BYellow}RC_FILE${NC}: [${White}${RC_FILE}${NC}]);
+
+ifeq ($(shell [ -f ${RC_FILE} ] && echo 1 || echo 0),0)
+RC_FILE := src/.env.rc
+endif
+
+RC_FILE := $(addprefix ${WD}/,${RC_FILE})
+$(info [${Cyan}${DT}${NC}] ${BYellow}RC_FILE${NC}: [${BPurple}${RC_FILE}${NC}]);
 
 ##  ------------------------------------------------------------------------  ##
 
-COMMIT_EXISTS := $(shell [ -e COMMIT ] && echo 1 || echo 0)
-ifeq ($(COMMIT_EXISTS), 0)
+COMMIT_EXISTS := $(shell [ -f COMMIT ] && echo 1 || echo 0)
+ifeq ($(COMMIT_EXISTS),0)
 $(file > COMMIT,${GIT_COMMIT})
-$(warning [${Cyan}${DT}${NC}] Created file [${BYellow}COMMIT${NC}:${BPurple}${GIT_COMMIT}${NC}])
+$(info [${Cyan}${DT}${NC}] Created file [${BYellow}COMMIT${NC}:${BPurple}${GIT_COMMIT}${NC}])
 endif
 
-RC_FILE := ./src/.env.rc
 RC_EXISTS := $(shell [ -e ${RC_FILE} ] && echo 1 || echo 0)
-ifeq ($(RC_EXISTS), 0)
-$(warning [${Cyan}${DT}${NC}]${BRed} Missing file: [${BYellow}${RC_FILE}${NC}])
+ifeq ($(RC_EXISTS),0)
+$(info [${Cyan}${DT}${NC}]${BYellow} Missing RESOURCE file: ${NC}[${BRed}${RC_FILE}${NC}])
 exit 1
 endif
 
-include ${RC_FILE}
+include $(RC_FILE)
 
 ##  ------------------------------------------------------------------------  ##
 
+REPO_URL := ${REPO_HOST}/${REPO_USER}/${REPO_NAME}.git
 DIR_ENGINE := engine/${ENGINE_NAME}-${ENGINE_VERSION}
 
 DIR_SRC := ${WD}/src
@@ -70,8 +76,8 @@ APP_DIRS := $(addprefix ${WD}/,build-* dist-* webroot)
 
 ifeq ($(.DEFAULT_GOAL),)
 .DEFAULT_GOAL := default
-$(info [${Cyan}${DT}${NC}] ${BYellow}.DEFAULT_GOAL${NC} [1] is SET TO: [${BPurple}$(.DEFAULT_GOAL)${NC}])
 endif
+$(info [${Cyan}${DT}${NC}] ${BYellow}.DEFAULT_GOAL${NC} is SET TO: [${BPurple}$(.DEFAULT_GOAL)${NC}])
 
 ##  ------------------------------------------------------------------------  ##
 ##                                  INCLUDES                                  ##
@@ -82,81 +88,116 @@ include ./bin/*.mk
 ##  ------------------------------------------------------------------------  ##
 
 .PHONY: default
-default: banner test state help;
+
+default: banner state help;
+	@echo [${Cyan}${DT}${NC}] ${BYellow}FINISHED${NC} [${BBlue}DEFAULT${NC}] ${BYellow}GOAL${NC} ;
 
 ##  ------------------------------------------------------------------------  ##
-
-# $(info [${Cyan}${DT}${NC}] ${BYellow}Default goal is: [${BPurple}$(.DEFAULT_GOAL)${NC}]);
 
 .PHONY: test test_rc
 
 test: test_rc;
 
 ## SOURCE VARIABLES
-test_rc: ${DIR_SRC}/.env.rc ;
-	@ echo [${Cyan}${DT}${NC}] ${BYellow}EXECUTING TEST GOAL${NC}
+test_rc: $(RC_FILE);
+	@echo [${Cyan}${DT}${NC}] ${BYellow}EXECUTING${NC} [${BBlue}TEST${NC}] ${BYellow}GOAL${NC} ;
 
 ##  ------------------------------------------------------------------------  ##
 
-.PHONY: clone
+.PHONY: deps deps-install
 
-clone:
-	# @  git clone -b ${APP_BRANCH} ${APP_REPO} ${APP_NAME} \
-	@  git clone ${APP_REPO} ${APP_NAME} \
-	&& cd ${APP_NAME} \
-	&& git pull \
-	&& find . -type f -exec chmod 664 {} \; \
-	&& find . -type d -exec chmod 775 {} \; \
-	&& find . -type f -name "*.sh" -exec chmod 755 {} \;
+deps-install:
+	@ bower i --production
+	@ npm i
 
-##  ------------------------------------------------------------------------  ##
-
-.PHONY: deps deps-init deps-update
-
-deps: deps-init deps-update
-
-deps-init:
-	@ git submodule add -b ${ENGINE_VERSION} --name engine/laravel --force -- https://github.com/laravel/laravel.git engine/
-	@ git submodule init
-
-deps-update:
-	@ git submodule update --init --recursive
-
-##  ------------------------------------------------------------------------  ##
-
-.PHONY: tree
-
-tree:
-	@ ./setup.sh tree
+deps: deps-install;
 
 ##  ------------------------------------------------------------------------  ##
 
 .PHONY: setup engine build build-engine build-assets release deploy
 
-setup:
-	@ ./setup.sh setup
+setup: deps;
 
-# engine: engine_check ;
-	# @ ./setup.sh engine
+engine: engine_check;
 
 build: build-engine build-assets;
 
 build-engine: engine_check ;
-	@ ./setup.sh build
+	@ mkdir -p ${DIR_BUILD} 2>&1 >/dev/null ;
+	@ cp -prf ${DIR_ENGINE}/* ${DIR_BUILD}/ 2>&1 >/dev/null ;
+	@ rm -rvf ${DIR_BUILD}/public/css ;
+	@ rm -rvf ${DIR_BUILD}/public/js ;
+	@ rm -rvf ${DIR_BUILD}/resources/assets/js ;
+	@ rm -rvf ${DIR_BUILD}/*.md ;
+	@ cp -prf ${DIR_SRC}/* ${DIR_BUILD}/ ;
+	@ cp -pvu ${RC_FILE} ${DIR_BUILD}/.env ;
+	@ cp -pvf ${DIR_SRC}/composer.json ${DIR_BUILD}/ ;
+	@ cp -pvf ${DIR_SRC}/webpack.mix.js ${DIR_BUILD}/ ;
+	@ cd ${DIR_BUILD} \
+	&& npm i \
+	&& composer --version > COMPOSER_VERSION \
+	&& composer -v --no-interaction update ;
+
+# @ mv -bfv ${DIR_BUILD}/.env ${DIR_BUILD}/.env.${DATE}.bak 2>&1 >/dev/null ;
 
 build-assets:
-	@ gulp build
+	@ gulp --env=${APP_ENV} build ;
+	@ mkdir -p ${DIR_BUILD}/public/assets/font-awesome ;
+	@ cd ${DIR_BUILD}/public/assets/font-awesome \
+	&& ln -s ../fonts ;
+	@ cd ${DIR_BUILD}/public \
+	&& ln -s ../storage/media/audio/ ;
 
 release:
-	@ ./setup.sh release
+	@ mkdir -p ${DIR_DIST} ;
+	@ cp -prf ${DIR_BUILD}/* ${DIR_DIST}/ ;
+	@ cp -pvf ${RC_FILE} ${DIR_DIST}/ ;
+	@ cd ${DIR_DIST} \
+	@ $(MAKE) -f $(THIS_FILE) ownership ;
+
+# @ cp -pvf ${DIR_BUILD}/.env ${DIR_DIST}/ ;
 
 deploy:
-	@ ./setup.sh deploy
+	@ mkdir -p ${DIR_WEB} 2>&1 >/dev/null ;
+	@ [ -f ${DIR_WEB}/.env ] && cp -prf ${DIR_WEB}/.env ${DIR_WEB}/.env.${DATE}.bak 2>&1 >/dev/null || echo "NO .env FILE";
+	@ cp -prf ${DIR_DIST}/* ${DIR_WEB}/ 2>&1 >/dev/null ;
+	@ cp -pvu ${RC_FILE} ${DIR_WEB}/.env 2>&1 >/dev/null ;
+	@ cd ${DIR_WEB} \
+	&& php artisan --no-interaction down \
+	&& composer -v --no-interaction update \
+	&& php artisan --no-interaction up ;
 
-dev:
-	@ NODE_ENV=development ./setup.sh "all"
+# @ $(MAKE) -f $(THIS_FILE) artisan;
+
+# dev: clean setup build release deploy;
+dev: clean-dev build release deploy;
+
+# @ NODE_ENV=development ./setup.sh "all"
 # 	@ NODE_ENV=development gulp
 
+##  ------------------------------------------------------------------------  ##
+
+.PHONY: artisan ownership
+
+artisan:
+	@ cd ${DIR_WEB} \
+	&& php artisan --no-interaction down \
+	&& php artisan -V > ENGINE_VERSION 2>&1 >/dev/null \
+	&& php artisan inspire > INSPIRATION 2>&1 >/dev/null \
+	&& php artisan -n optimize 2>&1 >/dev/null \
+	&& php artisan -n route:cache 2>&1 >/dev/null \
+	&& php artisan -n config:cache 2>&1 >/dev/null \
+	&& php artisan -n route:list \
+	&& php artisan --no-interaction up ;
+
+# && php artisan -n key:generate \
+# && php artisan --no-interaction vendor:publish \
+
+ownership:
+	@ sudo chgrp -R ${WEB_USER} ${DIR_WEB} ;
+
+# @ cd ${DIR_WEB} \
+# && $(MAKE) rights ;
 ##  ------------------------------------------------------------------------  ##
 
 .PHONY: rebuild redeploy
@@ -172,7 +213,7 @@ redeploy: release deploy;
 #* means the Makefile has nothing to do with a file called "all" in the same directory.
 
 # all: clean rights tree setup engine build release deploy;
-all: clean rights tree setup deps build release deploy;
+all: clean rights setup deps build release deploy;
 
 full: clean-all all;
 
