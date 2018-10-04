@@ -57,6 +57,7 @@ pipelines:
             - echo "[Step_05] BUILD project"
             - pwd
             # BUILD project
+            - make setup
             - make dev
             - sleep 1
             - pwd && ls -als
