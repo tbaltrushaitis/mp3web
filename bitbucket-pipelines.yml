@@ -49,7 +49,7 @@ pipelines:
           script:
             - printf "PHP setup \n"
             # PHP setup
-            - apt-get -y install php7.0 php7.0-cli php7.0-common php7.0-dba
+            - apt-get -y install php7.0/xenial-updates php7.0-cli/xenial-updates php7.0-common/xenial-updates php7.0-dba/xenial-updates
             - php -v
       - step:
           name: NPM install
