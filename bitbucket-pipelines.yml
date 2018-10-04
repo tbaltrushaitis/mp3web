@@ -44,7 +44,7 @@ pipelines:
           caches:
             - apt
           script:
-            - apt-get -y install make
+            - apt-get -y install make wget curl mc
       - step:
           name: PHP setup
           caches:
@@ -53,8 +53,8 @@ pipelines:
             - printf "PHP setup \n"
             # PHP setup
             # - apt-get -y install php php-cli php-common php-dba
-            - apt search php
-            - sleep 10
+            # - apt search php
+            # - sleep 10
             - php -v
       - step:
           name: NPM install
