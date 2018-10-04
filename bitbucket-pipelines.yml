@@ -20,28 +20,41 @@ pipelines:
             - printf "Everything is awesome!\n";
     dev-1.0.3:
       - step:
-          name: [Step_01] on [${BITBUCKET_BRANCH}]
+          name: Step_01 - Intro
           script:
             - printf "[Step_01] This script runs only on commit to the [${BITBUCKET_BRANCH}] branch.\n"
             - uname -a
             - pwd
             - printf "[Step_01] ==================================================================== [FINISHED]\n"
       - step:
-          name: [Step_02] Install packages
+          name: Step_02 - Update system
           caches:
             - apt
             - bower
             - node
           script:
-            - printf "Update system packages \n"
+            - printf "Update system \n"
             - source ./bin/.bash_colors
             - apt-get -y update
+      - step:
+          name: Step_03 - Install system packages
+          caches:
+            - apt
+          script:
             - apt -y install make
+      - step:
+          name: Step_04 - PHP setup
+          caches:
+            - apt
           script:
             - printf "PHP setup \n"
             # PHP setup
             - apt -y install php5 php5-cli php5-common php-db
             - php -v
+      - step:
+          name: Step_05 - NPM install
+          caches:
+            - apt
           script:
             - printf "NPM install \n"
             # NPM install
@@ -52,10 +65,16 @@ pipelines:
             - echo -e "\t${BCyan}ENV:\t exported [$NVM_DIR/nvm.sh]"
             # This loads nvm bash_completion
             - . "$NVM_DIR/bash_completion"
+      - step:
+          name: Step_06 - NODE.JS install
+          script:
             - nvm install v8.0.0
             - node -v
       - step:
-          name: [Step_03] BUILD project
+          name: Step_07 - BUILD project
+          caches:
+            - bower
+            - node
           script:
             - echo "BUILD project"
             - pwd
@@ -66,7 +85,12 @@ pipelines:
             - pwd && ls -als
             - cat webroot/.env
       - step:
-          name: [Step_Last] Information
+          name: Step_08 - Check webroot
+          script:
+            - cd webroot
+            - cat INSPIRATION
+      - step:
+          name: Step_Last - Information
           script:
             - echo "[Step_Info] Script runs on the [${BITBUCKET_BRANCH}] branch."
             - pwd
