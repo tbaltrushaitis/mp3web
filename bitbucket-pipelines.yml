@@ -63,7 +63,7 @@ pipelines:
             # NPM install
             - curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
             - export NVM_DIR="${XDG_CONFIG_HOME/:-$HOME/.}nvm"
-            - \. "$NVM_DIR/nvm.sh" # This loads nvm
+            # - \. "$NVM_DIR/nvm.sh" # This loads nvm
             - echo -e "\t${BCyan}ENV:\t exported [$NVM_DIR/nvm.sh]"
             - command -v nvm
             # This loads nvm bash_completion
