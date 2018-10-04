@@ -57,17 +57,17 @@ pipelines:
             # - sleep 10
             - php -v
       - step:
-          name: NPM install
+          name: NVM install
           script:
             - printf "NPM install \n"
             # NPM install
             - curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-            - export NVM_DIR="$HOME/.nvm"
-            # This loads nvm
-            - . "$NVM_DIR/nvm.sh"
+            - export NVM_DIR="${XDG_CONFIG_HOME/:-$HOME/.}nvm"
+            - [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
             - echo -e "\t${BCyan}ENV:\t exported [$NVM_DIR/nvm.sh]"
+            - command -v nvm
             # This loads nvm bash_completion
-            - . "$NVM_DIR/bash_completion"
+            # - . "$NVM_DIR/bash_completion"
       - step:
           name: Setup NODE.JS
           script:
