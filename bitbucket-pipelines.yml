@@ -41,7 +41,7 @@ pipelines:
           caches:
             - apt
           script:
-            - apt -y install make
+            - apt-get -y install make
       - step:
           name: Step_04 - PHP setup
           caches:
@@ -49,12 +49,10 @@ pipelines:
           script:
             - printf "PHP setup \n"
             # PHP setup
-            - apt -y install php5 php5-cli php5-common php-db
+            - apt-get -y install php5 php5-cli php5-common php-db
             - php -v
       - step:
           name: Step_05 - NPM install
-          caches:
-            - apt
           script:
             - printf "NPM install \n"
             # NPM install
