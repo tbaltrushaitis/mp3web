@@ -20,14 +20,14 @@ pipelines:
             - printf "Everything is awesome!\n";
     dev-1.0.3:
       - step:
-          name: Step_01 - Intro
+          name: Greeting
           script:
             - printf "[Step_01] This script runs only on commit to the [${BITBUCKET_BRANCH}] branch.\n"
             - uname -a
             - pwd
             - printf "[Step_01] ==================================================================== [FINISHED]\n"
       - step:
-          name: Step_02 - Update system
+          name: Update system
           caches:
             - apt
             - bower
@@ -37,13 +37,13 @@ pipelines:
             - source ./bin/.bash_colors
             - apt-get -y update
       - step:
-          name: Step_03 - Install system packages
+          name: Install system packages
           caches:
             - apt
           script:
             - apt-get -y install make
       - step:
-          name: Step_04 - PHP setup
+          name: PHP setup
           caches:
             - apt
           script:
@@ -52,7 +52,7 @@ pipelines:
             - apt-get -y install php5 php5-cli php5-common php-db
             - php -v
       - step:
-          name: Step_05 - NPM install
+          name: NPM install
           script:
             - printf "NPM install \n"
             # NPM install
@@ -64,12 +64,12 @@ pipelines:
             # This loads nvm bash_completion
             - . "$NVM_DIR/bash_completion"
       - step:
-          name: Step_06 - NODE.JS install
+          name: Setup NODE.JS
           script:
             - nvm install v8.0.0
             - node -v
       - step:
-          name: Step_07 - BUILD project
+          name: Build project
           caches:
             - bower
             - node
@@ -83,12 +83,12 @@ pipelines:
             - pwd && ls -als
             - cat webroot/.env
       - step:
-          name: Step_08 - Check webroot
+          name: Check webroot
           script:
             - cd webroot
             - cat INSPIRATION
       - step:
-          name: Step_Last - Information
+          name: Finalize
           script:
             - echo "[Step_Info] Script runs on the [${BITBUCKET_BRANCH}] branch."
             - pwd
