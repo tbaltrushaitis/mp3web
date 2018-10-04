@@ -10,13 +10,13 @@ pipelines:
   branches:
     master:
       - step:
+          name: Default Step in Master
           script:
             - printf "[Step_00] This script runs only on commit to the MASTER branch.\n"
             - uname -a
             - free -m
             - df -H
             - netstat -apn
-            - npm -v
             - ls -als
             - pwd
             - printf "Everything is awesome!\n";
@@ -44,7 +44,7 @@ pipelines:
           caches:
             - apt
           script:
-            - apt-get -y install make wget curl mc
+            - apt -y install make curl
       - step:
           name: PHP setup
           caches:
@@ -61,7 +61,7 @@ pipelines:
           script:
             - printf "NPM install \n"
             # NPM install
-            - wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
+            - curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
             - export NVM_DIR="$HOME/.nvm"
             # This loads nvm
             - . "$NVM_DIR/nvm.sh"
