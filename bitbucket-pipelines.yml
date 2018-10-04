@@ -51,7 +51,9 @@ pipelines:
           script:
             - printf "PHP setup \n"
             # PHP setup
-            - apt-get -y install php php-cli php-common php-dba
+            # - apt-get -y install php php-cli php-common php-dba
+            - apt search php
+            - sleep 10
             - php -v
       - step:
           name: NPM install
