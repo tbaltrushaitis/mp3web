@@ -157,7 +157,7 @@ release:
 	@ cp -pvf ${RC_FILE} ${DIR_DIST}/ ;
 	@ cd ${DIR_DIST} \
 	&& rm -rf node_modules/ ;
-	@$(MAKE) -f $(THIS_FILE) ownership ;
+	@$(MAKE) ownership ;
 
 deploy:
 	@ mkdir -p ${DIR_WEB} 2>&1 >/dev/null ;
