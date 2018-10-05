@@ -5,9 +5,9 @@ namespace App\Repositories;
 use Storage;
 use Collection;
 
-use App\MediaTrack;
-use App\Audio;
-use App\Video;
+use App\Classes\MediaTrack;
+use App\Classes\Audio;
+use App\Classes\Video;
 
 class MediaRepository {
 

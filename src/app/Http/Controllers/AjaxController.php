@@ -11,8 +11,8 @@ use Input;
 use Storage;
 
 use App\Repositories\MediaRepository;
-use App\Audio;
-use App\Video;
+use App\Classes\Audio;
+use App\Classes\Video;
 
 class AjaxController extends Controller {
 

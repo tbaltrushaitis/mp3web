@@ -25,7 +25,7 @@ class FrontController extends Controller {
    */
   public function __construct (MediaRepository $mediarepository) {
     // $this->middleware('auth');
-    $this->mediaRepository  =   $mediarepository;
+    $this->mediaRepository = $mediarepository;
   }
 
   /**
@@ -37,7 +37,8 @@ class FrontController extends Controller {
     $arrTracks = $this->mediaRepository->getTracksAudio();
     return  view('frontend', [
               'tracks' => array_sort($arrTracks, function ($track) {
-                            return -1 * $track->get('plays', 0);
+                            // return -1 * $track->get('plays', 0);
+                            return 1 * $track->get('plays', 0);
                           })
             ]);
   }
