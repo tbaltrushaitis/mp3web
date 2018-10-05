@@ -2,7 +2,7 @@
   , "app_url":     "http://mp3.local"
   , "engine": {
         "name":    "laravel"
-      , "version": "5.2.41"
+      , "version": "5.5"
     }
   , "mysql": {
         "host": "127.0.0.1"

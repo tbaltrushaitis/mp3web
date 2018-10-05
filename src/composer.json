@@ -56,25 +56,31 @@
     }
   , "scripts": {
       "post-root-package-install": [
-        "@php -r \"file_exists('.env') || copy('../src/.env.rc', '.env');\""
+        "@php -r \"file_exists('.env') || copy('.env.rc', '.env');\""
       ]
     , "post-create-project-cmd": [
-          "@php artisan -vvv --no-interaction key:generate"
-        , "@php artisan -vvv --no-interaction preset none"
+          "@php artisan -v -n key:generate"
+        , "@php artisan -v -n preset none"
       ]
     , "post-install-cmd": [
           "Illuminate\\Foundation\\ComposerScripts::postInstall"
-        , "@php artisan -vvv --no-interaction vendor:publish"
+        , "@php artisan -vvv vendor:publish"
       ]
     , "post-update-cmd": [
           "Illuminate\\Foundation\\ComposerScripts::postUpdate"
-        , "@php artisan -vvv --no-interaction key:generate"
-        , "@php artisan -vvv --no-interaction config:clear"
-        , "@php artisan -vvv --no-interaction optimize"
+        , "@php artisan -v -n key:generate"
+        , "@php artisan -v -n config:cache"
+        , "@php artisan -v -n route:cache"
+        , "@php artisan -V > ENGINE_VERSION"
+        , "@php artisan inspire > INSPIRATION"
+        , "@php artisan -v -n optimize"
+        , "@php artisan -v -n migrate:status"
+        , "@php artisan -v -n route:list"
+        , "@php artisan env"
       ]
     , "post-autoload-dump": [
           "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump"
-        , "@php artisan -vvv --no-interaction package:discover"
+        , "@php artisan -v -n package:discover"
       ]
     }
   , "config": {
