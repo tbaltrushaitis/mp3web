@@ -13,7 +13,7 @@ ifeq ($(ENGINE_EXISTS), 0)
 $(info [${Cyan}${DT}${NC}]${BRed} Missing DIR_ENGINE: ${NC}[${BPurple}${DIR_ENGINE}${NC}]);
 # exit 1
 else
-$(info [${Cyan}${DT}${NC}]${BYellow} DIR_ENGINE EXIST: ${NC}[${BPurple}${DIR_ENGINE}${NC}]);
+$(info [${Cyan}${DT}${NC}]${BYellow} Reuse ENGINE DIR: ${NC}[${BPurple}${DIR_ENGINE}${NC}]);
 endif
 
 ##  ------------------------------------------------------------------------  ##
@@ -30,15 +30,16 @@ engine_setup:
 	@ mkdir -p ${DIR_ENGINE}/storage/media/audio/ ;
 	@ echo [${Cyan}${DT}${NC}] ${BYellow}Engine [${BBlue}${ENGINE_NAME}-${ENGINE_TAG}${NC}] [${BGreen}v${ENGINE_VERSION}${NC}] cloned to [${BPurple}${DIR_ENGINE}${NC}] and UPDATED ;
 
-# @ composer -vvv \
-		# create-project \
-		# --prefer-dist \
-		# ${ENGINE_NAME}/${ENGINE_TAG} "${DIR_ENGINE}" "${ENGINE_VERSION}.*" ;
-	# @ cd ${DIR_ENGINE} \
-	# && npm i \
-	# && composer -vvv --no-interaction update ;
-
-# $(info [${Cyan}${DT}${NC}] ${BYellow}Engine [${BBlue}${ENGINE_NAME}-${ENGINE_TAG}${NC}] [${BGreen}v${ENGINE_VERSION}${NC}] cloned to [${BPurple}${DIR_ENGINE}${NC}])
+engine_setup2:
+	@ composer -v \
+						--no-interaction
+						--profile \
+						--prefer-dist \
+			create-project \
+				${ENGINE_NAME}/${ENGINE_TAG} "${DIR_ENGINE}" "${ENGINE_VERSION}.*" ;
+	@ cd ${DIR_ENGINE} \
+	&& npm i \
+	&& composer -v -n --profile update ;
 
 engine_set_permissions:
 	@  sudo chmod 775 ${DIR_ENGINE} \
