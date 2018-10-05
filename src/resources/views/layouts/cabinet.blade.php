@@ -81,5 +81,4 @@
   @include('cabinet.javascripts')
 
 </body>
-
 </html>

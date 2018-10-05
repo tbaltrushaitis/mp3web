@@ -47,8 +47,8 @@
   <!--/ Styles
   ========================================================================= /-->
   <!--/ Custom /-->
-  <link rel="stylesheet" href="{{ asset('assets/css/bower-bundle.min.css') }}" id="css-bower" />
-  <link rel="stylesheet" href="{{ asset('assets/css/cabinet-bundle.min.css') }}" id="css-cabinet" />
+  <link rel="stylesheet" href="{{ asset('assets/css/bower-bundle.css') }}" id="css-bower" />
+  <link rel="stylesheet" href="{{ asset('assets/css/cabinet-bundle.css') }}" id="css-cabinet" />
 
   <!--/ Favicon
   ========================================================================= /-->
@@ -57,8 +57,8 @@
 
   <!--/ Shim and Respond.js IE8 support of HTML5 elements and media queries /-->
   <!--[if lt IE 9]>
-    <script src="{{ asset('assets/js/lib/html5shiv.min.js') }}"></script>
-    <script src="{{ asset('assets/js/lib/respond.min.js') }}"></script>
+    <script src="{{ asset('assets/js/lib/html5shiv.js') }}"></script>
+    <script src="{{ asset('assets/js/lib/respond.src.js') }}"></script>
   <![endif]-->
 
 </head>

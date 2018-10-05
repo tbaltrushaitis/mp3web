@@ -1,6 +1,4 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!--[if lt IE 9 ]><html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" class="ie8"> <![endif]-->
-<!--[if IE 9 ]><html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" class="ie9"> <![endif]-->
 <!--[if IE 10 ]><html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" class="ie10"> <![endif]-->
 <!--[if IE 11 ]><html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" class="ie11"> <![endif]-->
 <!--[if (gt IE 11)|!(IE)]><!--><html lang="{{ config('app.locale') }}" xml:lang="{{ config('app.locale') }}" xmlns="http://www.w3.org/1999/xhtml" class="noie"> <!--<![endif]-->
@@ -48,8 +46,8 @@
   <!--/ Styles
   ========================================================================= /-->
   <!--/ Custom /-->
-  <link rel="stylesheet" href="{{ asset('assets/css/bower-bundle.min.css') }}" id="css-bower" />
-  <link rel="stylesheet" href="{{ asset('assets/css/cabinet-bundle.min.css') }}" id="css-cabinet" />
+  <link rel="stylesheet" href="{{ asset('assets/css/bower-bundle.css') }}" id="css-bower" />
+  <link rel="stylesheet" href="{{ asset('assets/css/cabinet-bundle.css') }}" id="css-cabinet" />
 
   <!--/ Favicon
   ========================================================================= /-->
@@ -58,8 +56,8 @@
 
   <!--/ Shim and Respond.js IE8 support of HTML5 elements and media queries /-->
   <!--[if lt IE 9]>
-    <script src="{{ asset('assets/js/lib/html5shiv.min.js') }}"></script>
-    <script src="{{ asset('assets/js/lib/respond.min.js') }}"></script>
+    <script src="{{ asset('assets/js/lib/html5shiv.js') }}"></script>
+    <script src="{{ asset('assets/js/lib/respond.src.js') }}"></script>
   <![endif]-->
 
 </head>
