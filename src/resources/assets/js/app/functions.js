@@ -1,17 +1,15 @@
 /*!
  * File:        ASSETS/JS/APP/functions.js
- * Copyright(c) 2016-2017 Baltrushaitis Tomas
+ * Copyright(c) 2016-nowdays Baltrushaitis Tomas
  * License:     MIT
  */
 
 'use strict';
 
 define([
-    'jquery'
-  , 'underscore'
-  ]
-
-  , function ($, _) {
+  'jquery'
+, 'lodash'
+], function ($, _) {
 
   //  Check if parameter ("intro", "silent", etc.) is Enabled in URL
   function checkMode (mode) {
@@ -25,7 +23,7 @@ define([
   }
 
 
-  function padl(number, length, symbol) {
+  function padl (number, length, symbol) {
     var num = ('number' !== typeof(number) ? Number(number) : number)
       , len = (false === !!length || length <= 0 ? 2 : length)
       , sym = (false === !!symbol ? '0' : symbol)
@@ -127,7 +125,7 @@ define([
 
   /*
   |--------------------------------------------------------------------------
-  |   EXPOSES
+  |   EXPOSE
   |--------------------------------------------------------------------------
   */
 

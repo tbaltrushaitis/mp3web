@@ -1,6 +1,6 @@
 /*!
  * File:        ASSETS/JS/APP/CLASSES/Player.class.js
- * Copyright(c) 2016-2017 Baltrushaitis Tomas
+ * Copyright(c) 2016-nowdays Baltrushaitis Tomas
  * License:     MIT
  */
 
@@ -8,7 +8,7 @@
 
 define([
     'jquery'
-  , 'underscore'
+  , 'lodash'
   , 'Abstract'
   , 'functions'
 ]
@@ -103,38 +103,38 @@ define([
                     + trackHash
                     + '/'
                     + 'play'
-//                        +   'meta'
       , oRequest = $.ajax({
                         url:     requestUrl
                       , type:    'GET'
                       , timeout: 5000
-                    });
+                    })
+    ;
 
     oRequest
-      .done( function (loResponse) {
+      .done(function (loResponse) {
         // console.log('Play Response:\t', loResponse);
 
         Instance.src = loResponse.url;
         Instance.load();
         Instance.play();
 
-        self._data.tracks.current   =   trackDom.index();
+        self._data.tracks.current = trackDom.index();
         $('#data-current-src').text(trackName);
         $('#info-rank-like').text(loResponse.likes || 0);
         $('#info-rank-dislike').text(loResponse.dislikes || 0);
         $('#info-plays').text(loResponse.plays || 0);
 
         trackDom
-            .find('i')
-            .addClass('fa-spinner fa-pulse')
-            .end()
-            .addClass('active')
-            .siblings()
-            .removeClass('active')
-            .find('i')
-            .removeClass('fa-spinner')
-            .removeClass('fa-pulse')
-            .addClass('fa-volume-off');
+          .find('i')
+          .addClass('fa-spinner fa-pulse')
+          .end()
+          .addClass('active')
+          .siblings()
+          .removeClass('active')
+          .find('i')
+          .removeClass('fa-spinner')
+          .removeClass('fa-pulse')
+          .addClass('fa-volume-off');
 
         //  Move Track To Top of List
         var domParent   =   trackDom.parent()
@@ -143,7 +143,7 @@ define([
         domParent.prepend(trackClone.addClass('animated slideInUp'));
       })
       .fail( function (loError) {
-        console.warn('Error loading media:\t', loError);
+        console.warn('Error loading media:\t', loError.responseJSON);
       });
 
     return self;
@@ -185,13 +185,14 @@ define([
     }
 
     if (current === len) {
-      current =   0;
+      current = 0;
     }
     self._data.tracks.current = current;
 
-    //var link    =   $(self._config.tracks.container).find('a')[current];
     var link = $(self._config.tracks.container).find(self._config.tracks.selector)[current];
-    self.Play( $(link) );
+    if (true === !!link) {
+      self.Play( $(link) );
+    }
 
     return self;
   };
@@ -275,7 +276,6 @@ define([
 
   Player.prototype.Rate = function (Rank) {
     var self       = this
-      , Instance   = self._data.instance
       , Hash       = self._data.tracks.list[self._data.tracks.current]
       , rankHolder = $('#info-rank-' + Rank)
       , rankCount  = parseInt(rankHolder.text(), 10)
@@ -302,15 +302,15 @@ define([
                     });
 
     oRequest
-      .done( function (loResponse) {
+      .done(function (loResponse) {
         if ('SUCCESS' === loResponse.action_result) {
           ++rankCount;
         }
       })
-      .fail( function (loError) {
+      .fail(function (loError) {
         console.warn('Error changing Rate:\t', loError);
       })
-      .always( function () {
+      .always(function () {
         rankHolder.text(rankCount).removeClass('rotateOut');
       });
 

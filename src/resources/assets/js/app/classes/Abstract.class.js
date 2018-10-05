@@ -1,13 +1,16 @@
-/* ASSETS/JS/APP/CLASSES/Abstract.class.js */
+/*!
+ * File:        ASSETS/JS/APP/CLASSES/Abstract.class.js
+ * Copyright(c) 2016-nowdays Baltrushaitis Tomas
+ * License:     MIT
+ */
 
 'use strict';
 
 define([
-      'jquery'
-    , 'underscore'
-    , 'functions'
-  ]
-  , function ($, _, F) {
+    'jquery'
+  , 'lodash'
+  , 'functions'
+], function ($, _, F) {
 
     //  CONSTRUCTOR
     var Abstract = function () {
@@ -37,7 +40,7 @@ define([
           console.log('Class ' + oClass._entity + ' Object:', oClass);
           dfdClass.resolve(oClass);
       })
-      .always(function (oResult) {
+      .always(function () {
         console.groupEnd('Abstract.class Constructor');
       });
 
@@ -51,8 +54,8 @@ define([
         _entity: 'Abstract.class'
       }
 
-    , _config:  new Object()
-    , _data:    new Object()
+    , _config:  {}
+    , _data:    {}
 
       //  INIT
     , _init:  function () {
@@ -69,7 +72,7 @@ define([
         ;
 
         //  Apply DEFAULT class OPTIONS
-        var loaded  = $.when( _.extend(self, self._defaults) )
+        var loaded  = $.when( Object.assign(self, self._defaults) )
                        .then( function (objSelf) {
                           return objSelf.Load();
                       });
@@ -104,7 +107,7 @@ define([
             var tStamp  =   {timestamp: (new Date()).getTime()}
               , UUID    =   {UID: F.genUUID()}
             ;
-            _.extend(loSelf._config, tStamp, UUID);
+            Object.assign(loSelf._config, tStamp, UUID);
             dfdMethod.resolve(loSelf);
           });
 

@@ -1,7 +1,7 @@
 /*!
  * File:        ASSETS/JS/app-config-require.js
  * License:     MIT
- * Copyright (c) 2016-2017 Baltrushaitis Tomas
+ * Copyright (c) 2016-nowdays Baltrushaitis Tomas
  */
 
 'use strict';
@@ -18,7 +18,7 @@
 
     require.config({
         baseUrl:      rootPath + 'assets/js'
-      , waitSeconds:  6
+      , waitSeconds:  10
     });
 
     require.onError = function (err) {
@@ -46,13 +46,13 @@
         paths: {
             jquery:         'lib/jquery'
           , lodash:         'lib/lodash'
-          , underscore:     'lib/underscore'
           , bootstrap:      'lib/bootstrap'
           , Tmpl:           'lib/jquery.tmpl'
           , raty:           'lib/jquery.raty'
           , bootstrapTags:  'lib/bootstrap-tagsinput'
           , Abstract:       'app/classes/Abstract.class'
           , Player:         'app/classes/Player.class'
+          // , Config:         'app/modules/Config'
           , functions:      'app/functions'
         }
       , shim: {
@@ -63,10 +63,6 @@
             exports:  '_'
           , deps:     ['jquery']
           }
-        , underscore: {
-            exports:  '_'
-          , deps:     ['jquery']
-          }
         , bootstrap: {
             exports:  'bootstrap'
           , deps:     ['jquery']
@@ -74,13 +70,13 @@
         , bootstrapTags:  ['jquery', 'bootstrap']
         , Tmpl:           ['jquery']
         , raty:           ['jquery']
-        , Abstract:       ['jquery']
-        , Player:         ['jquery', 'Abstract']
+        , Abstract:       ['jquery', 'lodash']
+        , Player:         ['jquery', 'lodash']
         , functions:      ['jquery']
         }
       , deps: [
           'jquery'
-        , 'underscore'
+        , 'lodash'
         ]
       };
 

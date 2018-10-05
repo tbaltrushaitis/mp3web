@@ -1,6 +1,6 @@
 /*!
  * File:        ASSETS/JS/APP/CONTROLLERS/cabinetController.js
- * Copyright(c) 2016-2017 Baltrushaitis Tomas
+ * Copyright(c) 2016-nowdays Baltrushaitis Tomas
  * License:     MIT
  */
 
@@ -8,7 +8,7 @@
 
 require([
     'jquery'
-  , 'underscore'
+  , 'lodash'
   , 'Tmpl'
   , 'bootstrap'
   , 'bootstrapTags'
@@ -20,7 +20,7 @@ require([
 
 define([
     'jquery'
-  , 'underscore'
+  , 'lodash'
   , 'Tmpl'
   , 'bootstrap'
   , 'bootstrapTags'
