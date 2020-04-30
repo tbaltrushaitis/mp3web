@@ -22,14 +22,14 @@ pipelines:
             - printf "Everything is awesome!\n";
     dev-1.0.3:
       - step:
-          name: Greeting
+          name: [01] Greeting
           script:
             - printf "[Step_01] This script runs only on commit to the [${BITBUCKET_BRANCH}] branch.\n"
             - uname -a
             - pwd
             - printf "[Step_01] ==================================================================== [FINISHED]\n"
       - step:
-          name: Update system
+          name: [02] Update system
           caches:
             - apt
             - bower
@@ -40,13 +40,13 @@ pipelines:
             - apt-get -y update && apt-get -y upgrade
             - printf "System Updated!\n"
       - step:
-          name: Install system packages
+          name: [03] Install system packages
           caches:
             - apt
           script:
             - apt -y install make curl
       - step:
-          name: PHP setup
+          name: [04] PHP setup
           caches:
             - apt
           script:
@@ -57,7 +57,7 @@ pipelines:
             # - sleep 10
             - php -v
       - step:
-          name: NVM install
+          name: [05] NVM install
           script:
             - printf "NPM install \n"
             # NPM install
@@ -65,16 +65,16 @@ pipelines:
             - export NVM_DIR="${XDG_CONFIG_HOME/:-$HOME/.}nvm"
             # - \. "$NVM_DIR/nvm.sh" # This loads nvm
             - echo -e "\t${BCyan}ENV:\t exported [$NVM_DIR/nvm.sh]"
-            - command -v nvm
+            # - command -v nvm
             # This loads nvm bash_completion
             # - . "$NVM_DIR/bash_completion"
       - step:
-          name: Setup NODE.JS
+          name: [06] Setup NODE.JS
           script:
-            - nvm install v8.0.0
+            - nvm install v10.0.0
             - node -v
       - step:
-          name: Build project
+          name: [07] Build project
           caches:
             - bower
             - node
@@ -83,17 +83,19 @@ pipelines:
             - pwd
             # BUILD project
             - make setup
+            - sleep 1
+            - make engine
             - make dev
             - sleep 1
             - pwd && ls -als
             - cat webroot/.env
       - step:
-          name: Check webroot
+          name: [08] Check webroot
           script:
             - cd webroot
             - cat INSPIRATION
       - step:
-          name: Finalize
+          name: [09] Finalize
           script:
             - echo "[Step_Info] Script runs on the [${BITBUCKET_BRANCH}] branch."
             - pwd
@@ -104,7 +106,7 @@ pipelines:
             - echo "[BITBUCKET_TAG] = [${BITBUCKET_TAG}]"
             - echo "[BITBUCKET_BUILD_NUMBER] = [${BITBUCKET_BUILD_NUMBER}]"
             - echo "[CI] = [${CI}]"
-            - printf "Everything is awesome!\n";
+            - printf "[FINISHED] Everything is awesome!\n";
 
 definitions:
   caches:
