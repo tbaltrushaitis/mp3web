@@ -91,7 +91,8 @@ class MediaController extends Controller {
     $actionResult = $this->mediaRepository->dropTrack($id);
     $actionResult->put('action', 'DROP');
     // return response()->json($actionResult);
-    return redirect()->action('CabinetController@index')->with('status', 'Track Metadata removed!');
+    return redirect()->action('CabinetController@index')
+                     ->with('status', 'Track Metadata removed!');
   }
 
 }
