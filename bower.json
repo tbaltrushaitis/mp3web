@@ -2,13 +2,13 @@
   , "title":        "Web MP3 Player and Media Library Manager"
   , "description":  "Web MP3 Player and Media Library Manager based on Node.js, Laravel and HTML5 + lightweight JavaScript MVC modeling on FrontEnd"
   , "version":      "1.0.3"
-  , "authors": [
+  , "author": [
       "tbaltrushaitis@gmail.com"
     ]
   , "license":  "MIT"
   , "private":  false
   , "homepage": "https://tbaltrushaitis.github.io/mp3web/"
-  , "main":     "make"
+  , "main":     ""
   , "keywords": [
         "mp3"
       , "audio"
