@@ -16,24 +16,24 @@
       }
     ]
   , "require": {
-        "php":               ">=7.0.0"
-      , "fideloper/proxy":   ">=4.0.0"
-      , "laravel/framework": "5.5.*"
-      , "laravel/tinker":    "~1.0"
+        "php":                  ">=7.0.0"
+      , "fideloper/proxy":      "~3.3"
+      , "laravel/framework":    "5.5.*"
+      , "laravel/tinker":       "~1.0"
     }
   , "require-disabled": {
         "php":                  ">=5.5.38"
       , "laravel/framework":    "~5.2.31"
-      , "wisembly/elephant.io": "~3.0"
     }
   , "require-dev": {
-      "phpunit/phpunit": "~6.0"
+        "phpunit/phpunit":      "~6.0"
+      , "filp/whoops":          "~2.0"
+      , "fzaninotto/faker":     "~1.4"
+      , "mockery/mockery":      "~1.0"
+      , "wisembly/elephant.io": "~3.0"
+      , "symfony/thanks":       "^1.0"
     }
   , "require-dev-disabled": {
-        "filp/whoops":      "~2.0"
-      , "fzaninotto/faker": "~1.4"
-      , "mockery/mockery":  "~1.0"
-      , "symfony/thanks":   "^1.0"
     }
   , "autoload": {
       "classmap": [
@@ -59,8 +59,10 @@
         "@php -r \"file_exists('.env') || copy('.env.rc', '.env');\""
       ]
     , "post-create-project-cmd": [
-          "@php artisan -v -n key:generate"
-        , "@php artisan -v -n preset none"
+          "@php artisan key:generate"
+      ]
+    , "post-create-project-cmd-disabled": [
+        "@php artisan -v -n preset none"
       ]
     , "post-install-cmd": [
           "Illuminate\\Foundation\\ComposerScripts::postInstall"
@@ -80,13 +82,13 @@
       ]
     , "post-autoload-dump": [
           "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump"
-        , "@php artisan -v -n package:discover"
+        , "@php artisan -v package:discover"
       ]
     }
   , "config": {
-        "preferred-install": "dist"
-      , "sort-packages": true
-      , "optimize-autoloader": true
+        "preferred-install":    "dist"
+      , "sort-packages":        true
+      , "optimize-autoloader":  true
     }
   , "keywords": [
         "mp3"
