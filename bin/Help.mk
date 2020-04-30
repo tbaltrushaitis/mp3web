@@ -2,6 +2,7 @@
 ##                              Show help topic                               ##
 ##  ------------------------------------------------------------------------  ##
 
+# $(info [$(lastword $(MAKEFILE_LIST))])
 # include ./bin/.bash_colors
 
 ##  ------------------------------------------------------------------------  ##
@@ -9,8 +10,8 @@
 .PHONY: help
 
 help: banner
-	@ echo ${BCyan}---------------------------------------------------------${NC};
-	@ echo ${BBlue}Available commands:${NC};
+	@ echo ${Cyan}----------------------------------------------------------${NC};
+	@ echo ${Blue}Available commands:${NC};
 	@ echo ${Yellow}make ${NC};
 	@ echo "  " ${BGreen}list${NC} "\t" - LIST all targets defined in this makefile;
 	@ echo "  " ${BGreen}clean${NC} "\t" - CLEAR directories and delete files;
@@ -19,10 +20,10 @@ help: banner
 	@ echo "  " ${BGreen}build${NC} "\t" - BUILD project from sources;
 	@ echo "  " ${BGreen}release${NC} "\t" - COMPILE project distro;
 	@ echo "  " ${BGreen}deploy${NC} "\t" - DEPLOY compiled project to \"webroot\" directory;
-	@ echo "  " ${BPurple}all${NC} "\t" -${BGreen}Run all operations for current stage from NODE_ENV file${NC};
-	@ echo "  " ${BPurple}rebuild${NC} "\t" -${BGreen}Execute [build, release, deploy] tasks${NC};
-	@ echo "  " ${BPurple}redeploy${NC} "\t" -${BGreen}Execute [release, deploy] tasks${NC};
-	@ echo ${BCyan}---------------------------------------------------------${NC};
+	@ echo "  " ${BPurple}all${NC} "\t\t" - Run ${White}ALL${NC} operations for current stage from ${BGreen}NODE_ENV${NC} file;
+	@ echo "  " ${BPurple}rebuild${NC} "\t" - Execute [${BGreen}build, release, deploy${NC}] tasks;
+	@ echo "  " ${BPurple}redeploy${NC} "\t" - Execute [${BGreen}release, deploy${NC}] tasks;
+	@ echo ${Cyan}----------------------------------------------------------${NC};
 
 ##  ------------------------------------------------------------------------  ##
 ##                      Report Environment Variables                          ##
@@ -56,8 +57,9 @@ state:
 	@ echo "\t DIR_SRC \t = [${DIR_SRC}]";
 	@ echo "\t DIR_ENGINE \t = [${DIR_ENGINE}]";
 	@ echo ${Yellow}REPOSITORY:${NC};
-	@ echo "\t REPO_URL \t = [${REPO_URL}]";
-	@ echo "\t REPO_BRANCH \t = [${REPO_BRANCH}]";
+	@ echo "\t" REPO_HOST "\t" = [$(White)$(REPO_HOST)$(NC)];
+	@ echo "\t" REPO_URL "\t" = [$(White)$(REPO_URL)$(NC)];
+	@ echo "\t" REPO_BRANCH "\t" = [$(White)$(REPO_BRANCH)$(NC)];
 	@ echo "\t" GIT_COMMIT "\t" = [$(White)$(GIT_COMMIT)$(NC)];
 	@ echo ${BCyan}---------------------------------------------------------${NC};
 
