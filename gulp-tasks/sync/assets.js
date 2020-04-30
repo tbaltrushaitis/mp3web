@@ -19,7 +19,7 @@ const dirSync = require('gulp-directory-sync');
 //--------------//
 
 module.exports = function (gulp) {
-  console.log(`LOADED: [${module.filename}]`);
+  console.log(`[${new Date().toISOString()}] LOADED: [${module.filename}]`);
 
   return  gulp.src('')
             .pipe(dirSync(

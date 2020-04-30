@@ -1,6 +1,6 @@
 /*!
  * File:        ./gulp-tasks/clean/dist.js
- * Copyright(c) 2016-2017 Baltrushaitis Tomas
+ * Copyright(c) 2016-nowdays Baltrushaitis Tomas
  * License:     MIT
  */
 
@@ -19,6 +19,6 @@ const vinylPaths = require('vinyl-paths');
 //--------------//
 
 module.exports = function (gulp) {
-  console.log(`LOADED: [${module.filename}]`);
+  console.log(`[${new Date().toISOString()}] LOADED: [${module.filename}]`);
   return gulp.src([ME.DIST]).pipe(vinylPaths(del));
 };
