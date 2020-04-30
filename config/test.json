@@ -1,6 +1,5 @@
-{
-    "xhr_timeout": 5000
-  , "app_url":     "http://mp3.local"
+{   "xhr_timeout": 5000
+  , "app_url":     "http://mp3web.test"
   , "engine": {
         "name":    "laravel"
       , "version": "5.5"
@@ -10,6 +9,6 @@
       , "port": "3306"
       , "base": "mp3_db"
       , "user": "mp3_user"
-      , "pass": "ysmsJ0kT7MCaRw2DFYnMJ8Ls"
+      , "pass": "mp3_pass"
     }
 }
