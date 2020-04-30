@@ -23,6 +23,7 @@
 
         <i class="fa fa-headphones fa-fw"></i>
         <span class="label label-success">{{ $track->get('plays', 0) }}</span>
+        <span class="label label-primary">{{ intval((time() - $track->get('added')) / (60 * 60 * 24)) }}</span>
         <a class="" href="{{ $track->get('id') }}">{{ $track->get('title') }}</a>
 
         <div class="raty pull-right" data-score="{{ ($track->get('likes') * 5) / max( $track->get('likes') + $track->get('dislikes'), 1) }}"></div>

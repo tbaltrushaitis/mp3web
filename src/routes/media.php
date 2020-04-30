@@ -13,6 +13,7 @@ Route::get('/{hash}', 'MediaController@mediaPlay')
 Route::get('/{hash}/play', 'MediaController@mediaPlay')
   ->where(['hash' => '[0-9a-f]+'])
   ->name('Media:Play');
+
 Route::get('/play/{hash}', 'MediaController@mediaPlay')
   ->where(['hash' => '[0-9a-f]+'])
   ->name('Media:Play:Hash');
