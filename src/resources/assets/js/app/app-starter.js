@@ -30,14 +30,17 @@ require([
     });
 
     $('.raty').each(function () {
+
       var that  = $(this)
         , score = that.attr('data-score')
       ;
+
       that.raty({
           score:    score
         , readOnly: true
         , path:     'assets/img'
       });
+
     });
 
     // RATE
@@ -112,11 +115,9 @@ require([
         Player.stepForward();
         setTimeout (PlayIntro, 10000);
       }, 100);
-    } else {
+    }else{
       Player.stepForward();
-    }
-
-    //(silent) ? false : Player.stepForward();
+    };
 
     //var elTags  =   $('[data-role="tagsinput"]');
     //elTags.bsTags('add', {"value": 1, "text": "Amsterdam", "continent": "Europe"});

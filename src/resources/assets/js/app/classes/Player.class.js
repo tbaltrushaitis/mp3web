@@ -65,6 +65,7 @@ define([
       }
   };
 
+
   Player.prototype.Populate = function () {
     var self = this;
 

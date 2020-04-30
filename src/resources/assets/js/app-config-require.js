@@ -8,12 +8,46 @@
 
 (function (require) {
 
-    var rootPath = document.querySelector('body').dataset.rooturl.replace('://', '');
+    let AppConsoleLogo = `
+┌────────────────────────────────────────────┐
+│  __  __ ____ _______        _______ ____   │
+│ |  \/  |  _ \___ /\ \      / / ____| __ )  │
+│ | |\/| | |_) ||_ \ \ \ /\ / /|  _| |  _ \  │
+│ | |  | |  __/___) | \ V  V / | |___| |_) | │
+│ |_|  |_|_|  |____/   \_/\_/  |_____|____/  │
+│                                            │
+└────────────────────────────────────────────┘
+
+┌────────────────────────────────────┐
+│  __  __ ___ ______      _____ ___  │
+│ |  \/  | _ \__ /\ \    / / __| _ ) │
+│ | |\/| |  _/|_ \ \ \/\/ /| _|| _ \ │
+│ |_|  |_|_| |___/  \_/\_/ |___|___/ │
+│                                    │
+└────────────────────────────────────┘
+
+┌────────┐
+│ MP3WEB │
+└────────┘
+
+┌──────────────────────────────────────────────────────┐
+│   #     # ######   #####  #     # ####### ######     │
+│   ##   ## #     # #     # #  #  # #       #     #    │
+│   # # # # #     #       # #  #  # #       #     #    │
+│   #  #  # ######   #####  #  #  # #####   ######     │
+│   #     # #             # #  #  # #       #     #    │
+│   #     # #       #     # #  #  # #       #     #    │
+│   #     # #        #####   ## ##  ####### ######     │
+└──────────────────────────────────────────────────────┘
+
+`;
+
+    let rootPath = document.querySelector('body').dataset.rooturl.replace('://', '');
     if (!rootPath.endsWith('/')) {
       rootPath += '/';
     }
 
-    var pos  = rootPath.indexOf('/');
+    let pos  = rootPath.indexOf('/');
     rootPath = (-1 !== pos && pos + 1 < rootPath.length) ? rootPath.substr(pos) : '/';
 
     require.config({
@@ -30,7 +64,7 @@
     };
 
     (function () {
-      var config = {
+      let config = {
         map: {
           '*': {
             // 'common': 'app/common'
@@ -42,7 +76,7 @@
 
     (function () {
 
-      var config = {
+      let config = {
         paths: {
             jquery:         'lib/jquery'
           , lodash:         'lib/lodash'
@@ -96,18 +130,22 @@
 
     })();
 
+
     // Load APP-Starter Module
     (function () {
+
       require(['jquery', 'app/app-starter'], function ($) {
-        var pageId = $('body').attr('data-id_page');
+        let pageId = $('body').attr('data-id_page');
         console.groupCollapsed(pageId);
         console.timeStamp('APP.CHECK-IN');
         console.info('APP::Started');
         console.groupEnd(pageId);
+        console.log(AppConsoleLogo);
       }, function (err) {
-        var failedId = err.requireModules && err.requireModules[0];
+        let failedId = err.requireModules && err.requireModules[0];
         console.warn('[requirejs] Errors in ' + failedId + ':', err.requireModules[0]);
       });
+
     })();
 
 })(require);
