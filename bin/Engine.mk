@@ -42,14 +42,20 @@ engine_setup_composer:
 			${ENGINE_NAME}/${ENGINE_TAG} "${DIR_ENGINE}" "${ENGINE_VERSION}.*" ;
 
 engine_setup: engine_setup_git ;
-	@ mkdir -p ${DIR_ENGINE}/storage/media/audio/ ;
+	mkdir -p /data/media/audio/ ;
+	[ -f ${DIR_ENGINE}/storage/media/audio ] || ln -s /data/media/audio ${DIR_ENGINE}/storage/media/audio ;
 	@ echo [${Gray}${DT}${NC}] ${Yellow}ENGINE INSTALLED to${NC}: [${Purple}${DIR_ENGINE}${NC}] ;
+
+# ln -s /data/media/audio ${DIR_ENGINE}/storage/media/audio ;
+# @ mkdir -p ${DIR_ENGINE}/storage/media/audio/ ;
 
 engine_update: ;
 	@ cd ${DIR_ENGINE} \
 	&& npm i \
-	&& composer -vv -n --profile update ;
+	&& composer -vv -n update ;
 	@ echo [${Gray}${DT}${NC}] ${Yellow}ENGINE UPDATED${NC}: [${Purple}${DIR_ENGINE}${NC}] ;
+
+#&& composer -vv -n --profile update ;
 
 engine_set_permissions:
 	@  sudo chmod 775 ${DIR_ENGINE} \
