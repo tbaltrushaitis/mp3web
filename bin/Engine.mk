@@ -43,7 +43,7 @@ engine_setup_composer:
 
 engine_setup: engine_setup_git ;
 	mkdir -p /data/media/audio/ ;
-	[ -f ${DIR_ENGINE}/storage/media/audio ] || ln -s /data/media/audio ${DIR_ENGINE}/storage/media/audio ;
+	[ -L ${DIR_ENGINE}/storage/media/audio || -e ${DIR_ENGINE}/storage/media/audio ] || ln -s /data/media/audio ${WD}/${DIR_ENGINE}/storage/media/audio ;
 	@ echo [${Gray}${DT}${NC}] ${Yellow}ENGINE INSTALLED to${NC}: [${Purple}${DIR_ENGINE}${NC}] ;
 
 # ln -s /data/media/audio ${DIR_ENGINE}/storage/media/audio ;
