@@ -22,14 +22,14 @@ pipelines:
             - printf "Everything is awesome!\n";
     dev-1.0.3:
       - step:
-          name: [01] Greeting
+          name: "[01] Greeting"
           script:
             - printf "[Step_01] This script runs only on commit to the [${BITBUCKET_BRANCH}] branch.\n"
             - uname -a
             - pwd
             - printf "[Step_01] ==================================================================== [FINISHED]\n"
       - step:
-          name: [02] Update system
+          name: "[02] Update system"
           caches:
             - apt
             - bower
