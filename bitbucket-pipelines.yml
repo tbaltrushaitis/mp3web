@@ -40,13 +40,13 @@ pipelines:
             - apt-get -y update && apt-get -y upgrade
             - printf "System Updated!\n"
       - step:
-          name: [03] Install system packages
+          name: "[03] Install system packages"
           caches:
             - apt
           script:
             - apt -y install make curl
       - step:
-          name: [04] PHP setup
+          name: "[04] PHP setup"
           caches:
             - apt
           script:
@@ -57,7 +57,7 @@ pipelines:
             # - sleep 10
             - php -v
       - step:
-          name: [05] NVM install
+          name: "[05] NVM install"
           script:
             - printf "NPM install \n"
             # NPM install
@@ -69,12 +69,12 @@ pipelines:
             # This loads nvm bash_completion
             # - . "$NVM_DIR/bash_completion"
       - step:
-          name: [06] Setup NODE.JS
+          name: "[06] Setup NODE.JS"
           script:
             - nvm install v10.0.0
             - node -v
       - step:
-          name: [07] Build project
+          name: "[07] Build project"
           caches:
             - bower
             - node
@@ -90,12 +90,12 @@ pipelines:
             - pwd && ls -als
             - cat webroot/.env
       - step:
-          name: [08] Check webroot
+          name: "[08] Check webroot"
           script:
             - cd webroot
             - cat INSPIRATION
       - step:
-          name: [09] Finalize
+          name: "[09] Finalize"
           script:
             - echo "[Step_Info] Script runs on the [${BITBUCKET_BRANCH}] branch."
             - pwd
