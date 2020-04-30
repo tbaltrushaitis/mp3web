@@ -39,10 +39,10 @@
   , "devDependencies": {
         "bower":                "^1.8.4"
       , "dateformat":           "^3.0.3"
-      , "del":                  "^3.0.0"
+      , "del":                  "^5.1.0"
       , "gulp":                 "^3.9.1"
       , "gulp-changed":         "^3.2.0"
-      , "gulp-chmod":           "^2.0.0"
+      , "gulp-chmod":           "^3.0.0"
       , "gulp-chown":           "^2.0.0"
       , "gulp-clean-css":       "^3.9.4"
       , "gulp-compass":         "^2.1.0"
@@ -59,6 +59,7 @@
       , "gulp-jscs":            "^4.1.0"
       , "gulp-jshint":          "^2.1.0"
       , "gulp-livereload":      "^4.0.0"
+      , "gulp-minify-css":      "^1.2.4"
       , "gulp-newer":           "^1.4.0"
       , "gulp-rename":          "^1.2.3"
       , "gulp-replace":         "^1.0.0"
@@ -92,7 +93,6 @@
       , "gulp-tar":     "^2.1.0"
       , "gulp-template": "^5.0.0"
       , "run-sequence": "^2.2.1"
-      , "gulp-minify-css": "^1.2.4"
     }
   , "options": {
       "bower": {
