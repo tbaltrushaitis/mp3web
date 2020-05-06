@@ -42,7 +42,7 @@
     @if (count($tracks) > 0)
     <div class="panel panel-info box box-info">
       <div class="panel-heading">
-        <strong>Tracklist</strong> <span class="pull-right">[{{ count($tracks) }} item(s)]</span>
+        <strong>Tracklist</strong> <span class="pull-right">{{ count($tracks) }} item(s)</span>
       </div>
 
       <div class="panel-body">
@@ -54,10 +54,11 @@
             <th>Title</th>
             <th><i class="fa fa-thumbs-o-up fa-lg fa-fw"></i></th>
             <th><i class="fa fa-thumbs-o-down fa-lg fa-fw"></i></th>
-            <th>Plays</th>
             <th>Rate</th>
+            <th>Days</th>
+            <th>Plays</th>
             <th>Size</th>
-            <th>Added</th>
+            <!-- <th>Added</th> -->
             <th>Edit</th>
             <th>Delete</th>
           </thead>
@@ -71,20 +72,21 @@
               <td class="table-text"><div>{{ $track->get('title') }}</div></td>
               <td class="table-text"><div>{{ $track->get('likes') }}</div></td>
               <td class="table-text"><div>{{ $track->get('dislikes') }}</div></td>
-              <td class="table-text"><div>{{ $track->get('plays') }}</div></td>
               <td class="table-text"><div>{{ round(($track->get('likes') * 5) / max( $track->get('likes') + $track->get('dislikes'), 1), 2) }}</div></td>
+              <td class="table-text"><div>{{ intval((time() - $track->get('added')) / (60 * 60 * 24)) }}</div></td>
+              <td class="table-text"><div>{{ $track->get('plays') }}</div></td>
               <td class="table-text"><div>{{ $track->get('size') }}</div></td>
-              <td class="table-text"><div>{{ date("Y-m-d", $track->get('added')) }}</div></td>
+              <!-- <td class="table-text"><div>{{ date("Y-m-d", $track->get('added')) }}</div></td> -->
 
               <!--/ EDIT Track Meta /-->
               <td>
                 <button type="button"
                   id="edit-track-{{ $track->get('id') }}"
-                  class="btn btn-sm btn-primary btn-edit"
+                  class="btn btn-xs btn-fw btn-primary btn-edit"
                   data-id="{{ $track->get('id') }}"
                   data-toggle="modal"
                   data-target="#modalEditTrack">
-                  <i class="fa fa-fw fa-edit"></i>
+                  <i class="fa fa-1x fa-fw fa-edit"></i>
                 </button>
               </td>
 
@@ -94,7 +96,9 @@
                   {{ csrf_field() }}
                   {{ method_field('DELETE') }}
 
-                  <button type="submit" id="delete-track-{{ $track->get('id') }}" class="btn btn-sm btn-danger">
+                  <button type="submit"
+                    id="delete-track-{{ $track->get('id') }}"
+                    class="btn btn-xs btn-fw btn-danger">
                     <i class="fa fa-fw fa-ban"></i>
                   </button>
                 </form>
@@ -107,7 +111,7 @@
       </div>
 
       <div class="panel-footer">
-        Total tracks in repository: {{ count($tracks) }}
+        Total tracks in playlist: {{ count($tracks) }}
       </div>
     </div>
     @endif

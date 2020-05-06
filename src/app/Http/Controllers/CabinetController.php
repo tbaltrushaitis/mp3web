@@ -23,7 +23,7 @@ class CabinetController extends Controller {
 
 
   /**
-   * Create a new controller instance.
+   * Create a new controller instance
    *
    * @return void
    */
@@ -34,7 +34,7 @@ class CabinetController extends Controller {
 
 
   /**
-   * Show the cabinet dashboard.
+   * Show the cabinet: audio tracks list
    *
    * @return \Illuminate\Http\Response
    */
@@ -46,7 +46,7 @@ class CabinetController extends Controller {
 
 
   /**
-   * Show the cabinet dashboard.
+   * Show the cabinet dashboard
    *
    * @return \Illuminate\Http\Response
    */
