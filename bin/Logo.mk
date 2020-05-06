@@ -13,7 +13,7 @@ $(info [$(lastword $(MAKEFILE_LIST))])
 
 logo:
 	@ echo "${Cyan}--------------------------------------------------------${NC}";
-	@ figlet-toilet 	\
+	figlet-toilet 	\
 		--termwidth 		\
 		--font standard \
 		--filter border \
@@ -22,7 +22,7 @@ logo:
 		--export "utf8" \
 		> ${APP_LOGO} 	\
 	;
-	@ figlet-toilet 	\
+	figlet-toilet 	\
 		--termwidth 		\
 		--font standard \
 		--filter border \
@@ -30,7 +30,7 @@ logo:
 		--export "utf8" \
 		> "${APP_LOGO}.txt" \
 	;
-	@ figlet-toilet 	\
+	figlet-toilet 	\
 		--termwidth 		\
 		--font standard \
 		--filter border \
@@ -39,7 +39,7 @@ logo:
 		--export "html" \
 		> "${APP_LOGO}.html" \
 	;
-	@ figlet-toilet 	\
+	figlet-toilet 	\
 		--termwidth 		\
 		--font big 			\
 		--filter border \
@@ -48,8 +48,9 @@ logo:
 		--export "svg" 	\
 		> "${APP_LOGO}.svg" \
 	;
-	@ if [ -f "${APP_LOGO}" ]; then cat "${APP_LOGO}"; fi ;
+	if [ -f "${APP_LOGO}" ]; then cat "${APP_LOGO}"; fi ;
 	@ echo "${Yellow}BANNER [${Purple}${APP_LOGO}${Yellow}] created${NC}";
 	@ echo "${Cyan}--------------------------------------------------------${NC}";
+	@ echo $(DAT) $(DONE): $(TARG) ;
 
 ##  ------------------------------------------------------------------------  ##

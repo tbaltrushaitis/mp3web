@@ -2,19 +2,19 @@
 ##                              Show usage tips                               ##
 ##  ------------------------------------------------------------------------  ##
 
-# $(info [$(lastword $(MAKEFILE_LIST))])
+$(info [$(lastword $(MAKEFILE_LIST))])
 
 # include ./bin/.bash_colors
-
 
 ##  ------------------------------------------------------------------------  ##
 
 .PHONY: usage
 
 usage: banner
-	@ echo ${Cyan}----------------------------------------------------------${NC};
-	@ echo ${Blue}AVAILABLE ${Yellow}HANDY-Commands:${NC};
-	@ echo "\t" make ${Cyan}clone${NC} "\t" - CLONE project sources;
-	@ echo ${Cyan}----------------------------------------------------------${NC};
+	@ echo $(Cyan)----------------------------------------------------------$(NC);
+	@ echo $(Blue)AVAILABLE $(Yellow)HANDY-Commands:$(NC);
+	@ echo "\t" make $(Cyan)clone$(NC) "\t" - CLONE project sources;
+	@ echo $(Cyan)----------------------------------------------------------$(NC);
+	@ echo $(DAT) $(DONE): $(TARG) ;
 
 ##  ------------------------------------------------------------------------  ##
