@@ -46,7 +46,7 @@
               <ul class="nav navbar-nav">
                 <li><a href="{{ url('/') }}" target="blank">Frontend</a></li>
                 <li><a href="{{ url('/cabinet') }}" target="_self">Cabinet</a></li>
-                <li><a href="{{ url('/dashboard') }}" target="_self">Dashboard</a></li>
+                <li><a href="{{ url('/dashboard') }}" target="blank">Dashboard</a></li>
               </ul>
 
               <li class="dropdown">
