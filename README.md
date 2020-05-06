@@ -21,10 +21,10 @@
 | Scope | Role | Name | Version | Description
 |:-----:|:----:|:-----|:-------:|:------------
 | Host | Installer | [Composer](https://getcomposer.org/) | 1.5.2 | Dependency Manager for PHP
-| Back | Engine | [Laravel](https://laravel.com/docs/5.5) | 5.5.44 | PHP Framework
+| Back | Engine | [Laravel](https://laravel.com/docs/5.5) | 5.5.49 | PHP Framework
 | Front | Library | [require.js](https://github.com/jrburke/requirejs) | 2.3.3 | A file and module loader for JavaScript
-| Front | Library | [jQuery](http://jquery.com/) | 3.3.1 | JavaScript Library
-| Front | Library | [Lodash](https://lodash.com/docs/4.17.10) | 4.17.10 | A modern JavaScript utility library delivering modularity, performance & extras.
+| Front | Library | [jQuery](http://jquery.com/) | 3.5.1 | JavaScript Library
+| Front | Library | [Lodash](https://lodash.com/docs/4.17.10) | 4.17.11 | A modern JavaScript utility library delivering modularity, performance & extras.
 | Front | Framework | [Bootstrap](http://getbootstrap.com) | 3.3.7 | HTML, CSS, and JS framework
 | Front | Library | [Font-Awesome](http://fontawesome.io/) | 4.7.0 | The iconic font and CSS toolkit
 | Front | Library | [animate.css](http://daneden.github.io/animate.css/) | 3.5.2 | A cross-browser library of CSS animations
