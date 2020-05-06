@@ -29,24 +29,25 @@ pipelines:
             - pwd
             - printf "[Step_01] ==================================================================== [FINISHED]\n"
       - step:
-          name: "[02] Update system"
+          name: "[02] System Update"
           caches:
             - apt
             - bower
             - node
           script:
-            - printf "Update system \n"
+            - printf "System Update \n"
             - source ./bin/.bash_colors
-            - apt-get -y update && apt-get -y upgrade
+            - apt-get -y update
+            - apt-get -y upgrade
             - printf "System Updated!\n"
       - step:
-          name: "[03] Install system packages"
+          name: "[03] Install System Packages"
           caches:
             - apt
           script:
             - apt -y install make curl
       - step:
-          name: "[04] PHP setup"
+          name: "[04] PHP Setup"
           caches:
             - apt
           script:
@@ -59,17 +60,19 @@ pipelines:
       - step:
           name: "[05] NVM install"
           script:
-            - printf "NPM install \n"
+            - printf "NVM install \n"
             # NPM install
-            - curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-            - export NVM_DIR="${XDG_CONFIG_HOME/:-$HOME/.}nvm"
-            # - \. "$NVM_DIR/nvm.sh" # This loads nvm
-            - echo -e "\t${BCyan}ENV:\t exported [$NVM_DIR/nvm.sh]"
+            - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+            - export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+            - [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+            - echo -e "\t${Cyan}ENV:\t exported [$NVM_DIR/nvm.sh]${RC}"
             # - command -v nvm
             # This loads nvm bash_completion
             # - . "$NVM_DIR/bash_completion"
       - step:
           name: "[06] Setup NODE.JS"
+          caches:
+            - node
           script:
             - nvm install v10.0.0
             - node -v
