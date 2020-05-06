@@ -10,7 +10,7 @@ APP_ENV=test
 APP_KEY=base64:Xf1/esP3TCklX6q1gyzgVZYMrwAvFUDdUapaihIx87E=
 APP_DEBUG=false
 APP_LOG_LEVEL=warn
-APP_URL=http://mp3web
+APP_URL=http://mp3web.gsm-center.com.ua
 
 ##  ---------------------------  WEB SERVICE  ------------------------------  ##
 WEB_DIR=webroot
