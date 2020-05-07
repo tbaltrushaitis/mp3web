@@ -45,7 +45,7 @@ pipelines:
           caches:
             - apt
           script:
-            - apt -y install make curl
+            - apt -y install make curl git composer npm
       - step:
           name: "[04] PHP Setup"
           caches:
@@ -96,8 +96,15 @@ pipelines:
             - make setup
             - sleep 1
             - make engine
-            - make dev
             - sleep 1
+            - make build
+            - sleep 1
+            - make release
+            - sleep 1
+            - make deploy
+            # - make dev
+            - sleep 1
+            - cd ${DIR_WEB}
             - pwd && ls -als
             - cat ${DIR_WEB}/.env
       - step:
