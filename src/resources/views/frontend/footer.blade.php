@@ -4,7 +4,7 @@
 
       <div class="col-sm-6 col-xs-12">
         <p class="copyright">
-          &copy; <? echo date("Y"); ?> <strong>{{ config('app.env') }}</strong>
+          &copy; <?php echo date("Y"); ?> <strong>{{ config('app.env') }}</strong>
           <br />All media copyrights belong to their owners.
         </p>
         Powered by <a id="developer" target="_blank" href="http://gsm-center.com.ua/" title="Professional Websites Development">Tom&#96;AS</a>

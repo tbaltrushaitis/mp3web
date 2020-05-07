@@ -61,8 +61,8 @@ class MediaRepository {
   /**
    * Get Track's Metadata as JSON
    *
-   * @param  String
-   * @return Collection
+   * @param  String     $hash
+   * @return JSON
    */
   public function getTrackMeta ($hash) {
     if (Storage::disk('meta')->exists($hash)) {

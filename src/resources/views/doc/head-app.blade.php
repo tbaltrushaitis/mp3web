@@ -52,7 +52,7 @@
   <!--/ Favicon
   ========================================================================= /-->
   <link href="{{ asset('assets/img/favicon.ico') }}" type="image/x-icon" rel="icon" alt="Site Icon" />
-  <link href="{{ asset('assets/img/favicon.ico') }}" type="image/x-icon" rel="shortcut icon"  alt="Site Shortcut Icon" />
+  <link href="{{ asset('assets/img/favicon.ico') }}" type="image/x-icon" rel="shortcut icon" alt="Site Shortcut Icon" />
 
   <!--/ HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries /-->
   <!--[if lt IE 9]>
