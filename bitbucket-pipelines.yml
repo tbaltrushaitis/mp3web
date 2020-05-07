@@ -99,12 +99,12 @@ pipelines:
             - make dev
             - sleep 1
             - pwd && ls -als
-            - cat webroot/.env
+            - cat ${DIR_WEB}/.env
       - step:
           name: "[08] Check webroot"
           script:
-            - cd webroot
-            - cat INSPIRATION
+            - cd ${DIR_WEB}
+            - cat .INSPIRATION
       - step:
           name: "[09] Finalize"
           script:
