@@ -59,6 +59,8 @@ pipelines:
             - php -v
       - step:
           name: "[05] NVM install"
+          caches:
+            - node
           script:
             - printf "NVM install \n"
             # NPM install
@@ -67,7 +69,7 @@ pipelines:
             # - [ -s "${NVM_DIR}/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
             - echo "NVM_DIR = [${NVM_DIR}]"
             - ls -als ${NVM_DIR}/
-            - \. "$NVM_DIR/nvm.sh" # This loads nvm
+            - \. "${NVM_DIR}/nvm.sh" # This loads nvm
             - echo -e "\t${Cyan}ENV:\t exported [$NVM_DIR/nvm.sh]${RC}"
             # - command -v nvm
             # This loads nvm bash_completion
@@ -77,6 +79,7 @@ pipelines:
           caches:
             - node
           script:
+            - \. "${NVM_DIR}/nvm.sh" # This loads nvm
             - nvm install v10.0.0
             - node -v
       - step:
