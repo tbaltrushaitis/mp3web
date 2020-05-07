@@ -327,9 +327,9 @@ deploy:
 	cp -prf ${DIR_DIST}/* ${DIR_WEB}/ 2>&1 >/dev/null ;
 	cp -pv ${RC_FILE} ${DIR_WEB}/.env 2>&1 >/dev/null ;
 	cd ${DIR_WEB} \
-	&& php artisan --ansi -n down \
-	&& composer --ansi -n -vv update \
-	&& php artisan --ansi -n up ;
+	&& php artisan --ansi down \
+	&& composer -n -vv update \
+	&& php artisan --ansi up ;
 	# cd ${WD} && rm -vf webroot
 	# cd ${WD} && ln -s ${DIR_WEB} webroot
 	@ echo $(DAT) $(FINE): $(TARG)
@@ -339,7 +339,7 @@ deploy:
 PHONY += artisan
 
 artisan:
-	cd ${DIR_WEB} \
+	@ cd ${DIR_WEB} \
 	&& php artisan --ansi -n down \
 	&& php artisan --ansi -n optimize 2>&1 >/dev/null \
 	&& php artisan --ansi -n route:cache 2>&1 >/dev/null \
@@ -373,7 +373,7 @@ dev: clean-dev setup build release deploy;
 	@ echo $(DAT) $(FINE): $(TARG)
 
 # all: clean rights tree setup engine build release deploy;
-all: clean setup build release deploy;
+all: clean setup engine build release deploy;
 	@ echo $(DAT) $(FINE): $(TARG)
 
 full: clean-all all;

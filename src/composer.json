@@ -68,7 +68,7 @@
       ]
     , "post-install-cmd": [
           "Illuminate\\Foundation\\ComposerScripts::postInstall"
-        , "@php artisan -vvv -n vendor:publish"
+        , "@php artisan -v -n vendor:publish"
       ]
     , "post-update-cmd": [
           "Illuminate\\Foundation\\ComposerScripts::postUpdate"
@@ -84,7 +84,7 @@
       ]
     , "post-autoload-dump": [
           "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump"
-        , "@php artisan -vvv package:discover"
+        , "@php artisan -v package:discover"
       ]
     }
   , "config": {
