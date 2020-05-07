@@ -2,7 +2,7 @@
 ##                           Engine operations                                ##
 ##  ------------------------------------------------------------------------  ##
 
-$(info [$(lastword $(MAKEFILE_LIST))])
+# $(info [$(lastword $(MAKEFILE_LIST))])
 
 # include ./bin/.bash_colors
 
@@ -31,12 +31,12 @@ engine_check: engine_setup engine_update engine_set_permissions ;
 # $(info $(DAT) ${Red}ENGINE INSTALLED into ${NC}[${BYellow}${DIR_ENGINE}${NC}])
 
 engine_setup_git:
-	@ git clone -b "${ENGINE_VERSION}" "https://github.com/laravel/laravel" "${DIR_ENGINE}" $(TO_NULL);
+	git clone -b "${ENGINE_VERSION}" "https://github.com/laravel/laravel" "${DIR_ENGINE}" $(TO_NULL);
 	@ echo $(DAT) ${Yellow}Engine [${Blue}${ENGINE_NAME}-${ENGINE_TAG}${NC}] [${Green}v${ENGINE_VERSION}${NC}] cloned to [${Purple}${DIR_ENGINE}${NC}] ;
 	@ echo $(DAT) $(DONE): $(TARG) ;
 
 engine_setup_composer:
-	@ composer \
+	composer \
 			-vv \
 			--no-interaction \
 			--profile \
@@ -48,7 +48,8 @@ engine_setup_composer:
 engine_setup: engine_setup_git ;
 	mkdir -p "/data/media/audio" ;
 	mkdir -p "${DIR_ENGINE}/storage/media" ;
-	[ -L "${DIR_ENGINE}/storage/media/audio" || -e ${DIR_ENGINE}/storage/media/audio ] || ln -s /data/media/audio "${WD}/${DIR_ENGINE}/storage/media/audio" ;
+	# [ -L "${DIR_ENGINE}/storage/media/audio" || -f "${DIR_ENGINE}/storage/media/audio" ] || ln -bs /data/media/audio "${WD}/${DIR_ENGINE}/storage/media/" ;
+	[ -L "${DIR_ENGINE}/storage/media/audio" ] || ln -bs /data/media/audio "${WD}/${DIR_ENGINE}/storage/media/" 2>&1 >/dev/null ;
 	@ echo $(DAT) ${Yellow}ENGINE INSTALLED to${NC}: [${Purple}${DIR_ENGINE}${NC}] ;
 	@ echo $(DAT) $(DONE): $(TARG) ;
 
@@ -56,7 +57,7 @@ engine_setup: engine_setup_git ;
 # @ mkdir -p ${DIR_ENGINE}/storage/media/audio/ ;
 
 engine_update: ;
-	@ cd "${DIR_ENGINE}" \
+	cd "${DIR_ENGINE}" \
 	&& npm i \
 	&& composer -vv -n update ;
 	@ echo $(DAT) ${Yellow}ENGINE UPDATED${NC}: [${Purple}${DIR_ENGINE}${NC}] ;

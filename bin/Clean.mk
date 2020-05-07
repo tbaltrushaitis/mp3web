@@ -2,7 +2,7 @@
 ##                            Clean operations                                ##
 ##  ------------------------------------------------------------------------  ##
 
-$(info [$(lastword $(MAKEFILE_LIST))])
+# $(info [$(lastword $(MAKEFILE_LIST))])
 
 ##  ------------------------------------------------------------------------  ##
 
@@ -26,26 +26,26 @@ clean-src:
 
 clean-build:
 	-rm -rf ${DIR_BUILD}
-	@ echo $(DAT) $(FINE): $(TARG) ;
+	@ echo ${DAT} ${FINE}: ${TARG} ;
 
 clean-dist:
 	-rm -rf ${DIR_DIST}
-	@ echo $(DAT) $(FINE): $(TARG) ;
+	@ echo ${DAT} ${FINE}: ${TARG} ;
 
 clean-engine:
 	-rm -rf ${DIR_ENGINE}
-	@ echo $(DAT) $(FINE): $(TARG) ;
+	@ echo ${DAT} ${FINE}: ${TARG} ;
 
 clean-web:
 	-rm -rf ${DIR_WEB}
-	@ echo $(DAT) $(FINE): $(TARG) ;
+	@ echo ${DAT} ${FINE}: ${TARG} ;
 
 clean-deps:
 	-rm -rf \
 		bower_modules/ \
 		node_modules/  \
 	;
-	@ echo $(DAT) $(FINE): $(TARG) ;
+	@ echo ${DAT} ${FINE}: ${TARG} ;
 # @ git reset HEAD .gitmodules ${DIR_ENGINE}
 
 clean-files:
@@ -57,7 +57,7 @@ clean-files:
 		COMMIT \
 		*.md \
 	;
-	@ echo $(DAT) $(FINE): $(TARG) ;
+	@ echo ${DAT} ${FINE}: ${TARG} ;
 
 	# @ rm -rf ${APP_DIRS} \
 

@@ -2,7 +2,7 @@
 ##                              Show help topic                               ##
 ##  ------------------------------------------------------------------------  ##
 
-$(info [$(lastword $(MAKEFILE_LIST))])
+# $(info [$(lastword $(MAKEFILE_LIST))])
 
 ##  ------------------------------------------------------------------------  ##
 
@@ -23,7 +23,7 @@ help: banner
 	@ echo "  " ${Purple}rebuild${NC} "\t" - Execute [${BGreen}build, release, deploy${NC}] tasks;
 	@ echo "  " ${Purple}redeploy${NC} "\t" - Execute [${BGreen}release, deploy${NC}] tasks;
 	@ echo ${Cyan}----------------------------------------------------------${NC};
-	# @ echo $(DAT) $(DONE): $(TARG) ;
+	@ echo $(DAT) $(DONE): $(TARG) ;
 
 ##  ------------------------------------------------------------------------  ##
 ##                      Report Environment Variables                          ##
@@ -62,6 +62,6 @@ state:
 	@ echo "\t" REPO_BRANCH "\t" = [$(White)$(REPO_BRANCH)$(NC)];
 	@ echo "\t" GIT_COMMIT "\t" = [$(White)$(GIT_COMMIT)$(NC)];
 	@ echo ${Cyan}----------------------------------------------------------${NC};
-	# @ echo $(DAT) $(DONE): $(TARG) ;
+	@ echo $(DAT) $(DONE): $(TARG) ;
 
 ##  ------------------------------------------------------------------------  ##

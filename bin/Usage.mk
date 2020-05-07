@@ -2,7 +2,7 @@
 ##                              Show usage tips                               ##
 ##  ------------------------------------------------------------------------  ##
 
-$(info [$(lastword $(MAKEFILE_LIST))])
+# $(info [$(lastword $(MAKEFILE_LIST))])
 
 # include ./bin/.bash_colors
 

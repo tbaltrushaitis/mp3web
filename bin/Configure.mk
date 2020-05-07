@@ -2,7 +2,7 @@
 ##                         Configure predefined values                        ##
 ##  ------------------------------------------------------------------------  ##
 
-$(info [$(lastword $(MAKEFILE_LIST))])
+# $(info [$(lastword $(MAKEFILE_LIST))])
 
 # include ./bin/.bash_colors
 

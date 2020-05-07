@@ -2,7 +2,7 @@
 ##                        Create application BANNER                           ##
 ##  ------------------------------------------------------------------------  ##
 
-$(info [$(lastword $(MAKEFILE_LIST))])
+# $(info [$(lastword $(MAKEFILE_LIST))])
 
 .ONESHELL:
 
