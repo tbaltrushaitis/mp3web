@@ -74,14 +74,16 @@ pipelines:
             # - command -v nvm
             # This loads nvm bash_completion
             # - . "$NVM_DIR/bash_completion"
-      - step:
-          name: "[06] Setup NODE.JS"
-          caches:
-            - node
-          script:
-            - \. "${NVM_DIR}/nvm.sh" # This loads nvm
+            - nvm ls-remotes
             - nvm install v10.0.0
             - node -v
+      # - step:
+      #     name: "[06] Setup NODE.JS"
+      #     caches:
+      #       - node
+      #     script:
+      #       - nvm install v10.0.0
+      #       - node -v
       - step:
           name: "[07] Build project"
           caches:
