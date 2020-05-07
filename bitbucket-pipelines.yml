@@ -45,7 +45,7 @@ pipelines:
           caches:
             - apt
           script:
-            - apt -y install make curl git composer npm
+            - apt -y install make curl git-hub git-all git-flow composer npm
       - step:
           name: "[04] PHP Setup"
           caches:
@@ -60,6 +60,7 @@ pipelines:
       - step:
           name: "[05] NVM install"
           caches:
+            - apt
             - node
           script:
             - printf "NVM install \n"
@@ -75,7 +76,7 @@ pipelines:
             # This loads nvm bash_completion
             # - . "$NVM_DIR/bash_completion"
             - nvm ls-remote
-            - nvm install v10.20.0
+            - nvm install v10.20.0 --latest-npm
             - node -v
       # - step:
       #     name: "[06] Setup NODE.JS"
@@ -104,9 +105,10 @@ pipelines:
             - make deploy
             # - make dev
             - sleep 1
-            - cd ${DIR_WEB}
+            - cd webroot
             - pwd && ls -als
-            - cat ${DIR_WEB}/.env
+            - cat .env
+            - ./artisan env
       - step:
           name: "[08] Check webroot"
           script:
