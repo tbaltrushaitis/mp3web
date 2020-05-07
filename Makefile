@@ -113,7 +113,8 @@ ARC := arch
 SRC := src
 BLD := build-${CODE_VERSION}
 DST := dist-${CODE_VERSION}
-WEB := web-${CODE_VERSION}-${BUILD_CNTR}
+# WEB := web-${CODE_VERSION}-${BUILD_CNTR}
+WEB := webroot
 
 $(shell [ -d $(ARC) ] || mkdir $(ARC))
 
@@ -234,7 +235,7 @@ run: banner state help test;
 PHONY += test test_rc
 
 test: test_rc;
-	@ echo $(DAT) $(FINE): $(TARG)
+	@ echo $(DAT) $(DONE): $(TARG)
 
 ## SOURCE VARIABLES
 test_rc: ;
@@ -247,12 +248,12 @@ test_rc: ;
 PHONY += deps deps-install
 
 deps-install:;
-	bower i --production
 	npm i
-	@ echo "$(DAT) $(FINE): $(TARG)"
+	bower i --production
+	@ echo $(DAT) $(DONE): $(TARG)
 
 deps: deps-install;
-	@ echo "$(DAT) $(FINE): $(TARG)"
+	@ echo $(DAT) $(FINE): $(TARG)
 
 ##  ------------------------------------------------------------------------  ##
 
@@ -261,40 +262,40 @@ PHONY += ownership
 ownership:
 	mkdir -p ${DIR_WEB} ;
 	sudo chgrp -R ${WEB_USER} ${DIR_WEB} ;
-	@ echo "$(DAT) $(FINE): $(TARG)"
+	@ echo $(DAT) $(DONE): $(TARG)
 
 ##  ------------------------------------------------------------------------  ##
 
 PHONY += setup engine build build-engine build-assets release deploy
 
 setup: deps;
-	@ echo "$(DAT) $(FINE): $(TARG)"
+	@ echo $(DAT) $(FINE): $(TARG)
 
 engine: engine_check;
-	@ echo "$(DAT) $(FINE): $(TARG)"
+	@ echo $(DAT) $(FINE): $(TARG)
 
 build: build-engine build-assets;
-	@ echo "$(DAT) $(FINE): $(TARG)"
+	@ echo $(DAT) $(FINE): $(TARG)
 
 build-engine: engine_check ;
-	@ mkdir -p ${DIR_BUILD} ;
-	@ cp -prf ${DIR_ENGINE}/* ${DIR_BUILD}/ 2>&1 >/dev/null ;
-	@ rm -rvf ${DIR_BUILD}/public/css 2>&1 >/dev/null ;
-	@ rm -rvf ${DIR_BUILD}/public/js 2>&1 >/dev/null ;
-	@ rm -rvf ${DIR_BUILD}/resources/assets/js 2>&1 >/dev/null ;
-	@ rm -rvf ${DIR_BUILD}/*.md 2>&1 >/dev/null ;
-	@ cp -prf ${DIR_SRC}/* ${DIR_BUILD}/ 2>&1 >/dev/null ;
-	@ cp -pvu ${RC_FILE} ${DIR_BUILD}/.env 2>&1 >/dev/null ;
-	@ cp -pvf ${DIR_SRC}/composer.json ${DIR_BUILD}/ 2>&1 >/dev/null ;
-	@ cp -pvf ${DIR_SRC}/webpack.mix.js ${DIR_BUILD}/ 2>&1 >/dev/null ;
-	@ cd "${DIR_BUILD}" \
+	mkdir -p ${DIR_BUILD} ;
+	cp -prf ${DIR_ENGINE}/* ${DIR_BUILD}/ 2>&1 >/dev/null ;
+	-rm -rvf ${DIR_BUILD}/public/css 2>&1 >/dev/null ;
+	-rm -rvf ${DIR_BUILD}/public/js 2>&1 >/dev/null ;
+	-rm -rvf ${DIR_BUILD}/resources/assets/js 2>&1 >/dev/null ;
+	-rm -rvf ${DIR_BUILD}/*.md 2>&1 >/dev/null ;
+	cp -prf ${DIR_SRC}/* ${DIR_BUILD}/ 2>&1 >/dev/null ;
+	cp -pvu ${RC_FILE} ${DIR_BUILD}/.env 2>&1 >/dev/null ;
+	cp -pvf ${DIR_SRC}/composer.json ${DIR_BUILD}/ 2>&1 >/dev/null ;
+	cp -pvf ${DIR_SRC}/webpack.mix.js ${DIR_BUILD}/ 2>&1 >/dev/null ;
+	cd "${DIR_BUILD}" \
 	&& npm i \
 	&& composer -vv -n --profile update \
 	&& composer --version > __COMPOSER_VERSION \
-	&& php artisan -V > __ENGINE_VERSION \
-	&& php artisan inspire > __INSPIRATION \
+	&& php artisan --ansi -V > __ENGINE_VERSION \
+	&& php artisan --ansi inspire > __INSPIRATION \
 	&& cd - ;
-	@ echo "$(DAT) $(FINE): $(TARG)"
+	@ echo $(DAT) $(FINE): $(TARG)
 
 build-assets:
 	gulp --env=${APP_ENV} build ;
@@ -303,9 +304,10 @@ build-assets:
 	cd "${DIR_BUILD}/public/assets/font-awesome" \
 	&& [ -L ./fonts ] || ln -bs ../fonts 2>&1 >/dev/null ;
 	cd "${DIR_BUILD}/public" \
-	&& [ -L "${WD}/${DIR_ENGINE}/storage/media/audio" || -d "${WD}/${DIR_ENGINE}/storage/media/audio" ] || ln -bs "/data/media/audio" "${WD}/${DIR_ENGINE}/storage/media/" 2>&1 >/dev/null ;
-	@ echo "$(DAT) $(FINE): $(TARG)"
+	&& [ -L "${WD}/${DIR_ENGINE}/storage/media/audio" ] || ln -bs "/data/media/audio" "${WD}/${DIR_ENGINE}/storage/media/audio" 2>&1 >/dev/null ;
+	@ echo $(DAT) $(FINE): $(TARG)
 
+# && [ -L "${WD}/${DIR_ENGINE}/storage/media/audio" || -f "${WD}/${DIR_ENGINE}/storage/media/audio" ] || ln -bs "/data/media/audio" "${WD}/${DIR_ENGINE}/storage/media/" 2>&1 >/dev/null ;
 # && ln -s ../fonts 2>&1 >/dev/null ;
 # && ln -s ../storage/media/audio/ 2>&1 >/dev/null ;
 
@@ -317,32 +319,34 @@ release:
 	&& rm -rf node_modules/ ;
 	cd ${WD} ;
 	@$(MAKE) ownership ;
-	@ echo "$(DAT) $(FINE): $(TARG)"
+	@ echo $(DAT) $(FINE): $(TARG)
 
 deploy:
-	@ mkdir -p ${DIR_WEB} 2>&1 >/dev/null ;
-	@ [ -f "${DIR_WEB}/.env" ] && cp -prf ${DIR_WEB}/.env ${DIR_WEB}/.env.${DATE}.bak 2>&1 >/dev/null || echo "NO .env FILE";
-	@ cp -prf ${DIR_DIST}/* ${DIR_WEB}/ 2>&1 >/dev/null ;
-	@ cp -pv ${RC_FILE} ${DIR_WEB}/.env 2>&1 >/dev/null ;
-	@ cd ${DIR_WEB} \
-	&& php artisan --no-interaction down \
-	&& composer -vv -n update \
-	&& php artisan --no-interaction up ;
-	@ echo "$(DAT) $(FINE): $(TARG)"
+	mkdir -p ${DIR_WEB} 2>&1 >/dev/null ;
+	[ -f "${DIR_WEB}/.env" ] && cp -prf ${DIR_WEB}/.env ${DIR_WEB}/.env.${DATE}.bak 2>&1 >/dev/null || echo "NO .env FILE";
+	cp -prf ${DIR_DIST}/* ${DIR_WEB}/ 2>&1 >/dev/null ;
+	cp -pv ${RC_FILE} ${DIR_WEB}/.env 2>&1 >/dev/null ;
+	cd ${DIR_WEB} \
+	&& php artisan --ansi -n down \
+	&& composer --ansi -n -vv update \
+	&& php artisan --ansi -n up ;
+	# cd ${WD} && rm -vf webroot
+	# cd ${WD} && ln -s ${DIR_WEB} webroot
+	@ echo $(DAT) $(FINE): $(TARG)
 
 ##  ------------------------------------------------------------------------  ##
 
 PHONY += artisan
 
 artisan:
-	@ cd ${DIR_WEB} \
-	&& php artisan --no-interaction down \
-	&& php artisan -n optimize 2>&1 >/dev/null \
-	&& php artisan -n route:cache 2>&1 >/dev/null \
-	&& php artisan -n config:cache 2>&1 >/dev/null \
-	&& php artisan -n route:list \
-	&& php artisan --no-interaction up ;
-	@ echo "$(DAT) $(FINE): $(TARG)"
+	cd ${DIR_WEB} \
+	&& php artisan --ansi -n down \
+	&& php artisan --ansi -n optimize 2>&1 >/dev/null \
+	&& php artisan --ansi -n route:cache 2>&1 >/dev/null \
+	&& php artisan --ansi -n config:cache 2>&1 >/dev/null \
+	&& php artisan --ansi -n route:list \
+	&& php artisan --ansi -n up ;
+	@ echo $(DAT) $(FINE): $(TARG)
 
 # @ cd ${DIR_WEB} \
 # && $(MAKE) rights ;
@@ -351,10 +355,10 @@ artisan:
 PHONY += rebuild redeploy
 
 rebuild: build release deploy;
-	@ echo "$(DAT) $(FINE): $(TARG)"
+	@ echo $(DAT) $(FINE): $(TARG)
 
 redeploy: release deploy;
-	@ echo "$(DAT) $(FINE): $(TARG)"
+	@ echo $(DAT) $(FINE): $(TARG)
 
 ##  ------------------------------------------------------------------------  ##
 
@@ -363,17 +367,17 @@ PHONY += all b dev full
 #* means the Makefile has nothing to do with a file called "all" in the same directory.
 
 b: build-assets release deploy;
-	@ echo "$(DAT) $(FINE): $(TARG)"
+	@ echo $(DAT) $(FINE): $(TARG)
 
 dev: clean-dev setup build release deploy;
-	@ echo "$(DAT) $(FINE): $(TARG)"
+	@ echo $(DAT) $(FINE): $(TARG)
 
 # all: clean rights tree setup engine build release deploy;
 all: clean setup build release deploy;
-	@ echo "$(DAT) $(FINE): $(TARG)"
+	@ echo $(DAT) $(FINE): $(TARG)
 
 full: clean-all all;
-	@ echo "$(DAT) $(FINE): $(TARG)"
+	@ echo $(DAT) $(FINE): $(TARG)
 
 ##  ------------------------------------------------------------------------  ##
 ##  Declare the contents of the .PHONY variable as phony. We keep that
