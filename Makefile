@@ -235,7 +235,7 @@ run: banner state help test;
 PHONY += test test_rc
 
 test: test_rc;
-	@ echo $(DAT) $(DONE): $(TARG)
+	@ echo $(DAT) $(FINE): $(TARG)
 
 ## SOURCE VARIABLES
 test_rc: ;
@@ -259,7 +259,7 @@ deps: deps-install;
 
 PHONY += ownership
 
-ownership:
+ownership:;
 	mkdir -p ${DIR_WEB} ;
 	sudo chgrp -R ${WEB_USER} ${DIR_WEB} ;
 	@ echo $(DAT) $(DONE): $(TARG)
@@ -295,7 +295,7 @@ build-engine: engine_check ;
 	&& php artisan --ansi -V > __ENGINE_VERSION \
 	&& php artisan --ansi inspire > __INSPIRATION \
 	&& cd - ;
-	@ echo $(DAT) $(FINE): $(TARG)
+	@ echo $(DAT) $(DONE): $(TARG)
 
 build-assets:
 	gulp --env=${APP_ENV} build ;
@@ -305,7 +305,7 @@ build-assets:
 	&& [ -L ./fonts ] || ln -bs ../fonts 2>&1 >/dev/null ;
 	cd "${DIR_BUILD}/public" \
 	&& [ -L "${WD}/${DIR_ENGINE}/storage/media/audio" ] || ln -bs "/data/media/audio" "${WD}/${DIR_ENGINE}/storage/media/audio" 2>&1 >/dev/null ;
-	@ echo $(DAT) $(FINE): $(TARG)
+	@ echo $(DAT) $(DONE): $(TARG)
 
 # && [ -L "${WD}/${DIR_ENGINE}/storage/media/audio" || -f "${WD}/${DIR_ENGINE}/storage/media/audio" ] || ln -bs "/data/media/audio" "${WD}/${DIR_ENGINE}/storage/media/" 2>&1 >/dev/null ;
 # && ln -s ../fonts 2>&1 >/dev/null ;
@@ -325,7 +325,7 @@ deploy:
 	mkdir -p ${DIR_WEB} 2>&1 >/dev/null ;
 	[ -f "${DIR_WEB}/.env" ] && cp -prf ${DIR_WEB}/.env ${DIR_WEB}/.env.${DATE}.bak 2>&1 >/dev/null || echo "NO .env FILE";
 	cp -prf ${DIR_DIST}/* ${DIR_WEB}/ 2>&1 >/dev/null ;
-	cp -pv ${RC_FILE} ${DIR_WEB}/.env 2>&1 >/dev/null ;
+	# cp -pv ${RC_FILE} ${DIR_WEB}/.env 2>&1 >/dev/null ;
 	cd ${DIR_WEB} \
 	&& php artisan --ansi down \
 	&& composer -n -vv update \
@@ -346,7 +346,7 @@ artisan:
 	&& php artisan --ansi -n config:cache 2>&1 >/dev/null \
 	&& php artisan --ansi -n route:list \
 	&& php artisan --ansi -n up ;
-	@ echo $(DAT) $(FINE): $(TARG)
+	@ echo $(DAT) $(DONE): $(TARG)
 
 # @ cd ${DIR_WEB} \
 # && $(MAKE) rights ;
@@ -366,14 +366,14 @@ PHONY += all b dev full
 #* means the word "all" doesn't represent a file name in this Makefile;
 #* means the Makefile has nothing to do with a file called "all" in the same directory.
 
+# all: clean rights tree setup engine build release deploy;
+all: clean setup engine build release deploy;
+	@ echo $(DAT) $(FINE): $(TARG)
+
 b: build-assets release deploy;
 	@ echo $(DAT) $(FINE): $(TARG)
 
 dev: clean-dev setup build release deploy;
-	@ echo $(DAT) $(FINE): $(TARG)
-
-# all: clean rights tree setup engine build release deploy;
-all: clean setup engine build release deploy;
 	@ echo $(DAT) $(FINE): $(TARG)
 
 full: clean-all all;
