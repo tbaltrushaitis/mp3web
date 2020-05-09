@@ -29,60 +29,60 @@ Apply one or more of the following classes to get the desired effect
   <!--/ START: NavBar-Top /-->
   <header class="header hide" id="header">
 
-      <!--/  Header Navbar  /-->
-      <nav class="navbar navbar-default navbar-static-top">
-          <div class="container">
+    <!--/  Header Navbar  /-->
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container">
 
-              <div class="navbar-header">
+        <div class="navbar-header">
 
-                  <!--/ Branding Image /-->
-                  <a class="navbar-brand" href="{{ url('/dashboard') }}" target="_self">
-                      <img class="logo-sm" alt="Premium MP3 Collection" src="{{ asset('assets/img/logo/logo-sm.png') }}" />
-                  </a>
+          <!--/ Branding Image /-->
+          <a class="navbar-brand" href="{{ url('/dashboard') }}" target="_self">
+            <img class="logo-sm" alt="Premium MP3 Collection" src="{{ asset('assets/img/logo/logo-sm.png') }}" />
+          </a>
 
-                  <!--/ Collapsed Hamburger /-->
-                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                      <span class="sr-only">Toggle Navigation</span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                  </button>
+          <!--/ Collapsed Hamburger /-->
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
+            <span class="sr-only">Toggle Navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
 
-              </div>
+        </div>
 
-              <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                  <!--/ Left Side Of Navbar /-->
-                  <ul class="nav navbar-nav">
-                      <li><a href="{{ url('/') }}" target="blank">Site Front</a></li>
-                      <li><a href="{{ url('/cabinet') }}" target="_self">Cabinet</a></li>
-                  </ul>
+        <div class="collapse navbar-collapse" id="app-navbar-collapse">
+          <!--/ Left Side Of Navbar /-->
+          <ul class="nav navbar-nav">
+            <li><a href="{{ url('/') }}" target="blank">Site Front</a></li>
+            <li><a href="{{ url('/cabinet') }}" target="_self">Cabinet</a></li>
+          </ul>
 
-                  <!--/ Right Side Of Navbar /-->
-                  <ul class="nav navbar-nav navbar-right">
-                      <!--/ Authentication Links /-->
-                      @if (Auth::guest())
-                          <li><a href="{{ url('/login') }}" target="blank">Login</a></li>
-                          <li><a href="{{ url('/register') }}" target="blank">Register</a></li>
-                      @else
-                          <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                  {{ Auth::user()->name }} <span class="caret"></span>
-                              </a>
+          <!--/ Right Side Of Navbar /-->
+          <ul class="nav navbar-nav navbar-right">
+            <!--/ Authentication Links /-->
+            @if (Auth::guest())
+              <li><a href="{{ url('/login') }}" target="blank">Login</a></li>
+              <li><a href="{{ url('/register') }}" target="blank">Register</a></li>
+            @else
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                  {{ Auth::user()->name }} <span class="caret"></span>
+                </a>
 
-                              <ul class="dropdown-menu" role="menu">
-                                  <li><a href="{{ url('/profile') }}"><i class="fa fa-btn fa-user"></i>Profile</a></li>
-                                  <li><a href="{{ url('/history') }}"><i class="fa fa-btn fa-history"></i>History</a></li>
-                                  <li><a href="{{ url('/playlists') }}"><i class="fa fa-btn fa-list-alt"></i>Playlists</a></li>
-                                  <li role="separator" class="divider"></li>
-                                  <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
-                              </ul>
-                          </li>
-                      @endif
-                  </ul>
-              </div>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="{{ url('/profile') }}"><i class="fa fa-btn fa-user"></i>Profile</a></li>
+                  <li><a href="{{ url('/history') }}"><i class="fa fa-btn fa-history"></i>History</a></li>
+                  <li><a href="{{ url('/playlists') }}"><i class="fa fa-btn fa-list-alt"></i>Playlists</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                </ul>
+              </li>
+            @endif
+          </ul>
+        </div>
 
-          </div>
-      </nav>
+      </div>
+    </nav>
 
   </header><!--/  END: NavBar-Top  /-->
 
@@ -107,7 +107,7 @@ Apply one or more of the following classes to get the desired effect
 
       <!--/ Sidebar toggle button /-->
       <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-          <span class="sr-only">Toggle navigation</span>
+        <span class="sr-only">Toggle navigation</span>
       </a>
 
       <!--/ Navbar Right Menu /-->
@@ -278,173 +278,173 @@ Apply one or more of the following classes to get the desired effect
 
   </header>
 
-    <!--/ Left side column. contains the logo and sidebar /-->
-    <aside class="main-sidebar">
+  <!--/ Left side column. contains the logo and sidebar /-->
+  <aside class="main-sidebar">
 
-        <!--/ sidebar: style can be found in sidebar.less /-->
-        <section class="sidebar">
+    <!--/ sidebar: style can be found in sidebar.less /-->
+    <section class="sidebar">
 
-            <!--/ Sidebar user panel (optional) /-->
-            <div class="user-panel">
-            <div class="pull-left image">
-            <img src="{{ asset('assets/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
-            </div>
-            <div class="pull-left info">
-            <p>{{ Auth::user()->name }}</p>
-            <!--/ Status /-->
-            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-            </div>
-            </div>
+      <!--/ Sidebar user panel (optional) /-->
+      <div class="user-panel">
+        <div class="pull-left image">
+          <img src="{{ asset('assets/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image" />
+        </div>
+        <div class="pull-left info">
+          <p>{{ Auth::user()->name }}</p>
+          <!--/ Status /-->
+          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+      </div>
 
-            <!--/ search form (Optional) /-->
-            <form action="#" method="get" class="sidebar-form hide">
-                <div class="input-group">
-                    <input type="text" name="q" class="form-control" placeholder="Search...">
-                    <span class="input-group-btn">
-                        <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                        </button>
-                    </span>
-                </div>
-            </form>
-            <!-- /.search form -->
+      <!--/ search form (Optional) /-->
+      <form action="#" method="get" class="sidebar-form hide">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="Search...">
+          <span class="input-group-btn">
+            <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+            </button>
+          </span>
+        </div>
+      </form>
+      <!-- /.search form -->
 
-            <!-- Sidebar Menu -->
-            <ul class="sidebar-menu">
-                <li class="header">HEADER</li>
-                <!-- Optionally, you can add icons to the links -->
-                <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
-                <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
-                <li class="treeview">
-                    <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
-                    <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                    </a>
-                    <ul class="treeview-menu">
-                    <li><a href="#">Link in level 2</a></li>
-                    <li><a href="#">Link in level 2</a></li>
-                    </ul>
-                </li>
-            </ul><!-- /.sidebar-menu -->
+      <!-- Sidebar Menu -->
+      <ul class="sidebar-menu">
+        <li class="header">HEADER</li>
+        <!-- Optionally, you can add icons to the links -->
+        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
+        <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
+        <li class="treeview">
+          <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="#">Link in level 2</a></li>
+            <li><a href="#">Link in level 2</a></li>
+          </ul>
+        </li>
+      </ul><!-- /.sidebar-menu -->
 
-        </section><!-- /.sidebar -->
+    </section><!-- /.sidebar -->
 
-    </aside>
+  </aside>
 
-    <!--/ Content Wrapper. Contains page content /-->
-    <div class="content-wrapper">
-        <!--/ Content Header (Page header) /-->
-        <section class="content-header">
-            <h1>
-                Page Header
-                <small>Optional description</small>
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-                <li class="active">Here</li>
-            </ol>
-        </section>
+  <!--/ Content Wrapper. Contains page content /-->
+  <div class="content-wrapper">
+    <!--/ Content Header (Page header) /-->
+    <section class="content-header">
+      <h1>
+        Page Header
+        <small>Optional description</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
+        <li class="active">Here</li>
+      </ol>
+    </section>
 
-        <!--/ Main content /-->
-        <section class="content">
+    <!--/ Main content /-->
+    <section class="content">
 
-            <!--/ Page Content Here /-->
-            @yield('content')
+      <!--/ Page Content Here /-->
+      @yield('content')
 
-        </section>
-        <!--/ /.content /-->
+    </section>
+    <!--/ /.content /-->
+  </div>
+  <!--/ /.content-wrapper /-->
+
+  <!--/ Main Footer /-->
+  <footer class="main-footer">
+    <!-- To the right -->
+    <div class="pull-right hidden-xs">
+      Anything you want
     </div>
-    <!--/ /.content-wrapper /-->
+    <!--/ Default to the left /-->
+    <strong>Copyright &copy; 2017 <a href="#">Company</a>.</strong> All rights reserved.
+  </footer>
 
-    <!--/ Main Footer /-->
-    <footer class="main-footer">
-        <!-- To the right -->
-        <div class="pull-right hidden-xs">
-            Anything you want
-        </div>
-        <!-- Default to the left -->
-        <strong>Copyright &copy; 2017 <a href="#">Company</a>.</strong> All rights reserved.
-    </footer>
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
+      <!-- Create the tabs -->
+      <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+          <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+          <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+      </ul>
 
-        <!-- Create the tabs -->
-        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-            <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-        </ul>
+      <!-- Tab panes -->
+      <div class="tab-content">
+          <!-- Home tab content -->
+          <div class="tab-pane active" id="control-sidebar-home-tab">
+              <h3 class="control-sidebar-heading">Recent Activity</h3>
+              <ul class="control-sidebar-menu">
+                  <li>
+                      <a href="javascript:;">
+                          <i class="menu-icon fa fa-birthday-cake bg-red"></i>
 
-        <!-- Tab panes -->
-        <div class="tab-content">
-            <!-- Home tab content -->
-            <div class="tab-pane active" id="control-sidebar-home-tab">
-                <h3 class="control-sidebar-heading">Recent Activity</h3>
-                <ul class="control-sidebar-menu">
-                    <li>
-                        <a href="javascript:;">
-                            <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+                          <div class="menu-info">
+                              <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
 
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+                              <p>Will be 23 on April 24th</p>
+                          </div>
+                      </a>
+                  </li>
+              </ul>
+              <!-- /.control-sidebar-menu -->
 
-                                <p>Will be 23 on April 24th</p>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-                <!-- /.control-sidebar-menu -->
+              <h3 class="control-sidebar-heading">Tasks Progress</h3>
+              <ul class="control-sidebar-menu">
+                  <li>
+                      <a href="javascript:;">
+                          <h4 class="control-sidebar-subheading">
+                              Custom Template Design
+                              <span class="pull-right-container">
+                                  <span class="label label-danger pull-right">70%</span>
+                              </span>
+                          </h4>
 
-                <h3 class="control-sidebar-heading">Tasks Progress</h3>
-                <ul class="control-sidebar-menu">
-                    <li>
-                        <a href="javascript:;">
-                            <h4 class="control-sidebar-subheading">
-                                Custom Template Design
-                                <span class="pull-right-container">
-                                    <span class="label label-danger pull-right">70%</span>
-                                </span>
-                            </h4>
+                          <div class="progress progress-xxs">
+                              <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                          </div>
+                      </a>
+                  </li>
+              </ul>
+              <!-- /.control-sidebar-menu -->
+          </div><!-- /.tab-pane -->
 
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-                <!-- /.control-sidebar-menu -->
-            </div><!-- /.tab-pane -->
+          <!--/ Stats tab content /-->
+          <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+          <!-- /.tab-pane -->
 
-            <!--/ Stats tab content /-->
-            <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
-            <!-- /.tab-pane -->
+          <!--/ Settings tab content /-->
+          <div class="tab-pane" id="control-sidebar-settings-tab">
+              <form method="post">
+                  <h3 class="control-sidebar-heading">General Settings</h3>
 
-            <!--/ Settings tab content /-->
-            <div class="tab-pane" id="control-sidebar-settings-tab">
-                <form method="post">
-                    <h3 class="control-sidebar-heading">General Settings</h3>
+                  <div class="form-group">
+                      <label class="control-sidebar-subheading">
+                          Report panel usage
+                          <input type="checkbox" class="pull-right" checked="checked" />
+                      </label>
 
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Report panel usage
-                            <input type="checkbox" class="pull-right" checked="checked" />
-                        </label>
+                      <p>
+                          Some information about this general settings option
+                      </p>
+                  </div>
+                  <!-- /.form-group -->
+              </form>
+          </div>
+          <!-- /.tab-pane -->
+      </div>
+  </aside>
+  <!-- /.control-sidebar -->
 
-                        <p>
-                            Some information about this general settings option
-                        </p>
-                    </div>
-                    <!-- /.form-group -->
-                </form>
-            </div>
-            <!-- /.tab-pane -->
-        </div>
-    </aside>
-    <!-- /.control-sidebar -->
-
-    <!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar -->
-    <div class="control-sidebar-bg"></div>
+  <!-- Add the sidebar's background. This div must be placed
+     immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>
 
 </div><!-- ./wrapper -->
 

@@ -10,7 +10,6 @@
 // DEPENDENCIES //
 //--------------//
 
-const _       = require('lodash');
 const dirSync = require('gulp-directory-sync');
 
 
@@ -19,13 +18,13 @@ const dirSync = require('gulp-directory-sync');
 //--------------//
 
 module.exports = function (gulp) {
-  console.log(`LOADED: [${module.filename}]`);
+  console.log(`[${new Date().toISOString()}] LOADED: [${module.filename}]`);
 
   return  gulp.src('')
             .pipe(dirSync(
                 ME.ENGINE
               , ME.BUILD
-              , _.extend({}, ME.pkg.options.sync, {ignore: [
+              , Object.assign({}, ME.pkg.options.sync, {ignore: [
                     /^\.env(.*)?$/i
                   , /^(.*)\.md$/i
                   , /^(.*)\.lock$/i

@@ -1,0 +1,21 @@
+{
+  "keys": {
+      "google": {
+          "maps": ""
+      }
+  }
+, "author": {
+      "name": {
+          "first": "Tomas"
+        , "last": "Baltrushaitis"
+        , "full": "@{./last} @{./first}"
+      }
+    , "nick": "Tom&acute;AS"
+    , "abbr": "tbaltrushaitis"
+    , "email": "@{./abbr}@gmail.com"
+    , "url":   "https://github.com/@{author.abbr}"
+  }
+, "project": {
+    "license": "MIT"
+  }
+}

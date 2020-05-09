@@ -1,13 +1,14 @@
 {   "name":         "mp3web"
   , "title":        "Web MP3 Player and Media Library Manager"
   , "description":  "Web MP3 Player and Media Library Manager based on Node.js, Laravel and HTML5 + lightweight JavaScript MVC modeling on FrontEnd"
-  , "version":      "1.0.2"
-  , "main":         "index.php"
-  , "authors": [
+  , "version":      "1.0.3"
+  , "author": [
       "tbaltrushaitis@gmail.com"
     ]
-  , "private":  false
   , "license":  "MIT"
+  , "private":  false
+  , "homepage": "https://tbaltrushaitis.github.io/mp3web/"
+  , "main":     ""
   , "keywords": [
         "mp3"
       , "audio"
@@ -20,9 +21,8 @@
       , "web"
     ]
   , "moduleType": [
-      "globals"
+      "project"
     ]
-  , "homepage": "https://tbaltrushaitis.github.io/mp3web/"
   , "ignore": [
         "**/.*"
       , "animation"
@@ -31,34 +31,39 @@
       , "bower_modules"
       , "dist"
       , "docs"
+      , "engine"
       , "laravel-*"
       , "node_modules"
       , "test"
       , "tests"
       , "webroot"
+      , "web-*"
     ]
   , "dependencies": {
-        "admin-lte":            "~2.3.11"
-      , "animate.css":          "~3.5.2"
+        "animate.css":          "~3.7.0"
       , "bootstrap":            "~3.3.7"
       , "bootstrap-tagsinput":  "~0.8.0"
       , "font-awesome":         "~4.7.0"
       , "html5shiv":            "~3.7.3"
-      , "jquery":               "~3.3.1"
+      , "jquery":               "3.5.1"
       , "jquery-tmpl":          "#b504c8afba"
       , "lato-font":            "~3.0.0"
-      , "lodash":               "~4.17.4"
-      , "normalize.css":        "~7.0.0"
+      , "lodash":               "~4.17.11"
+      , "normalize.css":        "~8.0.0"
+      , "noty":                 "~2.4.1"
       , "raty":                 "~2.8.0"
+      , "requirejs":            "~2.3.5"
       , "respond":              "~1.4.2"
-      , "requirejs":            "~2.3.3"
       , "roboto-webfont-bower": "roboto-webfont#~0.1.1"
-      , "underscore":           "~1.8.3"
     }
   , "devDependencies": {
     }
   , "resolutions": {
-      "jquery": "~2.2.4"
+      "jquery": "3.5.1"
+    }
+  , "disabledDependencies": {
+        "admin-lte": "~2.4.8"
+      , "underscore": "~1.9.1"
     }
   , "outdatedDependencies": {
       "bxslider-4":   "bx-slider.js#^4.2.12"
@@ -75,7 +80,6 @@
         "main": [
             "dist/**/*.*"
           , "!**/*.less"
-          , "!**/*.map"
           , "!**/npm.js"
           , "!**/*.min.js"
           , "!*-theme.*"
@@ -85,6 +89,13 @@
         "main": [
             "fonts/*"
           , "css/*.css"
+          , "!css/*.min.css"
+        ]
+      }
+    , "font-awesome-5": {
+        "main": [
+            "**/webfonts/*.*"
+          , "**/css/*.css"
           , "!css/*.min.css"
         ]
       }
@@ -123,12 +134,9 @@
       }
     }
   , "group": {
-      "effects":    [
-          "animate.css"
-        , "normalize.css"
-      ]
-    , "fonts":    [
+      "fonts": [
           "font-awesome"
+        , "font-awesome-5"
         , "lato-font"
         , "roboto-webfont-bower"
       ]
@@ -143,12 +151,17 @@
         , "html5shiv"
         , "jquery-tmpl"
         , "raty"
+        , "noty"
+      ]
+    , "ui": [
+          "animate.css"
+        , "normalize.css"
       ]
     , "themes": [
         "admin-lte"
       ]
-    , "front":      ["effects", "fonts", "libs", "plugins"]
-    , "cabinet":    ["effects", "fonts", "libs", "plugins"]
-    , "dashboard":  ["effects", "fonts", "libs", "plugins", "themes"]
+    , "front":     ["fonts", "libs", "plugins", "ui"]
+    , "cabinet":   ["fonts", "libs", "plugins", "ui"]
+    , "dashboard": ["fonts", "libs", "plugins", "ui", "themes"]
     }
 }

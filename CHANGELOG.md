@@ -1,3 +1,8 @@
+[![Standard Version](https://img.shields.io/badge/release-standard%20version-brightgreen.svg?style=plastic)](https://github.com/conventional-changelog/standard-version)
+[![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](http://tbaltrushaitis.mit-license.org/)
+[![Code Climate](https://codeclimate.com/github/tbaltrushaitis/mp3web/badges/gpa.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3web)
+[![Test Coverage](https://codeclimate.com/github/tbaltrushaitis/mp3web/badges/coverage.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3web/coverage)
+
 # Web MP3 Player :headphones: and Media Library Manager
 
 <p align="center">
@@ -6,26 +11,31 @@
 
 `mp3` `web` `player` `audio` `library` `manager`
 
------
+---
 
-## Badges
+## Release Notes ##
 
-[![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](http://tbaltrushaitis.mit-license.org/)
-[![Code Climate](https://codeclimate.com/github/tbaltrushaitis/mp3web/badges/gpa.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3web)
-[![Test Coverage](https://codeclimate.com/github/tbaltrushaitis/mp3web/badges/coverage.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3web/coverage)
+### [Unreleased] ###
 
-## Todo List ##
- - [ ] Implement search throw items.
+#### Added ####
+- [x] Config files for `local`, `dev` and `production` stages
+#### Changed ####
+#### Fixed ####
+#### Removed ####
 
-## Change log ##
+## Changelog ##
+
+### v1.0.3 ###
+ - [x] Bump Laravel version to 5.5.43
+ - [x] Fixed bug with page stuck when there are no media files in storage
 
 ### v1.0.2 ###
  - [x] **Makefile** scenario now used to build and deploy project
- - [x] Frontend components collected by **bower** task in gulpfile
+ - [x] Frontend components collected by **bower** task from `gulpfile.js`
 
 ### v1.0.1 ###
  - [x] Genre tags added as labels for track
- - [x] gulpfile.js scenario tasks improved
+ - [x] `gulpfile.js` scenario tasks improved
  - [x] setup.sh and setup.rc scripts used to simplify setup and build processes
  - [x] Documentation update
  - [x] Repository page look on github improved with logo image
@@ -38,20 +48,16 @@
  - [x] Possibility to edit item properties from Admin Panel.
 
 ### v0.0.2 ###
- - [x] Added 'Plays' counter which indicates how many times track was listened
+ - [x] Added `Plays` counter which indicates how many times track was listened
 
 ### v0.0.1: ###
- - [x] Add bower.json file
- - [x] Add package.json data
+ - [x] Add `bower.json` file
+ - [x] Add `package.json` data
  - [x] Create directories tree structure
 
-### v0.0.0 ###
- - [x] Initial release
+### Initial release ###
+ - [x] Project repository created
 
---------
+---
 
-#### Contributors ####
-
-[![Contributors List](https://img.shields.io/github/contributors/tbaltrushaitis/mp3web.svg)](https://github.com/tbaltrushaitis/mp3web/graphs/contributors)
-
---------
+:scorpius:

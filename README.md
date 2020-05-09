@@ -1,141 +1,164 @@
+[![Standard Version](https://img.shields.io/badge/release-standard%20version-brightgreen.svg?style=plastic)](https://github.com/conventional-changelog/standard-version)
+[![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](http://tbaltrushaitis.mit-license.org/)
+
 # Web MP3 Player :headphones: and Media Library Manager #
 
 <p align="center">
-  <img src="src/resources/assets/img/logo/Favicon.png" alt="Web MP3 Player Logo">
+  <img src="src/resources/assets/img/logo/Favicon.png" alt="Web MP3 Player Logo" />
 </p>
 
 `mp3` `web` `player` `audio` `library` `manager`
 
------
-
-## Badges ##
-
-[![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](http://tbaltrushaitis.mit-license.org/)
-[![Code Climate](https://codeclimate.com/github/tbaltrushaitis/mp3web/badges/gpa.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3web)
-[![Test Coverage](https://codeclimate.com/github/tbaltrushaitis/mp3web/badges/coverage.svg)](https://codeclimate.com/github/tbaltrushaitis/mp3web/coverage)
-
------
-
-## Components ##
-
- Scope | Role | Name | Version | Description
-:-----:|:----:|:-----|:-------:|:------------
- Host | Engine | [Composer](https://getcomposer.org/) | 1.5.2 | Dependency Manager for PHP
- Back | Engine | [Laravel](https://laravel.com/docs/5.2) | 5.2.31 | PHP Framework
- Front | Framework | [Bootstrap](http://getbootstrap.com) | 3.3.7 | HTML, CSS, and JS framework
- Front | Plugin | [Bootstrap Tagsinput](https://github.com/bootstrap-tagsinput/bootstrap-tagsinput) | 0.8.0 | jQuery tags input plugin based on Twitter Bootstrap
- Front | Library | [requirejs](https://github.com/jrburke/requirejs) | 2.3.3 | A file and module loader for JavaScript
- Front | Library | [Font-Awesome](http://fontawesome.io/) | 4.7.0 | The iconic font and CSS toolkit
- Front | Library | [jQuery](http://jquery.com/) | 2.2.4 | JavaScript Library
- Front | Library | [Lodash](https://lodash.com/docs/4.17.4) | 4.17.4 | A modern JavaScript utility library delivering modularity, performance & extras.
- Front | Library | [animate.css](http://daneden.github.io/animate.css/) | 3.5.2 | A cross-browser library of CSS animations
- Front | DEPRECATED | [Underscore.js](http://underscorejs.org) | :x: | JavaScript library that provides a whole mess of useful functional programming helpers
+---
 
 ## Live Demo ##
-:point_right: [Premium Music Collection](http://mp3.gsm-center.com.ua)
+:point_right: [Premium Music Collection](http://bit.ly/mp3web) :point_left:
 
------
+---
+
+## :octocat: Credits ##
+
+| Scope | Role | Name | Version | Description
+|:-----:|:----:|:-----|:-------:|:------------
+| Host | Installer | [Composer](https://getcomposer.org/) | 1.6.3 | Dependency Manager for PHP
+| Back | Engine | [Laravel](https://laravel.com/docs/5.5) | 5.5.49 | PHP Framework
+| Front | Library | [require.js](https://github.com/jrburke/requirejs) | 2.3.6 | A file and module loader for JavaScript
+| Front | Library | [jQuery](http://jquery.com/) | 3.5.1 | JavaScript Library
+| Front | Library | [Lodash](https://lodash.com/docs/4.17.15) | 4.17.15 | A modern JavaScript utility library delivering modularity, performance & extras.
+| Front | Framework | [Bootstrap](http://getbootstrap.com) | 3.3.7 | HTML, CSS, and JS framework
+| Front | Library | [Font-Awesome](http://fontawesome.io/) | 4.7.0 | The iconic font and CSS toolkit
+| Front | Library | [Noty](https://ned.im/noty/#/) | 2.4.1 | A Dependency-free notification library
+| Front | Library | [animate.css](http://daneden.github.io/animate.css/) | 3.7.2 | A cross-browser library of CSS animations
+| Front | Plugin | [Bootstrap&nbsp;Tagsinput](https://github.com/bootstrap-tagsinput/bootstrap-tagsinput) | 0.8.0 | jQuery tags input plugin based on Twitter Bootstrap
+
+---
 
 ## Usage ##
 
 ### 1 - Download ###
-```bash
-$ git clone -b latest https://github.com/tbaltrushaitis/mp3web.git mp3web
+```shell
+$ git clone -b latest https://github.com/tbaltrushaitis/mp3web.git && cd mp3web
 ```
 
 ### 2 - Configure ###
-Open file `setup.rc` in your favourite editor and change values of build
-variables in it (e.g. DB_HOST, APP_URL)
+Edit file `src/.env.rc` (or create your own, e.g. `src/.env.rc.local`) - change values of build
+variables in it (e.g. DB_HOST, APP_URL, etc.)
 
 ### 3 - Build ###
 
 With `make` - GNU make utility to maintain groups of programs
 
 In fact you just need to type in your terminal:
-```bash
+```shell
 $ make
 ```
 
-To get additional info and usage examples type `make usage|help` command param:
-```bash
+To get additional info and usage examples type `make usage|help|list` command:
+```shell
 $ make help
+          ┌─────────────────────────────────────────────────┐
+          │   __  __ _____ ______          ________ ____    │
+          │  |  \/  |  __ \___ \ \        / /  ____|  _ \   │
+          │  | \  / | |__) |__) \ \  /\  / /| |__  | |_) |  │
+          │  | |\/| |  ___/|__ < \ \/  \/ / |  __| |  _ <   │
+          │  | |  | | |    ___) | \  /\  /  | |____| |_) |  │
+          │  |_|  |_|_|   |____/   \/  \/   |______|____/   │
+          │                                                 │
+          └─────────────────────────────────────────────────┘
 
-AVAILABLE COMMANDS:
-  make clean   - CLEAR directories and delete files;
-  make setup   - check for php, nodejs and bower installations;
-  make engine  - cook engine sources;
-  make build   - BUILD project from sources;
-  make release - COMPILE project distro;
-  make deploy  - DEPLOY compiled project to web directory;
-  make all     - Run all operations in their preferred order;
+---------------------------------------------------------
+Available commands:
+make
+  list        - LIST all targets defined in this makefile
+  clean       - CLEAR directories and delete files
+  setup       - check for php, node and bower installations
+  engine      - setup and build engine
+  build       - BUILD project from sources
+  release     - COMPILE project distro
+  deploy      - DEPLOY compiled project to "webroot" directory
+  all         - Run all operations for current stage from NODE_ENV file
+  rebuild     - Execute [build, release, deploy] tasks
+  redeploy    - Execute [release, deploy] tasks
+---------------------------------------------------------
 ```
 
 ### 4 - Deploy ###
-```bash
+```shell
 $ make all
 ```
 
 ### 5 - Enjoy ###
 
+---
 
-## Gulp Tasks Overview ##
+## Directory structure ##
 
-In common case gulp command should look like
-```bash
-$ gulp command:p1:..:pN --env_VAR=some_VALUE
-
-# e.g.
-# gulp bower --env=production
-# gulp build --env=production
-# or
-# gulp --env=dev
+```
+.
+├── .bowerrc              --> bower configuration
+├── .gitattributes        --> git editor settings
+├── .gitconfig            --> git client settings
+├── .gitignore            --> specifies untracked files to git
+├── .gitmodules           --> git submodules definition
+├── .jshintignore         --> specifies untracked files to jshint
+├── .npmrc                --> npm settings
+├── bower.json            --> specified third party libs & dependencies for frontend application
+├── gulpfile.js           --> configuration for gulp tasks
+├── Makefile              --> main orchestration scenario
+├── package.json          --> main project description file used by npm
+├── README.md             --> this file
+├── config                --> project configuration files
+├── dist                  --> compiled project
+├── node_modules          --> node modules
+├── src                   --> application sources
+│   ├── app               --> core code of server-side application
+│   │   ├── Classes       --> project classes and objects
+│   │   ├── Console       --> custom Artisan commands
+│   │   ├── Events        --> houses event classes
+│   │   ├── Exceptions    --> exception handler and is also a good place to hold any exceptions thrown by application
+│   │   ├── Http          --> controllers, middleware, and form requests
+│   │   ├── Jobs          --> TBD
+│   │   ├── Listeners     --> N/A
+│   │   ├── Mail          -->
+│   │   ├── Notifications -->
+│   │   ├── Policies      -->
+│   │   ├── Providers     -->
+│   │   ├── Rules         -->
+│   │   ├── Repositories  -->
+│   │   ├── Common        --> common factories, services, directives, filters, helpers for all project
+│   ├── bootstrap         --> files which bootstraps the framework
+│   ├── config            --> application configuration files
+│   ├── database          --> database migrations, model factories, and seeds
+│   ├── public            --> entry point for all requests entering your application
+│   ├── resources         --> contains views as well as raw, un-compiled assets such as LESS, SASS, or JavaScript
+|   │   ├── assets        --> folder for application assets
+|   │   │   ├──fonts      --> folder for application fonts
+|   │   │   ├──i18n       --> internationalization
+|   │   │   ├──img        --> folder for application images
+|   │   │   ├──css        --> application stylesheets and theme settings
+|   │   │   ├──js         --> javascript files
+|   │   │      ├──app     --> application scripts
+|   │   │      ├──lib     --> third party libs
+|   │   ├── views         --> raw Blade templates
+│   ├── routes            --> route definitions for application
+│   ├── storage           --> compiled Blade templates, sessions, caches, and other files generated by the framework
+│   ├── tests             --> automated tests
+│   ├── vendor            --> contains Composer dependencies
 ```
 
----------
+---
 
-## Todo List ##
- - [ ] Implement search throw items.
+## TODO List ##
 
-## Change log ##
+ - [ ] Implement search through items.
 
-### v1.0.2 ###
- - [x] Makefile scenario now used to build and deploy project
- - [x] Frontend components collected by **bower** task in gulpfile
+## CHANGELOG ##
 
-### v1.0.1 ###
- - [x] Genre tags added as labels for track
- - [x] gulpfile.js scenario tasks improved
- - [x] setup.sh and setup.rc scripts used to simplify setup and build processes
- - [x] Documentation update
- - [x] Repository page look on github improved with logo image
+See [Changelog file][Changelog] for details
 
-### v1.0.0 ###
- - [x] Laravel 5.2 is now used as a backend framework
- - [x] Items that was uploaded in less than a week ago marked with "NEW" label
- - [x] Ability for visitors to register and become Users with access to private cabinet.
- - [x] Current playing item is moved on top of the list.
- - [x] Possibility to edit item properties from Admin Panel.
+---
 
-### v0.0.2 ###
- - [x] Added 'Plays' counter which indicates how many times track was listened
-
-### v0.0.1: ###
- - [x] Add bower.json file
- - [x] Add package.json data
- - [x] Create directories tree structure
-
-### v0.0.0 ###
- - [x] Initial release
-
---------
-
-### Contributors ###
-
-[![Contributors List](https://img.shields.io/github/contributors/tbaltrushaitis/mp3web.svg)](https://github.com/tbaltrushaitis/mp3web/graphs/contributors)
-
---------
-
-### Useful Info ###
+### :link: More Info ###
 
  - [GitHub / Basic writing and formatting syntax](https://help.github.com/articles/basic-writing-and-formatting-syntax/)
  - [BitBucket Markdown Howto](https://bitbucket.org/tutorials/markdowndemo)
@@ -143,4 +166,10 @@ $ gulp command:p1:..:pN --env_VAR=some_VALUE
  - [Linking containers](https://docs.docker.com/engine/userguide/networking/default_network/dockerlinks.md)
  - [Cross-host linking containers](https://docs.docker.com/engine/admin/ambassador_pattern_linking.md)
 
---------
+---
+
+> :calendar: Developed on **11th of September 2016**
+
+:scorpius:
+
+[Changelog]: CHANGELOG.md

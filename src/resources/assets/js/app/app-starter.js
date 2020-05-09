@@ -1,21 +1,20 @@
 /*!
  * File:        ASSETS/JS/APP/app-starter.js
- * Copyright(c) 2016-2017 Baltrushaitis Tomas
+ * Copyright(c) 2016-nowdays Baltrushaitis Tomas
  * License:     MIT
  */
 
 'use strict';
 
 require([
-      'jquery'
-    , 'underscore'
-    , 'raty'
-    , 'Player'
-    , 'bootstrapTags'
-    , 'functions'
-    , 'bootstrap'
-  ]
-  , function ($, _, raty, PlayerClass, bsTags, F) {
+    'jquery'
+  , 'lodash'
+  , 'raty'
+  , 'Player'
+  , 'bootstrapTags'
+  , 'functions'
+  , 'bootstrap'
+], function ($, _, raty, PlayerClass, bsTags, F) {
 
     var Player  =   new PlayerClass ();
     var silent  =   F.checkMode ('silent');
@@ -30,24 +29,26 @@ require([
       Player.Play(link);
     });
 
-    $('.raty').each(function (idx, el) {
+    $('.raty').each(function () {
+
       var that  = $(this)
         , score = that.attr('data-score')
       ;
+
       that.raty({
           score:    score
         , readOnly: true
-        // , path:  'assets/js/plugins/raty/images'
         , path:     'assets/img'
       });
+
     });
 
     // RATE
     $('.btn-rate').click(function (e) {
-        e.stopImmediatePropagation();
-        var Rate = $(this).attr('data-rate');
-        Player.Rate(Rate);
-        e.preventDefault();
+      e.stopImmediatePropagation();
+      var Rate = $(this).attr('data-rate');
+      Player.Rate(Rate);
+      e.preventDefault();
     });
 
     // TEST
@@ -59,10 +60,10 @@ require([
 
       console.log('Instance:\t',                    Instance);
       console.log('Instance.duration:\t',           Instance.duration);
-      console.log('Instance.textTracks:\t',         Instance.textTracks);
       console.log('Instance.audioTracks:\t',        Instance.audioTracks);
       console.log('Instance.textTracks.length:\t',  Instance.textTracks.length);
       console.log('Instance.mediaGroup:\t',         Instance.mediaGroup);
+      console.log('textTracks:\t',                  textTracks);
 
       e.preventDefault();
     });
@@ -98,8 +99,9 @@ require([
 
     $('.btn-player-option').click(function (e) {
       e.preventDefault();
-      $(this).toggleClass('is-enabled')
-          .toggleClass('active');
+      $(this)
+        .toggleClass('is-enabled')
+        .toggleClass('active');
     });
 
 
@@ -113,11 +115,9 @@ require([
         Player.stepForward();
         setTimeout (PlayIntro, 10000);
       }, 100);
-    } else {
+    }else{
       Player.stepForward();
-    }
-
-    //(silent) ? false : Player.stepForward();
+    };
 
     //var elTags  =   $('[data-role="tagsinput"]');
     //elTags.bsTags('add', {"value": 1, "text": "Amsterdam", "continent": "Europe"});

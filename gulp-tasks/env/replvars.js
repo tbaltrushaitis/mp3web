@@ -39,11 +39,11 @@ module.exports = function (gulp) {
 
   function replaceEnvironmentVariables (stream) {
     for (let cgv in modConfig) {
-      let key = cgv.toUpperCase(),
-          v = modConfig[cgv];
-      v = _.isObject(v)
-            ? JSON.stringify(v)
-            : v;
+      let key = cgv.toUpperCase()
+        , v   = modConfig[cgv]
+      ;
+      // v = _.isObject(v) ? v = JSON.stringify(v) : true;
+      _.isObject(v) ? v = JSON.stringify(v) : true;
 
       stream = stream.pipe(replace('{{' + key + '}}', v));
       console.log(`[${new Date().toISOString()}][${modPath}/${modName}] Replace ${key}:\t ${v}`);
@@ -52,7 +52,7 @@ module.exports = function (gulp) {
     return stream;
   };
 
-  var process = gulp.src([
+  let process = gulp.src([
       path.join(global.ME.SRC, `.env.rc.test`)
     ])
     .pipe(buffer());

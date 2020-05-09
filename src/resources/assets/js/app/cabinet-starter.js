@@ -1,14 +1,14 @@
 /*!
  * File:          ASSETS/JS/APP/cabinet-starter.js
  * License:       MIT
- * Copyright (c)  2016-2017 Baltrushaitis Tomas
+ * Copyright (c)  2016-nowdays Baltrushaitis Tomas
  */
 
 'use strict';
 
 require([
     'jquery'
-  , 'underscore'
+  , 'lodash'
   , 'bootstrapTags'
   , 'functions'
   , 'cabinetController'
@@ -23,7 +23,7 @@ require([
 require([
     // 'require'
     'jquery'
-  , 'underscore'
+  , 'lodash'
   , 'bootstrapTags'
   , 'functions'
   , 'cabinetController'

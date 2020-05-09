@@ -1,24 +1,38 @@
 /*!
  * File:        ASSETS/JS/app-config-require.js
  * License:     MIT
- * Copyright (c) 2016-2017 Baltrushaitis Tomas
+ * Copyright (c) 2016-nowdays Baltrushaitis Tomas
  */
 
 'use strict';
 
 (function (require) {
 
-    var rootPath = document.querySelector('body').dataset.rooturl.replace('://', '');
+    let AppConsoleLogo = `
+┌────────┐
+│ MP3WEB │
+└────────┘
+
+┌────────────────────────────────────┐
+│  __  __ ___ ______      _____ ___  │
+│ |  \/  | _ \__ /\ \    / / __| _ ) │
+│ | |\/| |  _/|_ \ \ \/\/ /| _|| _ \ │
+│ |_|  |_|_| |___/  \_/\_/ |___|___/ │
+│                                    │
+└────────────────────────────────────┘
+`;
+
+    let rootPath = document.querySelector('body').dataset.rooturl.replace('://', '');
     if (!rootPath.endsWith('/')) {
       rootPath += '/';
     }
 
-    var pos  = rootPath.indexOf('/');
+    let pos  = rootPath.indexOf('/');
     rootPath = (-1 !== pos && pos + 1 < rootPath.length) ? rootPath.substr(pos) : '/';
 
     require.config({
         baseUrl:      rootPath + 'assets/js'
-      , waitSeconds:  6
+      , waitSeconds:  10
     });
 
     require.onError = function (err) {
@@ -30,7 +44,7 @@
     };
 
     (function () {
-      var config = {
+      let config = {
         map: {
           '*': {
             // 'common': 'app/common'
@@ -42,17 +56,17 @@
 
     (function () {
 
-      var config = {
+      let config = {
         paths: {
             jquery:         'lib/jquery'
           , lodash:         'lib/lodash'
-          , underscore:     'lib/underscore'
           , bootstrap:      'lib/bootstrap'
           , Tmpl:           'lib/jquery.tmpl'
           , raty:           'lib/jquery.raty'
           , bootstrapTags:  'lib/bootstrap-tagsinput'
           , Abstract:       'app/classes/Abstract.class'
           , Player:         'app/classes/Player.class'
+          // , Config:         'app/modules/Config'
           , functions:      'app/functions'
         }
       , shim: {
@@ -63,10 +77,6 @@
             exports:  '_'
           , deps:     ['jquery']
           }
-        , underscore: {
-            exports:  '_'
-          , deps:     ['jquery']
-          }
         , bootstrap: {
             exports:  'bootstrap'
           , deps:     ['jquery']
@@ -74,13 +84,13 @@
         , bootstrapTags:  ['jquery', 'bootstrap']
         , Tmpl:           ['jquery']
         , raty:           ['jquery']
-        , Abstract:       ['jquery']
-        , Player:         ['jquery', 'Abstract']
+        , Abstract:       ['jquery', 'lodash']
+        , Player:         ['jquery', 'lodash']
         , functions:      ['jquery']
         }
       , deps: [
           'jquery'
-        , 'underscore'
+        , 'lodash'
         ]
       };
 
@@ -100,18 +110,22 @@
 
     })();
 
+
     // Load APP-Starter Module
     (function () {
+
       require(['jquery', 'app/app-starter'], function ($) {
-        var pageId = $('body').attr('data-id_page');
+        let pageId = $('body').attr('data-id_page');
         console.groupCollapsed(pageId);
         console.timeStamp('APP.CHECK-IN');
         console.info('APP::Started');
         console.groupEnd(pageId);
+        console.log(AppConsoleLogo);
       }, function (err) {
-        var failedId = err.requireModules && err.requireModules[0];
+        let failedId = err.requireModules && err.requireModules[0];
         console.warn('[requirejs] Errors in ' + failedId + ':', err.requireModules[0]);
       });
+
     })();
 
 })(require);

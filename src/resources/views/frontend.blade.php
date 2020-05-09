@@ -2,16 +2,16 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <div class="panel panel-default">
-                <div class="panel-heading">Welcome</div>
-                <div class="panel-body">
-                    Frontend Page.
-                </div>
-            </div>
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <div class="panel panel-default">
+        <div class="panel-heading">Welcome</div>
+        <div class="panel-body">
+          Frontend Page.
         </div>
+      </div>
     </div>
+  </div>
 </div>
 @endsection
 
@@ -23,6 +23,7 @@
 
         <i class="fa fa-headphones fa-fw"></i>
         <span class="label label-success">{{ $track->get('plays', 0) }}</span>
+        <span class="label label-primary">{{ intval((time() - $track->get('added')) / (60 * 60 * 24)) }}</span>
         <a class="" href="{{ $track->get('id') }}">{{ $track->get('title') }}</a>
 
         <div class="raty pull-right" data-score="{{ ($track->get('likes') * 5) / max( $track->get('likes') + $track->get('dislikes'), 1) }}"></div>

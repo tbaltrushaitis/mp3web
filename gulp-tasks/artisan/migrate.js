@@ -1,6 +1,6 @@
 /*!
  * ./gulp-tasks/artisan/migrate.js
- * Copyright(c) 2017 Baltrushaitis Tomas
+ * Copyright(c) 2017-nowdays Baltrushaitis Tomas
  * MIT Licensed
  */
 
@@ -10,18 +10,17 @@
 // DEPENDENCIES //
 //--------------//
 
-const exec  =   require('gulp-exec');
+const exec = require('gulp-exec');
 
 
 //--------------//
 //  EXPORTS     //
 //--------------//
 
-module.exports  =   function (gulp) {
-    console.log('module.filename = ' + module.filename);
+module.exports = function (gulp) {
+  console.log(`[${new Date().toISOString()}] LOADED: [${module.filename}]`);
 
-    return gulp.src('')
-            .pipe(exec('cd ' + global.CURDIR + global.BUILD + ' && php artisan -vvv migrate && cd -'))
-            .pipe(exec.reporter(global.pkg.options.reporting));
+  return gulp.src('')
+          .pipe(exec('cd ' + global.ME.CURDIR + global.ME.BUILD + ' && php artisan -vvv --no-interaction migrate && cd -'))
+          .pipe(exec.reporter(global.ME.pkg.options.reporting));
 };
-

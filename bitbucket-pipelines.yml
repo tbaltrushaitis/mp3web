@@ -1,60 +1,123 @@
-# image: tbaltrushaitis/ubuntu-nodejs:v8.9.0
+# image: tbaltrushaitis/ubuntu-nodejs:v8.0.0
+image: php:7.1.22-fpm-jessie
 
 pipelines:
   default:
     - step:
+        name: Default Step
         script:
-          - echo "[Step_00] This script runs on all branches that don't have any specific pipeline assigned in 'branches'.\n"
+          - echo "This script runs on all branches that don't have any specific pipeline assigned in 'branches'.\n"
   branches:
     master:
       - step:
+          name: Default Step in Master
           script:
             - printf "[Step_00] This script runs only on commit to the MASTER branch.\n"
             - uname -a
             - free -m
             - df -H
             - netstat -apn
-            - npm -v
             - ls -als
             - pwd
             - printf "Everything is awesome!\n";
-    dev-1.0.2:
+    dev-1.0.3:
       - step:
+          name: "[01] Greeting"
           script:
-            - printf "[Step_01] This script runs only on commit to the $BITBUCKET_BRANCH branch.\n"
+            - printf "[Step_01] This script runs only on commit to the [${BITBUCKET_BRANCH}] branch.\n"
             - uname -a
             - pwd
+            - printf "[Step_01] ==================================================================== [FINISHED]\n"
       - step:
+          name: "[02] System Update"
+          caches:
+            - apt
+            - bower
+            - node
           script:
-            - printf "[Step_02] This script runs only on commit to the $BITBUCKET_BRANCH branch.\n"
+            - printf "System Update \n"
             - source ./bin/.bash_colors
-            - apt-get update -y
-            # PHP setup
-            - apt -y install php5 php5-cli php5-common php-db
-            - php -v
-            # NPM install
-            - wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
-            - export NVM_DIR="$HOME/.nvm"
-            # This loads nvm
-            # - [ -s "$NVM_DIR/nvm.sh" ]
-            - . "$NVM_DIR/nvm.sh"
-            - echo -e "\t${BCyan}ENV:\t exported [$NVM_DIR/nvm.sh]"
-            # This loads nvm bash_completion
-            # - [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" && echo -e "\t${BCyan}ENV:\t exported [$NVM_DIR/bash_completion]"
-            - . "$NVM_DIR/bash_completion"
-            - nvm install v8.9.0
-            - sleep 10
-            # BUILD project
-            - make all
-            - sleep 10
-            - pwd && ls -als
-            # - ./setup.sh test --env=production
-            # - ./setup.sh prepare --env=production
-            # - ./setup.sh build --env=production
-            # - ./setup.sh deploy --env=production
+            - apt-get -y update
+            - apt-get -y upgrade
+            - printf "System Updated!\n"
       - step:
+          name: "[03] Install System Packages"
+          caches:
+            - apt
           script:
-            - echo "[Step_03] Script runs on commit to [${BITBUCKET_BRANCH}] branch."
+            - apt -y install make curl git-hub git-all git-flow composer npm
+      - step:
+          name: "[04] PHP Setup"
+          caches:
+            - apt
+          script:
+            - printf "PHP setup \n"
+            # PHP setup
+            # - apt-get -y install php php-cli php-common php-dba
+            # - apt search php
+            # - sleep 10
+            - php -v
+      - step:
+          name: "[05] NVM install"
+          caches:
+            - apt
+            - node
+          script:
+            - printf "NVM install \n"
+            # NPM install
+            - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+            - export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+            # - [ -s "${NVM_DIR}/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+            - echo "NVM_DIR = [${NVM_DIR}]"
+            - ls -als ${NVM_DIR}/
+            - \. "${NVM_DIR}/nvm.sh" # This loads nvm
+            - echo -e "\t${Cyan}ENV:\t exported [$NVM_DIR/nvm.sh]${RC}"
+            # - command -v nvm
+            # This loads nvm bash_completion
+            # - . "$NVM_DIR/bash_completion"
+            - nvm ls-remote
+            - nvm install v10.20.0 --latest-npm
+            - node -v
+      # - step:
+      #     name: "[06] Setup NODE.JS"
+      #     caches:
+      #       - node
+      #     script:
+      #       - nvm install v10.0.0
+      #       - node -v
+      - step:
+          name: "[07] Build project"
+          caches:
+            - bower
+            - node
+          script:
+            - echo "BUILD project"
+            - pwd
+            # BUILD project
+            - make setup
+            - sleep 1
+            - make engine
+            - sleep 1
+            - make build
+            - sleep 1
+            - make release
+            - sleep 1
+            - make deploy
+            - sleep 1
+            - cd webroot
+            - pwd && ls -als
+            - cat .env
+            - ./artisan env
+      - step:
+          name: "[08] Check webroot"
+          script:
+            - cd ${DIR_WEB}
+            - cat .INSPIRATION
+      - step:
+          name: "[09] Finalize"
+          script:
+            - echo "[Step_Info] Script runs on the [${BITBUCKET_BRANCH}] branch."
+            - pwd
             - echo "[BITBUCKET_CLONE_DIR] = [${BITBUCKET_CLONE_DIR}]"
             - echo "[BITBUCKET_COMMIT] = [${BITBUCKET_COMMIT}]"
             - echo "[BITBUCKET_REPO_OWNER] = [${BITBUCKET_REPO_OWNER}]"
@@ -62,10 +125,10 @@ pipelines:
             - echo "[BITBUCKET_TAG] = [${BITBUCKET_TAG}]"
             - echo "[BITBUCKET_BUILD_NUMBER] = [${BITBUCKET_BUILD_NUMBER}]"
             - echo "[CI] = [${CI}]"
-            # - apt-get update -y
-            # - apt -y install php5 php5-cli php5-common
-            # - php -v
-            # - make all
-            # - pwd && ls -als
-            # - cat webroot/.env
-            - printf "Everything is awesome!\n";
+            - printf "[FINISHED] Everything is awesome!\n";
+
+definitions:
+  caches:
+    apt: /var/cache/apt/
+    bower: ./bower_modules/
+    node: ./node_modules/

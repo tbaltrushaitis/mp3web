@@ -21,19 +21,19 @@ const changed = require('gulp-changed');
 //--------------//
 
 module.exports = function (gulp) {
-  console.log(`LOADED: [${module.filename}]`);
+  console.log(`[${new Date().toISOString()}] LOADED: [${module.filename}]`);
 
-  var DEST        = path.join(ME.BUILD, 'public');
-  var DEST_ASSETS = path.join(DEST,     'assets');
+  let DEST        = path.join(ME.BUILD, 'public');
+  let DEST_ASSETS = path.join(DEST,     'assets');
 
-  var resAssets = gulp.src([
+  let resAssets = gulp.src([
                     path.join(ME.BUILD, 'resources/assets', '*.*')
                   ])
                   .pipe(changed(DEST_ASSETS))
                   .pipe(gulp.dest(DEST_ASSETS))
                   .on('error', console.error.bind(console));
 
-  var resStuff  = gulp.src([
+  let resStuff  = gulp.src([
                       path.join(ME.BUILD, 'resources', '*.*')
                     , path.join(ME.BUILD, 'resources', '.*')
                   ])

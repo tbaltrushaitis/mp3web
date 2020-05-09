@@ -1,7 +1,7 @@
 /*!
  * File:          ASSETS/JS/cabinet-config-require.js
  * License:       MIT
- * Copyright (c)  2016-2017 Baltrushaitis Tomas
+ * Copyright (c)  2016-nowdays Baltrushaitis Tomas
  */
 
 'use strict';
@@ -18,7 +18,7 @@
 
     require.config({
         baseUrl:      rootPath + 'assets/js'
-      , waitSeconds:  6
+      , waitSeconds:  8
     });
 
     require.onError = function (err) {
@@ -49,7 +49,6 @@
             , Tmpl:               'lib/jquery.tmpl'
             , bootstrap:          'lib/bootstrap'
             , lodash:             'lib/lodash'
-            , underscore:         'lib/underscore'
             , raty:               'lib/jquery.raty'
             , bootstrapTags:      'lib/bootstrap-tagsinput'
             , LTEapp:             'lib/bower-bundle.min'
@@ -65,10 +64,6 @@
                 exports:  '_'
               , deps:     ['jquery']
               }
-            , underscore: {
-                exports:  '_'
-              , deps:     ['jquery']
-              }
             , bootstrap: {
                 exports:  'bootstrap'
               , deps:     ['jquery']
@@ -77,13 +72,13 @@
             , Tmpl:               ['jquery']
             , raty:               ['jquery']
             , LTEapp:             ['jquery', 'bootstrap']
-            , Abstract:           ['jquery', 'underscore']
-            , cabinetController:  ['jquery', 'underscore']
-            , functions:          ['jquery', 'underscore']
+            , Abstract:           ['jquery', 'lodash']
+            , cabinetController:  ['jquery', 'lodash']
+            , functions:          ['jquery', 'lodash']
           }
         , deps: [
               'jquery'
-            , 'underscore'
+            , 'lodash'
           ]
       };
 

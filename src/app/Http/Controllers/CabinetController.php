@@ -19,11 +19,11 @@ class CabinetController extends Controller {
    *
    * @var MediaRepository
    */
-  protected   $mediaRepository;
+  protected $mediaRepository;
 
 
   /**
-   * Create a new controller instance.
+   * Create a new controller instance
    *
    * @return void
    */
@@ -32,27 +32,28 @@ class CabinetController extends Controller {
     $this->mediaRepository = $mediarepository;
   }
 
-    /**
-     * Show the cabinet dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index () {
-        // return view('tracks.audio', [
-        return view('cabinet.audio', [
-            'tracks' =>  $this->mediaRepository->getTracksAudio()
-        ]);
-    }
 
-    /**
-     * Show the cabinet dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function showDashboard () {
-        return view('dashboard', [
-            'tracks' =>  $this->mediaRepository->getTracksAudio()
-        ]);
-    }
+  /**
+   * Show the cabinet: audio tracks list
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function index () {
+    return view('cabinet.audio', [
+      'tracks' => $this->mediaRepository->getTracksAudio()
+    ]);
+  }
+
+
+  /**
+   * Show the cabinet dashboard
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function showDashboard () {
+    return view('dashboard', [
+      'tracks' => $this->mediaRepository->getTracksAudio()
+    ]);
+  }
 
 }
