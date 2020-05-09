@@ -20,14 +20,15 @@
 
 | Scope | Role | Name | Version | Description
 |:-----:|:----:|:-----|:-------:|:------------
-| Host | Installer | [Composer](https://getcomposer.org/) | 1.5.2 | Dependency Manager for PHP
+| Host | Installer | [Composer](https://getcomposer.org/) | 1.6.3 | Dependency Manager for PHP
 | Back | Engine | [Laravel](https://laravel.com/docs/5.5) | 5.5.49 | PHP Framework
-| Front | Library | [require.js](https://github.com/jrburke/requirejs) | 2.3.3 | A file and module loader for JavaScript
+| Front | Library | [require.js](https://github.com/jrburke/requirejs) | 2.3.6 | A file and module loader for JavaScript
 | Front | Library | [jQuery](http://jquery.com/) | 3.5.1 | JavaScript Library
-| Front | Library | [Lodash](https://lodash.com/docs/4.17.10) | 4.17.11 | A modern JavaScript utility library delivering modularity, performance & extras.
+| Front | Library | [Lodash](https://lodash.com/docs/4.17.15) | 4.17.15 | A modern JavaScript utility library delivering modularity, performance & extras.
 | Front | Framework | [Bootstrap](http://getbootstrap.com) | 3.3.7 | HTML, CSS, and JS framework
 | Front | Library | [Font-Awesome](http://fontawesome.io/) | 4.7.0 | The iconic font and CSS toolkit
-| Front | Library | [animate.css](http://daneden.github.io/animate.css/) | 3.5.2 | A cross-browser library of CSS animations
+| Front | Library | [Noty](https://ned.im/noty/#/) | 2.4.1 | A Dependency-free notification library
+| Front | Library | [animate.css](http://daneden.github.io/animate.css/) | 3.7.2 | A cross-browser library of CSS animations
 | Front | Plugin | [Bootstrap&nbsp;Tagsinput](https://github.com/bootstrap-tagsinput/bootstrap-tagsinput) | 0.8.0 | jQuery tags input plugin based on Twitter Bootstrap
 
 ---
@@ -40,7 +41,7 @@ $ git clone -b latest https://github.com/tbaltrushaitis/mp3web.git && cd mp3web
 ```
 
 ### 2 - Configure ###
-Open file `src/.env.rc` (or create your own, e.g. `src/.env.rc.local`) in your favourite editor and change values of build
+Edit file `src/.env.rc` (or create your own, e.g. `src/.env.rc.local`) - change values of build
 variables in it (e.g. DB_HOST, APP_URL, etc.)
 
 ### 3 - Build ###
