@@ -68,23 +68,25 @@
       ]
     , "post-install-cmd": [
           "Illuminate\\Foundation\\ComposerScripts::postInstall"
-        , "@php artisan -v -n vendor:publish"
+        , "@php artisan --ansi -v -n vendor:publish"
       ]
     , "post-update-cmd": [
           "Illuminate\\Foundation\\ComposerScripts::postUpdate"
-        , "@php artisan -v -n key:generate"
-        , "@php artisan -v -n config:cache"
-        , "@php artisan -v -n route:cache"
-        , "@php artisan -V > .ENGINE_VERSION"
-        , "@php artisan inspire > .INSPIRATION"
-        , "@php artisan -v -n optimize"
-        , "@php artisan -v -n migrate:status"
-        , "@php artisan -v -n route:list"
-        , "@php artisan env > .ENVIRONMENT"
+        , "@php artisan --ansi -v -n config:cache"
+        , "@php artisan --ansi -v -n route:cache"
+        , "@php artisan --ansi -v -n optimize"
+        , "./artisan -v -n migrate:status > .MIGRATE_STATUS"
+        , "./artisan -v -n route:list > .ROUTES_LIST"
+        , "./artisan -V > .ENGINE_VERSION"
+        , "./artisan env > .ENVIRONMENT"
+        , "./artisan inspire > .INSPIRATION"
+      ]
+    , "post-update-cmd-disabled": [
+        "@php artisan --ansi -v -n key:generate"
       ]
     , "post-autoload-dump": [
           "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump"
-        , "@php artisan -v package:discover"
+        , "@php artisan --ansi -v -n package:discover"
       ]
     }
   , "config": {
