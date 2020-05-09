@@ -26,13 +26,13 @@ endif
 
 engine_check: engine_setup engine_update engine_set_permissions ;
 	@ echo $(DAT) ${Yellow}ENGINE CHECKED${NC}: [${Purple}${DIR_ENGINE}${NC}] ;
-	@ echo $(DAT) $(DONE): $(TARG) ;
+	@ echo $(DAT) $(FINE): $(TARG) ;
 
 # $(info $(DAT) ${Red}ENGINE INSTALLED into ${NC}[${BYellow}${DIR_ENGINE}${NC}])
 
 engine_setup_git:
 	git clone -b "${ENGINE_VERSION}" "https://github.com/laravel/laravel" "${DIR_ENGINE}" $(TO_NULL);
-	@ echo $(DAT) ${Yellow}Engine [${Blue}${ENGINE_NAME}-${ENGINE_TAG}${NC}] [${Green}v${ENGINE_VERSION}${NC}] cloned to [${Purple}${DIR_ENGINE}${NC}] ;
+	@ echo $(DAT) ${Yellow}Engine${NC} [${Blue}${ENGINE_NAME}-${ENGINE_TAG}${NC}] [${Orange}v${ENGINE_VERSION}${NC}] cloned to [${Purple}${DIR_ENGINE}${NC}] ;
 	@ echo $(DAT) $(DONE): $(TARG) ;
 
 engine_setup_composer:
