@@ -103,7 +103,6 @@ pipelines:
             - make release
             - sleep 1
             - make deploy
-            # - make dev
             - sleep 1
             - cd webroot
             - pwd && ls -als
