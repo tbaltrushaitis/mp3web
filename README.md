@@ -154,7 +154,7 @@ $ make all
 
 ## CHANGELOG ##
 
-See [Changelog file][Changelog] for details
+See [Changelog][Changelog] file for details
 
 ---
 
