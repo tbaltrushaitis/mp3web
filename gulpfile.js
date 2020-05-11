@@ -1,6 +1,6 @@
 /*!
  * File:        ./gulpfile.js
- * Copyright(c) 2016-2017 Baltrushaitis Tomas
+ * Copyright(c) 2016-2020 Baltrushaitis Tomas
  * License:     MIT
  */
 
@@ -185,9 +185,11 @@ gulp.task('default', function () {
 gulp.task('test', ['lint', 'usage', 'show:config'], function () {
   console.log('TEST:DONE');
 });
+
 gulp.task('dev',  ['build:dev'], function () {
   gulp.start('watch');
 });
+
 gulp.task('lint', ['jscs', 'jshint']);
 // gulp.task('clean', gulpSequence(['clean:build', 'clean:dist']));
 gulp.task('artisan', gulpSequence('artisan:vendor:publish', 'artisan:migrate', 'artisan:clear'));
