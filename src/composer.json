@@ -11,8 +11,8 @@
       , "url":   "https://github.com/tbaltrushaitis"
     }
   , "authors": [
-      {   "name":  "CoAuthor"
-        , "email": "CoAuthor@gmail.com"
+      {   "name":  "tbaltrushaitis"
+        , "email": "tbaltrushaitis@gmail.com"
       }
     ]
   , "require": {
@@ -61,32 +61,27 @@
         "@php -r \"file_exists('.env') || copy('.env.rc', '.env');\""
       ]
     , "post-create-project-cmd": [
-        "@php artisan key:generate"
-      ]
-    , "post-create-project-cmd-disabled": [
-        "@php artisan -v -n preset none"
+          "@php artisan -v -n preset none"
+        , "@php artisan key:generate"
       ]
     , "post-install-cmd": [
           "Illuminate\\Foundation\\ComposerScripts::postInstall"
         , "@php artisan --ansi -v -n vendor:publish"
+        , "@php artisan --ansi -v -n migrate"
       ]
     , "post-update-cmd": [
           "Illuminate\\Foundation\\ComposerScripts::postUpdate"
         , "@php artisan --ansi -v -n config:cache"
         , "@php artisan --ansi -v -n route:cache"
         , "@php artisan --ansi -v -n optimize"
-        , "./artisan -v -n migrate:status > .MIGRATE_STATUS"
-        , "./artisan -v -n route:list > .ROUTES_LIST"
-        , "./artisan -V > .ENGINE_VERSION"
-        , "./artisan env > .ENVIRONMENT"
-        , "./artisan inspire > .INSPIRATION"
-      ]
-    , "post-update-cmd-disabled": [
-        "@php artisan --ansi -v -n key:generate"
+        , "@php artisan -v -n migrate:status > .MIGRATE_STATUS"
+        , "@php artisan -v -n route:list > .ROUTES_LIST"
+        , "@php artisan -V > .ENGINE_VERSION"
+        , "@php artisan env > .ENVIRONMENT"
+        , "@php artisan inspire > .INSPIRATION"
       ]
     , "post-autoload-dump": [
-          "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump"
-        , "@php artisan --ansi -v -n package:discover"
+        "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump"
       ]
     }
   , "config": {
