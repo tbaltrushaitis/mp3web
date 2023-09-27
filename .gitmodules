@@ -1,0 +1,5 @@
+[submodule "engine/laravel"]
+  active = true
+  url = https://github.com/laravel/laravel.git
+  path = laravel-5.5
+  branch = 5.5

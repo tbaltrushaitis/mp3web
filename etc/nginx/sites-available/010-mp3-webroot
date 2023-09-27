@@ -1,0 +1,48 @@
+##
+## Virtual Host configuration for WEB MP3 PLAYER
+##
+
+server {
+
+  listen 80;
+  listen [::]:80;
+
+  server_name mp3.gsm-center.com.ua mp3web.gsm-center.com.ua;
+
+  root        /var/www/html/mp3web.git/webroot/public;
+
+  add_header  X-Frame-Options         "SAMEORIGIN";
+  add_header  X-XSS-Protection        "1; mode=block";
+  add_header  X-Content-Type-Options  "nosniff";
+
+  access_log  /var/log/nginx/mp3web_access.log main;
+  error_log   /var/log/nginx/mp3web_error.log  warn;
+
+  index       index.html index.php;
+
+  charset     utf-8;
+
+  location / {
+    try_files $uri $uri/  /index.php?$query_string;
+  }
+
+  location = /favicon.ico { access_log off; log_not_found off; }
+  location = /robots.txt  { access_log off; log_not_found off; }
+
+  error_page 404 /index.php;
+
+  location ~ \.php$ {
+    include snippets/fastcgi-php.conf;
+    # With php7.2-cgi alone:
+    # fastcgi_pass 127.0.0.1:9000;
+    # With php7.2-fpm:
+    fastcgi_pass unix:/run/php/php7.2-fpm.sock;
+    #fastcgi_index index.php;
+    #include fastcgi_params;
+  }
+
+  location ~ /\.(?!well-known).* {
+    deny all;
+  }
+
+}
