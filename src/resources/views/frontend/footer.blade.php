@@ -4,10 +4,10 @@
 
       <div class="col-sm-6 col-xs-12">
         <p class="copyright">
-          &copy; <?php echo date("Y"); ?> <strong>{{ config('app.env') }}</strong>
+          &copy; <?php echo date("Y"); ?> <strong>{{ config('app.env') }}</strong> build
           <br />All media copyrights belong to their owners.
         </p>
-        Powered by <a id="developer" target="_blank" href="http://gsm-center.com.ua/" title="Professional Websites Development">Tom&#96;AS</a>
+        Powered by <a id="developer" target="_blank" href="http://cv.gsm-center.com.ua/" title="Professional Websites Development">Tom&#96;AS</a>
       </div>
       <div class="col-sm-5 col-xs-11">
         <ul class="social-icons">
@@ -33,5 +33,6 @@
       </div>
 
     </div>
+
   </div>
 </footer><!--/#footer-->

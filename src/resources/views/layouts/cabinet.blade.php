@@ -2,7 +2,7 @@
 
 <body id="layout-cabinet"
       class="layout-cabinet skin-blue hold-transition fixed-0 sidebar-collapse theme-default"
-      data-id_page="layout-cabinet"
+      data-id_page="cabinet"
       data-rooturl="{{ Request::root() }}">
 
   <!--/ START: NavBar-Top /-->
@@ -78,6 +78,7 @@
 
   @include('partials.modalTrackEdit')
 
+  @include('common.footer')
   @include('cabinet.javascripts')
 
 </body>

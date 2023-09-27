@@ -219,5 +219,11 @@ const Abstract = class Abstract extends EE {
  * EXPOSE
  * @public
  */
+exports = Abstract;
 
-module.exports = exports = Abstract;
+
+/**
+ * EXPORTS
+ * @module
+ */
+module.exports = exports;

@@ -19,7 +19,7 @@ define([
         , dfdPrototype = $.Deferred()
         , i            = 0
       ;
-      console.groupCollapsed('Abstract.class Constructor');
+      console.groupCollapsed('Abstract.Constructor');
 
       // INIT
       dfdPrototype = self._init();
@@ -36,12 +36,13 @@ define([
 
       $.when(dfdPrototype)
        .done(function (oClass) {
-          console.timeStamp('Instance of ' + oClass._entity + ' created');
-          console.log('Class ' + oClass._entity + ' Object:', oClass);
+          console.timeStamp('Instance of [' + oClass._entity + '] created');
+          console.log('Instance of [' + oClass._entity + '] created');
+          console.log('Class [' + oClass._entity + '] (', typeof oClass, ')', oClass);
           dfdClass.resolve(oClass);
       })
       .always(function () {
-        console.groupEnd('Abstract.class Constructor');
+        console.groupEnd('Abstract.Constructor');
       });
 
       return dfdClass.promise();

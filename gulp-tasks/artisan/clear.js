@@ -21,7 +21,10 @@ module.exports = function (gulp) {
   console.log(`[${new Date().toISOString()}] LOADED: [${module.filename}]`);
 
   return gulp.src('')
+          .pipe(exec('cd ' + ME.CURDIR + ME.WEB + ' && php artisan down && cd -'))
+          .pipe(exec('cd ' + ME.CURDIR + ME.WEB + ' && php artisan -vvv --no-interaction cache:clear && cd -'))
           .pipe(exec('cd ' + ME.CURDIR + ME.WEB + ' && php artisan -vvv --no-interaction view:clear && cd -'))
           .pipe(exec('cd ' + ME.CURDIR + ME.WEB + ' && php artisan -vvv --no-interaction route:list && cd -'))
+          .pipe(exec('cd ' + ME.CURDIR + ME.WEB + ' && php artisan up && cd -'))
           .pipe(exec.reporter(ME.pkg.options.reporting));
 };

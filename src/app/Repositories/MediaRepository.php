@@ -28,14 +28,16 @@ class MediaRepository {
         $meta = collect(json_decode(Storage::disk('meta')->get($hash), TRUE));
       }else{
         $meta = collect([
-            'id'       => $hash
-          , 'filename' => $fileName
-          , 'path'     => dirname($fileName)
-          , 'title'    => basename($fileName)
-          , 'name'     => $fileName
-          , 'size'     => Storage::disk('audio')->size($file)
-          , 'url'      => 'audio/' . $fileName
-          , 'added'    => time()
+            'id'        => $hash
+          , 'filename'  => $fileName
+          , 'path'      => dirname($fileName)
+          , 'title'     => basename($fileName)
+          , 'name'      => $fileName
+          , 'size'      => Storage::disk('audio')->size($file)
+          , 'url'       => 'audio/' . $fileName
+          , 'url_audio' => 'audio/' . $fileName
+          , 'url_video' => ''
+          , 'added'     => time()
         ]);
         Storage::disk('meta')->put($hash, $meta->toJson());
         chmod(storage_path('app/metadata/' . $hash), 0664);
@@ -69,11 +71,13 @@ class MediaRepository {
       $meta = collect(json_decode(Storage::disk('meta')->get($hash), TRUE));
     }else{
       $meta = collect([
-          'id'       => $hash
-        , 'filename' => 'no_media'
-        , 'title'    => 'No Media'
-        , 'name'     => 'no_media'
-        , 'url'      => 'audio/no_media'
+          'id'        => $hash
+        , 'filename'  => 'no_media'
+        , 'title'     => 'No Media'
+        , 'name'      => 'no_media'
+        , 'url'       => 'audio/no_media'
+        , 'url_audio' => 'audio/no_media'
+        , 'url_video' => ''
       ]);
     };
     return  $meta;

@@ -15,10 +15,10 @@
   <!--/ Metas
   ========================================================================= /-->
   <meta name="title"         content="Web MP3 Player with Premium Music Collection as a Bonus" />
-  <meta name="description"   content="Web MP3 Player and Media Library management. Backend based on Laravel framework, client-side - mostly JavaScript" />
+  <meta name="description"   content="Web MP3 Player and Media Library management system" />
   <meta name="keywords"      content="mp3, audio, mix, hit, remix, original, original mix, dj, track, theme, party, music, web, player, media, content, library, laravel" />
   <meta name="author"        content="tbaltrushaitis@gmail.com" />
-  <meta name="language"      content="en" />
+  <meta name="language"      content="{{ config('app.locale') }}" />
   <meta name="robots"        content="index, nofollow, noarchive" />
   <meta name="revisit-after" content="15 days" />
 
@@ -26,7 +26,7 @@
   ========================================================================= /-->
   <meta property="og:type"        content="collection" />
   <meta property="og:title"       content="Premium Music Collection :: Original Tracks and Best DJ's Remixes" />
-  <meta property="og:description" content="Web MP3 Player and Media Library management. Backend based on Laravel framework, client-size - mostly JavaScript" />
+  <meta property="og:description" content="WebMP3 - Player and Media Library" />
   <meta property="og:image"       content="{{ asset('assets/img/logo/logo-lg.png') }}" />
   <meta property="og:site_name"   content="Web MP3 Player and Media Library Manager" />
   <meta property="og:url"         content="{{ url('/') }}" />

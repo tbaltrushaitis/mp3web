@@ -21,6 +21,6 @@ module.exports = function (gulp) {
   console.log(`[${new Date().toISOString()}] LOADED: [${module.filename}]`);
 
   return gulp.src('')
-          .pipe(exec('cd ' + global.ME.CURDIR + global.ME.BUILD + ' && php artisan -vvv --no-interaction migrate && cd -'))
+          .pipe(exec('cd ' + global.ME.CURDIR + global.ME.BUILD + ' && php artisan -vvv --ansi --no-interaction migrate && cd -'))
           .pipe(exec.reporter(global.ME.pkg.options.reporting));
 };

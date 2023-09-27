@@ -1,11 +1,11 @@
 <!--/ modalTrackEdit /-->
 <div class="modal fade" id="modalEditTrack" tabindex="-1" role="dialog" aria-labelledby="modalEditLabel">
-  <div class="modal-dialog modal-lg" role="document">
+  <div class="modal-dialog" role="document">
     <div class="modal-content panel-info">
 
-      <div class="modal-header-- panel-heading">
+      <div class="modal-header panel-heading--">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title-- panel-title" id="modalEditLabel">Modal title</h4>
+        <h4 class="modal-title panel-title" id="modalEditLabel">Modal title</h4>
       </div>
 
       <div class="modal-body">
@@ -49,14 +49,14 @@
           <div class="form-group hide">
             <label for="track" class="col-sm-1 control-label">Track:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="track" placeholder="Track Number" />
+              <input type="text" class="form-control" id="track" placeholder="Track #" />
             </div>
           </div>
 
           <div class="form-group">
             <label for="year" class="col-sm-1 control-label">Year:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="year" placeholder="2000" />
+              <input type="text" class="form-control" id="year" placeholder="2020" />
             </div>
           </div>
 
@@ -64,15 +64,25 @@
             <label for="track-genre" class="col-sm-1 control-label">Genre:</label>
             <div class="col-sm-10">
               <select multiple id="track-genre" data-role="tagsinput">
-                <!--/ <option value="Amsterdam">Amsterdam</option> /-->
+                <!-- <option value="Amsterdam">Amsterdam</option> -->
               </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="url-video" class="col-sm-1 control-label">Video:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="url-video" placeholder="https://youtu.be/ABcD-efgHiJ" />
             </div>
           </div>
 
           <div class="form-group">
             <label for="track-tags" class="col-sm-1 control-label">Tags:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="track-tags" data-role="tagsinput-disabled" placeholder="100% HIT" />
+              <!-- <input type="text" class="form-control" id="track-tags" data-role="tagsinput-disabled" placeholder="100% HIT" /> -->
+              <select multiple id="track-tags" data-role="tagsinput">
+                <!-- <option value="Amsterdam">Amsterdam</option> -->
+              </select>
             </div>
           </div>
 
@@ -86,9 +96,9 @@
         </form>
       </div>
 
-      <div class="panel-footer">
+      <div class="modal-footer panel-footer--">
         <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close fa-fw"></i>&nbsp;Close</button>
-        <button type="button" class="btn btn-primary btn-save" data-dismiss="modal"><i class="fa fa-save fa-fw"></i>&nbsp;Save</button>
+        <button type="button" class="btn btn-success btn-save" data-dismiss="modal"><i class="fa fa-save fa-fw"></i>&nbsp;Save</button>
       </div>
 
     </div>

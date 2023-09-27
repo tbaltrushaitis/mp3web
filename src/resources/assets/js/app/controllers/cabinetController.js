@@ -60,6 +60,7 @@ define([
       Modal.find('#album').val(lo.album);
       Modal.find('#track').val(lo.track);
       Modal.find('#year').val(lo.year);
+      Modal.find('#url-video').val(lo.url_video);
 
       var elGenres   = Modal.find('#track-genre');
       var elTags     = Modal.find('#track-tags');
@@ -110,15 +111,16 @@ define([
     var Modal = $('#modalEditTrack');
     var Id    = Modal.find('#id').val();
     var oMeta = {
-        id:     Id
-      , title:  Modal.find('#title').val()
-      , name:   Modal.find('#name').val()
-      , artist: Modal.find('#artist').val()
-      , album:  Modal.find('#album').val()
-      , track:  Modal.find('#track').val()
-      , year:   Modal.find('#year').val()
-      , genre:  Modal.find('#track-genre').val()
-      , tags:   Modal.find('#track-tags').val()
+        id:        Id
+      , title:     Modal.find('#title').val()
+      , name:      Modal.find('#name').val()
+      , artist:    Modal.find('#artist').val()
+      , album:     Modal.find('#album').val()
+      , track:     Modal.find('#track').val()
+      , year:      Modal.find('#year').val()
+      , genre:     Modal.find('#track-genre').val()
+      , url_video: Modal.find('#url-video').val()
+      , tags:      Modal.find('#track-tags').val()
     };
 
     var saveResult = F.requestAjax('/' + Id + '/meta', oMeta, 'POST');
@@ -144,6 +146,7 @@ define([
     Modal.find('#track-genre')
       .val('[]')
       .prop({'data-role': 'tagsinput-disabled'});
+    Modal.find('#url-video').val(null);
     Modal.find('#track-tags')
       .val('[]')
       .prop({'data-role': 'tagsinput-disabled'});

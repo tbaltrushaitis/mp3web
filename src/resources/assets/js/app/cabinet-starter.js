@@ -16,7 +16,7 @@ require([
 ]
   // , function ($, _, cc, bsTags, F, LTE) {
   , function ($, _, bsTags, F, cc) {
-    console.info('CABINET STARTER MODULES READY');
+    console.info('CABINET STARTER: MODULES READY');
 });
 
 // define([

@@ -27,41 +27,41 @@ define([
   Player.prototype._defaults = {
       _entity: 'Audio_Player'
     , _config: {
-        selector: 'audio#player'
-      , random: null
-      , repeat: null
-      , volume: 1.00
-      , tracks: {
-            container: '#tracklist'
-          , selector:  'li a'
-        }
-      , states: {
-          playing: {
-              action:   'Pause'
-            , icon:     'fa-pause'
-            , progress: 'active'
-            , title:    'Pause'
+          selector: 'audio#player'
+        , random: null
+        , repeat: null
+        , volume: 1.00
+        , tracks: {
+              container: '#tracklist'
+            , selector:  'li a'
           }
-        , paused: {
-              action:   'Resume'
-            , icon:     'fa-play'
-            , progress: ''
-            , title:    'Resume'
+        , states: {
+            playing: {
+                action:   'Pause'
+              , icon:     'fa-pause'
+              , progress: 'active'
+              , title:    'Pause'
+            }
+          , paused: {
+                action:   'Resume'
+              , icon:     'fa-play'
+              , progress: ''
+              , title:    'Resume'
+            }
+          , stopped: {
+                action:   'Play'
+              , icon:     'fa-play'
+              , progress: ''
+              , title:    'Play'
+            }
           }
-        , stopped: {
-              action:   'Play'
-            , icon:     'fa-play'
-            , progress: ''
-            , title:    'Play'
-          }
-        }
       }
     , _data: {
-        instance: {}
-      , tracks: {
-            current: -1
-          , list: []
-        }
+          instance: {}
+        , tracks: {
+              current: -1
+            , list: []
+          }
       }
   };
 

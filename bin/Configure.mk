@@ -14,8 +14,8 @@ BD=./bin
 CFG=config
 
 
-NEW_UUID = $(shell cat /dev/urandom | tr -dc "a-zA-Z0-9_\$\?" | fold -w 16 | head -1)
-SECR = $(shell cat /dev/urandom | tr -dc "a-zA-Z0-9_\$\?" | fold -w 64 | head -1)
+NEW_UUID = $(shell cat /dev/urandom | tr -dc "a-zA-Z0-9_\$?" | fold -w 16 | head -1)
+SECR = $(shell cat /dev/urandom | tr -dc "a-zA-Z0-9_\$?" | fold -w 64 | head -1)
 
 # DB_NAME := mp3web-db-$(NEW_UUID)
 # DB_USER := mp3web-db-user-$(NEW_UUID)

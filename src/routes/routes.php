@@ -13,20 +13,21 @@ Route::get('/', ['as' => 'Front:Index', 'uses' => 'FrontController@index']);
 |   Tracks Properties manipulation Routes
 |-------------------------------------------------------------------------------
 */
-Route::get('/{hash}',             ['as' => 'Media:Play', 'uses' => 'MediaController@mediaPlay'])
+Route::get('/{hash}', ['as' => 'Media:Play', 'uses' => 'MediaController@mediaPlay'])
   ->where(['hash' => '[0-9a-f]+']);
 
-Route::get('/{hash}/play',        ['as' => 'Media:Play', 'uses' => 'MediaController@mediaPlay'])
+Route::get('/{hash}/play', ['as' => 'Media:Play', 'uses' => 'MediaController@mediaPlay'])
   ->where(['hash' => '[0-9a-f]+']);
 
 Route::post('rate/{hash}/{rate}', ['as' => 'Media:Rate', 'uses' => 'MediaController@mediaRate'])
   ->where([
-      'hash' => '[0-9a-f]+'
-    , 'rate' => '(dis)?like'
-  ]);
+    'hash' => '[0-9a-f]+'
+  , 'rate' => '(dis)?like'
+]);
 
-Route::delete('/{hash}',          ['as' => 'Media:Delete', 'uses' => 'MediaController@mediaDrop'])
+Route::delete('/{hash}', ['as' => 'Media:Delete', 'uses' => 'MediaController@mediaDrop'])
   ->where(['hash' => '[0-9a-f]+']);
+
 
 /*
 |-------------------------------------------------------------------------------

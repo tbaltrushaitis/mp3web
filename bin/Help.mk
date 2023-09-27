@@ -1,16 +1,22 @@
+THIS_FILE = $(lastword $(MAKEFILE_LIST))
+# $(info [THIS_FILE:$(THIS_FILE)])
+
+##  ------------------------------------------------------------------------  ##
+H1 = ${Yellow}${On_Blue}
+H2 = " - "${Blue}
+H3 = "\\t"
+HR = ${Cyan}"----------------------------------------------------------"${NC}
+
+
 ##  ------------------------------------------------------------------------  ##
 ##                              Show help topic                               ##
 ##  ------------------------------------------------------------------------  ##
-
-# $(info [$(lastword $(MAKEFILE_LIST))])
-
-##  ------------------------------------------------------------------------  ##
-
 .PHONY: help
 
 help: banner
-	@ echo ${Cyan}----------------------------------------------------------${NC};
-	@ echo ${Blue}Available commands:${NC};
+	@ echo $(HR) ;
+	# @ echo ${Cyan}----------------------------------------------------------${NC};
+	@ echo ${BBlue}Available commands:${NC};
 	@ echo ${Yellow}make ${NC};
 	@ echo "  " ${Green}list${NC} "\t" - LIST all targets defined in this makefile;
 	@ echo "  " ${Green}clean${NC} "\t" - CLEAR directories and delete files;
@@ -19,11 +25,11 @@ help: banner
 	@ echo "  " ${Green}build${NC} "\t" - BUILD project from sources;
 	@ echo "  " ${Green}release${NC} "\t" - COMPILE project distro;
 	@ echo "  " ${Green}deploy${NC} "\t" - DEPLOY compiled project to \"webroot\" directory;
-	@ echo "  " ${Purple}all${NC} "\t\t" - Run ${White}ALL${NC} operations for current stage from ${Blue}NODE_ENV${NC} file;
-	@ echo "  " ${Purple}rebuild${NC} "\t" - Execute [${BGreen}build, release, deploy${NC}] tasks;
-	@ echo "  " ${Purple}redeploy${NC} "\t" - Execute [${BGreen}release, deploy${NC}] tasks;
-	@ echo ${Cyan}----------------------------------------------------------${NC};
-	@ echo $(DAT) $(DONE): $(TARG) ;
+	@ echo "  " ${Purple}all${NC} "\t\t" - Run ${White}ALL${NC} operations for current stage [$(Red)$(APP_ENV)$(NC)] which was read from ${Blue}NODE_ENV${NC} file;
+	@ echo "  " ${Purple}rebuild${NC} "\t" - Execute [${White}build, release, deploy${NC}] tasks;
+	@ echo "  " ${Purple}redeploy${NC} "\t" - Execute [${White}release, deploy${NC}] tasks;
+	@ echo $(HR) ;
+	@ echo $(DAT) $(FINE) $(TARG) ;
 
 ##  ------------------------------------------------------------------------  ##
 ##                      Report Environment Variables                          ##
@@ -32,11 +38,13 @@ help: banner
 .PHONY: state
 
 state:
-	@ echo $(Cyan)----------------------------------------------------------$(NC);
-	@ echo $(Cyan)ENVIRONMENT VARS:$(NC);
-	@ echo "\t"${Blue}APP_ENV${NC}"\t"= [${Red}$(APP_ENV)${NC}];
-	@ echo "\t"${Blue}RC_FILE${NC}"\t"= [${Purple}$(RC_FILE)${NC}];
-	@ echo "\t"${Blue}CODE_VERSION${NC}"\t"= [${Purple}$(CODE_VERSION)${NC}];
+	@ echo $(HR) ;
+	# @ echo $(Cyan)----------------------------------------------------------$(NC);
+	@ echo $(Cyan)ENVIRONMENT VARS:$(NC) ;
+	@ echo "\t"${Blue}NODE_ENV${NC}"\t" = [${Red}$(NODE_ENV)${NC}] ;
+	@ echo "\t"${Blue}RC_FILE${NC}"\t\t" = [${Purple}$(RC_FILE)${NC}] ;
+	@ echo "\t"${Blue}CODE_VERSION${NC}"\t" = [${Yellow}$(CODE_VERSION)${NC}] ;
+	@ echo "\t"${Blue}BUILD_CNTR${NC}"\t" = [${Red}$(BUILD_CNTR)${NC}] ;
 	@ echo ${Yellow}APPLICATION:${NC};
 	@ echo "\t DT \t\t = [$(DT)]";
 	@ echo "\t APP_NAME \t = [$(APP_NAME)]";
@@ -61,7 +69,7 @@ state:
 	@ echo "\t" REPO_URL "\t" = [$(White)$(REPO_URL)$(NC)];
 	@ echo "\t" REPO_BRANCH "\t" = [$(White)$(REPO_BRANCH)$(NC)];
 	@ echo "\t" GIT_COMMIT "\t" = [$(White)$(GIT_COMMIT)$(NC)];
-	@ echo ${Cyan}----------------------------------------------------------${NC};
-	@ echo $(DAT) $(DONE): $(TARG) ;
+	@ echo $(HR) ;
+	@ echo $(DAT) $(FINE) $(TARG) ;
 
 ##  ------------------------------------------------------------------------  ##

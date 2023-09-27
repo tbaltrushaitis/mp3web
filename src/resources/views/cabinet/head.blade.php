@@ -41,12 +41,13 @@
 
   <!--/ Fonts
   ========================================================================= /-->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" />
+  <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" /> -->
 
   <!--/ Styles
   ========================================================================= /-->
   <!--/ Custom /-->
   <link rel="stylesheet" href="{{ asset('assets/css/bower-bundle.css') }}" id="css-bower" />
+  <link rel="stylesheet" href="{{ asset('assets/css/frontend-bundle.css') }}" id="css-frontend" />
   <link rel="stylesheet" href="{{ asset('assets/css/cabinet-bundle.css') }}" id="css-cabinet" />
 
   <!--/ Favicon

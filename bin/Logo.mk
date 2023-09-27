@@ -4,7 +4,7 @@
 
 # $(info [$(lastword $(MAKEFILE_LIST))])
 
-.ONESHELL:
+# .ONESHELL:
 
 # include ./bin/.bash_colors
 
@@ -51,6 +51,6 @@ logo:
 	if [ -f "${APP_LOGO}" ]; then cat "${APP_LOGO}"; fi ;
 	@ echo "${Yellow}BANNER [${Purple}${APP_LOGO}${Yellow}] created${NC}";
 	@ echo "${Cyan}--------------------------------------------------------${NC}";
-	@ echo $(DAT) $(DONE): $(TARG) ;
+	@ echo $(DAT) $(DONE) $(TARG) ;
 
 ##  ------------------------------------------------------------------------  ##

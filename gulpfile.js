@@ -91,7 +91,10 @@ ME.DIST   = path.join(`dist-${ME.VERSION}`,     path.sep);
 ME.WEB    = path.join(`webroot-${ME.VERSION}`,  path.sep);
 ME.CURDIR = path.join(process.cwd(),            path.sep);
 ME.ENGINE = path.join('engine', ME.config.engine.name + '-' + ME.config.engine.version);
-ME.BOWER  = JSON.parse(fs.existsSync('./.bowerrc') ? fs.readFileSync('./.bowerrc') : {directory: "bower_modules"}).directory;
+ME.BOWER  = JSON.parse(fs.existsSync('./.bowerrc')
+  ? fs.readFileSync('./.bowerrc')
+  : {directory: "bower_modules"}).directory
+;
 
 utin.defaultOptions = Object.assign({}, ME.pkg.options.iopts);
 
@@ -192,7 +195,8 @@ gulp.task('dev',  ['build:dev'], function () {
 
 gulp.task('lint', ['jscs', 'jshint']);
 // gulp.task('clean', gulpSequence(['clean:build', 'clean:dist']));
-gulp.task('artisan', gulpSequence('artisan:vendor:publish', 'artisan:migrate', 'artisan:clear'));
+// gulp.task('artisan', gulpSequence(['artisan:vendor:publish', 'artisan:migrate', 'artisan:clear']));
+gulp.task('artisan', ['artisan:vendor:publish', 'artisan:migrate', 'artisan:clear']);
 
 gulp.task('build:dev',  [
   // , 'sync:engine2build'
@@ -317,8 +321,8 @@ gulp.task('bower', function () {
     // .pipe(concat('bower-bundle.js'))
     // .pipe(gulpif('production' === ME.NODE_ENV, rename({suffix: ME.pkg.options.minify.suffix})))
     //  Write banners
-    .pipe(headfoot.header(ME.Banner.header))
-    .pipe(headfoot.footer(ME.Banner.footer))
+    // .pipe(headfoot.header(ME.Banner.header))
+    // .pipe(headfoot.footer(ME.Banner.footer))
     .pipe(gulp.dest(path.resolve(DEST, JS)));
 
   let bowerCSS = gulp.src(mBower)
@@ -353,8 +357,8 @@ gulp.task('bower', function () {
     })))
     .pipe(concatCSS('bower-bundle.css', {rebaseUrls: false}))
     //  Write banners
-    .pipe(headfoot.header(ME.Banner.header))
-    .pipe(headfoot.footer(ME.Banner.footer))
+    // .pipe(headfoot.header(ME.Banner.header))
+    // .pipe(headfoot.footer(ME.Banner.footer))
     .pipe(gulp.dest(path.resolve(DEST, CSS)));
 
   let bowerFonts = gulp.src(mBower)

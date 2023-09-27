@@ -20,7 +20,7 @@
 
         <!--/  Navbar toggle button  /-->
         <a href="#player-wrapper"
-          class="navbar-btn navbar-toggle"
+          class="navbar-btn navbar-toggle navbar-right""
           data-toggle="collapse"
           data-target="#player-wrapper"
           aria-controls="player-wrapper"
@@ -33,34 +33,48 @@
         </a>
 
         <div class="navbar-header navbar-right">
+
           <!--/  Right Side Of Navbar  /-->
-          <ul class="nav navbar-nav ">
+          <ul class="nav navbar-nav">
+
             <!--/  Authentication Links  /-->
             @if (Auth::guest())
+
               <li><a href="{{ url('/login') }}"> Login</a></li>
               {{-- <li><a href="{{ url('/register') }}"> Register</a></li> --}}
+
             @else
+
+              <!--/ Left Side Of Navbar /-->
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                   {{ Auth::user()->name }} <span class="caret"></span>
                 </a>
 
                 <ul class="dropdown-menu" role="menu">
-                  <li><a href="{{ url('/cabinet') }}" target="_blank"><i class="fa fa-btn fa-dashboard"></i>  Cabinet</a></li>
-                  <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>  Logout</a></li>
+                  <li><a href="{{ url('/profile') }}"><i class="fa fa-btn fa-user"></i> Profile</a></li>
+                  <li><a href="{{ url('/history') }}"><i class="fa fa-btn fa-history"></i> Listened</a></li>
+                  <li><a href="{{ url('/playlists') }}"><i class="fa fa-btn fa-list-alt"></i> Playlists</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="{{ url('/cabinet') }}" target="_blank"><i class="fa fa-btn fa-dashboard"></i> Cabinet</a></li>
+                  <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i> Logout</a></li>
                 </ul>
               </li>
+
             @endif
+
           </ul>
         </div>
 
       </div>
 
       <div class="container">
+
         <!--/  PLAYER  /-->
         <div id="player-wrapper" class="navbar navbar-collapse collapse">
           @include('partials.player')
         </div>
+
       </div><!--/  END: .container  /-->
 
     </nav><!--/  END: Header Navbar  /-->
@@ -86,12 +100,12 @@
       <div class="row">
 
         <!--/ GENRE Accordion /-->
-        <div class="col-xs-12">
+        <div class="col-12">
 
            <!--/ Nav tabs /-->
           <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active"><a href="#all" aria-controls="all" role="tab" data-toggle="tab">All Tracks (<span id="files-count"></span>)</a></li>
-            <li role="presentation" class="hide"><a href="#genre" aria-controls="genre" role="tab" data-toggle="tab">Genre</a></li>
+            <li role="presentation" class="hide"><a href="#genre" aria-controls="genre" role="tab" data-toggle="tab">Genres</a></li>
           </ul>
 
           <!--/ Tab panes /-->
@@ -113,7 +127,7 @@
     </div>
   </section><!--/#list-->
 
-  @include('frontend.footer')
+  @include('common.footer')
   @include('frontend.javascripts')
 
 </body>

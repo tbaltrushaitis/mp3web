@@ -12,7 +12,7 @@ define([
   'text'
 ], function ($, _, text) {
 
-  var Config = {};
+  var Config = window.Config || {};
 
   //  DEFAULT FLEX CONFIG
   Config['flex'] = getConfig('flex');
@@ -28,11 +28,11 @@ define([
     require(['text!' + flexUrl], function (content) {
       var flexConfig = content;
       Config[n] = JSON.parse(flexConfig).flex;
+      console.info(`Config[${n}]:`, Config[n]);
       return Config[n];
     });
   }
 
-  console.info('Config:', Config);
 
   /*
   |--------------------------------------------------------------------------
